@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webfluence | Digital Solutions Agency</title>
+    <meta name="description" content="Webfluence - AI-powered digital solutions agency. We build websites, chatbots, AI calling agents, and mobile apps to grow your business.">
+    <!-- Fonts: Inter for body, Playfair Display for logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for premium aesthetic -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-color: #0D0D0D;
+            --primary-accent: #C9A84C;
+            --primary-accent-hover: #E3C161;
+            --text-muted: #6B6B6B;
+            --text-light: #F9F6EF;
+            --card-bg: #141414;
+            --border-color: #222222;
+            --font-body: 'Inter', sans-serif;
+            --font-logo: 'Playfair Display', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .text-accent {
+            color: var(--primary-accent);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-accent);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(201, 168, 76, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-accent-hover);
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+            transform: translateY(-2px);
+        }
+
+        /* Nav Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: padding 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .logo .wf {
+            font-family: var(--font-logo);
+            font-style: italic;
+            font-size: 2.2rem;
+            color: var(--primary-accent);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .logo .name {
+            font-variant: small-caps;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 24px 80px;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+            background: linear-gradient(to right, #F9F6EF, #A0A0A0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 650px;
+            animation: slideUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: slideUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        /* Guidelines Classes */
+        section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services Layout - 3 Columns */
+        .services-layout {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .service-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-title {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            text-align: center;
+            font-weight: 600;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .column-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary-accent);
+        }
+
+        .service-column-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            padding: 30px 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex-grow: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 168, 76, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(201, 168, 76, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 2.2rem;
+            color: var(--primary-accent);
+            margin-bottom: 18px;
+            background: rgba(201, 168, 76, 0.1);
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .service-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Highlights (Why Choose Us) */
+        .highlights-section {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-color);
+            padding: 40px 24px;
+            text-align: center;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-top-color: var(--primary-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.4rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            color: var(--primary-accent);
+        }
+
+        .feature-card h4 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* How It Works */
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            position: relative;
+            margin-top: 60px;
+        }
+
+        @media (min-width: 900px) {
+            .process-flow::before {
+                content: '';
+                position: absolute;
+                top: 45px;
+                left: 15%;
+                width: 70%;
+                height: 2px;
+                background: dashed 2px var(--border-color);
+                z-index: 0;
+            }
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 90px;
+            height: 90px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--primary-accent);
+            color: var(--primary-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 25px rgba(201, 168, 76, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .step-number {
+            background-color: var(--primary-accent);
+            color: #000;
+            box-shadow: 0 0 35px rgba(201, 168, 76, 0.3);
+            transform: scale(1.05);
+        }
+
+        .process-step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 12px;
+            border-top: 4px solid var(--primary-accent);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #2A2A2A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .client-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .client-details h5 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .client-details p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(145deg, #1A1710 0%, #0D0D0D 100%);
+            border-top: 1px solid rgba(201, 168, 76, 0.3);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+            text-align: center;
+            padding: 120px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, rgba(0,0,0,0) 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .btn-large {
+            padding: 18px 40px;
+            font-size: 1.15rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-color);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            max-width: 320px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 1.15rem;
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+
+        .footer-links ul {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-accent);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(201, 168, 76, 0.1);
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            transform: translateY(-4px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 20px;}
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-layout { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .services-layout { grid-template-columns: 1fr; gap: 50px; }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                padding: 30px;
+                text-align: center;
+                border-bottom: 1px solid var(--border-color);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-cta { display: none; }
+            .mobile-btn { display: block; }
+            
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .hero-btns .btn { width: 100%; }
+            
+            .process-flow { grid-template-columns: 1fr; gap: 40px; }
+            .process-flow::before { display: none; }
+            
+            .section-header h2 { font-size: 2.2rem; }
+            .cta-content h2 { font-size: 2.4rem; }
+            
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="wf">WF.</span>
+                <span class="name">Webfluence</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#contact" class="btn btn-primary nav-cta">Get a Free Consultation</a>
+            </div>
+            <button class="mobile-btn" id="mobileBtn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container hero-content">
+            <h1>We Build the Digital Tools That Grow Your Business</h1>
+            <p>Webfluence is an AI-powered digital solutions agency. We transform your ideas into intelligent, high-performing websites and automated workflows that scale.</p>
+            <div class="hero-btns">
+                <a href="#services" class="btn btn-primary">Explore Our Services</a>
+                <a href="#work" class="btn btn-ghost">See Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="container reveal">
+        <div class="section-header">
+            <h2>Our Core Services</h2>
+            <p>We combine cutting-edge technology with premium design to deliver scalable digital solutions.</p>
+        </div>
+        <div class="services-layout">
+            <!-- Column 1: AI Services -->
+            <div class="service-column">
+                <h3 class="column-title">AI Services</h3>
+                <div class="service-column-cards">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-whatsapp-logo"></i></div>
+                        <h4>AI WhatsApp Automation</h4>
+                        <p>Automate customer conversations, lead capture, and follow-ups directly on WhatsApp using intelligent AI agents.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-robot"></i></div>
+                        <h4>AI Chatbots</h4>
+                        <p>Custom-built chatbots for websites and apps that handle support, sales, and FAQs around the clock.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-phone-call"></i></div>
+                        <h4>AI Calling Agents</h4>
+                        <p>Intelligent voice agents that call leads, qualify prospects, and book appointments—fully automated.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Marketing -->
+            <div class="service-column">
+                <h3 class="column-title">Marketing</h3>
+                <div class="service-column-cards">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-megaphone"></i></div>
+                        <h4>Social Media Marketing</h4>
+                        <p>Strategic campaigns to boost your brand visibility and engagement across multiple social platforms.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-users-three"></i></div>
+                        <h4>Social Media Management</h4>
+                        <p>Comprehensive management of your social channels to build community and maintain active, engaging presence.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-trend-up"></i></div>
+                        <h4>SEO Optimization</h4>
+                        <p>Data-driven search engine optimization to rank higher on Google and drive organic targeted traffic.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-video-camera"></i></div>
+                        <h4>AI Marketing Videos</h4>
+                        <p>High-quality, eye-catching promotional and marketing videos generated rapidly with advanced AI tools.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Other -->
+            <div class="service-column">
+                <h3 class="column-title">Other Services</h3>
+                <div class="service-column-cards">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-browser"></i></div>
+                        <h4>Websites & Landing Pages</h4>
+                        <p>High-converting, beautifully designed websites and landing pages tailored to your brand and goals.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-device-mobile"></i></div>
+                        <h4>Mobile Apps</h4>
+                        <p>Native and cross-platform mobile apps designed for performance, usability, and business growth.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="ph ph-magic-wand"></i></div>
+                        <h4>GFX / VFX</h4>
+                        <p>Professional graphic design and visual effects to create stunning, memorable brand identities and assets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="about" class="highlights-section reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Webfluence</h2>
+                <p>We are not just an agency; we are your dedicated technology partners.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ph ph-brain"></i></div>
+                    <h4>AI-First Approach</h4>
+                    <p>We integrate intelligent AI solutions to give your business a competitive edge.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ph ph-infinity"></i></div>
+                    <h4>End-to-End Delivery</h4>
+                    <p>From strategic planning to final deployment, we handle every single step.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ph ph-rocket-launch"></i></div>
+                    <h4>Fast Turnaround</h4>
+                    <p>Optimized workflows mean we deliver high-quality solutions rapidly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ph ph-handshake"></i></div>
+                    <h4>Dedicated Support</h4>
+                    <p>Ongoing maintenance and support to ensure your tools always perform well.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="container reveal">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Our streamlined process ensures transparency and fast results.</p>
+        </div>
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Discovery Call</h3>
+                <p>We understand your business goals and map out the exact digital solution you need.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>We Build & Integrate</h3>
+                <p>Our team designs, develops, and integrates the technology seamlessly into your workflow.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>You Grow</h3>
+                <p>Launch your new automated tools and watch your efficiency and revenue increase.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container reveal">
+        <div class="section-header">
+            <h2>Loved by Industry Leaders</h2>
+            <p>Don't just take our word for it. Here is what our partners have to say.</p>
+        </div>
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                </div>
+                <p class="quote">"Webfluence fully transformed our customer support. The AI chatbot handles 80% of routine inquiries, giving our team time to focus on complex tasks."</p>
+                <div class="client-info">
+                    <div class="client-avatar">SJ</div>
+                    <div class="client-details">
+                        <h5>Sarah Jenkins</h5>
+                        <p>CEO, TechFlow</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                </div>
+                <p class="quote">"Their WhatsApp automation changed how we capture leads. Our conversion rate increased by 45% in just the first two months. Highly recommended."</p>
+                <div class="client-info">
+                    <div class="client-avatar">MR</div>
+                    <div class="client-details">
+                        <h5>Michael Ross</h5>
+                        <p>Director, Elevate Marketing</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                </div>
+                <p class="quote">"We needed a premium landing page built fast. Webfluence delivered an absolutely stunning site that perfectly matches our brand aesthetics."</p>
+                <div class="client-info">
+                    <div class="client-avatar">DL</div>
+                    <div class="client-details">
+                        <h5>David Lin</h5>
+                        <p>Founder, Nova Capital</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section id="contact" class="cta-banner reveal">
+        <div class="cta-content">
+            <h2>Ready to Automate and Scale Your Business?</h2>
+            <p>Let's discuss how our custom digital solutions can help you achieve your goals.</p>
+            <a href="#" class="btn btn-primary btn-large">Book a Free Call Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="wf">WF.</span>
+                        <span class="name">Webfluence</span>
+                    </div>
+                    <p>Empowering forward-thinking companies with premium websites, apps, and intelligent AI automation.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#work">Our Work</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">WhatsApp Automation</a></li>
+                        <li><a href="#services">AI Chatbots</a></li>
+                        <li><a href="#services">AI Calling</a></li>
+                        <li><a href="#services">Web Development</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#"><i class="ph ph-linkedin-logo"></i></a>
+                        <a href="#"><i class="ph ph-whatsapp-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Webfluence. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobileBtn');
+        const navLinks = document.getElementById('navLinks');
+        const mobileIcon = mobileBtn.querySelector('i');
+
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if(navLinks.classList.contains('active')) {
+                mobileIcon.classList.replace('ph-list', 'ph-x');
+            } else {
+                mobileIcon.classList.replace('ph-x', 'ph-list');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileIcon.classList.replace('ph-x', 'ph-list');
+            });
+        });
+
+        // Reveal on scroll animation
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', reveal);
+        // Trigger once on load
+        reveal();
+
+        // Particles Background Animation
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.speedY = Math.random() * 0.8 - 0.4;
+                // Gold color with random opacity
+                const opacity = Math.random() * 0.4 + 0.1;
+                this.color = `rgba(201, 168, 76, ${opacity})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Wrap around screen
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 8000; // Density
+            if(numberOfParticles > 150) numberOfParticles = 150; // Cap
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connecting lines
+            for(let i = 0; i < particlesArray.length; i++) {
+                for(let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if(distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(201, 168, 76, ${0.15 - distance/800})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            }
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        
+        animateParticles();
+
+        // Resize handler for canvas
+        window.addEventListener('resize', function(){
+            canvas.width = window.innerWidth;
+            canvas.height = Math.max(window.innerHeight, document.querySelector('.hero').offsetHeight);
+            initParticles();
+        });
+    </script>
+</body>
+</html>

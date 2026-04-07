@@ -1,0 +1,111 @@
+/* Services Layout - 3 Columns */
+.services-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.service-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    color: var(--text-light);
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    position: relative;
+}
+
+.column-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: var(--primary-accent);
+}
+
+.service-column-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.service-card {
+    background-color: var(--card-bg);
+    padding: 30px 25px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
+/* Removed CSS transform hover — handled by framer-motion whileHover */
+.service-card:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.service-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(201, 168, 76, 0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.service-card:hover::after {
+    opacity: 1;
+}
+
+.service-icon {
+    font-size: 2.2rem;
+    color: var(--primary-accent);
+    margin-bottom: 18px;
+    background: rgba(201, 168, 76, 0.1);
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.service-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+    .services-layout { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .services-layout { grid-template-columns: 1fr; gap: 50px; }
+}

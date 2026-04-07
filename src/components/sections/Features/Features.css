@@ -1,0 +1,58 @@
+.highlights-section {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    padding: 120px 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: var(--bg-color);
+    padding: 40px 24px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    border-top: 3px solid var(--border-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Removed CSS transform hover — handled by framer-motion */
+.feature-card:hover {
+    border-top-color: var(--primary-accent);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.feature-icon {
+    font-size: 2.4rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    color: var(--primary-accent);
+}
+
+.feature-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 20px;}
+}
+
+@media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr; }
+}
