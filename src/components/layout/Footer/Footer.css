@@ -1,87 +1,177 @@
 footer {
-    background-color: var(--bg-color);
-    padding: 80px 0 40px;
+  background: #040404;
+  padding: 80px 0 0;
+  position: relative;
 }
 
+.footer__top-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+  margin-bottom: 72px;
+}
+
+/* Grid */
 .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 50px;
-    margin-bottom: 60px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 60px;
 }
 
-.footer-brand .logo {
-    margin-bottom: 20px;
+/* Brand */
+.footer-brand .logo { margin-bottom: 18px; }
+
+.footer-brand > p {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(222, 219, 200, 0.4);
+  max-width: 300px;
+  line-height: 1.75;
+  margin-bottom: 24px;
 }
 
-.footer-brand p {
-    color: var(--text-muted);
-    max-width: 320px;
-    font-size: 0.95rem;
-    line-height: 1.7;
-}
-
-.footer-links h4 {
-    font-size: 1.15rem;
-    margin-bottom: 24px;
-    color: var(--text-light);
-}
-
-.footer-links ul {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.footer-links a {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--primary-accent);
-}
-
+/* Social icons */
 .social-icons {
-    display: flex;
-    gap: 16px;
-    margin-top: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background-color: var(--card-bg);
-    color: var(--text-light);
-    font-size: 1.3rem;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(222, 219, 200, 0.05);
+  border: 1px solid rgba(222, 219, 200, 0.1);
+  color: rgba(222, 219, 200, 0.5);
+  transition: all 0.3s ease;
 }
 
 .social-icons a:hover {
-    background-color: rgba(201, 168, 76, 0.1);
-    color: var(--primary-accent);
-    border-color: var(--primary-accent);
-    transform: translateY(-4px);
+  background: rgba(201, 168, 76, 0.12);
+  border-color: rgba(201, 168, 76, 0.35);
+  color: var(--primary-accent);
+  transform: translateY(-3px);
 }
 
-.footer-bottom {
-    text-align: center;
-    padding-top: 30px;
-    border-top: 1px solid var(--border-color);
-    color: var(--text-muted);
-    font-size: 0.9rem;
+/* Links columns */
+.footer-links h4 {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(222, 219, 200, 0.35);
+  margin-bottom: 20px;
 }
+
+.footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.footer-links a {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(222, 219, 200, 0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover { color: var(--primary-accent); }
+
+/* Product link */
+.footer-product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-product-badge {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--primary-accent);
+  padding: 2px 7px;
+  border-radius: 100px;
+}
+
+/* Contact block */
+.footer__contact-block { margin-top: 8px; }
+.footer__email {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(222,219,200,0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+  margin-bottom: 8px;
+}
+.footer__email:hover { color: var(--primary-accent); }
+
+.footer__phone {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(222,219,200,0.55);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer__phone:hover { color: #25D366; /* WhatsApp green */ }
+
+/* Bottom bar */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-top: 1px solid rgba(222, 219, 200, 0.06);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-bottom p {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(222, 219, 200, 0.25);
+  margin: 0;
+}
+
+.footer-bottom__links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-bottom__links a {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(222, 219, 200, 0.25);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom__links a:hover { color: rgba(201, 168, 76, 0.6); }
 
 @media (max-width: 1024px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 768px) {
-    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  footer { padding: 60px 0 0; }
+  .footer-bottom { justify-content: center; text-align: center; }
+  .footer-bottom__links { justify-content: center; }
 }

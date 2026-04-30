@@ -1,50 +1,145 @@
 .cta-banner {
-    background: linear-gradient(145deg, #1A1710 0%, #0D0D0D 100%);
-    border-top: 1px solid rgba(201, 168, 76, 0.3);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-    text-align: center;
-    padding: 120px 24px;
-    position: relative;
-    overflow: hidden;
+  background: #000;
+  padding: 100px 24px 120px;
+  position: relative;
+  overflow: hidden;
 }
 
-.cta-banner::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, rgba(0,0,0,0) 60%);
-    z-index: 0;
-    pointer-events: none;
+.cta-banner__glow {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 65%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
+/* Noise overlay (shared global class) */
+.cta-banner .noise-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Content card */
 .cta-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  background: linear-gradient(160deg, #0f0e09 0%, #0a0a0a 100%);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 28px;
+  padding: 72px 48px;
+  box-shadow: 0 0 80px rgba(201,168,76,0.06);
 }
 
-.cta-content h2 {
-    font-size: 3.5rem;
-    margin-bottom: 24px;
-    letter-spacing: -1px;
+.cta-content__top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
 }
 
-.cta-content p {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    margin-bottom: 40px;
+/* Badge */
+.cta__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-accent);
+  margin-bottom: 24px;
 }
 
-.btn-large {
-    padding: 18px 40px;
-    font-size: 1.15rem;
+/* Heading */
+.cta__heading {
+  font-family: 'Almarai', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #E1E0CC;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-    .cta-content h2 { font-size: 2.4rem; }
+/* Sub */
+.cta__sub {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(222, 219, 200, 0.5);
+  max-width: 540px;
+  margin: 0 auto 36px;
+  line-height: 1.75;
+}
+
+/* Buttons */
+.cta__btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.cta__btn {
+  padding: 14px 30px;
+  border-radius: 100px;
+  font-family: 'Almarai', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.cta__btn--primary {
+  background: var(--primary-accent);
+  color: #000;
+  box-shadow: 0 4px 30px rgba(201,168,76,0.35);
+}
+
+.cta__btn--primary:hover {
+  background: var(--primary-accent-hover);
+  box-shadow: 0 8px 40px rgba(201,168,76,0.5);
+  transform: translateY(-2px);
+}
+
+.cta__btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(222,219,200,0.2);
+  color: rgba(222,219,200,0.65);
+}
+
+.cta__btn--ghost:hover {
+  border-color: rgba(201,168,76,0.4);
+  color: #E1E0CC;
+  transform: translateY(-2px);
+}
+
+.btn-large { padding: 18px 40px; font-size: 1.1rem; }
+
+@media (max-width: 640px) {
+  .cta-content { padding: 48px 24px; }
+  .cta__btns { flex-direction: column; align-items: stretch; }
+  .cta__btn { justify-content: center; }
 }

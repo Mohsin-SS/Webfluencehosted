@@ -54,6 +54,28 @@ nav.scrolled {
     width: 100%;
 }
 
+/* Product nav link - highlighted pill */
+.nav-links .nav-link--product {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    padding: 5px 14px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-links .nav-link--product:hover {
+    background: rgba(201, 168, 76, 0.18);
+    border-color: rgba(201, 168, 76, 0.5);
+    color: var(--primary-accent-hover);
+}
+
+.nav-links .nav-link--product::after { display: none; }
+
+
 .mobile-btn {
     display: none;
     background: none;

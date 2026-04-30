@@ -1,14 +1,19 @@
-/* CSS Reset & Variables */
+/* ============================================
+   CSS Reset & Design Tokens
+   ============================================ */
 :root {
-    --bg-color: #0D0D0D;
+    --bg-color: #000000;
     --primary-accent: #C9A84C;
     --primary-accent-hover: #E3C161;
-    --text-muted: #6B6B6B;
-    --text-light: #F9F6EF;
-    --card-bg: #141414;
-    --border-color: #222222;
-    --font-body: 'Inter', sans-serif;
+    --text-muted: rgba(222, 219, 200, 0.4);
+    --text-light: #E1E0CC;
+    --card-bg: #111111;
+    --border-color: rgba(222, 219, 200, 0.08);
+    --cream: #DEDBC8;
+    --cream-muted: rgba(222, 219, 200, 0.5);
+    --font-body: 'Almarai', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-logo: 'Playfair Display', serif;
+    --font-serif: 'Instrument Serif', serif;
 }
 
 * {
@@ -25,9 +30,11 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
+    font-family: 'Almarai', sans-serif;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -37,11 +44,13 @@ a {
     color: inherit;
 }
 
-ul {
-    list-style: none;
-}
+ul { list-style: none; }
 
-/* Layout */
+p { font-family: 'Almarai', sans-serif; }
+
+/* ============================================
+   Layout
+   ============================================ */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -49,11 +58,17 @@ ul {
     padding: 0 24px;
 }
 
-/* Logo (shared between Navbar and Footer) */
+/* Remove default section padding — each section manages its own */
+section { padding: 0; }
+
+/* ============================================
+   Logo (shared)
+   ============================================ */
 .logo {
     display: flex;
     align-items: baseline;
     gap: 10px;
+    text-decoration: none;
 }
 
 .logo .wf {
@@ -66,73 +81,76 @@ ul {
 }
 
 .logo .name {
+    font-family: 'Almarai', sans-serif;
     font-variant: small-caps;
     font-size: 1.1rem;
     letter-spacing: 3px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1;
+    color: var(--text-light);
 }
 
-/* Utility */
-.text-accent {
-    color: var(--primary-accent);
-}
+/* ============================================
+   Utility
+   ============================================ */
+.text-accent { color: var(--primary-accent); }
 
-/* Buttons */
+/* ============================================
+   Buttons
+   ============================================ */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 14px 28px;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 100px;
+    font-family: 'Almarai', sans-serif;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     border: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     position: relative;
     overflow: hidden;
-    font-family: var(--font-body);
 }
 
 .btn-primary {
     background-color: var(--primary-accent);
     color: #000;
-    box-shadow: 0 4px 15px rgba(201, 168, 76, 0.2);
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
 }
 
 .btn-primary:hover {
     background-color: var(--primary-accent-hover);
-    box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4);
+    box-shadow: 0 8px 30px rgba(201, 168, 76, 0.4);
     transform: translateY(-2px);
 }
 
 .btn-ghost {
     background-color: transparent;
-    color: var(--text-light);
-    border: 1px solid var(--text-muted);
+    color: rgba(222, 219, 200, 0.65);
+    border: 1px solid rgba(222, 219, 200, 0.2);
 }
 
 .btn-ghost:hover {
-    border-color: var(--primary-accent);
-    color: var(--primary-accent);
+    border-color: rgba(201, 168, 76, 0.4);
+    color: var(--text-light);
     transform: translateY(-2px);
 }
 
-/* Section shared styles */
-section {
-    padding: 120px 0;
-}
-
+/* ============================================
+   Section shared header utility (legacy support)
+   ============================================ */
 .section-header {
     text-align: center;
     margin-bottom: 70px;
 }
 
 .section-header h2 {
-    font-size: 2.8rem;
+    font-family: 'Almarai', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
     margin-bottom: 20px;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.03em;
     background: linear-gradient(135deg, var(--text-light), var(--primary-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -140,13 +158,32 @@ section {
 }
 
 .section-header p {
+    font-family: 'Almarai', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
     color: var(--text-muted);
-    font-size: 1.15rem;
     max-width: 600px;
     margin: 0 auto;
 }
 
-/* Responsive */
+/* ============================================
+   Noise overlay utility (used by multiple sections)
+   ============================================ */
+.noise-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
 @media (max-width: 768px) {
-    .section-header h2 { font-size: 2.2rem; }
+    .section-header h2 { font-size: 1.8rem; }
 }

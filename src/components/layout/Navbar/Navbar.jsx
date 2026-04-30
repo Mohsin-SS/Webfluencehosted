@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { List, X } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 import Logo from '../../ui/Logo';
 import useScrollPosition from '../../../hooks/useScrollPosition';
 import { navLinks } from '../../../data/navigation';
@@ -17,11 +18,26 @@ const Navbar = () => {
             <div className="container nav-container">
                 <Logo onClick={closeMenu} />
                 <div className={`nav-links ${menuActive ? 'active' : ''}`}>
-                    {navLinks.map(({ label, href }) => (
-                        <a key={href} href={href} className="nav-link" onClick={closeMenu}>
-                            {label}
-                        </a>
-                    ))}
+                    {navLinks.map(({ label, href }) => {
+                        const isRoute = href.startsWith('/');
+                        if (isRoute) {
+                            return (
+                                <Link
+                                    key={href}
+                                    to={href}
+                                    className={`nav-link nav-link--product`}
+                                    onClick={closeMenu}
+                                >
+                                    {label}
+                                </Link>
+                            );
+                        }
+                        return (
+                            <a key={href} href={href} className="nav-link" onClick={closeMenu}>
+                                {label}
+                            </a>
+                        );
+                    })}
                     <a href="#contact" className="btn btn-primary nav-cta" onClick={closeMenu}>
                         Get a Free Consultation
                     </a>
@@ -35,3 +51,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

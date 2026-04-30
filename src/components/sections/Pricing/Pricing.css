@@ -1,0 +1,293 @@
+.pricing {
+  background: #000;
+  padding: 120px 0 140px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing__glow {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 65%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pricing .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.pricing__header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.pricing__label {
+  display: inline-block;
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--primary-accent);
+  margin-bottom: 20px;
+}
+
+.pricing__title {
+  font-family: 'Almarai', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  color: #E1E0CC;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.pricing__subtitle {
+  font-family: 'Almarai', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(222,219,200,0.5);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Cards layout */
+.pricing__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Card base */
+.pricing-card {
+  background: #0E0E0E;
+  border: 1px solid rgba(222, 219, 200, 0.1);
+  border-radius: 24px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.pricing-card:hover {
+  border-color: rgba(222, 219, 200, 0.2);
+}
+
+/* Premium card */
+.pricing-card--premium {
+  background: linear-gradient(160deg, #0f0d08 0%, #0a0a0a 100%);
+  border-color: rgba(201, 168, 76, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.1),
+    0 0 60px rgba(201, 168, 76, 0.08),
+    inset 0 1px 0 rgba(201, 168, 76, 0.1);
+}
+
+.pricing-card--premium::before {
+  background: radial-gradient(circle at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 55%);
+}
+
+.pricing-card--premium:hover {
+  border-color: rgba(201, 168, 76, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.2),
+    0 0 80px rgba(201, 168, 76, 0.12),
+    inset 0 1px 0 rgba(201, 168, 76, 0.15);
+}
+
+/* Popular pill */
+.pricing-card__popular {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: var(--primary-accent);
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  border-radius: 100px;
+}
+
+/* Plan badge */
+.pricing-card__badge {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.pricing-card__badge--basic { color: rgba(222,219,200,0.4); }
+.pricing-card__badge--premium { color: var(--primary-accent); }
+
+/* Price */
+.pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.pricing-card__currency {
+  font-family: 'Almarai', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #E1E0CC;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.pricing-card__amount {
+  font-family: 'Almarai', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: #E1E0CC;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.pricing-card--premium .pricing-card__amount {
+  background: linear-gradient(135deg, #C9A84C 0%, #E3C161 60%, #DEDBC8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-card__period {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgba(222,219,200,0.4);
+  margin-left: 4px;
+}
+
+/* Tagline */
+.pricing-card__tagline {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: rgba(222,219,200,0.5);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+/* Divider */
+.pricing-card__divider {
+  height: 1px;
+  background: rgba(222,219,200,0.08);
+  margin-bottom: 24px;
+}
+
+/* Features list */
+.pricing-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  margin-bottom: 32px;
+}
+
+.pricing-card__feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(222,219,200,0.7);
+}
+
+.pricing-card__check { color: rgba(201,168,76,0.6); flex-shrink: 0; }
+.pricing-card__check--premium { color: var(--primary-accent); }
+
+/* CTA */
+.pricing-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-family: 'Almarai', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.pricing-card__cta--basic {
+  background: rgba(222,219,200,0.07);
+  border: 1px solid rgba(222,219,200,0.15);
+  color: #E1E0CC;
+}
+
+.pricing-card__cta--basic:hover {
+  background: rgba(222,219,200,0.12);
+  border-color: rgba(222,219,200,0.3);
+  transform: translateY(-2px);
+}
+
+.pricing-card__cta--premium {
+  background: var(--primary-accent);
+  color: #000;
+  box-shadow: 0 4px 30px rgba(201,168,76,0.35);
+}
+
+.pricing-card__cta--premium:hover {
+  background: var(--primary-accent-hover);
+  box-shadow: 0 8px 40px rgba(201,168,76,0.5);
+  transform: translateY(-2px);
+}
+
+/* Footer note */
+.pricing__note {
+  text-align: center;
+  margin-top: 40px;
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(222,219,200,0.35);
+  line-height: 1.7;
+}
+
+.pricing__note a {
+  color: var(--primary-accent);
+  text-decoration: none;
+}
+
+.pricing__note a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  .pricing__cards { grid-template-columns: 1fr; max-width: 480px; }
+  .pricing-card { padding: 32px 24px; }
+  .pricing-card__amount { font-size: 3.5rem; }
+}

@@ -1,40 +1,78 @@
 .stats-section {
-    padding: 80px 0;
-    background: linear-gradient(180deg, var(--bg-color) 0%, var(--card-bg) 100%);
-    border-bottom: 1px solid var(--border-color);
+  position: relative;
+  padding: 72px 0;
+  background: #080808;
+}
+
+.stats-section__line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+  margin: 0;
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  text-align: center;
 }
 
 .stat-card {
-    padding: 30px 20px;
+  padding: 36px 24px;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.stat-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(222, 219, 200, 0.08);
+}
+
+.stat-card:hover {
+  background: rgba(201, 168, 76, 0.03);
 }
 
 .stat-value {
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: var(--primary-accent);
-    display: block;
-    margin-bottom: 10px;
-    line-height: 1;
+  font-family: 'Almarai', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #C9A84C, #E3C161);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 10px;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .stat-label {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    font-weight: 500;
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #E1E0CC;
+  margin-bottom: 6px;
+}
+
+.stat-desc {
+  font-family: 'Almarai', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(222, 219, 200, 0.35);
+  margin: 0;
 }
 
 @media (max-width: 1024px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-card:nth-child(2)::after { display: none; }
 }
 
-@media (max-width: 768px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .stat-value { font-size: 2.5rem; }
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .stat-value { font-size: 2.5rem; }
 }
