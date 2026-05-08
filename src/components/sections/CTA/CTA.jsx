@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import WordsPullUp from '../../ui/WordsPullUp';
 import './CTA.css';
 
@@ -63,9 +64,9 @@ const CTA = () => (
             Book a Free Call Today
             <ArrowRight size={16} />
           </motion.a>
-          <a href="/product" className="cta__btn cta__btn--ghost">
+          <Link to="/product" className="cta__btn cta__btn--ghost">
             See Our AI Products
-          </a>
+          </Link>
         </motion.div>
       </motion.div>
     </div>

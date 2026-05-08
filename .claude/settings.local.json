@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python \"C:\\\\Users\\\\Abdul Hadi\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"AI tech agency SaaS dark modern glassmorphism\" --design-system -p \"Webfluence\" -f markdown)",
+      "PowerShell(py --version 2>&1)",
+      "PowerShell(python3 --version 2>&1)"
+    ]
+  }
+}

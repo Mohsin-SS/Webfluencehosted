@@ -1,23 +1,30 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import ParticleCanvas from './ParticleCanvas';
+import ThreeBackground from './ThreeBackground';
 import WordsPullUp from '../../ui/WordsPullUp';
 import './Hero.css';
 
 const Hero = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section className="hero" id="home" ref={ref}>
-      <ParticleCanvas />
-      {/* Noise overlay */}
-      <div className="hero__noise" aria-hidden="true" />
+      {/* Three.js neural network background */}
+      <ThreeBackground />
+
+      {/* Tech grid overlay */}
+      <div className="hero__grid" aria-hidden="true" />
+
       {/* Radial glow */}
       <div className="hero__glow" aria-hidden="true" />
+      <div className="hero__glow hero__glow--2" aria-hidden="true" />
+
+      {/* Noise overlay */}
+      <div className="hero__noise" aria-hidden="true" />
 
       <motion.div className="container hero-content" style={{ y, opacity }}>
         {/* Badge */}

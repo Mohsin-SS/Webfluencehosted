@@ -1,12 +1,12 @@
 .stats-section {
   position: relative;
   padding: 72px 0;
-  background: #080808;
+  background: var(--bg-surface);
 }
 
 .stats-section__line {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+  background: var(--gradient-divider);
   margin: 0;
 }
 
@@ -30,18 +30,18 @@
   top: 20%;
   height: 60%;
   width: 1px;
-  background: rgba(222, 219, 200, 0.08);
+  background: var(--border-color);
 }
 
 .stat-card:hover {
-  background: rgba(201, 168, 76, 0.03);
+  background: rgba(var(--accent-rgb), 0.04);
 }
 
 .stat-value {
   font-family: 'Almarai', sans-serif;
   font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #C9A84C, #E3C161);
+  background: var(--gradient-accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -55,15 +55,15 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
-  color: #E1E0CC;
+  color: var(--text-primary);
   margin-bottom: 6px;
 }
 
 .stat-desc {
-  font-family: 'Almarai', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.75rem;
-  font-weight: 300;
-  color: rgba(222, 219, 200, 0.35);
+  font-weight: 400;
+  color: var(--text-muted);
   margin: 0;
 }
 

@@ -13,6 +13,25 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- GitHub Pages SPA: restore path from 404 redirect -->
+    <script>
+      (function() {
+        var q = window.location.search;
+        if (q && q.indexOf('p=') > -1) {
+          var r = q.slice(1).split('&').reduce(function(o, s) {
+            var kv = s.split('=');
+            o[kv[0]] = decodeURIComponent(kv[1] || '');
+            return o;
+          }, {});
+          if (r.p) {
+            window.history.replaceState(
+              null, null,
+              '/' + r.p + (r.h ? '#' + r.h : '')
+            );
+          }
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Bot, MapPin, BarChart3, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './ProductTeaser.css';
 
 const teaserPoints = [
@@ -13,7 +14,6 @@ const teaserPoints = [
 const ProductTeaser = () => {
   return (
     <section className="product-teaser" id="product-teaser">
-      {/* Background accent */}
       <div className="product-teaser__bg" aria-hidden="true" />
 
       <div className="container">
@@ -81,13 +81,13 @@ const ProductTeaser = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.55 }}
             >
-              <a href="/product" className="btn btn-primary product-teaser__btn">
+              <Link to="/product" className="btn btn-primary product-teaser__btn">
                 Explore the Product
                 <ArrowRight size={16} />
-              </a>
-              <a href="/product#pricing" className="btn btn-ghost product-teaser__btn-ghost">
+              </Link>
+              <Link to="/product#pricing" className="btn btn-ghost product-teaser__btn-ghost">
                 View Pricing
-              </a>
+              </Link>
             </motion.div>
           </div>
 
@@ -122,10 +122,10 @@ const ProductTeaser = () => {
                   </div>
                 </div>
                 {[
-                  { name: 'TechNest London', score: 92, temp: 'hot', industry: 'IT Company' },
-                  { name: 'Dubai Logistics Co.', score: 81, temp: 'hot', industry: 'Logistics' },
+                  { name: 'TechNest London',    score: 92, temp: 'hot',  industry: 'IT Company' },
+                  { name: 'Dubai Logistics Co.', score: 81, temp: 'hot',  industry: 'Logistics' },
                   { name: 'Berlin Realty Group', score: 74, temp: 'warm', industry: 'Real Estate' },
-                  { name: 'NYC E-Commerce Hub', score: 61, temp: 'warm', industry: 'Retail' },
+                  { name: 'NYC E-Commerce Hub',  score: 61, temp: 'warm', industry: 'Retail' },
                 ].map((lead, i) => (
                   <motion.div
                     key={lead.name}

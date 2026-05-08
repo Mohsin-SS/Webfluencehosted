@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import ProductHero from '../components/sections/ProductHero/ProductHero';
 import ProductFeatures from '../components/sections/ProductFeatures/ProductFeatures';
 import HowItWorks from '../components/sections/HowItWorks/HowItWorks';
@@ -18,10 +19,10 @@ const ProductPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <a href="/" className="product-page__back-link">
+        <Link to="/" className="product-page__back-link">
           <ArrowLeft size={16} />
           <span>Back to Webfluence</span>
-        </a>
+        </Link>
       </motion.div>
 
       {/* Sections */}
@@ -94,7 +95,7 @@ const ProductPage = () => {
             <p className="product-footer__copy">
               © 2026 Webfluence. All rights reserved.
             </p>
-            <a href="/" className="product-footer__link">Main Site</a>
+            <Link to="/" className="product-footer__link">Main Site</Link>
           </div>
         </div>
       </footer>

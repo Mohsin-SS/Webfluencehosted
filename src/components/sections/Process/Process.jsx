@@ -10,21 +10,21 @@ const steps = [
     number: '01',
     title: 'Discovery Call',
     description: 'We understand your business goals and map out the exact digital solution you need — no templates, no guessing.',
-    color: '#C9A84C',
+    color: '#3B82F6',
   },
   {
     Icon: Settings,
     number: '02',
     title: 'We Build & Integrate',
     description: 'Our team designs, develops, and integrates the technology seamlessly into your existing workflow and systems.',
-    color: '#E3C161',
+    color: '#8B5CF6',
   },
   {
     Icon: TrendingUp,
     number: '03',
     title: 'You Grow',
     description: 'Launch your new automated tools and watch your efficiency, conversion rates, and revenue climb every week.',
-    color: '#DEDBC8',
+    color: '#60A5FA',
   },
 ];
 

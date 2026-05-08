@@ -45,7 +45,7 @@ const Testimonials = () => (
             {/* Stars */}
             <div className="stars">
               {Array.from({ length: t.rating }, (_, si) => (
-                <Star key={si} size={14} fill="#C9A84C" strokeWidth={0} />
+                <Star key={si} size={14} fill="#F59E0B" strokeWidth={0} />
               ))}
             </div>
             {/* Quote */}
