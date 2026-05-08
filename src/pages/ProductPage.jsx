@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Bot, MessageSquare, BarChart3, Globe, Smartphone, Database } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, MessageSquare, BarChart3, Globe, Smartphone, Database, Zap } from 'lucide-react';
 import ContactModal from '../components/sections/Pricing/ContactModal';
 import ProductHero from '../components/sections/ProductHero/ProductHero';
 import ProductFeatures from '../components/sections/ProductFeatures/ProductFeatures';
@@ -12,26 +12,27 @@ import ScrollRevealText from '../components/ui/AnimatedLetter';
 import './ProductPage.css';
 
 const TABS = [
-  { id: 'lead-manager',    label: 'Lead Manager',    Icon: Bot },
-  { id: 'whatsapp',        label: 'WhatsApp Chatbot', Icon: MessageSquare },
-  { id: 'crm',             label: 'CRM System',       Icon: BarChart3 },
-  { id: 'website',         label: 'Website Dev',      Icon: Globe },
-  { id: 'mobile-app',      label: 'Mobile App',       Icon: Smartphone },
-  { id: 'erp',             label: 'ERP System',       Icon: Database },
+  { id: 'lead-manager', label: 'Lead Manager', Icon: Bot },
+  { id: 'whatsapp', label: 'Chatbot', Icon: MessageSquare },
+  { id: 'crm', label: 'CRM System', Icon: BarChart3 },
+  { id: 'website', label: 'Website Dev', Icon: Globe },
+  { id: 'mobile-app', label: 'Mobile App', Icon: Smartphone },
+  { id: 'erp', label: 'ERP System', Icon: Database },
+  { id: 'ai-automations', label: 'AI Automations', Icon: Zap },
 ];
 
 const GENERIC_PRODUCTS = [
   {
     id: 'whatsapp',
     badge: 'AI-Powered',
-    headline: 'WhatsApp Chatbot',
+    headline: 'Chatbot',
     accentLine: 'for instant business conversations.',
     sub: 'AI-powered responses on WhatsApp that qualify leads, answer FAQs, and book appointments — 24/7, without a human agent.',
     stats: [
       { value: '24/7', label: 'Uptime' },
-      { value: '<2s',  label: 'Response' },
-      { value: '80%',  label: 'Auto-resolve' },
-      { value: '5+',   label: 'Languages' },
+      { value: '<2s', label: 'Response' },
+      { value: '80%', label: 'Auto-resolve' },
+      { value: '5+', label: 'Languages' },
     ],
     features: [
       {
@@ -60,13 +61,13 @@ const GENERIC_PRODUCTS = [
       },
     ],
     steps: [
-      { number: '01', title: 'Connect',  desc: 'Link your WhatsApp Business number via the official Cloud API. No third-party tools required.' },
-      { number: '02', title: 'Train',    desc: 'Upload your FAQs, products, pricing, and brand tone. The AI learns to speak your language.' },
-      { number: '03', title: 'Deploy',   desc: 'Go live. Every incoming message is handled instantly and intelligently, day and night.' },
-      { number: '04', title: 'Analyse',  desc: 'Monitor conversations and leads in the dashboard. Refine flows, scale volume.' },
+      { number: '01', title: 'Connect', desc: 'Link your WhatsApp Business number via the official Cloud API. No third-party tools required.' },
+      { number: '02', title: 'Train', desc: 'Upload your FAQs, products, pricing, and brand tone. The AI learns to speak your language.' },
+      { number: '03', title: 'Deploy', desc: 'Go live. Every incoming message is handled instantly and intelligently, day and night.' },
+      { number: '04', title: 'Analyse', desc: 'Monitor conversations and leads in the dashboard. Refine flows, scale volume.' },
     ],
     cta: 'Get a Custom Quote',
-    emailSubject: 'WhatsApp Chatbot Inquiry',
+    emailSubject: 'Chatbot Inquiry',
   },
   {
     id: 'crm',
@@ -75,10 +76,10 @@ const GENERIC_PRODUCTS = [
     accentLine: 'built around your sales process.',
     sub: 'A custom CRM tailored to how you sell — track leads, manage pipelines, automate follow-ups, and close deals faster.',
     stats: [
-      { value: '∞',      label: 'Contacts' },
+      { value: '∞', label: 'Contacts' },
       { value: 'Visual', label: 'Pipeline' },
-      { value: 'Auto',   label: 'Follow-ups' },
-      { value: 'Full',   label: 'History' },
+      { value: 'Auto', label: 'Follow-ups' },
+      { value: 'Full', label: 'History' },
     ],
     features: [
       {
@@ -107,10 +108,10 @@ const GENERIC_PRODUCTS = [
       },
     ],
     steps: [
-      { number: '01', title: 'Import',    desc: 'Bring in existing contacts from a spreadsheet or pull directly from the Agentic Lead Manager.' },
+      { number: '01', title: 'Import', desc: 'Bring in existing contacts from a spreadsheet or pull directly from the Agentic Lead Manager.' },
       { number: '02', title: 'Configure', desc: 'Set your pipeline stages, custom fields, and notification rules to match your workflow.' },
-      { number: '03', title: 'Automate',  desc: 'Build follow-up sequences and trigger conditions — set it once and never miss a follow-up.' },
-      { number: '04', title: 'Close',     desc: 'Work the board, update deal stages, and track revenue with real-time reports.' },
+      { number: '03', title: 'Automate', desc: 'Build follow-up sequences and trigger conditions — set it once and never miss a follow-up.' },
+      { number: '04', title: 'Close', desc: 'Work the board, update deal stages, and track revenue with real-time reports.' },
     ],
     cta: 'Request a Demo',
     emailSubject: 'CRM System Inquiry',
@@ -122,10 +123,10 @@ const GENERIC_PRODUCTS = [
     accentLine: 'that turns visitors into customers.',
     sub: 'Modern, fast, and conversion-optimised websites built with React/Next.js — from landing pages to full product sites.',
     stats: [
-      { value: '<2s',  label: 'Load time' },
-      { value: '100',  label: 'Lighthouse' },
-      { value: 'SEO',  label: 'Ready' },
-      { value: 'CMS',  label: 'Powered' },
+      { value: '<2s', label: 'Load time' },
+      { value: '100', label: 'Lighthouse' },
+      { value: 'SEO', label: 'Ready' },
+      { value: 'CMS', label: 'Powered' },
     ],
     features: [
       {
@@ -155,9 +156,9 @@ const GENERIC_PRODUCTS = [
     ],
     steps: [
       { number: '01', title: 'Discover', desc: 'A strategy call to align on goals, audience, competitor landscape, and site structure.' },
-      { number: '02', title: 'Design',   desc: 'Full Figma prototype of every page and interaction — approved before we write a line of code.' },
-      { number: '03', title: 'Build',    desc: 'React/Next.js development with CMS integration, animations, and all third-party connections.' },
-      { number: '04', title: 'Launch',   desc: 'Deployed to Vercel or Cloudflare, analytics live, handover session with your team included.' },
+      { number: '02', title: 'Design', desc: 'Full Figma prototype of every page and interaction — approved before we write a line of code.' },
+      { number: '03', title: 'Build', desc: 'React/Next.js development with CMS integration, animations, and all third-party connections.' },
+      { number: '04', title: 'Launch', desc: 'Deployed to Vercel or Cloudflare, analytics live, handover session with your team included.' },
     ],
     cta: 'Start Your Project',
     emailSubject: 'Website Development Inquiry',
@@ -170,9 +171,9 @@ const GENERIC_PRODUCTS = [
     sub: 'High-quality iOS and Android apps built with React Native — from a single codebase, shipped in weeks not months.',
     stats: [
       { value: 'iOS+', label: 'Android' },
-      { value: '1×',   label: 'Codebase' },
+      { value: '1×', label: 'Codebase' },
       { value: 'Store', label: 'Ready' },
-      { value: 'Push',  label: 'Notifications' },
+      { value: 'Push', label: 'Notifications' },
     ],
     features: [
       {
@@ -201,10 +202,10 @@ const GENERIC_PRODUCTS = [
       },
     ],
     steps: [
-      { number: '01', title: 'Scope',   desc: 'Define screens, user flows, core features, and the MVP boundary in a focused scoping session.' },
-      { number: '02', title: 'Design',  desc: 'Full UI/UX in Figma for every screen, state, and transition — approved before development.' },
-      { number: '03', title: 'Build',   desc: 'React Native development with backend integration, push notifications, and on-device testing.' },
-      { number: '04', title: 'Ship',    desc: 'TestFlight / internal beta, then full App Store + Google Play launch with your team.' },
+      { number: '01', title: 'Scope', desc: 'Define screens, user flows, core features, and the MVP boundary in a focused scoping session.' },
+      { number: '02', title: 'Design', desc: 'Full UI/UX in Figma for every screen, state, and transition — approved before development.' },
+      { number: '03', title: 'Build', desc: 'React Native development with backend integration, push notifications, and on-device testing.' },
+      { number: '04', title: 'Ship', desc: 'TestFlight / internal beta, then full App Store + Google Play launch with your team.' },
     ],
     cta: 'Get a Quote',
     emailSubject: 'Mobile App Development Inquiry',
@@ -216,9 +217,9 @@ const GENERIC_PRODUCTS = [
     accentLine: 'every department, one platform.',
     sub: 'End-to-end business management — inventory, HR, finance, and operations unified in a single custom-built system.',
     stats: [
-      { value: 'All',    label: 'Departments' },
-      { value: 'Live',   label: 'Data' },
-      { value: 'RBAC',   label: 'Access control' },
+      { value: 'All', label: 'Departments' },
+      { value: 'Live', label: 'Data' },
+      { value: 'RBAC', label: 'Access control' },
       { value: 'Custom', label: 'Modules' },
     ],
     features: [
@@ -248,20 +249,67 @@ const GENERIC_PRODUCTS = [
       },
     ],
     steps: [
-      { number: '01', title: 'Audit',     desc: 'Map your current workflows, data sources, pain points, and integration requirements.' },
+      { number: '01', title: 'Audit', desc: 'Map your current workflows, data sources, pain points, and integration requirements.' },
       { number: '02', title: 'Architect', desc: 'System design and module specs reviewed with your team before development begins.' },
-      { number: '03', title: 'Build',     desc: 'Custom modules developed iteratively, integrated with your existing tools and databases.' },
-      { number: '04', title: 'Go Live',   desc: 'Staff training, data migration, and a full handover with ongoing support included.' },
+      { number: '03', title: 'Build', desc: 'Custom modules developed iteratively, integrated with your existing tools and databases.' },
+      { number: '04', title: 'Go Live', desc: 'Staff training, data migration, and a full handover with ongoing support included.' },
     ],
     cta: 'Request a Proposal',
     emailSubject: 'ERP System Inquiry',
   },
+  {
+    id: 'ai-automations',
+    badge: 'Efficiency First',
+    headline: 'AI Automations',
+    accentLine: 'eliminate repetitive tasks.',
+    sub: 'Intelligent workflows that connect your favorite tools and use AI to process data, generate content, and manage operations — automatically.',
+    stats: [
+      { value: '10x', label: 'Faster' },
+      { value: '0', label: 'Human Error' },
+      { value: '24/7', label: 'Execution' },
+      { value: 'Custom', label: 'Workflows' },
+    ],
+    features: [
+      {
+        number: '01',
+        title: 'Workflow Orchestration',
+        desc: 'Connect your apps (Slack, Gmail, CRM, etc.) and automate complex multi-step processes triggered by real-world events.',
+        items: ['Zapier / Make.com integration', 'Custom API webhooks', 'Multi-app sync', 'Conditional logic flows'],
+      },
+      {
+        number: '02',
+        title: 'AI Data Processing',
+        desc: 'Automatically extract information from emails, documents, or websites using LLMs to structure and store data.',
+        items: ['OCR & Document parsing', 'Sentiment analysis', 'Email auto-categorization', 'Data enrichment'],
+      },
+      {
+        number: '03',
+        title: 'Content Automation',
+        desc: 'Generate reports, social media posts, or personalized emails at scale based on your live business data.',
+        items: ['Dynamic report generation', 'Automated social posting', 'Personalized outreach', 'Image generation APIs'],
+      },
+      {
+        number: '04',
+        title: 'Custom AI Agents',
+        desc: 'Bespoke agents designed for specific tasks like inventory forecasting, customer support triaging, or market research.',
+        items: ['Task-specific agents', 'Self-healing workflows', 'Human-in-the-loop steps', 'Performance monitoring'],
+      },
+    ],
+    steps: [
+      { number: '01', title: 'Identify', desc: 'We audit your manual workflows to find the highest-impact areas for automation.' },
+      { number: '02', title: 'Design', desc: 'We map out the logic, tool integrations, and AI prompts required for the automation.' },
+      { number: '03', title: 'Deploy', desc: 'We build and test the workflow in a staging environment before going live.' },
+      { number: '04', title: 'Scale', desc: 'Monitor execution, refine prompts, and add new capabilities as your needs grow.' },
+    ],
+    cta: 'Automate Your Business',
+    emailSubject: 'AI Automations Inquiry',
+  },
 ];
 
 const ProductPage = () => {
-  const [activeTab, setActiveTab]   = useState(0);
-  const [modalOpen, setModalOpen]   = useState(false);
-  const [modalData, setModalData]   = useState({ plan: '', emailSubject: '' });
+  const [activeTab, setActiveTab] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({ plan: '', emailSubject: '' });
 
   const openModal = (plan, emailSubject) => {
     setModalData({ plan, emailSubject });

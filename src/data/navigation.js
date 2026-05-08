@@ -16,6 +16,7 @@ export const footerCompanyLinks = [
 export const footerServiceLinks = [
     { label: 'WhatsApp Automation', href: '#services' },
     { label: 'AI Chatbots', href: '#services' },
+    { label: 'AI Automations', href: '#services' },
     { label: 'AI Calling', href: '#services' },
     { label: 'Web Development', href: '#services' },
 ];

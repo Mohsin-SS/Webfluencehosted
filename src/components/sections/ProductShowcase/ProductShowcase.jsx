@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, MessageCircle, Users, Globe, Smartphone, Building2, Check, ArrowRight } from 'lucide-react';
+import { Brain, MessageCircle, Users, Globe, Smartphone, Building2, Check, ArrowRight, Zap, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WordsPullUp from '../../ui/WordsPullUp';
 import './ProductShowcase.css';
@@ -107,6 +107,23 @@ const products = [
     ],
     cta: { label: 'Schedule a Call', to: '#contact', isLink: false },
     visual: 'erp',
+  },
+  {
+    id: 'ai-automations',
+    tab: 'AI Automations',
+    badge: 'Efficiency',
+    icon: Zap,
+    headline: 'Eliminate Repetitive Tasks with Intelligent Workflows',
+    desc: 'We build custom AI automations that connect your tools and handle data entry, report generation, and lead processing — saving your team hundreds of hours every month.',
+    features: [
+      'Multi-app workflow orchestration',
+      'AI-powered document processing',
+      'Automated data entry & syncing',
+      'Custom GPT-based agents',
+      'Real-time error handling & logs',
+    ],
+    cta: { label: 'Automate Now', to: '#contact', isLink: false },
+    visual: 'automation',
   },
 ];
 
@@ -333,6 +350,80 @@ const ErpVisual = () => (
   </div>
 );
 
+const AutomationVisual = () => (
+  <div className="ps-visual ps-visual--automation">
+    <div className="ps-automation-nodes">
+      <motion.div 
+        className="ps-node ps-node--trigger"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="ps-node__icon"><Cpu size={14} /></div>
+        <div className="ps-node__label">Trigger: New Lead</div>
+      </motion.div>
+
+      <div className="ps-node-connector">
+        <motion.div 
+          className="ps-node-line"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.3, duration: 0.4 }}
+        />
+      </div>
+
+      <motion.div 
+        className="ps-node ps-node--action"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+      >
+        <div className="ps-node__icon"><Brain size={14} /></div>
+        <div className="ps-node__label">AI Scoring...</div>
+      </motion.div>
+
+      <div className="ps-node-connector">
+        <motion.div 
+          className="ps-node-line"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.9, duration: 0.4 }}
+        />
+      </div>
+
+      <motion.div 
+        className="ps-node ps-node--success"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+      >
+        <div className="ps-node__icon"><Check size={14} /></div>
+        <div className="ps-node__label">CRM Updated</div>
+      </motion.div>
+    </div>
+    
+    <div className="ps-automation-log">
+      <div className="ps-log-header">Workflow Execution Log</div>
+      {[
+        { time: '14:20:01', msg: 'Checking inbox...', status: 'info' },
+        { time: '14:20:05', msg: 'New lead detected!', status: 'success' },
+        { time: '14:20:07', msg: 'Claude AI scoring: 92/100', status: 'ai' },
+        { time: '14:20:10', msg: 'Drafting response...', status: 'info' },
+      ].map((log, i) => (
+        <motion.div 
+          key={i} 
+          className={`ps-log-entry ps-log-entry--${log.status}`}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.5 + i * 0.2 }}
+        >
+          <span className="ps-log-time">[{log.time}]</span> {log.msg}
+        </motion.div>
+      ))}
+    </div>
+  </div>
+);
+
 const visuals = {
   lead: LeadVisual,
   chat: ChatVisual,
@@ -340,6 +431,7 @@ const visuals = {
   web: WebVisual,
   mobile: MobileVisual,
   erp: ErpVisual,
+  automation: AutomationVisual,
 };
 
 /* ─── Main component ──────────────────────────────────────────────────── */

@@ -51,6 +51,11 @@ const Footer = () => (
                 <span className="footer-product-badge">New</span>
               </Link>
             </li>
+            <li>
+              <Link to="/product" className="footer-product-link">
+                AI Automations
+              </Link>
+            </li>
           </ul>
           <div className="footer__contact-block">
             <h4>Contact</h4>

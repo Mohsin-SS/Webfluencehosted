@@ -688,3 +688,95 @@
 
   .ps-panel { padding: 24px 20px; }
 }
+
+/* ── Automation visual ────────────────────────────────────────── */
+.ps-visual--automation {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ps-automation-nodes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.ps-node {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  width: 100%;
+}
+
+.ps-node__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3B82F6;
+}
+
+.ps-node--trigger .ps-node__icon { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
+.ps-node--success .ps-node__icon { background: rgba(34, 197, 94, 0.1); color: #22C55E; }
+
+.ps-node__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.ps-node-connector {
+  height: 20px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.ps-node-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-accent, linear-gradient(135deg, #3B82F6, #8B5CF6));
+  transform-origin: top;
+}
+
+.ps-automation-log {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+}
+
+.ps-log-header {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted, rgba(255, 255, 255, 0.3));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.ps-log-entry {
+  font-size: 0.7rem;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+}
+
+.ps-log-time { color: rgba(255, 255, 255, 0.3); }
+.ps-log-entry--success { color: #22C55E; }
+.ps-log-entry--ai { color: #8B5CF6; }
+

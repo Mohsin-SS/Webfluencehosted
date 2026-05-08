@@ -19,6 +19,11 @@ export const serviceColumns = [
                 title: 'AI Calling Agents',
                 description: 'Intelligent voice agents that call leads, qualify prospects, and book appointments—fully automated.'
             },
+            {
+                icon: MagicWand,
+                title: 'AI Automations',
+                description: 'Custom workflows that connect your favorite tools and automate repetitive business processes using AI.'
+            },
         ]
     },
     {
