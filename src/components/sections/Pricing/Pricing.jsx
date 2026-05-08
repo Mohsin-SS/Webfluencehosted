@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Zap } from 'lucide-react';
 import WordsPullUp from '../../ui/WordsPullUp';
+import ContactModal from './ContactModal';
 import './Pricing.css';
 
 const basicFeatures = [
@@ -38,6 +39,11 @@ const cardVariants = {
 };
 
 const Pricing = () => {
+  const [modal, setModal] = useState(null); // { plan, emailSubject }
+
+  const openModal = (plan, emailSubject) => setModal({ plan, emailSubject });
+  const closeModal = () => setModal(null);
+
   return (
     <section className="pricing" id="pricing">
       {/* Background glow */}
@@ -98,10 +104,13 @@ const Pricing = () => {
                 </li>
               ))}
             </ul>
-            <a href="mailto:webfluence.ai@gmail.com?subject=Agentic Lead Manager - Basic Plan" className="pricing-card__cta pricing-card__cta--basic">
+            <button
+              className="pricing-card__cta pricing-card__cta--basic"
+              onClick={() => openModal('Basic', 'Agentic Lead Manager - Basic Plan')}
+            >
               Get Started
               <ArrowRight size={15} />
-            </a>
+            </button>
           </motion.div>
 
           {/* Premium */}
@@ -137,10 +146,13 @@ const Pricing = () => {
                 </li>
               ))}
             </ul>
-            <a href="mailto:webfluence.ai@gmail.com?subject=Agentic Lead Manager - Premium Plan" className="pricing-card__cta pricing-card__cta--premium">
+            <button
+              className="pricing-card__cta pricing-card__cta--premium"
+              onClick={() => openModal('Premium', 'Agentic Lead Manager - Premium Plan')}
+            >
               Get Premium Access
               <ArrowRight size={15} />
-            </a>
+            </button>
           </motion.div>
         </div>
 
@@ -156,6 +168,14 @@ const Pricing = () => {
           Custom enterprise packages available — <a href="mailto:webfluence.ai@gmail.com">reach out</a>.
         </motion.p>
       </div>
+
+      {/* Contact channel modal */}
+      <ContactModal
+        isOpen={!!modal}
+        onClose={closeModal}
+        plan={modal?.plan ?? ''}
+        emailSubject={modal?.emailSubject ?? ''}
+      />
     </section>
   );
 };

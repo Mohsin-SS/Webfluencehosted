@@ -1,10 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/layout/Navbar/Navbar';
 import Hero from './components/sections/Hero/Hero';
 import Stats from './components/sections/Stats/Stats';
 import Services from './components/sections/Services/Services';
 import Features from './components/sections/Features/Features';
+import ProductShowcase from './components/sections/ProductShowcase/ProductShowcase';
 import Process from './components/sections/Process/Process';
 import Testimonials from './components/sections/Testimonials/Testimonials';
 import CTA from './components/sections/CTA/CTA';
@@ -19,6 +21,7 @@ const HomePage = () => (
     <Hero />
     <Stats />
     <Services />
+    <ProductShowcase />
     <Features />
     <Process />
     <Testimonials />
@@ -30,10 +33,13 @@ const HomePage = () => (
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/product" element={<ProductPage />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/product" element={<ProductPage />} />
+      </Routes>
+    </>
   );
 }
 

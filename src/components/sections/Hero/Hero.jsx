@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import ThreeBackground from './ThreeBackground';
 import WordsPullUp from '../../ui/WordsPullUp';
+import ContactModal from '../Pricing/ContactModal';
 import './Hero.css';
 
 const Hero = () => {
@@ -10,6 +11,7 @@ const Hero = () => {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <section className="hero" id="home" ref={ref}>
@@ -76,9 +78,12 @@ const Hero = () => {
             Explore Services
             <span className="hero__btn-icon"><ArrowRight size={16} /></span>
           </a>
-          <a href="#contact" className="hero__btn hero__btn--ghost">
+          <button
+            className="hero__btn hero__btn--ghost"
+            onClick={() => setModalOpen(true)}
+          >
             Book a Free Call
-          </a>
+          </button>
         </motion.div>
 
         {/* Scroll hint */}
@@ -95,6 +100,13 @@ const Hero = () => {
           />
         </motion.div>
       </motion.div>
+
+      <ContactModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        plan="Free Consultation"
+        emailSubject="Free Consultation Request"
+      />
     </section>
   );
 };
