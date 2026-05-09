@@ -1,4 +1,4 @@
-.product-page {
+﻿.product-page {
   background: #000;
   min-height: 100vh;
   padding-top: 64px; /* space for the fixed nav */
@@ -20,7 +20,7 @@
   background: rgba(5, 5, 5, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(222, 219, 200, 0.08);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.08);
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -35,11 +35,11 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
-  color: rgba(222, 219, 200, 0.5);
+  color: rgba(var(--accent-rgb), 0.5);
   text-decoration: none;
   padding: 7px 14px;
   border-radius: 100px;
-  border: 1px solid rgba(222, 219, 200, 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.1);
   transition: all 0.3s ease;
   white-space: nowrap;
 }
@@ -52,7 +52,7 @@
 .product-nav__divider {
   width: 1px;
   height: 22px;
-  background: rgba(222, 219, 200, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
   flex-shrink: 0;
 }
 
@@ -79,20 +79,20 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.78rem;
   font-weight: 400;
-  color: rgba(222, 219, 200, 0.42);
+  color: rgba(var(--accent-rgb), 0.42);
   cursor: pointer;
   transition: all 0.22s ease;
   white-space: nowrap;
 }
 
 .product-nav__tab:hover {
-  color: rgba(222, 219, 200, 0.8);
-  background: rgba(222, 219, 200, 0.06);
+  color: rgba(var(--accent-rgb), 0.8);
+  background: rgba(var(--accent-rgb), 0.06);
 }
 
 .product-nav__tab.active {
-  background: var(--gradient-accent, linear-gradient(135deg, #C9A84C, #E3C161));
-  color: #000;
+  background: var(--gradient-accent);
+  color: var(--text-on-accent);
   font-weight: 700;
 }
 
@@ -134,7 +134,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-weight: 300;
-  color: #DEDBC8;
+  color: var(--text-primary);
   line-height: 1.75;
   letter-spacing: -0.01em;
 }
@@ -183,7 +183,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
-  color: #E1E0CC;
+  color: var(--text-primary);
   letter-spacing: -0.03em;
   margin-bottom: 16px;
 }
@@ -192,7 +192,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 1rem;
   font-weight: 300;
-  color: rgba(222, 219, 200, 0.5);
+  color: rgba(var(--accent-rgb), 0.5);
   margin-bottom: 36px;
 }
 
@@ -220,32 +220,32 @@
 
 .product-final-cta__btn--primary {
   background: var(--primary-accent);
-  color: #000;
-  box-shadow: 0 4px 30px rgba(201, 168, 76, 0.35);
+  color: var(--text-on-accent);
+  box-shadow: 0 4px 30px rgba(var(--accent-rgb), 0.35);
 }
 
 .product-final-cta__btn--primary:hover {
   background: var(--primary-accent-hover);
-  box-shadow: 0 8px 40px rgba(201, 168, 76, 0.5);
+  box-shadow: 0 8px 40px rgba(var(--accent-rgb), 0.5);
   transform: translateY(-2px);
 }
 
 .product-final-cta__btn--ghost {
   background: transparent;
-  border: 1px solid rgba(222, 219, 200, 0.2);
-  color: rgba(222, 219, 200, 0.7);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  color: rgba(var(--accent-rgb), 0.7);
 }
 
 .product-final-cta__btn--ghost:hover {
   border-color: rgba(201, 168, 76, 0.4);
-  color: #E1E0CC;
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
 
 /* ── Footer ── */
 .product-footer {
   background: #000;
-  border-top: 1px solid rgba(222, 219, 200, 0.07);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.07);
   padding: 28px 0;
 }
 
@@ -261,7 +261,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
-  color: rgba(222, 219, 200, 0.6);
+  color: rgba(var(--accent-rgb), 0.6);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -277,7 +277,7 @@
 .product-footer__copy {
   font-family: 'Almarai', sans-serif;
   font-size: 0.78rem;
-  color: rgba(222, 219, 200, 0.25);
+  color: rgba(var(--accent-rgb), 0.25);
 }
 
 .product-footer__link {
@@ -310,7 +310,6 @@
 
 [data-theme="light"] .product-nav__tab { color: rgba(30, 30, 30, 0.42); }
 [data-theme="light"] .product-nav__tab:hover { color: rgba(30, 30, 30, 0.8); background: rgba(0,0,0,0.05); }
-[data-theme="light"] .product-nav__tab.active { color: #000; }
 
 [data-theme="light"] .product-page,
 [data-theme="light"] .product-about,

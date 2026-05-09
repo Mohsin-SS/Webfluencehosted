@@ -129,7 +129,7 @@
 
 .cta__btn--primary {
   background: var(--gradient-accent);
-  color: #fff;
+  color: var(--text-on-accent);
   box-shadow: 0 4px 30px rgba(var(--accent-rgb), 0.35);
 }
 

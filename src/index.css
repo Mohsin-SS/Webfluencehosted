@@ -21,6 +21,10 @@
   --accent-rgb: 255, 255, 255;
   --accent2-rgb: 153, 153, 153;
 
+  /* Text colour for elements painted with --gradient-accent / primary-accent fill.
+     Always the OPPOSITE of the accent so it stays legible on the gradient. */
+  --text-on-accent: #000000;
+
   /* Text */
   --text-primary: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.6);
@@ -57,6 +61,8 @@
   --primary-accent-hover: #1a1a1a;
   --accent-rgb: 0, 0, 0;
   --accent2-rgb: 102, 102, 102;
+
+  --text-on-accent: #ffffff;
 
   --text-primary: #000000;
   --text-muted: #666666;
@@ -156,29 +162,34 @@ section {
    Logo (shared)
    ============================================ */
 .logo {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
+  line-height: 0;
 }
 
-.logo .wf {
-  font-family: var(--font-logo);
-  font-style: italic;
-  font-size: 2.2rem;
-  color: var(--primary-accent);
-  font-weight: 600;
-  line-height: 1;
+.logo__img {
+  display: block;
+  height: 44px;
+  width: auto;
+  /* Source PNG is black-on-white — invert in dark mode so it reads on dark surfaces */
+  filter: invert(1);
+  transition: filter 0.3s ease, opacity 0.2s ease;
 }
 
-.logo .name {
-  font-family: 'Almarai', sans-serif;
-  font-variant: small-caps;
-  font-size: 1.1rem;
-  letter-spacing: 3px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-primary);
+[data-theme="light"] .logo__img {
+  filter: none;
+}
+
+.logo:hover .logo__img {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .logo__img {
+    height: 36px;
+  }
 }
 
 /* ============================================
@@ -210,7 +221,7 @@ section {
 
 .btn-primary {
   background: var(--gradient-accent);
-  color: #fff;
+  color: var(--text-on-accent);
   box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.3);
 }
 

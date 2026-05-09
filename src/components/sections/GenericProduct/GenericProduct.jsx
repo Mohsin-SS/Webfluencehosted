@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+﻿import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 import WordsPullUp from '../../ui/WordsPullUp';
@@ -106,7 +106,7 @@ const GenericProduct = ({ product, onContact, onCalculatorContact }) => {
               <br />
               <WordsPullUp
                 text="Nothing you don't."
-                style={{ color: 'rgba(222,219,200,0.38)' }}
+                style={{ color: 'rgba(var(--accent-rgb),0.38)' }}
                 delay={0.2}
               />
             </h2>

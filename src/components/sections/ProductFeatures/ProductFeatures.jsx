@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Globe, Brain, MessageSquare, LayoutDashboard, Check } from 'lucide-react';
@@ -92,7 +92,7 @@ const ProductFeatures = () => {
             <br />
             <WordsPullUp
               text="for B2B sales teams worldwide."
-              style={{ color: 'rgba(222,219,200,0.38)' }}
+              style={{ color: 'rgba(var(--accent-rgb),0.38)' }}
               delay={0.2}
             />
           </h2>

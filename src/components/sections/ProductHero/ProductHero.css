@@ -1,4 +1,4 @@
-.product-hero {
+﻿.product-hero {
   position: relative;
   min-height: 100vh;
   background: #000;
@@ -49,7 +49,7 @@
 .orb--amber {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(222, 219, 200, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.12) 0%, transparent 70%);
   top: 40%;
   right: -100px;
   animation-delay: -3s;
@@ -104,7 +104,7 @@
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.04em;
-  color: #E1E0CC;
+  color: var(--text-primary);
   margin-bottom: 32px;
   display: block;
 }
@@ -125,7 +125,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: clamp(0.95rem, 2vw, 1.15rem);
   font-weight: 300;
-  color: rgba(222, 219, 200, 0.65);
+  color: rgba(var(--accent-rgb), 0.65);
   max-width: 640px;
   margin: 0 auto 40px;
   line-height: 1.7;
@@ -157,13 +157,13 @@
 
 .product-hero__btn--primary {
   background: var(--primary-accent);
-  color: #000;
-  box-shadow: 0 4px 30px rgba(201, 168, 76, 0.35);
+  color: var(--text-on-accent);
+  box-shadow: 0 4px 30px rgba(var(--accent-rgb), 0.35);
 }
 
 .product-hero__btn--primary:hover {
   background: var(--primary-accent-hover);
-  box-shadow: 0 8px 40px rgba(201, 168, 76, 0.5);
+  box-shadow: 0 8px 40px rgba(var(--accent-rgb), 0.5);
   transform: translateY(-2px);
 }
 
@@ -184,13 +184,13 @@
 
 .product-hero__btn--ghost {
   background: transparent;
-  color: rgba(222, 219, 200, 0.7);
-  border: 1px solid rgba(222, 219, 200, 0.2);
+  color: rgba(var(--accent-rgb), 0.7);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
 }
 
 .product-hero__btn--ghost:hover {
   border-color: rgba(201, 168, 76, 0.5);
-  color: #E1E0CC;
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
 
@@ -208,8 +208,8 @@
   flex-direction: column;
   align-items: center;
   padding: 20px 32px;
-  background: rgba(222, 219, 200, 0.04);
-  border: 1px solid rgba(222, 219, 200, 0.08);
+  background: rgba(var(--accent-rgb), 0.04);
+  border: 1px solid rgba(var(--accent-rgb), 0.08);
   border-radius: 16px;
   min-width: 120px;
   backdrop-filter: blur(8px);
@@ -234,7 +234,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.7rem;
   font-weight: 400;
-  color: rgba(222, 219, 200, 0.45);
+  color: rgba(var(--accent-rgb), 0.45);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 6px;
@@ -249,7 +249,7 @@
   z-index: 3;
   width: 24px;
   height: 40px;
-  border: 1.5px solid rgba(222, 219, 200, 0.25);
+  border: 1.5px solid rgba(var(--accent-rgb), 0.25);
   border-radius: 12px;
   display: flex;
   align-items: flex-start;

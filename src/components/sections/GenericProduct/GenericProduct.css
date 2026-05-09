@@ -1,4 +1,4 @@
-/* ── Hero ── */
+﻿/* ── Hero ── */
 .gp-hero {
   position: relative;
   min-height: calc(100vh - 64px);
@@ -80,19 +80,19 @@
 }
 
 .gp-hero__line {
-  color: #E1E0CC;
+  color: var(--text-primary);
   display: inline-block;
 }
 
 .gp-hero__line--dim {
-  color: rgba(222, 219, 200, 0.35);
+  color: rgba(var(--accent-rgb), 0.35);
 }
 
 .gp-hero__sub {
   font-family: 'Almarai', sans-serif;
   font-size: clamp(0.95rem, 2vw, 1.12rem);
   font-weight: 300;
-  color: rgba(222, 219, 200, 0.58);
+  color: rgba(var(--accent-rgb), 0.58);
   line-height: 1.78;
   max-width: 580px;
   margin-bottom: 40px;
@@ -110,7 +110,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 14px 24px;
-  border-right: 1px solid rgba(222, 219, 200, 0.1);
+  border-right: 1px solid rgba(var(--accent-rgb), 0.1);
 }
 
 .gp-hero__stat:first-child { padding-left: 0; }
@@ -128,7 +128,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.7rem;
   font-weight: 400;
-  color: rgba(222, 219, 200, 0.38);
+  color: rgba(var(--accent-rgb), 0.38);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -157,25 +157,25 @@
 
 .gp-btn--primary {
   background: var(--primary-accent);
-  color: #000;
-  box-shadow: 0 4px 28px rgba(201, 168, 76, 0.35);
+  color: var(--text-on-accent);
+  box-shadow: 0 4px 28px rgba(var(--accent-rgb), 0.35);
 }
 
 .gp-btn--primary:hover {
-  background: var(--primary-accent-hover, #E3C161);
-  box-shadow: 0 8px 40px rgba(201, 168, 76, 0.5);
+  background: var(--primary-accent-hover);
+  box-shadow: 0 8px 40px rgba(var(--accent-rgb), 0.5);
   transform: translateY(-2px);
 }
 
 .gp-btn--ghost {
   background: transparent;
-  border: 1px solid rgba(222, 219, 200, 0.2);
-  color: rgba(222, 219, 200, 0.7);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  color: rgba(var(--accent-rgb), 0.7);
 }
 
 .gp-btn--ghost:hover {
   border-color: rgba(201, 168, 76, 0.4);
-  color: #E1E0CC;
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
 
@@ -222,7 +222,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 800;
-  color: var(--text-primary, #E1E0CC);
+  color: var(--text-primary);
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0;
@@ -236,7 +236,7 @@
 
 .gp-feat-card {
   background: var(--bg-card, rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(222, 219, 200, 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.08);
   border-radius: 20px;
   padding: 32px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -265,7 +265,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 1.08rem;
   font-weight: 700;
-  color: var(--text-primary, #E1E0CC);
+  color: var(--text-primary);
   margin: 0 0 10px;
   letter-spacing: -0.02em;
 }
@@ -274,7 +274,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.87rem;
   font-weight: 300;
-  color: rgba(222, 219, 200, 0.52);
+  color: rgba(var(--accent-rgb), 0.52);
   line-height: 1.68;
   margin-bottom: 20px;
 }
@@ -294,7 +294,7 @@
   gap: 8px;
   font-family: 'Almarai', sans-serif;
   font-size: 0.82rem;
-  color: rgba(222, 219, 200, 0.62);
+  color: rgba(var(--accent-rgb), 0.62);
 }
 
 .gp-feat-card__check {
@@ -326,7 +326,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   font-weight: 800;
-  color: var(--text-primary, #E1E0CC);
+  color: var(--text-primary);
   letter-spacing: -0.03em;
   margin: 0;
 }
@@ -362,7 +362,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-primary, #E1E0CC);
+  color: var(--text-primary);
   margin: 0 0 8px;
 }
 
@@ -370,7 +370,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.83rem;
   font-weight: 300;
-  color: rgba(222, 219, 200, 0.48);
+  color: rgba(var(--accent-rgb), 0.48);
   line-height: 1.65;
   margin: 0;
 }
@@ -421,7 +421,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 800;
-  color: #E1E0CC;
+  color: var(--text-primary);
   letter-spacing: -0.03em;
   margin-bottom: 12px;
 }
@@ -430,7 +430,7 @@
   font-family: 'Almarai', sans-serif;
   font-size: 0.95rem;
   font-weight: 300;
-  color: rgba(222, 219, 200, 0.45);
+  color: rgba(var(--accent-rgb), 0.45);
   margin-bottom: 32px;
 }
 
@@ -468,7 +468,7 @@
   .gp-hero__stat {
     flex: 1 1 50%;
     border-right: none;
-    border-bottom: 1px solid rgba(222, 219, 200, 0.1);
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
     padding: 12px 16px;
   }
   .gp-hero__stat:nth-child(3),

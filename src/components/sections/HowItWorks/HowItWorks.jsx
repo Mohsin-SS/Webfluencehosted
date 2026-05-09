@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Search, Brain, PenLine, Database, LayoutDashboard, ArrowRight } from 'lucide-react';
@@ -24,7 +24,7 @@ const steps = [
     number: '03',
     title: 'Draft',
     desc: 'Hot and warm leads get a personalised Hinglish WhatsApp message drafted automatically — sounding human, not robotic.',
-    color: '#DEDBC8',
+    color: 'var(--text-primary)',
   },
   {
     icon: Database,

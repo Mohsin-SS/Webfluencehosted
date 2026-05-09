@@ -1,14 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /**
- * Shared WF. logo component used in Navbar and Footer.
+ * Shared Webfluence logo. Uses /public/WFLogo.png.
+ * Inverted in dark mode via CSS so the same PNG works on both themes.
  */
 const Logo = ({ onClick }) => {
     return (
-        <a href="#" className="logo" onClick={onClick}>
-            <span className="wf">WF.</span>
-            <span className="name">Webfluence</span>
-        </a>
+        <Link to="/" className="logo" onClick={onClick} aria-label="Webfluence — Home">
+            <img
+                src="/WFLogo.png"
+                alt="Webfluence"
+                className="logo__img"
+                width="44"
+                height="44"
+            />
+        </Link>
     );
 };
 

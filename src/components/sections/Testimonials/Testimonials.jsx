@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { testimonials } from '../../../data/testimonials';
@@ -24,7 +24,7 @@ const Testimonials = () => (
           <br />
           <WordsPullUp
             text="Don't just take our word for it."
-            style={{ color: 'rgba(222,219,200,0.38)' }}
+            style={{ color: 'rgba(var(--accent-rgb),0.38)' }}
             delay={0.2}
           />
         </h2>

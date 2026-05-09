@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Zap, Rocket, Headphones } from 'lucide-react';
 import WordsPullUp from '../../ui/WordsPullUp';
@@ -49,7 +49,7 @@ const Features = () => (
           <br />
           <WordsPullUp
             text="Your dedicated tech partner."
-            style={{ color: 'rgba(222,219,200,0.38)' }}
+            style={{ color: 'rgba(var(--accent-rgb),0.38)' }}
             delay={0.2}
           />
         </h2>
