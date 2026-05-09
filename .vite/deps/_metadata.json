@@ -1,49 +1,49 @@
 {
-  "hash": "d246e7dd",
-  "configHash": "47e4fd63",
+  "hash": "5a8e19ef",
+  "configHash": "e8b9f824",
   "lockfileHash": "2aeffdc4",
-  "browserHash": "970edd13",
+  "browserHash": "3f1c5db6",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "3c2b51d6",
+      "fileHash": "66fbaf77",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "cffa43d5",
+      "fileHash": "71658787",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.mjs",
       "file": "react-router-dom.js",
-      "fileHash": "9c50cfc8",
-      "needsInterop": false
-    },
-    "@phosphor-icons/react": {
-      "src": "../../node_modules/@phosphor-icons/react/dist/index.es.js",
-      "file": "@phosphor-icons_react.js",
-      "fileHash": "561a20df",
+      "fileHash": "16ff5387",
       "needsInterop": false
     },
     "framer-motion": {
       "src": "../../node_modules/framer-motion/dist/es/index.mjs",
       "file": "framer-motion.js",
-      "fileHash": "1a792d56",
+      "fileHash": "0d4bf9a9",
       "needsInterop": false
     },
     "lucide-react": {
       "src": "../../node_modules/lucide-react/dist/esm/lucide-react.mjs",
       "file": "lucide-react.js",
-      "fileHash": "7a13bca8",
+      "fileHash": "675406a3",
+      "needsInterop": false
+    },
+    "@phosphor-icons/react": {
+      "src": "../../node_modules/@phosphor-icons/react/dist/index.es.js",
+      "file": "@phosphor-icons_react.js",
+      "fileHash": "6a8de3c1",
       "needsInterop": false
     },
     "three": {
       "src": "../../node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "90c33371",
+      "fileHash": "229eb0ea",
       "needsInterop": false
     }
   },
