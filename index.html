@@ -10,10 +10,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,600&family=Almarai:wght@300;400;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-BpvIi8_O.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BqW1jwbC.css">
+    <script type="module" crossorigin src="/assets/index-BYZ6IO_W.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-vendor-CC7Evu_i.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-CDqs_fQS.js">
+    <link rel="modulepreload" crossorigin href="/assets/three-D0mPFddH.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CB1uuRFG.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+    <!-- GitHub Pages SPA: restore path from 404 redirect -->
+    <script>
+      (function() {
+        var q = window.location.search;
+        if (q && q.indexOf('p=') > -1) {
+          var r = q.slice(1).split('&').reduce(function(o, s) {
+            var kv = s.split('=');
+            o[kv[0]] = decodeURIComponent(kv[1] || '');
+            return o;
+          }, {});
+          if (r.p) {
+            window.history.replaceState(
+              null, null,
+              '/' + r.p + (r.h ? '#' + r.h : '')
+            );
+          }
+        }
+      })();
+    </script>
   </body>
 </html>
