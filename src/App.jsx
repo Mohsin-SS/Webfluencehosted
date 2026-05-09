@@ -13,6 +13,7 @@ import CTA from './components/sections/CTA/CTA';
 import Footer from './components/layout/Footer/Footer';
 import ProductTeaser from './components/sections/ProductTeaser/ProductTeaser';
 import ProductPage from './pages/ProductPage';
+import ClientsPage from './pages/ClientsPage';
 
 // Main homepage layout
 const HomePage = () => (
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product" element={<ProductPage />} />
+        <Route path="/clients" element={<ClientsPage />} />
       </Routes>
     </>
   );

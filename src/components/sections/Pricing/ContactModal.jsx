@@ -12,11 +12,13 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-const ContactModal = ({ isOpen, onClose, plan, emailSubject }) => {
-  const whatsappText = encodeURIComponent(
-    `Hi! I'm interested in the ${plan} Plan of the Agentic Lead Manager. Could you tell me more about getting started?`
-  );
-  const mailtoHref = `mailto:webfluence.ai@gmail.com?subject=${encodeURIComponent(emailSubject)}`;
+const ContactModal = ({ isOpen, onClose, plan, emailSubject, prefilledMessage }) => {
+  const defaultMessage = `Hi! I'm interested in the ${plan} Plan of the Agentic Lead Manager. Could you tell me more about getting started?`;
+  const messageBody = prefilledMessage || defaultMessage;
+  const whatsappText = encodeURIComponent(messageBody);
+  const mailtoHref = `mailto:webfluence.ai@gmail.com?subject=${encodeURIComponent(
+    emailSubject
+  )}&body=${encodeURIComponent(messageBody)}`;
   const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappText}`;
 
   return (

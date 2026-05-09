@@ -6,7 +6,7 @@ import ContactModal from '../components/sections/Pricing/ContactModal';
 import ProductHero from '../components/sections/ProductHero/ProductHero';
 import ProductFeatures from '../components/sections/ProductFeatures/ProductFeatures';
 import HowItWorks from '../components/sections/HowItWorks/HowItWorks';
-import Pricing from '../components/sections/Pricing/Pricing';
+import PriceCalculator from '../components/sections/PriceCalculator/PriceCalculator';
 import GenericProduct from '../components/sections/GenericProduct/GenericProduct';
 import ScrollRevealText from '../components/ui/AnimatedLetter';
 import './ProductPage.css';
@@ -309,11 +309,16 @@ const GENERIC_PRODUCTS = [
 const ProductPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalData, setModalData] = useState({ plan: '', emailSubject: '' });
+  const [modalData, setModalData] = useState({ plan: '', emailSubject: '', prefilledMessage: '' });
 
-  const openModal = (plan, emailSubject) => {
-    setModalData({ plan, emailSubject });
+  const openModal = (plan, emailSubject, prefilledMessage = '') => {
+    setModalData({ plan, emailSubject, prefilledMessage });
     setModalOpen(true);
+  };
+
+  // PriceCalculator passes a structured payload — adapt it to openModal's signature.
+  const openModalFromCalculator = ({ plan, emailSubject, prefilledMessage }) => {
+    openModal(plan, emailSubject, prefilledMessage);
   };
 
   useEffect(() => {
@@ -382,7 +387,11 @@ const ProductPage = () => {
 
             <ProductFeatures />
             <HowItWorks />
-            <Pricing />
+            <PriceCalculator
+              productId="lead-manager"
+              productName="Agentic Lead Manager"
+              onContact={openModalFromCalculator}
+            />
 
             <section className="product-final-cta">
               <div className="container">
@@ -426,6 +435,7 @@ const ProductPage = () => {
             <GenericProduct
               product={currentProduct}
               onContact={() => openModal(currentProduct.headline, currentProduct.emailSubject)}
+              onCalculatorContact={openModalFromCalculator}
             />
           </motion.div>
         )}
@@ -449,6 +459,7 @@ const ProductPage = () => {
         onClose={() => setModalOpen(false)}
         plan={modalData.plan}
         emailSubject={modalData.emailSubject}
+        prefilledMessage={modalData.prefilledMessage}
       />
     </div>
   );

@@ -2,9 +2,12 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Check, ArrowRight } from 'lucide-react';
 import WordsPullUp from '../../ui/WordsPullUp';
+import PriceCalculator from '../PriceCalculator/PriceCalculator';
+import { pricing } from '../../../data/pricing';
 import './GenericProduct.css';
 
-const GenericProduct = ({ product, onContact }) => {
+const GenericProduct = ({ product, onContact, onCalculatorContact }) => {
+  const hasPricing = !!pricing[product.id];
   const featRef = useRef(null);
   const hiwRef  = useRef(null);
   const featInView = useInView(featRef, { once: true, margin: '-80px' });
@@ -189,6 +192,15 @@ const GenericProduct = ({ product, onContact }) => {
           </div>
         </div>
       </section>
+
+      {/* ── Price Calculator ── */}
+      {hasPricing && (
+        <PriceCalculator
+          productId={product.id}
+          productName={product.headline}
+          onContact={onCalculatorContact}
+        />
+      )}
 
       {/* ── Final CTA ── */}
       <section className="gp-cta">

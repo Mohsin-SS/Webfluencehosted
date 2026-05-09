@@ -26,7 +26,13 @@ const Footer = () => (
           <h4>Company</h4>
           <ul>
             {footerCompanyLinks.map(({ label, href }) => (
-              <li key={label}><a href={href}>{label}</a></li>
+              <li key={label}>
+                {href.startsWith('/') ? (
+                  <Link to={href}>{label}</Link>
+                ) : (
+                  <a href={href}>{label}</a>
+                )}
+              </li>
             ))}
           </ul>
         </div>
