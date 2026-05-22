@@ -1,46 +1,64 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
-import Navbar from './components/layout/Navbar/Navbar';
-import Hero from './components/sections/Hero/Hero';
-import Stats from './components/sections/Stats/Stats';
-import Services from './components/sections/Services/Services';
-import Features from './components/sections/Features/Features';
-import ProductShowcase from './components/sections/ProductShowcase/ProductShowcase';
-import Process from './components/sections/Process/Process';
-import Testimonials from './components/sections/Testimonials/Testimonials';
-import CTA from './components/sections/CTA/CTA';
-import Footer from './components/layout/Footer/Footer';
-import ProductTeaser from './components/sections/ProductTeaser/ProductTeaser';
-import ProductPage from './pages/ProductPage';
-import ClientsPage from './pages/ClientsPage';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import useTweaks from './hooks/useTweaks';
 
-// Main homepage layout
-const HomePage = () => (
-  <>
-    <Navbar />
-    <Hero />
-    <Stats />
-    <Services />
-    <ProductShowcase />
-    <Features />
-    <Process />
-    <Testimonials />
-    <ProductTeaser />
-    <CTA />
-    <Footer />
-  </>
-);
+// Components
+import Nav from './components/Nav';
+import CTABanner from './components/CTABanner';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import TweaksPanel from './components/TweaksPanel';
+
+// Pages
+import Home from './pages/Home';
+import ServicePage from './pages/ServicePage';
 
 function App() {
+  const [tweaks, setTweak] = useTweaks();
+  const [currency, setCurrency] = useState("PKR");
+  const { pathname } = useLocation();
+
+  // Scroll to top on route change
+  useEffect(() => {
+    if (pathname !== "/") {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
+  // Reveal-on-scroll logic
+  useEffect(() => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.05 });
+    
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  });
+
   return (
     <>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/clients" element={<ClientsPage />} />
-      </Routes>
+      <Nav />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home currency={currency} setCurrency={setCurrency} />} />
+          <Route path="/services/:slug" element={<ServicePage currency={currency} />} />
+        </Routes>
+        <CTABanner />
+        <Contact />
+      </main>
+      <Footer />
+
+      <TweaksPanel 
+        tweaks={tweaks} 
+        setTweak={setTweak}
+        currency={currency}
+        setCurrency={setCurrency}
+      />
     </>
   );
 }
