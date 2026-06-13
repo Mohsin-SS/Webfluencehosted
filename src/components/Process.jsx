@@ -36,17 +36,9 @@ export default function Process() {
           </p>
         </div>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          gap: 0,
-          borderTop: "1px solid color-mix(in srgb, var(--bg) 18%, transparent)",
-        }}>
+        <div className="process-grid">
           {steps.map((s, i) => (
-            <div key={i} style={{
-              padding: "32px 28px 28px 0",
-              paddingLeft: i === 0 ? 0 : 28,
-              borderRight: i < 3 ? "1px solid color-mix(in srgb, var(--bg) 18%, transparent)" : "none",
+            <div key={i} className="process-grid-item" style={{
               display: "flex", flexDirection: "column", gap: 16,
               position: "relative",
             }}>

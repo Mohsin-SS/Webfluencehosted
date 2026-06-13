@@ -5,6 +5,14 @@ export default function Hero() {
   return (
     <section id="home" data-screen-label="Home" className="section grid-bg"
       style={{ paddingTop: 80, paddingBottom: 80, position: "relative", overflow: "hidden" }}>
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 0,
+        backgroundImage: 'url(/home_bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: 0.4,
+        pointerEvents: "none"
+      }} />
       <div className="hero-glow-1" />
       <div className="hero-glow-2" />
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
@@ -28,23 +36,14 @@ export default function Hero() {
         </div>
 
         {/* Bottom stat row */}
-        <div style={{
-          marginTop: 96,
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: 0,
-          borderTop: "1px solid var(--line)",
-          borderBottom: "1px solid var(--line)",
-        }}>
+        <div className="stats-grid">
           {[
             { k: "08 yr", l: "Average engineer tenure" },
             { k: "147", l: "Products shipped to date" },
             { k: "31 d", l: "Median time-to-first-deploy" },
             { k: "97%", l: "Client retention, 24-mo trailing" },
           ].map((s, i) => (
-            <div key={i} style={{
-              padding: "28px 24px",
-              borderRight: i < 3 ? "1px solid var(--line)" : "none",
+            <div key={i} className="stats-grid-item" style={{
               display: "flex", flexDirection: "column", gap: 6,
             }}>
               <div style={{

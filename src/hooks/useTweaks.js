@@ -29,9 +29,13 @@ export default function useTweaks(initialDefaults = TWEAK_DEFAULTS) {
   const [tweaks, setTweaks] = useState(() => {
     try {
       const saved = localStorage.getItem('wf-tweaks');
-      if (saved) return { ...initialDefaults, ...JSON.parse(saved) };
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Force the theme to be 'light' for now to prevent dark mode takeover
+        return { ...initialDefaults, ...parsed, theme: "light" };
+      }
     } catch {}
-    return initialDefaults;
+    return { ...initialDefaults, theme: "light" };
   });
 
   const setTweak = (key, value) => {

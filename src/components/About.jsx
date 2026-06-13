@@ -4,8 +4,7 @@ export default function About() {
   return (
     <section id="about" data-screen-label="About" className="section">
       <div className="container">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: 80, alignItems: "start" }}>
+        <div className="grid-2col" style={{ alignItems: "start" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, position: "sticky", top: 100 }}>
             <span className="eyebrow">01 — About</span>
             <h2 className="display-md" style={{ margin: 0 }}>
@@ -31,9 +30,7 @@ export default function About() {
             </p>
 
             {/* Principles grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                  gap: 0, marginTop: 16,
-                  borderTop: "1px solid var(--line)" }}>
+            <div className="principles-grid">
               {[
                 { n: "01", t: "Senior-only delivery",
                   d: "No bench, no juniors learning on your invoice. Every line ships from a five-year-plus engineer." },
@@ -44,12 +41,7 @@ export default function About() {
                 { n: "04", t: "Built to be inherited",
                   d: "Test coverage, runbooks, ADRs. Your future hire can be productive in a week." },
               ].map((p, i) => (
-                <div key={p.n} style={{
-                  padding: "28px 28px 28px 0",
-                  borderBottom: "1px solid var(--line)",
-                  borderRight: i % 2 === 0 ? "1px solid var(--line)" : "none",
-                  paddingLeft: i % 2 === 1 ? 28 : 0,
-                }}>
+                <div key={p.n} className="principles-grid-item">
                   <div className="mono" style={{ fontSize: 12, color: "var(--ink-mute)",
                         letterSpacing: "0.06em", marginBottom: 10 }}>{p.n}</div>
                   <div style={{ fontSize: 18, fontWeight: 500,

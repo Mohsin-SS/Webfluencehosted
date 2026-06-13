@@ -2,11 +2,12 @@ import React from 'react';
 
 export default function LogoStrip() {
   const logos = [
-    "Northwind", "Lumen Health", "Karachi Power", "Brightside",
-    "Meridian", "Foundry 23", "Helix AI", "Saga Studios",
-    "Polaris Labs", "Coastline",
+    "/clients-assets/linkers.png",
+    "/clients-assets/links.png",
+    "/clients-assets/times.jpeg",
   ];
-  const list = [...logos, ...logos];
+  // Repeat enough times to make the marquee seamless
+  const list = [...logos, ...logos, ...logos, ...logos, ...logos];
   
   return (
     <section className="section-tight" style={{ paddingTop: 40, paddingBottom: 40,
@@ -16,18 +17,24 @@ export default function LogoStrip() {
         <div className="eyebrow">Trusted by teams from seed to Series C</div>
         <div className="fade-x" style={{ width: "100%", overflow: "hidden" }}>
           <div style={{
-            display: "flex", gap: 56, width: "max-content",
+            display: "flex", gap: 72, width: "max-content", alignItems: "center",
             animation: "marquee 38s linear infinite",
           }}>
-            {list.map((n, i) => (
-              <div key={i} style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 28, fontStyle: "italic",
-                color: "var(--ink-mute)",
-                letterSpacing: "-0.01em",
-                whiteSpace: "nowrap",
-                opacity: 0.85,
-              }}>{n}</div>
+            {list.map((src, i) => (
+              <img key={i} src={src} alt="Client logo" style={{
+                height: 48,
+                maxWidth: 180,
+                objectFit: "contain",
+                filter: "grayscale(100%)",
+                opacity: 0.65,
+                transition: "opacity 0.2s, filter 0.2s",
+              }} onMouseEnter={e => {
+                e.currentTarget.style.opacity = 1;
+                e.currentTarget.style.filter = "grayscale(0%)";
+              }} onMouseLeave={e => {
+                e.currentTarget.style.opacity = 0.65;
+                e.currentTarget.style.filter = "grayscale(100%)";
+              }} />
             ))}
           </div>
         </div>

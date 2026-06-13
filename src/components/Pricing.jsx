@@ -91,11 +91,7 @@ export default function Pricing({ currency, setCurrency }) {
         </div>
 
         {/* Cards */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: 24,
-        }}>
+        <div className="pricing-grid">
           {svc.packages.map((pkg, i) => {
             const price = fmt(pkg.usd, pkg.pkr);
             const isPop = pkg.popular;

@@ -67,7 +67,7 @@ export default function ServicePage({ currency }) {
       {/* Details Container */}
       <section className="section">
         <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 80 }}>
+          <div className="grid-2col">
             
             {/* Left: Overview & Methodology */}
             <div style={{ display: "flex", flexDirection: "column", gap: 64 }}>
@@ -121,7 +121,7 @@ export default function ServicePage({ currency }) {
               <h2 className="display-md" style={{ margin: 0 }}>Pricing Packages</h2>
             </div>
             
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 24 }}>
+            <div className="pricing-grid">
               {pricing.packages.map((pkg, i) => {
                 const price = fmt(pkg.usd, pkg.pkr);
                 const isPop = pkg.popular;
@@ -167,7 +167,7 @@ export default function ServicePage({ currency }) {
               <span className="eyebrow">Related Work</span>
               <h2 className="display-md" style={{ margin: 0 }}>Recent {service.t} Case Studies</h2>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 24 }}>
+            <div className="pricing-grid">
               {relatedCases.map((study) => (
                 <article key={study.slug} style={{ background: "var(--bg-elev)", border: "1px solid var(--line)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
                   <div style={{ height: 4, background: study.accent, width: "100%" }} />
