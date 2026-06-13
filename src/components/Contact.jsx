@@ -40,7 +40,7 @@ export default function Contact() {
             <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 24 }}>
               <div>
                 <div className="mono" style={{ fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.06em", marginBottom: 4 }}>EMAIL</div>
-                <a href="mailto:hello@webfluence.dev" style={{ fontSize: 18, fontWeight: 500, textDecoration: "underline" }}>hello@webfluence.dev</a>
+                <a href="mailto:momin@webfluence.tech" style={{ fontSize: 18, fontWeight: 500, textDecoration: "underline" }}>momin@webfluence.tech</a>
               </div>
               <div>
                 <div className="mono" style={{ fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.06em", marginBottom: 4 }}>PHONE</div>
@@ -48,7 +48,7 @@ export default function Contact() {
               </div>
               <div>
                 <div className="mono" style={{ fontSize: 11, color: "var(--ink-mute)", letterSpacing: "0.06em", marginBottom: 4 }}>LOCATION</div>
-                <div style={{ fontSize: 18, fontWeight: 500 }}>Karachi, Pakistan</div>
+                <div style={{ fontSize: 18, fontWeight: 500 }}>Lahore CCA 2, DHA Phase 6</div>
                 <div className="body-sm" style={{ marginTop: 4 }}>We overlap with GMT+5 (UK/EU) and flex for US-East.</div>
               </div>
             </div>

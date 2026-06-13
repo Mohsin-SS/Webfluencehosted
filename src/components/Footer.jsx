@@ -10,7 +10,7 @@ export default function Footer() {
           
           <div style={{ display: "flex", flexDirection: "column", gap: 16, gridColumn: "1 / -1", maxWidth: 300, marginBottom: 20 }}>
             <Logo size={24} />
-            <p className="body-sm" style={{ margin: 0 }}>Senior engineering studio, Karachi.</p>
+            <p className="body-sm" style={{ margin: 0 }}>Senior engineering studio, Lahore.</p>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>

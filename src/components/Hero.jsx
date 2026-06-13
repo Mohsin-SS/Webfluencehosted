@@ -24,7 +24,7 @@ export default function Hero() {
           </h1>
 
           <p className="body-lg" style={{ marginTop: 4 }}>
-            Webfluence is a senior engineering studio in Karachi building web platforms,
+            Webfluence is a senior engineering studio in Lahore building web platforms,
             mobile apps, and AI-native products for founders and operators worldwide.
             Fixed-scope sprints, no agency overhead, code you own outright.
           </p>
