@@ -1,9 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python \"C:\\\\Users\\\\Abdul Hadi\\\\.claude\\\\skills\\\\ui-ux-pro-max\\\\scripts\\\\search.py\" \"AI tech agency SaaS dark modern glassmorphism\" --design-system -p \"Webfluence\" -f markdown)",
-      "PowerShell(py --version 2>&1)",
-      "PowerShell(python3 --version 2>&1)"
+      "PowerShell(Write-Output \"=== Downloads \\(v0 template\\) ===\"; Get-ChildItem \"C:\\\\Users\\\\Webfluence\\\\Downloads\" -Force | Where-Object { $_.LastWriteTime -gt \\(Get-Date\\).AddDays\\(-7\\) -or $_.Name -in @\\('app','components','lib','hooks','public','styles'\\) } | Select-Object Name, Mode, LastWriteTime | Format-Table -AutoSize; Write-Output \"=== Working dir ===\"; Get-ChildItem \"C:\\\\Users\\\\Webfluence\\\\Documents\\\\Webfluence website\" -Force | Select-Object Name, Mode | Format-Table -AutoSize)",
+      "WebFetch(domain:webfluence.tech)",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__javascript_tool",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(mv \"gari baich logo.png\" \"gari-baich.png\")",
+      "Bash(mv \"641163224_17855941755667091_1077793540803379707_n.jpg.jpeg\" \"pitstop63.jpeg\")",
+      "mcp__9f6eaa14-791e-485c-a235-361f604b9576__generate_image"
     ]
   }
 }
