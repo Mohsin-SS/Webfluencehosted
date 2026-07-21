@@ -4,9 +4,9 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 /**
- * Webfluence logo. Uses the brand mark at /public/icon-dark-32x32.png.
+ * Webfluence logo. Uses the brand mark at /public/logos/WFLogo.png.
  * The badge sits on a white tile so the black logo reads on the dark theme.
- * Until the file exists, it falls back to just the wordmark.
+ * If the file fails to load, it falls back to just the wordmark.
  */
 export function Logo({
   className,
@@ -25,9 +25,9 @@ export function Logo({
         <span className="grid h-10 w-10 flex-none place-items-center overflow-hidden rounded-full bg-white">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/icon-dark-32x32.png"
+            src="/logos/WFLogo.png"
             alt="Webfluence"
-            className="h-full w-full object-contain p-1"
+            className="h-full w-full object-contain p-0.5"
             onError={() => setOk(false)}
           />
         </span>
