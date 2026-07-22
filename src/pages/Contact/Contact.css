@@ -1,0 +1,128 @@
+.contact {
+  padding-top: clamp(128px, 18vh, 190px);
+  padding-bottom: clamp(80px, 10vw, 128px);
+}
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 88px);
+  align-items: start;
+}
+
+/* Left */
+.contact__title { font-size: clamp(44px, 6vw, 72px); line-height: 1.02; }
+.contact__lead {
+  margin-top: 24px;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 42ch;
+}
+.contact__block { margin-top: 40px; display: flex; flex-direction: column; gap: 8px; }
+.contact__block-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+.contact__email {
+  font-family: var(--font-display);
+  font-weight: 440;
+  font-variation-settings: "SOFT" 60, "opsz" 30;
+  letter-spacing: -0.01em;
+  font-size: 24px;
+  color: var(--ink);
+  position: relative;
+  width: fit-content;
+}
+.contact__email::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; width: 100%; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+.contact__email:hover::after { transform: scaleX(1); }
+.contact__office { font-size: 12px; letter-spacing: 0.03em; color: var(--ink-soft); }
+
+.contact__steps { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--line); }
+.contact__steps ol { margin-top: 20px; display: flex; flex-direction: column; gap: 22px; }
+.contact__step { display: grid; grid-template-columns: 32px 1fr; gap: 16px; }
+.contact__step-num { font-size: 12px; color: var(--accent); padding-top: 2px; }
+.contact__step-title { font-size: 16px; font-weight: 600; color: var(--ink); }
+.contact__step-desc { font-size: 15px; color: var(--ink-soft); margin-top: 2px; }
+
+/* Form */
+.contact__formwrap {
+  position: sticky;
+  top: 96px;
+}
+.contact__form {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  padding: clamp(28px, 3.5vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field__label { font-size: 13px; font-weight: 500; color: var(--ink); }
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-btn);
+  padding: 12px 14px;
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.field textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+.field select { appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B887F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+}
+.field select.is-placeholder { color: var(--ink-faint); }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(30,92,70,0.12);
+}
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea { border-color: #B0432E; }
+.field__error { font-size: 12.5px; color: #B0432E; }
+
+.contact__submit { justify-content: center; padding: 14px; font-size: 16px; margin-top: 4px; }
+.contact__submit:disabled { opacity: 0.7; cursor: default; }
+.contact__disclaimer { font-size: 12.5px; color: var(--ink-faint); text-align: center; }
+
+/* Success */
+.contact__success {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--paper-raised);
+  padding: clamp(36px, 5vw, 56px);
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+}
+.contact__success-icon {
+  width: 48px; height: 48px;
+  border-radius: 999px;
+  background: var(--accent-tint);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+}
+.contact__success-title {
+  font-size: clamp(26px, 3.4vw, 36px);
+  line-height: 1.15;
+  max-width: 20ch;
+}
+.contact__success-ref { font-size: 12px; letter-spacing: 0.1em; color: var(--ink-faint); }
+
+@media (max-width: 880px) {
+  .contact__grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact__formwrap { position: static; }
+}

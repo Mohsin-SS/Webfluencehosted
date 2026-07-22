@@ -1,0 +1,18 @@
+.page-hero {
+  padding-top: clamp(128px, 20vh, 200px);
+  padding-bottom: clamp(48px, 7vw, 88px);
+}
+.page-hero__eyebrow { margin-bottom: 28px; }
+.page-hero__title {
+  font-size: clamp(44px, 7vw, 84px);
+  line-height: 1.05;
+  max-width: 16ch;
+}
+.page-hero__title em { font-style: italic; }
+.page-hero__lead {
+  margin-top: 28px;
+  font-size: 20px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}

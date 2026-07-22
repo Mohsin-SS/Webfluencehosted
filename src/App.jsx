@@ -1,48 +1,27 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import ScrollToTop from './components/ScrollToTop';
-import Navbar from './components/layout/Navbar/Navbar';
-import Hero from './components/sections/Hero/Hero';
-import Stats from './components/sections/Stats/Stats';
-import Services from './components/sections/Services/Services';
-import Features from './components/sections/Features/Features';
-import ProductShowcase from './components/sections/ProductShowcase/ProductShowcase';
-import Process from './components/sections/Process/Process';
-import Testimonials from './components/sections/Testimonials/Testimonials';
-import CTA from './components/sections/CTA/CTA';
-import Footer from './components/layout/Footer/Footer';
-import ProductTeaser from './components/sections/ProductTeaser/ProductTeaser';
-import ProductPage from './pages/ProductPage';
-import ClientsPage from './pages/ClientsPage';
+import { Routes, Route } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
+import Home from './pages/Home/Home'
+import Services from './pages/Services/Services'
+import Work from './pages/Work/Work'
+import About from './pages/About/About'
+import Careers from './pages/Careers/Careers'
+import Contact from './pages/Contact/Contact'
+import NotFound from './pages/NotFound/NotFound'
 
-// Main homepage layout
-const HomePage = () => (
-  <>
-    <Navbar />
-    <Hero />
-    <Stats />
-    <Services />
-    <ProductShowcase />
-    <Features />
-    <Process />
-    <Testimonials />
-    <ProductTeaser />
-    <CTA />
-    <Footer />
-  </>
-);
-
-function App() {
+export default function App() {
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/clients" element={<ClientsPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
-  );
+    </MotionConfig>
+  )
 }
-
-export default App;
