@@ -1,0 +1,4 @@
+email,first_name,company,industry,city,segment,source,notes,status,last_contacted,next_step
+ali@example.com,Ali,Times Consultant,Education Consultancy,Lahore,warm-existing,referral,"Uses our CRM listener; upsell WhatsApp automation",new,,
+sara@example.pk,Sara,Bright Homes,Real Estate,Karachi,cold-icp,linkedin,"Runs paid social manually; strong fit for AI video + WhatsApp campaigns",new,,
+hamza@example.com,Hamza,MedixCare,Healthcare,Islamabad,cold-icp,website-form,"Enquired about AI calling for appointment reminders",new,,

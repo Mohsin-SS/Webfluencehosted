@@ -1,0 +1,41 @@
+{
+  "_comment": "Copy to ~/.openclaw/openclaw.json on the VPS and fill in the placeholders. NEVER commit the real file — it holds secrets.",
+
+  "llm": {
+    "provider": "anthropic",
+    "apiKey": "FILL_ANTHROPIC_API_KEY",
+    "model": "claude-opus-4-8",
+    "_model_alt": "claude-sonnet-5 is cheaper; opus writes better copy"
+  },
+
+  "skills": {
+    "entries": {
+
+      "send-email": {
+        "enabled": true,
+        "env": {
+          "EMAIL_SMTP_SERVER": "FILL_SMTP_HOST (e.g. smtp.zoho.com / email-smtp.eu-central-1.amazonaws.com)",
+          "EMAIL_SMTP_PORT": "465",
+          "EMAIL_SENDER": "outreach@mail.webfluence.ai",
+          "EMAIL_SMTP_PASSWORD": "FILL_SMTP_APP_PASSWORD",
+          "EMAIL_FROM_NAME": "Webfluence"
+        }
+      },
+
+      "imap-smtp-email": {
+        "enabled": true,
+        "env": {
+          "IMAP_SERVER": "FILL_IMAP_HOST (e.g. imap.zoho.com)",
+          "IMAP_PORT": "993",
+          "IMAP_USER": "outreach@mail.webfluence.ai",
+          "IMAP_PASSWORD": "FILL_IMAP_APP_PASSWORD"
+        }
+      }
+
+    }
+  },
+
+  "workspace": {
+    "path": "~/.openclaw/workspace"
+  }
+}
