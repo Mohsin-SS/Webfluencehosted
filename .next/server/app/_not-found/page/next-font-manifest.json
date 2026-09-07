@@ -1,0 +1,12 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/Desktop/wf-nw/app/_not-found/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/6bd983bd58a87a3d-s.p.cf80dd39.woff2",
+      "static/media/8495c7a64396f454-s.p.ad066a9e.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}
