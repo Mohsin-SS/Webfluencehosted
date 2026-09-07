@@ -5,6 +5,7 @@ import {
   Database,
   MonitorSmartphone,
   Sparkles,
+  TrendingUp,
   type LucideIcon,
 } from "lucide-react"
 
@@ -159,6 +160,29 @@ export const services: Service[] = [
     outcomes: [
       { k: "100%", v: "Leads captured automatically, zero manual entry" },
       { k: "24/7", v: "Assistants that never clock off" },
+    ],
+  },
+  {
+    slug: "digital-marketing",
+    n: "07",
+    icon: TrendingUp,
+    title: "Digital Marketing",
+    tagline: "SEO & Performance Marketing",
+    description:
+      "Data-driven SEO, performance marketing, and digital growth strategies to scale your audience and maximize ROI.",
+    tags: ["SEO", "Performance", "PPC", "Growth"],
+    intro:
+      "Drive targeted traffic and increase conversions with our comprehensive digital marketing services. We combine technical SEO, content strategy, and performance marketing to scale your business predictably.",
+    deliverables: [
+      "Technical and content SEO audits and implementation",
+      "Performance marketing and PPC campaign management",
+      "Conversion rate optimization (CRO) and A/B testing",
+      "Data-driven growth strategy and analytics tracking",
+      "Social media marketing and community growth",
+    ],
+    outcomes: [
+      { k: "2.5×", v: "Increase in organic traffic" },
+      { k: "40%", v: "Lower customer acquisition cost" },
     ],
   },
 ]

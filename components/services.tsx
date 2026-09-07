@@ -25,7 +25,7 @@ export function Services() {
             transition={{ delay: 0.05 }}
             className="mt-5 text-4xl font-bold tracking-tight text-foreground md:text-5xl"
           >
-            Six disciplines, one team.
+            Seven disciplines, one team.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
