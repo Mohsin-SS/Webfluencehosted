@@ -1,0 +1,35 @@
+---
+import Button from '@ui/Button.astro';
+
+const title = 'Your Digital Growth Partner';
+const subTitle =
+  'Empower your business with bespoke software solutions and data-driven marketing. From ERP & CRM systems to high-converting websites and performance marketing, we deliver end-to-end digital excellence.';
+const secondaryCTA = {
+  text: 'Book a Consultation',
+  href: '/contact',
+};
+const primaryCTA = { text: 'Our Services', href: '/platform' };
+---
+
+{/* Hero Content */}
+<div class="mx-auto max-w-4xl text-center select-none">
+  <h1
+    class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+  >
+    {title}
+  </h1>
+</div>
+
+<div class="mx-auto max-w-3xl text-center">
+  <p class="text-lg text-pretty text-slate-700">
+    {subTitle}
+  </p>
+</div>
+
+{/* CTA Buttons */}
+<div class="flex flex-row justify-center gap-3 sm:gap-5">
+  <Button href={secondaryCTA.href} variant="secondary"
+    >{secondaryCTA.text}</Button
+  >
+  <Button href={primaryCTA.href} variant="primary">{primaryCTA.text}</Button>
+</div>

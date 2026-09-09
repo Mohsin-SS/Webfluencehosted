@@ -1,0 +1,129 @@
+---
+import { servicesMenu } from '@utils/megaMenu/services';
+import { productsMenu } from '@utils/megaMenu/products';
+
+const formStrings = {
+  name: 'Name',
+  email: 'Email',
+  inquiryType: 'Inquiry Type',
+  message: 'Message',
+  submit: 'Submit',
+};
+---
+
+<!-- TODO: Wire up form submission. Options:
+  1. Set action="/api/contact" method="POST" and create src/pages/api/contact.ts
+  2. Use a third-party form service (e.g. Formspree: action="https://formspree.io/f/YOUR_ID" method="POST")
+  3. Add a fetch-based JS submit handler for a fully custom solution.
+-->
+<form class="p-4" aria-labelledby="form-title">
+  {/* Fieldset and legend for grouping form elements */}
+  <fieldset class="space-y-4">
+    <legend id="form-title" class="sr-only">{formStrings.submit}</legend>
+
+    {/* Name input field */}
+    <div class="relative">
+      <input
+        type="text"
+        id="input-name"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-blue-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-blue-700/80 focus:outline-hidden"
+        placeholder={formStrings.name}
+        required
+        aria-required="true"
+        aria-labelledby="input-name-label"
+      />
+      <label
+        id="input-name-label"
+        for="input-name"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
+      >
+        {formStrings.name}
+      </label>
+    </div>
+
+    {/* Email input field */}
+    <div class="relative">
+      <input
+        type="email"
+        id="input-email"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-blue-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-blue-700/80 focus:outline-hidden"
+        placeholder={formStrings.email}
+        required
+        aria-required="true"
+        aria-labelledby="input-email-label"
+        aria-invalid="false"
+      />
+      <label
+        id="input-email-label"
+        for="input-email"
+        class="pointer-events-none absolute start-0 top-0 h-full w-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
+      >
+        {formStrings.email}
+      </label>
+    </div>
+
+    {/* Inquiry Type select field */}
+    <div class="relative">
+      <select
+        id="input-inquiry"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 focus:border-blue-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-blue-700/80 focus:outline-hidden appearance-none bg-white text-slate-600"
+        required
+        aria-required="true"
+        aria-labelledby="input-inquiry-label"
+      >
+        <option value="" disabled selected>Select an option</option>
+        <optgroup label="Services">
+          {servicesMenu.flatMap(section => section.items).map(item => (
+            <option value={`Service: ${item.title}`}>{item.title}</option>
+          ))}
+        </optgroup>
+        <optgroup label="Products">
+          {productsMenu.map(product => (
+            <option value={`Product: ${product.title}`}>{product.title}</option>
+          ))}
+        </optgroup>
+        <option value="other">Other</option>
+      </select>
+      <label
+        id="input-inquiry-label"
+        for="input-inquiry"
+        class="pointer-events-none absolute start-0 top-0 h-full w-full truncate border border-transparent p-4 text-xs text-slate-600 transition duration-100 ease-in-out -translate-y-1.5"
+      >
+        {formStrings.inquiryType}
+      </label>
+      {/* Custom arrow for select */}
+      <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center px-4 text-slate-600">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </div>
+    </div>
+
+    {/* Message textarea field */}
+    <div class="relative">
+      <textarea
+        id="input-message"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-blue-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-blue-700/80 focus:outline-hidden"
+        placeholder={formStrings.message}
+        required
+        aria-required="true"
+        aria-labelledby="input-message-label"></textarea>
+      <label
+        id="input-message-label"
+        for="input-message"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600"
+      >
+        {formStrings.message}
+      </label>
+    </div>
+  </fieldset>
+
+  {/* Submit button */}
+  <div class="mt-8">
+    <button
+      type="submit"
+      class="inline-flex items-center rounded-lg bg-blue-100 px-6 py-2 font-medium text-nowrap text-slate-700 transition-colors duration-300 hover:bg-blue-700/80 hover:text-white focus:bg-blue-700/80 focus:outline-hidden"
+      aria-label={formStrings.submit}
+    >
+      {formStrings.submit}
+    </button>
+  </div>
+</form>

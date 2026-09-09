@@ -1,0 +1,64 @@
+---
+export const prerender = true;
+import BaseLayout from '@layout/BaseLayout.astro';
+import Button from '@ui/Button.astro';
+import Icon from '@ui/icons/Icon.astro';
+import type { WithContext, Thing } from 'schema-dts';
+
+const seo = {
+  title: 'WhatsApp Chatbot Services - Webfluence',
+  description: 'Automate customer support and engagement with intelligent conversational agents.',
+};
+
+const schema: WithContext<Thing> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: seo.title,
+  url: Astro.url.href,
+  description: seo.description,
+};
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  {/* Hero Section */}
+  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
+    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
+      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
+        WhatsApp Chatbot
+      </h1>
+      <p class="mt-6 text-lg text-pretty text-slate-700">
+        Transform your customer engagement. Build intelligent conversational flows that provide 24/7 support directly on WhatsApp.
+      </p>
+      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
+        <Button href="/contact" variant="primary">Start Your Project</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* Services Section */}
+  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
+        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+          <Icon name="chatBubble" class="h-7 w-7 text-blue-700" />
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 mb-3">24/7 Automation</h3>
+        <p class="text-slate-600">Answer FAQs, process orders, and assist customers around the clock without human intervention.</p>
+      </div>
+      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
+        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+          <Icon name="brain" class="h-7 w-7 text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">AI Integration</h3>
+        <p class="text-white/90">Connect natural language processing to understand complex queries and provide human-like responses.</p>
+      </div>
+      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
+        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+          <Icon name="portfolio" class="h-7 w-7 text-blue-700" />
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 mb-3">CRM Sync</h3>
+        <p class="text-slate-600">Seamlessly integrate chats with your CRM to track conversations and build rich customer profiles.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import image_1 from '@images/toolbar.webp';
+import image_2 from '@images/graph.webp';
+import image_3 from '@images/dashboard.webp';
+
+// Content for the section title and subtitle
+const title = `<span class="text-blue-700">Webfluence</span>'s Core Software Services`;
+const subTitle = `Discover how Webfluence builds robust, scalable software solutions. From enterprise resource planning to engaging mobile experiences, we build technology that drives results.`;
+
+// Features list for displaying the key highlights
+
+const features = [
+  {
+    title: 'Enterprise Resource Planning (ERP)', // Feature title
+    description:
+      'Streamline your business operations with our custom ERP solutions tailored to your unique workflows.', // Feature description
+    image: image_1, // Associated image
+    class:
+      'content-center border-b border-dashed border-slate-400 py-5 sm:col-span-2 sm:p-5', // Custom CSS classes for layout and styling
+    alignment: 'mx-auto mt-10 rounded-xl shadow-lg sm:w-[75%]', // Alignment and styling for the image
+  },
+  {
+    title: 'Customer Relationship Management (CRM)',
+    description: `Manage your interactions, track leads, and boost sales with intuitive CRM systems built for growth.`,
+    image: image_2,
+    class: 'content-center py-5 sm:row-start-2 sm:p-5 sm:py-10',
+    alignment:
+      'ml-auto mr-auto mt-10 w-[65%] rounded-xl shadow-lg sm:ml-0 sm:w-[45%]',
+  },
+  {
+    title: 'Mobile App Development',
+    description:
+      'Engage your audience on the go. We build high-performance iOS and Android applications that deliver exceptional user experiences.',
+    image: image_3,
+    class:
+      'content-center border-t border-dashed border-slate-400 py-5 sm:row-span-2 sm:row-start-2 sm:border-l sm:border-t-0 sm:p-5 sm:text-right',
+    alignment: 'ml-auto mr-auto mt-10 w-[80%] rounded-xl shadow-lg sm:mr-0',
+  },
+  {
+    title: 'Web Development & More...',
+    class: 'content-center border-t border-dashed border-slate-400 py-5 sm:p-5',
+    moreFeatures: [
+      'Responsive, SEO-optimized websites built with modern frameworks',
+      'Scalable backend architectures and cloud integrations',
+      'Custom web applications designed for complex business logic',
+      'Continuous maintenance, updates, and performance tuning',
+    ],
+  },
+];
+---
+
+<div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20">
+  {/* Section container for the title and subtitle */}
+  <div class="mx-auto mb-10 max-w-2xl text-center lg:mb-14">
+    <h2
+      class="text-2xl font-semibold text-balance text-slate-800 md:text-3xl md:leading-tight"
+    >
+      <Fragment set:html={title} />
+    </h2>
+    <p class="mt-1 text-pretty text-slate-600">
+      <Fragment set:html={subTitle} />
+    </p>
+  </div>
+
+  <div
+    class="mx-auto grid max-w-[85rem] px-4 pb-10 sm:grid-cols-2 sm:grid-rows-3 sm:px-6 lg:px-8 lg:pb-14"
+  >
+    {
+      features.map(feature => (
+        <div class={`${feature.class}`}>
+          <h2 class="text-2xl font-bold text-slate-600">{feature.title}</h2>
+
+          <p class="mt-2 text-base/6 text-slate-600">
+            <Fragment set:html={feature.description || ''} />
+          </p>
+
+          {feature.image && (
+            <Image
+              class={`${feature.alignment || ''}`}
+              src={feature.image}
+              alt=""
+            />
+          )}
+
+          {feature.moreFeatures && (
+            <ul class="mt-4 ml-4 w-4/5 list-inside list-disc space-y-2 text-base/6 text-slate-600 marker:text-blue-600">
+              {feature.moreFeatures.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</div>

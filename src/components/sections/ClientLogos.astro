@@ -1,0 +1,74 @@
+---
+const title = 'Trusted by Innovative Brands';
+const logos = [
+  { src: '/logos/education-links.png', alt: 'Education Links' },
+  { src: '/logos/fastaxi.png', alt: 'Fastaxi' },
+  { src: '/logos/image copy 2.png', alt: 'Client' },
+  { src: '/logos/image copy 3.png', alt: 'Client' },
+  { src: '/logos/image copy 4.png', alt: 'Client' },
+  { src: '/logos/image copy 5.png', alt: 'Client' },
+  { src: '/logos/image copy 6.png', alt: 'Client' },
+  { src: '/logos/image copy 7.png', alt: 'Client' },
+  { src: '/logos/image copy 8.png', alt: 'Client' },
+  { src: '/logos/image copy.png', alt: 'Client' },
+  { src: '/logos/image.png', alt: 'Client' },
+  { src: '/logos/property-linkers.png', alt: 'Property Linkers' },
+  { src: '/logos/times-consultant.png', alt: 'Times Consultant' },
+];
+
+// Duplicate logos for seamless looping
+const marqueeLogos = [...logos, ...logos, ...logos];
+---
+
+<section class="border-y border-slate-200 bg-slate-50 py-10 sm:py-16 overflow-hidden">
+  <div class="mx-auto w-full px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <h2 class="text-sm font-semibold tracking-wide text-slate-500 uppercase">
+        {title}
+      </h2>
+    </div>
+
+    {/* Marquee Container */}
+    <div class="relative flex w-full overflow-hidden mask-image-linear-gradient">
+      <div class="animate-marquee flex items-center">
+        {
+          marqueeLogos.map(logo => (
+            <div class="mx-8 flex flex-shrink-0 items-center justify-center w-32 sm:w-40">
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                class="max-h-16 w-auto object-contain grayscale transition duration-300 hover:grayscale-0"
+                loading="lazy"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mask-image-linear-gradient {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+  
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    /* We duplicate the array 3 times, so we translate by -33.33% to loop back perfectly */
+  }
+  
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-33.333333%);
+    }
+  }
+</style>
