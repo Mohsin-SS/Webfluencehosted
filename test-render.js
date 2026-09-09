@@ -1,0 +1,3 @@
+import { renderToString } from 'react-dom/server';
+import React from 'react';
+import InteractiveEditor from './src/components/ui/InteractiveEditor.js'; // Can't easily import TSX in raw node...

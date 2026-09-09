@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import chart from '@images/chart.webp';
-
-
+import InteractiveEditor from '@ui/InteractiveEditor';
 ---
 
 {/* Hero Visual */}
@@ -16,11 +15,7 @@ import chart from '@images/chart.webp';
     class="absolute inset-[25%_auto_auto_-8%] z-20 hidden w-[25%] sm:block"
   />
 
-  <div class="aspect-auto">
-    <img
-      src="/hero-image/image.png"
-      alt="VS Code UI with React"
-      class="w-full h-auto rounded-xl shadow-lg"
-    />
+  <div class="relative z-10 w-full mt-4">
+    <InteractiveEditor client:only="react" />
   </div>
 </div>

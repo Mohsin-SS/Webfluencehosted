@@ -5,6 +5,7 @@
 @import '../../../node_modules/preline/variants.css';
 
 /* Plugins */
+@source '../../components/**/*.tsx';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
