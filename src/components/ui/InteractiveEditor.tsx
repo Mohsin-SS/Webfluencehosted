@@ -1,3 +1,6 @@
+/** @jsxRuntime classic */
+/** @jsx React.createElement */
+/** @jsxFrag React.Fragment */
 import React, { useState, useEffect, useRef } from 'react';
 
 const FILES = [
