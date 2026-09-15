@@ -15,15 +15,8 @@ const companyDescription =
 const contactFormDescription =
   "Get all the information you need. Enter your email, and we'll be in touch.";
 
-// Dynamic date for copyright display
-const copyrightYear = new Date().getFullYear();
 
-// Developer or team behind the website
-const craftedBy = { name: 'gulamoff', url: 'https://github.com/mearashadowfax' };
 
-// Trademark notice
-const trademarkNotice =
-  'Webfluence&reg; is a registered trademark of Webfluence';
 ---
 
 <footer
@@ -120,41 +113,6 @@ const trademarkNotice =
         </p>
       </div>
       <FooterFormExpanded />
-    </div>
-
-    {/* Divider before footer's bottom section */}
-    <hr class="mt-10 mb-5 border-slate-200" />
-
-    <div
-      class="grid gap-y-2 sm:flex sm:items-center sm:justify-between sm:gap-y-0"
-    >
-      {/* Copyright and Crafted By Section */}
-      <p class="text-sm text-slate-400/50">
-        &copy; 2018-{copyrightYear}
-        {companyName} Crafted by {' '}
-        <a
-          href={craftedBy.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-medium underline underline-offset-2 ring-slate-400 outline-hidden transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
-        >
-          {craftedBy.name}
-        </a>  <br>
-        Distributed by {' '}
-        <a
-          href={'https://themewagon.com'}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-medium underline underline-offset-2 ring-slate-400 outline-hidden transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
-        >
-          ThemeWagon
-        </a>
-      </p>
-
-      {/* Trademark Notice */}
-      <p class="text-sm text-slate-400/50">
-        <Fragment set:html={trademarkNotice} />
-      </p>
     </div>
   </div>
 </footer>

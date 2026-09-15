@@ -105,7 +105,7 @@ export default function InteractiveEditor() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl bg-slate-900 border border-slate-700 font-mono text-sm">
+    <div className="w-full lg:max-w-6xl max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl bg-slate-900 border border-slate-700 font-mono text-sm lg:text-base">
       {/* Window Chrome */}
       <div className="flex items-center justify-between px-4 py-3 bg-slate-800 border-b border-slate-700">
         <div className="flex gap-2">
@@ -136,7 +136,7 @@ export default function InteractiveEditor() {
       </div>
 
       {/* Editor Body */}
-      <div className="flex flex-col sm:flex-row h-[400px]">
+      <div className="flex flex-col sm:flex-row h-[400px] lg:h-[500px]">
         {/* Sidebar */}
         <div className="w-full sm:w-48 bg-slate-800/50 border-r border-slate-700 sm:flex flex-col hidden">
           <div className="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
