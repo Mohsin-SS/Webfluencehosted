@@ -3,21 +3,23 @@ const title = 'Trusted by Innovative Brands';
 const logos = [
   { src: '/logos/education-links.png', alt: 'Education Links' },
   { src: '/logos/fastaxi.png', alt: 'Fastaxi' },
+  { src: '/logos/property-linkers.png', alt: 'Property Linkers' },
+  { src: '/logos/times-consultant.png', alt: 'Times Consultant' },
+  { src: '/logos/ghausia-floor-mills.png', alt: 'Ghausia Floor Mills' },
+  { src: '/logos/zamindar-premium.png', alt: 'Zamindar Premium' },
+  { src: '/logos/data-foods.png', alt: 'Data Foods' },
+  { src: '/logos/dfm.png', alt: 'DFM' },
+  { src: '/logos/slap-media.png', alt: 'Slap Media' },
   { src: '/logos/image copy 2.png', alt: 'Client' },
   { src: '/logos/image copy 3.png', alt: 'Client' },
-  { src: '/logos/image copy 4.png', alt: 'Client' },
-  { src: '/logos/image copy 5.png', alt: 'Client' },
   { src: '/logos/image copy 6.png', alt: 'Client' },
   { src: '/logos/image copy 7.png', alt: 'Client' },
   { src: '/logos/image copy 8.png', alt: 'Client' },
-  { src: '/logos/image copy.png', alt: 'Client' },
-  { src: '/logos/image.png', alt: 'Client' },
-  { src: '/logos/property-linkers.png', alt: 'Property Linkers' },
-  { src: '/logos/times-consultant.png', alt: 'Times Consultant' },
 ];
 
-// Duplicate logos for seamless looping
-const marqueeLogos = [...logos, ...logos, ...logos];
+// One extra copy is the minimum needed for a seamless loop; more would
+// show the same brand twice on screen at once.
+const marqueeLogos = [...logos, ...logos];
 ---
 
 <section class="border-y border-slate-200 bg-slate-50 py-10 sm:py-16 overflow-hidden">
@@ -56,7 +58,7 @@ const marqueeLogos = [...logos, ...logos, ...logos];
   
   .animate-marquee {
     animation: marquee 40s linear infinite;
-    /* We duplicate the array 3 times, so we translate by -33.33% to loop back perfectly */
+    /* The array is rendered twice, so -50% lands exactly on the second copy */
   }
   
   .animate-marquee:hover {
@@ -68,7 +70,7 @@ const marqueeLogos = [...logos, ...logos, ...logos];
       transform: translateX(0%);
     }
     100% {
-      transform: translateX(-33.333333%);
+      transform: translateX(-50%);
     }
   }
 </style>
