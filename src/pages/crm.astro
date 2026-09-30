@@ -61,4 +61,38 @@ const schema: WithContext<Thing> = {
       </div>
     </div>
   </section>
+  {/* Case Study Section */}
+  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 bg-slate-50 rounded-3xl mt-12 mb-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl">Case Study: ACME-ERP Transformation</h2>
+      <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">See how we modernized ACME's customer relationship processes with a tailor-made CRM and ERP integration.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-xl font-semibold text-slate-800">The Challenge</h3>
+          <p class="mt-2 text-slate-600">ACME Corporation struggled with disconnected data silos, leading to slow response times and missed sales opportunities. Their legacy ERP system needed a modern, streamlined CRM interface.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-slate-800">Our Solution</h3>
+          <p class="mt-2 text-slate-600">We developed a custom CRM integrated directly with their existing ERP. Featuring real-time synchronization, automated lead routing, and dynamic dashboards tailored to their sales cycle.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-slate-800">The Results</h3>
+          <ul class="mt-2 space-y-2 text-slate-600 list-disc list-inside">
+            <li>45% faster lead response times</li>
+            <li>30% increase in team productivity</li>
+            <li>Unified view of customer data across all departments</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-4">
+        <img src="/crm-images/1.webp" alt="ACME ERP Dashboard" class="rounded-xl shadow-md w-full h-48 object-cover col-span-2 hover:scale-[1.02] transition-transform duration-300" />
+        <img src="/crm-images/2.png" alt="Analytics View" class="rounded-xl shadow-md w-full h-48 object-cover hover:scale-[1.05] transition-transform duration-300" />
+        <img src="/crm-images/3.webp" alt="Lead Management" class="rounded-xl shadow-md w-full h-48 object-cover hover:scale-[1.05] transition-transform duration-300" />
+      </div>
+    </div>
+  </section>
 </BaseLayout>
