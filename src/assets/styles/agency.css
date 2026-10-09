@@ -1,0 +1,88 @@
+/* Base styles for pages using AgencyLayout. Component styles live in each component. */
+
+.agency {
+  --gutter: clamp(1rem, 2.2vw, 2rem);
+  --header-h: 5rem;
+  --radius-lg: clamp(1.25rem, 2vw, 2rem);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  background: var(--color-wf-paper);
+  color: var(--color-wf-ink);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+.agency ::selection {
+  background: var(--color-wf-accent);
+  color: #fff;
+}
+
+.wf-container {
+  width: 100%;
+  max-width: 120rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.display-1 {
+  font-size: clamp(2.75rem, 9vw, 11rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.display-2 {
+  font-size: clamp(2.25rem, 5.4vw, 6rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.display-3 {
+  font-size: clamp(1.75rem, 3.6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-wf-muted);
+}
+
+.section {
+  padding-block: clamp(4rem, 9vw, 9rem);
+}
+
+html.scroll-locked,
+html.scroll-locked body {
+  overflow: hidden;
+}
+
+/* Split-text helpers (elements are created by GSAP SplitText at runtime). */
+.split-line {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-skew-up] {
+    visibility: hidden;
+  }
+}
+
+/* Custom cursor: only enabled on fine pointers by src/components/agency/Cursor.astro */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor :is(input, textarea) {
+  cursor: text !important;
+}
+
+.agency :focus-visible {
+  outline: 2px solid var(--color-wf-accent);
+  outline-offset: 3px;
+}

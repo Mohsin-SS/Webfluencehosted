@@ -33,6 +33,12 @@ export const servicesMenu = [
         href: '/digital-marketing',
       },
       {
+        icon: 'presentationChart',
+        title: 'Performance Marketing',
+        description: 'Maximize conversions with targeted paid ads across search and social platforms.',
+        href: '/performance-marketing',
+      },
+      {
         icon: 'portfolio',
         title: 'CRM',
         description: 'Manage and nurture customer relationships effectively with custom CRM solutions.',

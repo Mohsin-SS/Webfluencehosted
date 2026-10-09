@@ -1,0 +1,248 @@
+---
+import { services } from '@/data/agency';
+---
+
+<section class="services" id="services">
+  <div class="services-track" data-services-track>
+    <div class="services-sticky">
+      <div class="services-bg" aria-hidden="true">
+        <span class="services-blob services-blob--1"></span>
+        <span class="services-blob services-blob--2"></span>
+        <span class="services-blob services-blob--3"></span>
+      </div>
+
+      <div class="wf-container services-inner">
+        <h2 class="sr-only">Our services</h2>
+        <div class="services-top">
+          <p class="display-2 services-headline" data-skew-up>{services.headline}</p>
+          <p class="services-intro">{services.intro}</p>
+        </div>
+
+        <div class="services-cards">
+          {
+            services.groups.map(group => (
+              <div class="service-card" data-service-card>
+                <a href={group.href} class="service-title">
+                  {group.title}
+                </a>
+                <ul class="service-items">
+                  {group.items.map(item => (
+                    <li>
+                      <a href={item.href} class="service-item">
+                        <span class="service-pointer" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 12 12 4M6 4h6v6" stroke-linecap="round" stroke-linejoin="round" />
+                          </svg>
+                        </span>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    position: relative;
+  }
+
+  .services-sticky {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .services-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+  }
+
+  .services-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+  }
+
+  .services-blob--1 {
+    right: -10%;
+    bottom: 5%;
+    width: 50vw;
+    height: 30vw;
+    background: rgb(47 91 255 / 0.28);
+  }
+
+  .services-blob--2 {
+    bottom: 20%;
+    left: 10%;
+    width: 35vw;
+    height: 22vw;
+    background: rgb(215 255 60 / 0.35);
+  }
+
+  .services-blob--3 {
+    bottom: -5%;
+    left: 40%;
+    width: 30vw;
+    height: 20vw;
+    background: rgb(201 184 255 / 0.45);
+  }
+
+  .services-headline {
+    max-width: 21ch;
+    text-wrap: balance;
+  }
+
+  .services-top {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .services-intro {
+    max-width: 34ch;
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    line-height: 1.5;
+    color: var(--color-wf-muted);
+  }
+
+  .services-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1.25rem;
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .service-card {
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(11 11 15 / 0.15);
+  }
+
+  .service-title {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 2vw, 1.85rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .service-items {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .service-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    color: #34343f;
+    transition: color 0.25s;
+  }
+
+  .service-pointer {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--color-wf-ink);
+    color: #fff;
+    transition:
+      transform 0.45s var(--ease-out-expo),
+      background-color 0.25s;
+  }
+
+  .service-pointer svg {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
+  .service-item:hover {
+    color: var(--color-wf-accent);
+  }
+
+  .service-item:hover .service-pointer {
+    background: var(--color-wf-accent);
+    transform: rotate(45deg);
+  }
+
+  @media (min-width: 992px) {
+    .services-top {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 3rem;
+    }
+
+    .services-cards {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  /* Pin the section and reveal the service columns as the track scrolls; only on screens
+     tall enough to show the whole section while pinned. */
+  @media (min-width: 992px) and (min-height: 700px) {
+    .services-track {
+      height: 230vh;
+    }
+
+    .services-sticky {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, prefersReducedMotion } from '@/scripts/agency/motion';
+
+  const track = document.querySelector<HTMLElement>('[data-services-track]')!;
+  const cards = track.querySelectorAll<HTMLElement>('[data-service-card]');
+
+  if (!prefersReducedMotion) {
+    gsap.matchMedia().add(
+      { pinned: '(min-width: 992px) and (min-height: 700px)', unpinned: 'not all and (min-width: 992px) and (min-height: 700px)' },
+      context => {
+        const { pinned } = context.conditions as { pinned: boolean };
+
+        if (pinned) {
+          const tl = gsap.timeline({
+            scrollTrigger: { trigger: track, start: 'top top', end: 'bottom bottom', scrub: 1 },
+          });
+          cards.forEach((card, i) => {
+            const title = card.querySelector('.service-title');
+            const items = card.querySelectorAll('.service-items li');
+            tl.from(card, { borderTopColor: 'rgb(11 11 15 / 0)', duration: 0.4 }, i * 0.5)
+              .from(title, { opacity: 0, y: 40, duration: 0.6 }, i * 0.5)
+              .from(items, { opacity: 0, y: 24, stagger: 0.08, duration: 0.5 }, i * 0.5 + 0.2);
+          });
+          // Hold the fully revealed state for the last stretch of the track.
+          tl.to({}, { duration: 0.6 });
+        } else {
+          cards.forEach(card => {
+            gsap.from(card.querySelectorAll('.service-title, .service-items li'), {
+              opacity: 0,
+              y: 24,
+              stagger: 0.06,
+              duration: 0.9,
+              ease: 'expo.out',
+              scrollTrigger: { trigger: card, start: 'top 85%', once: true },
+            });
+          });
+        }
+      }
+    );
+  }
+</script>

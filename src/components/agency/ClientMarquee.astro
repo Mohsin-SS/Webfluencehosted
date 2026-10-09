@@ -1,0 +1,135 @@
+---
+import { clients } from '@/data/agency';
+
+// Rendered twice in one list so the loop is seamless and the hover rule can reach the
+// neighbouring item's dot across the seam.
+const items = [...clients, ...clients];
+---
+
+<section class="clients" aria-label="Some of our clients">
+  <div class="marquee">
+    <ul class="marquee-track">
+      {
+        items.map((client, i) => (
+          <li class="marquee-item" aria-hidden={i >= clients.length ? 'true' : undefined}>
+            <span class="marquee-dot" />
+            <span class="marquee-label">
+              <span class="marquee-name">{client.name}</span>
+              <span class="marquee-logo">
+                <img src={client.logo} alt="" loading="lazy" />
+              </span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .clients {
+    overflow: hidden;
+  }
+
+  .marquee {
+    --logo-h: clamp(6rem, 11vw, 11rem);
+
+    display: flex;
+    padding-block: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .marquee-track {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .marquee-track {
+      animation: marquee 60s linear infinite;
+    }
+
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Padding (not gap) spaces the items so the track is exactly two identical halves. */
+  .marquee-item {
+    display: flex;
+    flex: none;
+    align-items: center;
+    /* As tall as the expanded logo, so the hover doesn't drop while the pointer is over it. */
+    height: var(--logo-h);
+    gap: clamp(3rem, 6.5vw, 6rem);
+    padding-right: clamp(3rem, 6.5vw, 6rem);
+    font-size: clamp(1.15rem, 1.7vw, 1.75rem);
+    white-space: nowrap;
+  }
+
+  .marquee-dot {
+    width: 0.3em;
+    height: 0.3em;
+    border-radius: 50%;
+    background: #d4d4da;
+    transition: background-color 0.3s;
+  }
+
+  /* The name and logo share one cell; the logo is centred over the name and grows out of it. */
+  .marquee-label {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .marquee-name {
+    color: #b9b9c2;
+    transition:
+      opacity 0.3s,
+      transform 0.5s var(--ease-out-expo);
+  }
+
+  .marquee-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: clamp(8rem, 15vw, 15rem);
+    height: var(--logo-h);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition:
+      opacity 0.3s,
+      transform 0.6s var(--ease-out-expo);
+    pointer-events: none;
+  }
+
+  .marquee-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .marquee-item:hover .marquee-name {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .marquee-item:hover .marquee-logo {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* Light up the dots on both sides of the hovered client. */
+  .marquee-item:hover .marquee-dot,
+  .marquee-item:hover + .marquee-item .marquee-dot {
+    background: var(--color-wf-accent);
+  }
+</style>

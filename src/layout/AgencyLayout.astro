@@ -1,0 +1,95 @@
+---
+import Header from '@agency/Header.astro';
+import Cursor from '@agency/Cursor.astro';
+import ConnectFooter from '@agency/ConnectFooter.astro';
+import ChatLauncher from '@agency/ChatLauncher.astro';
+import { SEO, type Props as SEOProps } from 'astro-seo';
+import { Schema } from 'astro-seo-schema';
+import type { WithContext, Thing } from 'schema-dts';
+import AeonikFont from '@common/AeonikFont.astro';
+import '@styles/global.css';
+import '@styles/agency.css';
+
+interface Props {
+  seo?: SEOProps;
+  schema?: WithContext<Thing>;
+}
+
+const { seo, schema } = Astro.props;
+const socialImage = `${Astro.site}social.png`;
+
+const title = seo?.title ?? 'Webfluence — Premier Full-Service Digital Agency';
+const description =
+  seo?.description ??
+  'Webfluence is a Lahore-based software and digital growth agency: custom software, ERP & CRM, web and mobile apps, SEO, performance marketing and branding.';
+
+const defaultSchema: WithContext<Thing> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  inLanguage: 'en-US',
+  '@id': Astro.url.href,
+  url: Astro.url.href,
+  name: 'Webfluence',
+  description,
+  isPartOf: {
+    '@type': 'WebSite',
+    url: `${Astro.site}`,
+    name: 'Webfluence',
+  },
+};
+---
+
+<html lang="en">
+  <head>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <SEO
+      charset="utf-8"
+      title={title}
+      description={description}
+      openGraph={{
+        basic: { title, type: 'website', image: socialImage },
+        optional: { description },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title,
+        description,
+        image: socialImage,
+        imageAlt: 'Webfluence logo',
+      }}
+      extend={{
+        link: [
+          { rel: 'icon', href: '/logos/WFLogo.png', type: 'image/png' },
+          { rel: 'apple-touch-icon', href: '/logos/WFLogo.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
+        ],
+        meta: [
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { name: 'generator', content: `${Astro.generator}` },
+        ],
+      }}
+    />
+    <Schema item={schema ?? defaultSchema} />
+    <AeonikFont />
+  </head>
+  <body class="agency">
+    <Cursor />
+    <Header />
+    <main id="top">
+      <slot />
+    </main>
+    <ConnectFooter />
+    <ChatLauncher />
+
+    <script>
+      import '@/scripts/agency/smooth-scroll';
+      import { initTextReveals } from '@/scripts/agency/text-reveal';
+      import { initCounters } from '@/scripts/agency/counters';
+
+      initTextReveals();
+      initCounters();
+    </script>
+  </body>
+</html>

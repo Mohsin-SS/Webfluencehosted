@@ -1,0 +1,239 @@
+---
+import { testimonials } from '@/data/agency';
+
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .map(part => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+---
+
+<section class="section testimonials" aria-roledescription="carousel" aria-label="Client testimonials">
+  <div class="wf-container">
+    <p class="eyebrow">(Kind words)</p>
+
+    <div class="t-slider" data-slider>
+      <div class="t-viewport">
+        <div class="t-track" data-slider-track>
+          {
+            testimonials.map((item, i) => (
+              <figure
+                class="t-slide"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${testimonials.length}`}
+              >
+                <blockquote class="t-quote">“{item.quote}”</blockquote>
+                <figcaption class="t-author">
+                  <span class="t-avatar" aria-hidden="true">
+                    {initials(item.name)}
+                  </span>
+                  <span>
+                    <strong>{item.name}</strong>
+                    <span>{item.role}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="t-controls">
+        <button type="button" class="t-arrow" aria-label="Previous testimonial" data-slider-prev>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="t-dots">
+          {
+            testimonials.map((_, i) => (
+              <button type="button" class="t-dot" aria-label={`Show testimonial ${i + 1}`} data-slider-dot={i} />
+            ))
+          }
+        </div>
+        <button type="button" class="t-arrow" aria-label="Next testimonial" data-slider-next>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .t-slider {
+    margin-top: 1.5rem;
+  }
+
+  .t-viewport {
+    overflow: hidden;
+  }
+
+  .t-track {
+    display: flex;
+    transition: transform 0.8s var(--ease-out-expo);
+    touch-action: pan-y;
+  }
+
+  .t-slide {
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3rem);
+    padding-right: 2rem;
+  }
+
+  .t-quote {
+    max-width: 30ch;
+    font-size: clamp(1.75rem, 3.6vw, 3.75rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .t-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .t-author > span:last-child {
+    display: grid;
+  }
+
+  .t-author strong {
+    font-size: 1.1rem;
+  }
+
+  .t-author span span {
+    color: var(--color-wf-muted);
+  }
+
+  .t-avatar {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--color-wf-ink);
+    color: var(--color-wf-lime);
+    font-weight: 700;
+  }
+
+  .t-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .t-arrow {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1px solid rgb(11 11 15 / 0.15);
+    border-radius: 50%;
+    transition:
+      background-color 0.25s,
+      color 0.25s,
+      border-color 0.25s;
+  }
+
+  .t-arrow svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .t-arrow:hover {
+    border-color: var(--color-wf-ink);
+    background: var(--color-wf-ink);
+    color: #fff;
+  }
+
+  .t-dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .t-dot {
+    width: 1.25rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-wf-ink);
+    opacity: 0.2;
+    transition:
+      width 0.5s var(--ease-out-expo),
+      background-color 0.3s,
+      opacity 0.3s;
+  }
+
+  .t-dot[aria-current='true'] {
+    width: 2.5rem;
+    background: var(--color-wf-accent);
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-track {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { prefersReducedMotion } from '@/scripts/agency/motion';
+
+  const slider = document.querySelector<HTMLElement>('[data-slider]')!;
+  const track = slider.querySelector<HTMLElement>('[data-slider-track]')!;
+  const slides = [...track.children] as HTMLElement[];
+  const dots = [...slider.querySelectorAll<HTMLButtonElement>('[data-slider-dot]')];
+  const AUTOPLAY_MS = 5000;
+
+  let index = 0;
+  let timer: number | undefined;
+
+  function goTo(next: number) {
+    index = (next + slides.length) % slides.length;
+    track.style.transform = `translateX(${-100 * index}%)`;
+    slides.forEach((slide, i) => slide.toggleAttribute('inert', i !== index));
+    dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === index)));
+  }
+
+  function stopAutoplay() {
+    window.clearInterval(timer);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (!prefersReducedMotion) timer = window.setInterval(() => goTo(index + 1), AUTOPLAY_MS);
+  }
+
+  slider.querySelector('[data-slider-prev]')!.addEventListener('click', () => goTo(index - 1));
+  slider.querySelector('[data-slider-next]')!.addEventListener('click', () => goTo(index + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  slider.addEventListener('pointerenter', stopAutoplay);
+  slider.addEventListener('pointerleave', startAutoplay);
+  slider.addEventListener('focusin', stopAutoplay);
+  slider.addEventListener('focusout', startAutoplay);
+
+  // Horizontal swipe on touch screens.
+  let startX: number | null = null;
+  track.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'mouse') startX = event.clientX;
+  });
+  track.addEventListener('pointerup', event => {
+    if (startX === null) return;
+    const delta = event.clientX - startX;
+    startX = null;
+    if (Math.abs(delta) > 50) goTo(index + (delta < 0 ? 1 : -1));
+  });
+
+  goTo(0);
+  startAutoplay();
+</script>

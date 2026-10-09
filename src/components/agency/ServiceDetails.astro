@@ -1,0 +1,177 @@
+---
+// Detailed sections shared by the service pages: overview, what's included, process,
+// tools, FAQs and a closing CTA. Content lives in src/data/services.ts.
+import Button from '@ui/Button.astro';
+import Icon from '@ui/icons/Icon.astro';
+import type { ServiceDetail } from '@/data/services';
+
+interface Props {
+  service: ServiceDetail;
+}
+
+const { service } = Astro.props;
+const { overview, features, process, tools, faqs, cta } = service;
+---
+
+{/* Overview Section */}
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <div>
+      <span class="text-orange-500 font-medium tracking-wider text-sm">Overview</span>
+      <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl text-balance">{overview.heading}</h2>
+      {overview.paragraphs.map(paragraph => <p class="mt-4 text-lg text-slate-600">{paragraph}</p>)}
+    </div>
+    <div class="rounded-2xl bg-slate-50 p-8 border border-slate-100">
+      <h3 class="text-xl font-bold text-slate-800 mb-6">What you get</h3>
+      <ul class="space-y-4">
+        {
+          overview.benefits.map(benefit => (
+            <li class="flex gap-4 text-slate-700">
+              <span class="service-check" aria-hidden="true">✓</span>
+              <span>{benefit}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+{/* What's Included Section */}
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl">What’s included</h2>
+    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+      Everything you need under one roof — planned, built and supported by one accountable team.
+    </p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+      features.map(feature => (
+        <div class="rounded-2xl bg-white p-8 shadow-sm transition hover:shadow-md hover:-translate-y-1 duration-300 border border-slate-100">
+          <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+            <Icon name={feature.icon} class="h-7 w-7 text-blue-700" />
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">{feature.title}</h3>
+          <p class="text-slate-600">{feature.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+{/* Process Section */}
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl">How we work</h2>
+    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+      A clear, collaborative process so you always know what is happening and what comes next.
+    </p>
+  </div>
+  <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+    {
+      process.map((step, i) => (
+        <li class="rounded-2xl bg-blue-50 p-6 border border-blue-100">
+          <span class="text-orange-500 font-medium tracking-wider text-sm">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="mt-3 text-lg font-bold text-slate-800">{step.title}</h3>
+          <p class="mt-2 text-slate-600">{step.description}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+{/* Tools Section */}
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+  <div class="rounded-2xl bg-blue-500 p-8 md:p-12 shadow-lg">
+    <h2 class="text-2xl font-bold text-white sm:text-3xl">Tools & technologies</h2>
+    <p class="mt-3 text-white/90 max-w-2xl">Proven, modern tools chosen for reliability, performance and long-term maintainability.</p>
+    <ul class="mt-8 flex flex-wrap gap-3">
+      {tools.map(tool => <li class="service-tool">{tool}</li>)}
+    </ul>
+  </div>
+</section>
+
+{/* FAQ Section */}
+<section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl">Frequently asked questions</h2>
+  </div>
+  <div class="divide-y divide-slate-200 border-y border-slate-200">
+    {
+      faqs.map(faq => (
+        <details class="service-faq group py-6">
+          <summary class="flex cursor-pointer items-center justify-between gap-6 text-lg font-semibold text-slate-800">
+            {faq.question}
+            <span class="service-faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <p class="mt-4 text-slate-600">{faq.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+{/* CTA Section */}
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 bg-slate-50 rounded-3xl mt-12 mb-16">
+  <div class="text-center">
+    <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl text-balance">{cta.heading}</h2>
+    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">{cta.description}</p>
+    <div class="mt-8 flex justify-center">
+      <Button href="/contact" variant="primary">{cta.button}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-check {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.1rem;
+    border-radius: 50%;
+    background: var(--color-blue-500, #3b82f6);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .service-tool {
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.15);
+    border: 1px solid rgb(255 255 255 / 0.3);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .service-faq summary {
+    list-style: none;
+  }
+
+  .service-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .service-faq-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--color-blue-50, #eff6ff);
+    color: var(--color-blue-700, #1d4ed8);
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1;
+    transition: transform 0.3s;
+  }
+
+  .service-faq[open] .service-faq-icon {
+    transform: rotate(45deg);
+  }
+</style>

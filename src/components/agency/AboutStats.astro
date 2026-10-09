@@ -1,0 +1,218 @@
+---
+import { about } from '@/data/agency';
+
+const [firstStat, ...otherStats] = about.stats;
+const ringText = 'WEBFLUENCE PVT LTD • SOFTWARE • GROWTH • CREATIVE • ';
+---
+
+<section class="section about" id="about">
+  <div class="wf-container">
+    <p class="eyebrow">{about.eyebrow}</p>
+    <p class="display-3 about-lead" data-skew-up>{about.lead}</p>
+
+    <div class="about-grid">
+      <div class="about-badge" aria-hidden="true">
+        <svg class="about-ring" viewBox="0 0 220 220">
+          <defs>
+            <path id="about-ring-path" d="M110 110m-88 0a88 88 0 1 1 176 0a88 88 0 1 1-176 0"></path>
+          </defs>
+          <text textLength="548" lengthAdjust="spacing">
+            <textPath href="#about-ring-path">{ringText}</textPath>
+          </text>
+        </svg>
+        <img src="/logos/WFLogo.png" alt="" class="about-logo" />
+      </div>
+
+      <div class="about-copy">
+        {about.paragraphs.map(paragraph => <p data-reveal-words>{paragraph}</p>)}
+        <a href="/about" class="about-link">More about us <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+
+    <div class="stats">
+      {
+        [firstStat, 'visual' as const, ...otherStats].map(stat =>
+          stat === 'visual' ? (
+            <div class="stat stat--visual" style="--span: 3" aria-hidden="true">
+              <span class="stat-glyph">&lt;/&gt;</span>
+              <span class="stat-visual-caption">Custom-built for your business.</span>
+            </div>
+          ) : (
+            <div class="stat" data-tone={stat.tone} style={`--span: ${stat.span}`}>
+              <p class="stat-value">
+                <span data-count-to={stat.value}>{stat.value}</span>
+                {stat.suffix}
+              </p>
+              <p class="stat-label">
+                <strong>{stat.label}</strong> {stat.note}
+              </p>
+            </div>
+          )
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-lead {
+    max-width: 26ch;
+    margin-top: 1.25rem;
+  }
+
+  .about-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    margin-top: clamp(3rem, 7vw, 6rem);
+  }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+
+  .about-badge {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    max-width: 30rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-wf-accent);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .about-ring {
+    position: absolute;
+    inset: 8%;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    fill: currentColor;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .about-ring {
+      animation: spin 24s linear infinite;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Crop the logo PNG down to its "WF." monogram; the ring text is drawn by the SVG above. */
+  .about-logo {
+    width: 88%;
+    clip-path: circle(32% at 50% 52%);
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
+
+  .about-copy {
+    display: grid;
+    gap: 1.5rem;
+    font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  .about-link {
+    justify-self: start;
+    margin-top: 0.5rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid currentColor;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .about-link:hover {
+    color: var(--color-wf-accent);
+  }
+
+  .stats {
+    display: grid;
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+
+  @media (min-width: 768px) {
+    .stats {
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .stat {
+      grid-column: span var(--span);
+    }
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: clamp(15rem, 24vw, 22rem);
+    padding: clamp(1.5rem, 2.5vw, 2.5rem);
+    border-radius: var(--radius-lg);
+    background: var(--color-wf-soft);
+  }
+
+  .stat[data-tone='dark'] {
+    background: var(--color-wf-ink);
+    color: #fff;
+  }
+
+  .stat[data-tone='accent'] {
+    background: var(--color-wf-accent);
+    color: #fff;
+  }
+
+  .stat-value {
+    font-size: clamp(3.5rem, 7vw, 7.5rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    max-width: 30ch;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    opacity: 0.75;
+  }
+
+  .stat-label strong {
+    font-weight: 600;
+    opacity: 1;
+  }
+
+  .stat--visual {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-wf-lime);
+    text-align: center;
+  }
+
+  .stat-glyph {
+    font-size: clamp(4rem, 7vw, 6.5rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .stat--visual:hover .stat-glyph {
+    transform: scale(1.1) rotate(-6deg);
+  }
+
+  .stat-visual-caption {
+    font-weight: 600;
+  }
+</style>

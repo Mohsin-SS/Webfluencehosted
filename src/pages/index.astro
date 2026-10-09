@@ -1,27 +1,19 @@
 ---
 export const prerender = true;
-import BaseLayout from '@layout/BaseLayout.astro';
-import Hero from '@sections/HeroSection.astro';
-import FeatureShowcase from '@sections/FeatureShowcase.astro';
-// import FeatureBento from "@sections/FeatureBento.astro";
-import FeatureAnimated from '@sections/FeatureAnimated.astro';
-import FeatureGrid from '@sections/FeatureGrid.astro';
-import CTA from '@sections/CTA.astro';
-import ClientLogos from '@sections/ClientLogos.astro';
+import AgencyLayout from '@layout/AgencyLayout.astro';
+import Hero from '@agency/Hero.astro';
+import ClientMarquee from '@agency/ClientMarquee.astro';
+import SelectedWork from '@agency/SelectedWork.astro';
+import ServicesSticky from '@agency/ServicesSticky.astro';
+import AboutStats from '@agency/AboutStats.astro';
+import Testimonials from '@agency/Testimonials.astro';
 ---
 
-<BaseLayout>
+<AgencyLayout>
   <Hero />
-
-  <ClientLogos />
-
-  <FeatureShowcase />
-
-  {/* <FeatureBento /> */}
-
-  <FeatureAnimated />
-
-  <FeatureGrid />
-
-  <CTA />
-</BaseLayout>
+  <ClientMarquee />
+  <SelectedWork />
+  <ServicesSticky />
+  <AboutStats />
+  <Testimonials />
+</AgencyLayout>

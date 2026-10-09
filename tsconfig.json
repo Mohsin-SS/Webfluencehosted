@@ -12,6 +12,7 @@
       "@layout/*": ["src/layout/*"],
       "@ui/*": ["src/components/ui/*"],
       "@sections/*": ["src/components/sections/*"],
+      "@agency/*": ["src/components/agency/*"],
       "@styles/*": ["src/assets/styles/*"],
       "@utils/*": ["src/utils/*"]
     },

@@ -1,0 +1,734 @@
+---
+import { connect, contact, navLinks, serviceMenu, socials } from '@/data/agency';
+
+const year = new Date().getFullYear();
+const serviceLinks = serviceMenu.flatMap(group => group.links).slice(0, 5);
+const fields = [
+  { name: 'name', label: 'Full name', type: 'text', autocomplete: 'name' },
+  { name: 'email', label: 'Email', type: 'email', autocomplete: 'email' },
+  { name: 'phone', label: 'Phone', type: 'tel', autocomplete: 'tel' },
+  { name: 'company', label: 'Company name', type: 'text', autocomplete: 'organization' },
+  { name: 'designation', label: 'Your designation', type: 'text', autocomplete: 'organization-title' },
+] as const;
+---
+
+<footer class="connect" id="contact">
+  <div class="connect-card">
+    <div class="connect-inner">
+      <h2 class="connect-title">{connect.heading}</h2>
+
+      <form class="connect-form" data-connect-form data-email={contact.email} novalidate>
+        <div class="field-grid">
+          {
+            fields.map((field, i) => (
+              <label class="field" style={`--i: ${i}`} data-field-line>
+                <span class="sr-only">{field.label}</span>
+                <input
+                  class="field-input"
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.label}
+                  autocomplete={field.autocomplete}
+                  maxlength="256"
+                  required
+                />
+              </label>
+            ))
+          }
+          <label class="field" style={`--i: ${fields.length}`} data-field-line>
+            <span class="sr-only">How did you hear about us</span>
+            <select class="field-input field-select" name="source" required>
+              <option value="">How did you hear about us?</option>
+              {connect.sources.map(source => <option value={source}>{source}</option>)}
+            </select>
+          </label>
+          <label class="field field--wide" style={`--i: ${fields.length + 1}`} data-field-line>
+            <span class="sr-only">Your message</span>
+            <textarea class="field-input field-textarea" name="message" placeholder="Tell us about your project" maxlength="5000" rows="4" required></textarea>
+          </label>
+        </div>
+
+        <fieldset class="choices" data-interests>
+          <legend class="choices-legend">I'm interested in</legend>
+          <div class="choice-list">
+            {
+              connect.interests.map(interest => (
+                <label class="choice">
+                  <input type="checkbox" name="interests" value={interest} />
+                  <span>{interest}</span>
+                </label>
+              ))
+            }
+          </div>
+          <p class="choices-error" data-interests-error hidden>Please pick at least one option.</p>
+        </fieldset>
+
+        <fieldset class="choices">
+          <legend class="choices-legend">My budget is</legend>
+          <div class="choice-list">
+            {
+              connect.budgets.map(budget => (
+                <label class="choice">
+                  <input type="radio" name="budget" value={budget} required />
+                  <span>{budget}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <div class="submit-row">
+          <button type="submit" class="submit">
+            Send it
+            <span class="submit-sparks" aria-hidden="true">
+              <span>✦</span><span>✦</span><span>✦</span><span>✦</span>
+            </span>
+          </button>
+          <p class="form-status" role="status" data-form-status></p>
+        </div>
+      </form>
+
+      <div class="connect-grid">
+        <div class="connect-col">
+          <p class="connect-label">{contact.city}</p>
+          <p>{contact.address}</p>
+          <a href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`} class="connect-link">{contact.phone}</a>
+          <a href={`mailto:${contact.email}`} class="connect-link">{contact.email}</a>
+        </div>
+        <div class="connect-col">
+          <p class="connect-label">Explore</p>
+          {navLinks.map(link => <a href={link.href} class="connect-link">{link.label}</a>)}
+        </div>
+        <div class="connect-col">
+          <p class="connect-label">Services</p>
+          {serviceLinks.map(link => <a href={link.href} class="connect-link">{link.label}</a>)}
+        </div>
+        <div class="connect-col connect-col--end">
+          {
+            socials.length > 0 && (
+              <div class="socials">
+                {socials.map(social => (
+                  <a href={social.href} class="social" target="_blank" rel="noopener noreferrer">
+                    {social.label}
+                  </a>
+                ))}
+              </div>
+            )
+          }
+          <a href="#top" class="back-top" data-back-to-top>
+            Let's go up
+            <span class="back-top-icon" aria-hidden="true">↑</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="playground" data-playground aria-hidden="true">
+      <p class="playground-hint">Go on, drag them around.</p>
+      {connect.pills.map(pill => <span class="pill" data-tone={pill.tone}>{pill.label}</span>)}
+    </div>
+
+    <div class="wordmark" aria-hidden="true">
+      <svg viewBox="0 0 1000 150">
+        <text x="500" y="138" text-anchor="middle" textLength="992" lengthAdjust="spacingAndGlyphs">WEBFLUENCE</text>
+      </svg>
+    </div>
+
+    <div class="credits">
+      <p>© {year} Webfluence Pvt Ltd. All rights reserved.</p>
+      <p class="credits-links">
+        <a href="/about">About</a>
+        <a href="/products">Products</a>
+        <a href="/contact">Contact</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .connect {
+    padding: clamp(0.5rem, 1.2vw, 1rem);
+  }
+
+  .connect-card {
+    overflow: hidden;
+    border-radius: clamp(1.5rem, 3vw, 2.75rem);
+    background: var(--color-wf-ink);
+    color: #fff;
+  }
+
+  .connect-inner {
+    width: min(100%, 120rem);
+    margin-inline: auto;
+    padding: clamp(3rem, 8vw, 7rem) var(--gutter) 0;
+  }
+
+  .connect-title {
+    font-size: clamp(3rem, 9vw, 9.5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .connect-form {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .field-grid {
+    display: grid;
+    gap: 0.5rem clamp(1.5rem, 3vw, 3rem);
+  }
+
+  @media (min-width: 768px) {
+    .field-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field--wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* A white line draws left to right over each field's faint bottom border as it scrolls
+     into view; it turns lime on focus and red when the field is invalid. */
+  .field {
+    position: relative;
+    display: block;
+  }
+
+  .field::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 3px;
+    background: #fff;
+    box-shadow: 0 0 10px rgb(255 255 255 / 0.45);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition:
+      transform 1.2s var(--ease-out-expo) calc(var(--i, 0) * 0.08s),
+      background-color 0.25s;
+    pointer-events: none;
+  }
+
+  .field.is-drawn::after {
+    transform: scaleX(1);
+  }
+
+  .field:focus-within::after {
+    background: var(--color-wf-lime);
+    box-shadow: 0 0 10px rgb(215 255 60 / 0.45);
+  }
+
+  .field:has(.is-invalid)::after {
+    background: #ff6b6b;
+    box-shadow: 0 0 10px rgb(255 107 107 / 0.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .field::after {
+      transform: scaleX(1);
+      transition: background-color 0.25s;
+    }
+  }
+
+  .field-input {
+    width: 100%;
+    padding: 1.1rem 0;
+    border: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.22);
+    border-radius: 0;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    font-size: 1.15rem;
+    transition: border-color 0.25s;
+  }
+
+  .field-input::placeholder {
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  .field-input:focus {
+    border-bottom-color: var(--color-wf-lime);
+    outline: none;
+    box-shadow: none;
+  }
+
+  .field-input.is-invalid {
+    border-bottom-color: #ff6b6b;
+  }
+
+  .field-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-position: right 0.25rem center;
+    background-repeat: no-repeat;
+    background-size: 0.9rem;
+  }
+
+  .field-select:invalid {
+    color: rgb(255 255 255 / 0.5);
+  }
+
+  .field-select option {
+    background: var(--color-wf-ink);
+    color: #fff;
+  }
+
+  .field-textarea {
+    display: block;
+    resize: vertical;
+  }
+
+  .choices {
+    min-width: 0;
+    border: 0;
+  }
+
+  .choices-legend {
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .choice-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .choice {
+    position: relative;
+  }
+
+  .choice input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Pill fills from the bottom on hover; checked pills turn accent and settle slightly smaller. */
+  .choice span {
+    position: relative;
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    font-size: 1.05rem;
+    isolation: isolate;
+    transition:
+      transform 0.25s,
+      background-color 0.25s,
+      border-color 0.25s,
+      color 0.25s;
+  }
+
+  .choice span::before {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    z-index: -1;
+    height: 0;
+    background: var(--color-wf-accent);
+    transition: height 0.3s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .choice:hover span::before {
+      height: 100%;
+    }
+  }
+
+  .choice input:checked + span {
+    border-color: var(--color-wf-accent);
+    background: var(--color-wf-accent);
+    transform: scale(0.94);
+  }
+
+  .choice input:focus-visible + span {
+    outline: 2px solid var(--color-wf-lime);
+    outline-offset: 3px;
+  }
+
+  .was-validated .choices:has(input:invalid) .choices-legend {
+    color: #ff8f8f;
+  }
+
+  .choices-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+    color: #ff8f8f;
+  }
+
+  .choices-error[hidden] {
+    display: none;
+  }
+
+  .submit-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .submit {
+    position: relative;
+    padding: 1.2rem 2.75rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--color-wf-ink);
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition:
+      background-color 0.3s,
+      transform 0.3s var(--ease-out-expo);
+  }
+
+  .submit:hover {
+    background: var(--color-wf-lime);
+    transform: scale(1.03);
+  }
+
+  .submit-sparks span {
+    position: absolute;
+    color: var(--color-wf-lime);
+    font-size: 1.1rem;
+    opacity: 0;
+    transform: scale(0);
+    transition:
+      opacity 0.3s,
+      transform 0.5s var(--ease-out-expo);
+  }
+
+  .submit-sparks span:nth-child(1) {
+    top: -0.9rem;
+    left: 0.4rem;
+  }
+
+  .submit-sparks span:nth-child(2) {
+    top: -1.1rem;
+    right: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .submit-sparks span:nth-child(3) {
+    right: -1.2rem;
+    bottom: -0.5rem;
+  }
+
+  .submit-sparks span:nth-child(4) {
+    bottom: -1rem;
+    left: 35%;
+    font-size: 0.75rem;
+  }
+
+  .submit:hover .submit-sparks span {
+    opacity: 1;
+    transform: scale(1) rotate(20deg);
+  }
+
+  .submit:hover .submit-sparks span:nth-child(2) {
+    transition-delay: 0.05s;
+  }
+
+  .submit:hover .submit-sparks span:nth-child(3) {
+    transition-delay: 0.1s;
+  }
+
+  .submit:hover .submit-sparks span:nth-child(4) {
+    transition-delay: 0.15s;
+  }
+
+  .form-status {
+    max-width: 36ch;
+    color: var(--color-wf-lime);
+  }
+
+  .form-status.is-error {
+    color: #ff8f8f;
+  }
+
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 2.5rem 2rem;
+    margin-top: clamp(4rem, 8vw, 7rem);
+    padding-top: clamp(2.5rem, 4vw, 3.5rem);
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+  }
+
+  .connect-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .connect-col--end {
+    justify-content: space-between;
+  }
+
+  .connect-label {
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 500;
+  }
+
+  .connect-link {
+    transition: color 0.2s;
+  }
+
+  .connect-link:hover {
+    color: var(--color-wf-lime);
+  }
+
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .social {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(255 255 255 / 0.25);
+    border-radius: 999px;
+    color: #fff;
+  }
+
+  .back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .back-top-icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-wf-ink);
+    font-size: 1.25rem;
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      background-color 0.25s;
+  }
+
+  .back-top:hover .back-top-icon {
+    background: var(--color-wf-lime);
+    transform: translateY(-4px);
+  }
+
+  /* Physics playground. Without JS (or with reduced motion) the pills sit in a wrapped row. */
+  .playground {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    gap: 0.5rem;
+    height: clamp(18rem, 32vw, 28rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: var(--gutter);
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .playground-hint {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    display: none;
+    color: rgb(255 255 255 / 0.4);
+    font-size: 0.95rem;
+    transform: translateX(-50%);
+  }
+
+  .playground.is-live .playground-hint {
+    display: block;
+  }
+
+  .pill {
+    padding: 0.55em 1.2em;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--color-wf-ink);
+    font-size: clamp(1.1rem, 2.4vw, 2.1rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .playground.is-live .pill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+  }
+
+  .playground.is-draggable .pill {
+    cursor: grab;
+  }
+
+  .pill[data-tone='accent'] {
+    background: var(--color-wf-accent);
+    color: #fff;
+  }
+
+  .pill[data-tone='lime'] {
+    background: var(--color-wf-lime);
+  }
+
+  .pill[data-tone='lilac'] {
+    background: var(--color-wf-lilac);
+  }
+
+  .pill[data-tone='orange'] {
+    background: var(--color-wf-orange);
+  }
+
+  .wordmark {
+    padding-inline: var(--gutter);
+  }
+
+  .wordmark svg {
+    display: block;
+    width: 100%;
+    fill: #fff;
+    font-size: 176px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .credits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem var(--gutter) 2rem;
+    color: rgb(255 255 255 / 0.55);
+    font-size: 0.95rem;
+  }
+
+  .credits-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .credits-links a:hover {
+    color: #fff;
+  }
+</style>
+
+<script>
+  import { prefersReducedMotion } from '@/scripts/agency/motion';
+  import { scrollToTarget } from '@/scripts/agency/smooth-scroll';
+
+  // Back to top
+  document.querySelector('[data-back-to-top]')?.addEventListener('click', event => {
+    event.preventDefault();
+    scrollToTarget(0);
+  });
+
+  // Draw each field's underline once it has scrolled into view.
+  const lineObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        // Also draw fields the visitor jumped past without them ever being fully in view.
+        const passed = entry.boundingClientRect.top < 0;
+        if (entry.intersectionRatio < 0.99 && !passed) return;
+        entry.target.classList.add('is-drawn');
+        lineObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: [0, 1], rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('[data-field-line]').forEach(field => lineObserver.observe(field));
+
+  // Contact form: native validation plus "at least one interest". There is no backend yet,
+  // so a valid submission opens the visitor's email app with the enquiry pre-filled.
+  const form = document.querySelector<HTMLFormElement>('[data-connect-form]')!;
+  const interestsError = form.querySelector<HTMLElement>('[data-interests-error]')!;
+  const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+
+  const checkedInterests = () =>
+    [...form.querySelectorAll<HTMLInputElement>('input[name="interests"]:checked')].map(input => input.value);
+
+  form.addEventListener('change', event => {
+    const target = event.target as HTMLInputElement;
+    if (target.name === 'interests' && checkedInterests().length) interestsError.hidden = true;
+    if (target.classList.contains('field-input')) target.classList.toggle('is-invalid', !target.checkValidity());
+  });
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const interests = checkedInterests();
+    interestsError.hidden = interests.length > 0;
+
+    form.querySelectorAll<HTMLInputElement>('.field-input').forEach(input => {
+      input.classList.toggle('is-invalid', !input.checkValidity());
+    });
+
+    form.classList.add('was-validated');
+
+    if (!form.checkValidity() || !interests.length) {
+      status.classList.add('is-error');
+      status.textContent = 'Please fill in the highlighted fields.';
+      const firstInvalid =
+        form.querySelector<HTMLElement>('input:invalid, select:invalid, textarea:invalid') ??
+        form.querySelector<HTMLElement>('input[name="interests"]');
+      firstInvalid?.focus();
+      return;
+    }
+
+    const data = new FormData(form);
+    const value = (key: string) => String(data.get(key) ?? '');
+    const body = [
+      `Name: ${value('name')}`,
+      `Email: ${value('email')}`,
+      `Phone: ${value('phone')}`,
+      `Company: ${value('company')}`,
+      `Designation: ${value('designation')}`,
+      `Heard about us via: ${value('source')}`,
+      `Interested in: ${interests.join(', ')}`,
+      `Budget: ${value('budget')}`,
+      '',
+      value('message'),
+    ].join('\n');
+    const subject = `Project enquiry from ${value('name')}`;
+
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    status.classList.remove('is-error');
+    status.textContent = 'Thanks! Your email app should open with your message ready to send.';
+  });
+
+  // Physics playground: start the simulation the first time it scrolls into view.
+  const playground = document.querySelector<HTMLElement>('[data-playground]')!;
+
+  if (!prefersReducedMotion) {
+    const observer = new IntersectionObserver(
+      async ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        const { initPlayground } = await import('@/scripts/agency/playground');
+        initPlayground(playground);
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(playground);
+  }
+</script>

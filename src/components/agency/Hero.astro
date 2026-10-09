@@ -1,0 +1,414 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { hero } from '@/data/agency';
+
+const hasShowreel = existsSync(join(process.cwd(), 'public', hero.showreel));
+// The first word is repeated at the end so the ticker loop resets seamlessly.
+const tickerWords = [...hero.ticker, hero.ticker[0]];
+const reelWords = ['Software', 'Websites', 'Mobile Apps', 'ERP & CRM', 'SEO', 'Performance Marketing', 'Branding'];
+---
+
+<section class="hero" data-hero>
+  <div class="wf-container">
+    <h1 class="display-1 hero-title">
+      <span class="hero-lead" data-hero-intro>{hero.lead}</span>{' '}
+      <span class="hero-full" data-hero-intro>{hero.full}</span>
+      <span class="sr-only">{hero.ticker[0]} Agency</span>
+      <span class="hero-ticker" aria-hidden="true" data-hero-intro>
+        <span class="hero-ticker-track" data-ticker-track>
+          {
+            tickerWords.map(word => (
+              <span class="hero-ticker-item">
+                {word}
+                <span class="hero-ticker-suffix"> Agency</span>
+              </span>
+            ))
+          }
+        </span>
+      </span>
+      <span class="hero-agency-mobile" aria-hidden="true" data-hero-intro>Agency</span>
+    </h1>
+  </div>
+
+  <div class="reel-track" data-reel-track>
+    <div class="reel-sticky">
+      <div class="reel" data-reel data-hero-intro>
+        {
+          hasShowreel ? (
+            <>
+              <video
+                class="reel-video"
+                src={hero.showreel}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                data-reel-video
+              />
+              <button type="button" class="reel-sound" aria-pressed="false" data-reel-sound>
+                <span class="sr-only">Sound</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M11 5 6 9H3v6h3l5 4V5Z" fill="currentColor" stroke-linejoin="round" />
+                  <path class="reel-sound-off" d="m16 9 6 6m0-6-6 6" stroke-linecap="round" />
+                  <path class="reel-sound-on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" stroke-linecap="round" />
+                </svg>
+              </button>
+            </>
+          ) : (
+            <div class="reel-art" aria-hidden="true">
+              <img class="reel-bg-image" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop" alt="" />
+              <img class="reel-logo" src="/logos/WFLogo.png" alt="" />
+              <div class="reel-marquee">
+                <div class="reel-marquee-track">
+                  {[0, 1].map(() => (
+                    <span class="reel-marquee-group">
+                      {reelWords.map(word => (
+                        <span>
+                          {word}
+                          <i>✦</i>
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    /* Share of the pinned frame's height the reel starts at. */
+    --reel-start: 0.5;
+
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 5.5rem));
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      --reel-start: 0.62;
+    }
+  }
+
+  .hero-title {
+    perspective: 900px;
+  }
+
+  .hero-lead,
+  .hero-full,
+  .hero-ticker,
+  .hero-agency-mobile {
+    display: inline-block;
+  }
+
+  .hero-lead {
+    transform-origin: 50% 100%;
+  }
+
+  .hero-ticker {
+    display: block;
+    height: 1.08em;
+    overflow: hidden;
+  }
+
+  .hero-ticker-track {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-ticker-item {
+    display: block;
+    height: 1.08em;
+    white-space: nowrap;
+  }
+
+  .hero-ticker-suffix {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .hero-ticker-suffix {
+      display: inline;
+    }
+
+    .hero-agency-mobile {
+      display: none;
+    }
+  }
+
+  /* Reel: sits in a tall track; its sticky wrapper lets it grow to full-bleed while pinned. */
+  /* The reel is centred in the pinned frame, so pull the track up by the empty space above it
+     to keep the reel close to the headline. */
+  .reel-track {
+    height: 210vh;
+    margin-top: calc(clamp(1.5rem, 4vw, 3.5rem) - 50svh * (1 - var(--reel-start)));
+  }
+
+  .reel-sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  /* --p (0 → 1) is scrubbed by GSAP; every dimension derives from it. The reel starts as a
+     tilted quad and straightens into a full-bleed rectangle. */
+  .reel {
+    --p: 0;
+    --q: calc(1 - var(--p));
+    --start-w: calc(100% - 2 * var(--gutter));
+    --tilt: 12%;
+
+    position: relative;
+    width: calc(var(--start-w) + (100% - var(--start-w)) * var(--p));
+    height: calc(100% * var(--reel-start) + 100% * (1 - var(--reel-start)) * var(--p));
+    overflow: hidden;
+    background: var(--color-wf-ink);
+    clip-path: polygon(
+      calc(18% * var(--q)) 0%,
+      calc(100% - 18% * var(--q)) calc(var(--tilt) * var(--q)),
+      calc(100% - 10% * var(--q)) 100%,
+      calc(5% * var(--q)) calc(100% - 10% * var(--q))
+    );
+  }
+
+  @media (min-width: 768px) {
+    .reel {
+      --tilt: 26%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .reel {
+      --start-w: 80%;
+    }
+  }
+
+  .reel-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .reel-sound {
+    position: absolute;
+    /* Shift inward while the corner is still clipped by the tilted shape. */
+    right: calc(clamp(1.25rem, 3vw, 2.5rem) + 12% * var(--q));
+    bottom: clamp(1.25rem, 3vw, 2.5rem);
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-wf-ink);
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .reel-sound:hover {
+    transform: scale(1.08);
+  }
+
+  .reel-sound svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .reel-sound[aria-pressed='true'] .reel-sound-off,
+  .reel-sound[aria-pressed='false'] .reel-sound-on {
+    display: none;
+  }
+
+  /* Fallback art shown until public/videos/showreel.mp4 exists. */
+  .reel-art {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    background: #f8fafc;
+  }
+
+  .reel-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .reel-orb {
+    position: absolute;
+    z-index: -1;
+    width: 45vmax;
+    height: 45vmax;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+  }
+
+  .reel-orb--1 {
+    top: -20%;
+    left: -10%;
+    background: var(--color-wf-accent);
+  }
+
+  .reel-orb--2 {
+    right: -15%;
+    bottom: -30%;
+    background: #7b5cff;
+    opacity: 0.3;
+  }
+
+  .reel-orb--3 {
+    top: 30%;
+    left: 40%;
+    width: 25vmax;
+    height: 25vmax;
+    background: var(--color-wf-lime);
+    opacity: 0.18;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reel-orb--1 {
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    .reel-orb--2 {
+      animation: drift 22s ease-in-out -6s infinite alternate-reverse;
+    }
+
+    .reel-orb--3 {
+      animation: drift 15s ease-in-out -3s infinite alternate;
+    }
+
+    .reel-marquee-track {
+      animation: reel-marquee 40s linear infinite;
+    }
+  }
+
+  @keyframes drift {
+    to {
+      transform: translate(12vmax, 8vmax) scale(1.15);
+    }
+  }
+
+  .reel-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(circle at center, #000 30%, transparent 75%);
+  }
+
+  .reel-logo {
+    width: min(42vh, 26rem);
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
+
+  .reel-marquee {
+    position: absolute;
+    right: 0;
+    bottom: clamp(1rem, 4vh, 2.5rem);
+    left: 0;
+    overflow: hidden;
+    color: rgb(255 255 255 / 0.75);
+    font-size: clamp(1rem, 1.6vw, 1.4rem);
+    font-weight: 500;
+  }
+
+  .reel-marquee-track {
+    display: flex;
+    width: max-content;
+  }
+
+  .reel-marquee-group span {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .reel-marquee-group i {
+    font-style: normal;
+    color: var(--color-wf-lime);
+  }
+
+  @keyframes reel-marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html.js [data-hero-intro] {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  import { gsap, prefersReducedMotion } from '@/scripts/agency/motion';
+
+  const hero = document.querySelector<HTMLElement>('[data-hero]')!;
+  const track = hero.querySelector<HTMLElement>('[data-reel-track]')!;
+  const reel = hero.querySelector<HTMLElement>('[data-reel]')!;
+  const tickerTrack = hero.querySelector<HTMLElement>('[data-ticker-track]')!;
+  const video = hero.querySelector<HTMLVideoElement>('[data-reel-video]');
+  const soundButton = hero.querySelector<HTMLButtonElement>('[data-reel-sound]');
+
+  soundButton?.addEventListener('click', () => {
+    if (!video) return;
+    video.muted = !video.muted;
+    soundButton.setAttribute('aria-pressed', String(!video.muted));
+    if (!video.muted) video.play();
+  });
+
+  if (!prefersReducedMotion) {
+    const [lead, full, ticker, agencyMobile] = hero.querySelectorAll<HTMLElement>(
+      '.hero-title [data-hero-intro]'
+    );
+
+    gsap
+      .timeline({ defaults: { ease: 'expo.out', duration: 1.6 } })
+      .fromTo(lead, { opacity: 0, rotateX: -95, yPercent: 40 }, { opacity: 1, rotateX: 0, yPercent: 0 })
+      .fromTo(full, { opacity: 0, scale: 0.6, yPercent: 50 }, { opacity: 1, scale: 1, yPercent: 0 }, '<0.15')
+      .fromTo([ticker, agencyMobile], { opacity: 0, yPercent: 60 }, { opacity: 1, yPercent: 0 }, '<0.15')
+      .fromTo(reel, { opacity: 0, y: 80 }, { opacity: 1, y: 0 }, '<0.2');
+
+    // Vertical word ticker: step through each word, then snap back to the duplicate first word.
+    const steps = tickerTrack.children.length - 1;
+    const tickerTl = gsap.timeline({ repeat: -1, delay: 1.2 });
+    for (let i = 1; i <= steps; i++) {
+      tickerTl.to(tickerTrack, {
+        yPercent: (-100 / (steps + 1)) * i,
+        duration: 0.9,
+        ease: 'expo.inOut',
+        delay: 1.3,
+      });
+    }
+    tickerTl.set(tickerTrack, { yPercent: 0 });
+
+    // Reel grows from an inset card to a full-bleed, full-height panel while the track scrolls.
+    gsap.to(reel, {
+      '--p': 1,
+      ease: 'none',
+      scrollTrigger: { trigger: track, start: 0, end: 'bottom bottom', scrub: true },
+    });
+  }
+</script>

@@ -29,15 +29,25 @@
   --color-slate-800: oklch(0.279 0.041 260.031);
   --color-slate-900: oklch(0.208 0.042 265.755);
   --color-slate-950: oklch(0.129 0.042 264.695);
+
+  /* Agency site palette (src/layout/AgencyLayout.astro) */
+  --color-wf-ink: #0b0b0f;
+  --color-wf-paper: #ffffff;
+  --color-wf-soft: #f2f2f5;
+  --color-wf-muted: #6b6b78;
+  --color-wf-accent: #2f5bff;
+  --color-wf-lime: #d7ff3c;
+  --color-wf-lilac: #c9b8ff;
+  --color-wf-orange: #ff7a45;
 }
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards)
     linear infinite;
 
-  /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: 'DM Sans', sans-serif;
-  --font-work-sans: 'Work Sans', sans-serif;
+  /* https://tailwindcss.com/docs/font-family#customizing-your-theme
+     Site-wide typeface; font files are registered by src/components/common/AeonikFont.astro */
+  --font-sans: Aeonik, sans-serif;
 
   @keyframes scroll {
     to {
@@ -64,15 +74,7 @@
   }
 
   body {
-    @apply font-work-sans;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  .dm-sans {
-    @apply font-dm-sans;
+    @apply font-sans;
   }
 
   button:not(:disabled),

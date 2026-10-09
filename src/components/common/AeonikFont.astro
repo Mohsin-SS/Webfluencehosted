@@ -1,0 +1,41 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Aeonik is a licensed typeface (CoType Foundry), so its files are not committed by default.
+// Put the licensed files in public/fonts/aeonik/ using these names; any weight that exists is
+// registered automatically. Without files, `Aeonik, sans-serif` still uses Aeonik when it is
+// installed on the visitor's machine, and falls back to the system sans-serif otherwise.
+const FONT_DIR = 'fonts/aeonik';
+const weights = [
+  { name: 'Light', weight: 300 },
+  { name: 'Regular', weight: 400 },
+  { name: 'Medium', weight: 500 },
+  { name: 'Bold', weight: 700 },
+  { name: 'Black', weight: 900 },
+];
+const formats = [
+  { ext: 'woff2', format: 'woff2' },
+  { ext: 'woff', format: 'woff' },
+  { ext: 'otf', format: 'opentype' },
+  { ext: 'ttf', format: 'truetype' },
+];
+
+const faces = weights.flatMap(({ name, weight }) => {
+  const match = formats.find(({ ext }) =>
+    existsSync(join(process.cwd(), 'public', FONT_DIR, `Aeonik-${name}.${ext}`))
+  );
+  return match ? [{ weight, href: `/${FONT_DIR}/Aeonik-${name}.${match.ext}`, ...match }] : [];
+});
+
+const css = faces
+  .map(
+    face =>
+      `@font-face{font-family:'Aeonik';src:url('${face.href}') format('${face.format}');font-weight:${face.weight};font-style:normal;font-display:swap;}`
+  )
+  .join('');
+const preload = faces.find(face => face.weight === 400);
+---
+
+{preload && <link rel="preload" href={preload.href} as="font" type={`font/${preload.ext}`} crossorigin />}
+{css && <style is:inline set:html={css} />}

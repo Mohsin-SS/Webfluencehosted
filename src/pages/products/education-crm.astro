@@ -1,6 +1,6 @@
 ---
 export const prerender = true;
-import BaseLayout from '@layout/BaseLayout.astro';
+import AgencyLayout from '@layout/AgencyLayout.astro';
 import Button from '@ui/Button.astro';
 import Icon from '@ui/icons/Icon.astro';
 import type { WithContext, Thing } from 'schema-dts';
@@ -19,18 +19,31 @@ const schema: WithContext<Thing> = {
 };
 ---
 
-<BaseLayout seo={seo} schema={schema}>
+<AgencyLayout seo={seo} schema={schema}>
   {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        Education Consultancy CRM
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Streamline your consultancy operations. Our centralized CRM is designed specifically to help education consultants manage students, applications, and communications effectively.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Request a Demo</Button>
+  <section class="relative overflow-hidden bg-slate-50 pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pb-32">
+    <!-- Abstract background shape -->
+    <div class="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-blue-600/10 ring-1 ring-blue-50 sm:-mr-80 lg:-mr-96" aria-hidden="true"></div>
+    <div class="mx-auto max-w-[85rem] px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+        <div class="sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left z-10">
+          <h1 class="block text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl text-balance">
+            Education <span class="text-blue-600">Consultancy CRM</span>
+          </h1>
+          <p class="mt-6 text-lg text-pretty text-slate-700 max-w-lg mx-auto lg:mx-0">
+            Streamline your consultancy operations. Our centralized CRM is designed specifically to help education consultants manage students, applications, and communications effectively.
+          </p>
+          <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+            <Button href="/contact" variant="primary">Request a Demo</Button>
+          </div>
+        </div>
+        <div class="relative mt-16 sm:mt-24 lg:col-span-6 lg:mt-0 z-10">
+          <div class="relative mx-auto w-full lg:max-w-lg">
+             <!-- 3D Asset Image Placeholder -->
+             <!-- Note: You can drop your 3D illustration here. Using an abstract 3D render placeholder for now. -->
+            <img class="w-full h-auto drop-shadow-2xl rounded-2xl hover:-translate-y-2 transition-transform duration-500" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="3D Education Illustration" />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -145,4 +158,4 @@ const schema: WithContext<Thing> = {
     </div>
 
   </section>
-</BaseLayout>
+</AgencyLayout>
