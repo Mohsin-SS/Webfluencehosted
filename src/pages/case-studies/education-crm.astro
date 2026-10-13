@@ -1,0 +1,251 @@
+---
+export const prerender = true;
+import AgencyLayout from '@layout/AgencyLayout.astro';
+
+const seo = {
+  title: 'Case Study: Education Consultancy CRM | Webfluence',
+  description: "Most education consultancies don't have a lead problem. They have a workflow problem. See how we built a CRM designed around the actual workflow.",
+};
+---
+
+<AgencyLayout seo={seo}>
+  <section class="case-hero">
+    <div class="wf-container">
+      <p class="eyebrow">(Case Study)</p>
+      <h1 class="display-1 case-hero-title" data-skew-up>
+        Most education consultancies don't have a lead problem.<br />
+        <span class="text-accent">They have a workflow problem.</span>
+      </h1>
+      <p class="case-intro">
+        Leads come through WhatsApp, social media, calls and referrals. Then come counseling, applications, documents, deadlines, follow-ups and university offers.
+        <br /><br />
+        When all of that is managed across spreadsheets, chats and disconnected tools, things inevitably get missed.
+      </p>
+    </div>
+  </section>
+
+  <section class="section case-solution">
+    <div class="wf-container">
+      <h2 class="display-2 mb-large" data-skew-up>So we built a CRM designed around the actual workflow of an education consultancy.</h2>
+      
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>Lead management & pipeline tracking</h3>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>Student profiles and application management</h3>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>Counselor workflows</h3>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>Document & deadline tracking</h3>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>Management-level visibility</h3>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>WhatsApp automation</h3>
+        </div>
+        <div class="feature">
+          <div class="feature-dot"></div>
+          <h3>Automated follow-ups and communication</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section case-journey">
+    <div class="wf-container">
+      <div class="journey-wrapper">
+        <p class="eyebrow">(The journey)</p>
+        <h2 class="display-3 journey-title" data-skew-up>
+          The goal wasn't simply to build another dashboard. It was to connect the entire journey.
+        </h2>
+        
+        <div class="journey-flow">
+          <div class="journey-step">Student Inquiry</div>
+          <div class="journey-step">Qualification</div>
+          <div class="journey-step">Counseling</div>
+          <div class="journey-step">Application</div>
+          <div class="journey-step">Documents</div>
+          <div class="journey-step">Offer</div>
+          <div class="journey-step">Enrollment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section case-cta">
+    <div class="wf-container">
+      <div class="cta-card">
+        <h2 class="display-2 cta-title" data-skew-up>Focus on conversations that actually require you.</h2>
+        <p class="cta-text">
+          And with WhatsApp automation connected to the CRM, repetitive communication can be automated while counselors remain focused on the conversations that actually matter.
+          <br /><br />
+          This is the kind of software we enjoy building at Webfluence, systems designed around how a business actually operates, rather than forcing a business to adapt to generic software.
+          <br /><br />
+          If you're running an education consultancy and still managing leads, applications and follow-ups across multiple disconnected tools, we'd be happy to show you what this workflow could look like for your business.
+        </p>
+        <a href="/contact" class="btn-primary">Book a Demo</a>
+        
+        <div class="tags">
+          <span>#CRM</span>
+          <span>#EducationTechnology</span>
+          <span>#EdTech</span>
+          <span>#WhatsAppAutomation</span>
+          <span>#Automation</span>
+          <span>#SoftwareDevelopment</span>
+          <span>#Webfluence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</AgencyLayout>
+
+<style>
+  .case-hero {
+    padding-top: calc(var(--header-h) + clamp(3rem, 8vw, 7rem));
+    padding-bottom: clamp(3rem, 7vw, 6rem);
+  }
+  .case-hero .eyebrow {
+    margin-bottom: 1.5rem;
+  }
+  .case-hero-title {
+    max-width: 25ch;
+  }
+  .text-accent {
+    color: var(--color-wf-accent);
+  }
+  .case-intro {
+    max-width: 45rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    color: var(--color-wf-muted);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    line-height: 1.45;
+  }
+  
+  .mb-large {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    max-width: 25ch;
+  }
+  
+  .feature-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .feature-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border: 1px solid rgb(11 11 15 / 0.1);
+    border-radius: 999px;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  .feature-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--color-wf-lime);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .journey-wrapper {
+    background: var(--color-wf-ink);
+    color: #fff;
+    padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 5rem);
+    border-radius: var(--radius-lg);
+  }
+  .journey-wrapper .eyebrow {
+    color: rgb(255 255 255 / 0.6);
+  }
+  .journey-title {
+    margin-block: 1.5rem clamp(3rem, 6vw, 5rem);
+    max-width: 25ch;
+  }
+  
+  .journey-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .journey-step {
+    padding: 0.75rem 1.5rem;
+    background: rgb(255 255 255 / 0.1);
+    border-radius: 999px;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  .journey-step:not(:last-child)::after {
+    content: '→';
+    margin-left: 1rem;
+    color: var(--color-wf-accent);
+  }
+  
+  .cta-card {
+    padding: clamp(3rem, 6vw, 6rem) 0;
+    border-top: 1px solid rgb(11 11 15 / 0.1);
+  }
+  .cta-title {
+    margin-bottom: 2rem;
+    max-width: 25ch;
+  }
+  .cta-text {
+    max-width: 45rem;
+    color: var(--color-wf-muted);
+    font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+    line-height: 1.5;
+    margin-bottom: 3rem;
+  }
+  
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem 2.5rem;
+    background: var(--color-wf-accent);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.2s var(--ease-out-expo);
+  }
+  .btn-primary:hover {
+    transform: scale(1.03);
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 4rem;
+  }
+  .tags span {
+    padding: 0.5rem 1rem;
+    background: rgb(11 11 15 / 0.05);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: var(--color-wf-muted);
+  }
+</style>

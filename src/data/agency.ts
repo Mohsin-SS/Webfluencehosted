@@ -95,7 +95,7 @@ export const work: WorkItem[] = [
     href: '/products/construction-price-estimator',
     size: 'lg',
     cover: '/work/covers/pink_shapes.jpg',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop',
+    image: '/homepageimages/estimator_mockup_real_screenshot.png',
   },
   {
     title: 'WhatsApp Chatbot',
@@ -103,23 +103,24 @@ export const work: WorkItem[] = [
     href: '/whatsapp-chatbot',
     size: 'sm',
     cover: '/work/covers/neon_rock.jpg',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
+    image: '/homepageimages/whatsapp_bot_mobile_mockup_1.png',
   },
   {
     title: 'EduConsult — Education Consultancy CRM',
     tags: ['CRM', 'Web App', 'UI/UX'],
     href: '/products/education-crm',
     size: 'full',
-    cover: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop',
+    cover: '/homepageimages/Glowing Blue Glass Waves.png',
+    image: '/homepageimages/educonsult_mockup_real_screenshot.png',
+    video: '/homepageimages/educonsult_cover_loop.mp4',
   },
   {
     title: 'ERP Suite',
     tags: ['ERP', 'Dashboards'],
     href: '/erp',
     size: 'sm',
-    cover: '/work/covers/interior_laptop.jpg',
-    image: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000&auto=format&fit=crop',
+    cover: '/homepageimages/erp_cover.png',
+    image: '/homepageimages/erp_mockup_real_screenshot.png',
   },
   {
     title: 'Your project, next.',
@@ -138,7 +139,7 @@ export interface Project {
   title: string;
   summary: string;
   url: string;
-  image: 'edu-link-web' | 'crm-edu-link-web' | 'latch-shopify';
+  image: 'edu-link-web' | 'crm-edu-link-web' | 'latch-shopify' | 'zelvior-shopify';
   tags: string[];
   year: string;
   services: string[];
@@ -197,6 +198,24 @@ export const projects: Project[] = [
       'Optimized checkout flow to increase conversion rates',
       'Seamless integration with third-party apps',
       'Mobile-first responsive design'
+    ],
+  },
+  {
+    slug: 'zelvior-shopify',
+    client: 'Zelvior',
+    title: 'Shopify store design & SEO that drives organic growth',
+    summary:
+      'Zelvior is a Shopify-based e-commerce brand. We designed a visually striking storefront and implemented a comprehensive SEO strategy — from technical foundations to on-page optimisation — to boost organic visibility and convert browsers into buyers.',
+    url: 'https://www.zelviorofficial.pk',
+    image: 'zelvior-shopify',
+    tags: ['Shopify', 'SEO', 'Design'],
+    year: '2025',
+    services: ['Shopify Store Design', 'SEO Strategy & Execution', 'UI/UX Design', 'Conversion Optimisation'],
+    highlights: [
+      'Fully custom Shopify theme tailored to the brand identity',
+      'On-page and technical SEO audit with full implementation',
+      'Optimised product pages for higher conversion rates',
+      'Mobile-first, fast-loading design for improved Core Web Vitals',
     ],
   },
 ];
