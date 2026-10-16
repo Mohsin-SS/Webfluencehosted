@@ -1,0 +1,1088 @@
+---
+export const prerender = true;
+/**
+ * Case study: Times Consultant — AI-powered CRM + WhatsApp automation
+ * Route: /case-studies/times-consultant
+ *
+ * Assets live in /public/times-images-case-study/
+ * Client logo reuses the existing /public/logos/times-consultant.png
+ */
+import AgencyLayout from '@layout/AgencyLayout.astro';
+
+const base = '/times-images-case-study';
+
+const seo = {
+  title: 'Times Consultant — CRM + WhatsApp automation | Webfluence',
+  description:
+    'How Webfluence built an AI-powered CRM and WhatsApp automation for Times Consultant, one of Pakistan\'s leading education consultancies. 500+ students connected, zero missed leads.',
+};
+
+const chapters = [
+  { id: 'problem', label: 'The problem' },
+  { id: 'whatsapp', label: 'WhatsApp bot' },
+  { id: 'analysis', label: 'AI analysis' },
+  { id: 'results', label: 'Results' },
+];
+
+const problems = [
+  {
+    title: 'Students waited hours for a reply',
+    body: 'Every first response depended on a counselor being free. After hours, nobody answered.',
+  },
+  {
+    title: 'No record of who said what',
+    body: 'Conversations lived on personal phones. A lost chat meant a lost student.',
+  },
+  {
+    title: 'Zero visibility on counselor performance',
+    body: 'Who was converting? Who was ghosting students? Management had no way to know.',
+  },
+];
+
+const botPoints = [
+  ['Instant first reply, 24/7.', 'No student waits for office hours again.'],
+  ['Menu-driven qualification.', 'Country, budget and timeline are captured before a human steps in.'],
+  ['Every chat auto-logged.', 'Each conversation becomes a lead in the CRM and is routed to a counselor.'],
+  ['Consultations booked inside the chat.', 'No forms, no back-and-forth.'],
+];
+
+const counselors = [
+  { initials: 'SA', name: 'Sara Ahmed', score: 92 },
+  { initials: 'AR', name: 'Ali Raza', score: 78 },
+  { initials: 'TM', name: 'Tariq Mehmood', score: 61, low: true },
+];
+
+const tracks = ['Response time', 'Follow-up discipline', 'Lead-to-enrol rate', 'Chat quality and tone'];
+
+const results = [
+  { value: '500+', label: 'WhatsApp users connected to the CRM through the chatbot' },
+  { value: '24/7', label: 'Automated first response to every new student enquiry' },
+  { value: '100%', label: 'Of conversations logged, tracked and assigned in one place' },
+  { value: 'Weekly', label: 'AI performance report on every counselor, automatically' },
+];
+---
+
+<AgencyLayout seo={seo}>
+  <main class="cs">
+    <!-- ───────────── Hero ───────────── -->
+    <header class="hero">
+      <div class="wrap">
+        <a class="back" href="/work">All work</a>
+
+        <div class="client">
+          <img src="/logos/times-consultant.png" alt="Times Consultant" width="40" height="40" />
+          <div>
+            <strong>Times Consultant</strong>
+            <span>Education consultancy, Lahore</span>
+          </div>
+          <ul class="tags" aria-label="Project scope">
+            <li>CRM</li>
+            <li>WhatsApp bot</li>
+            <li>AI analysis</li>
+            <li>2026</li>
+          </ul>
+        </div>
+
+        <h1>
+          500+ students.<br />
+          One WhatsApp.<br />
+          <em>Zero missed leads.</em>
+        </h1>
+
+        <p class="dek">
+          How we built an AI-powered CRM and WhatsApp automation for one of Pakistan's leading
+          education consultancies.
+        </p>
+      </div>
+
+      <figure class="frame">
+        <div class="frame-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="url">crm.timesconsultant.com</span>
+          <span class="live">Live</span>
+        </div>
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          poster={`${base}/cover-poster.jpg`}
+          aria-label="Times Consultant CRM overview animation"
+        >
+          <source src={`${base}/cover-loop.mp4`} type="video/mp4" />
+        </video>
+      </figure>
+    </header>
+
+    <!-- ───────────── Body with chapter rail ───────────── -->
+    <div class="wrap body">
+      <nav class="rail" aria-label="Case study chapters">
+        <ol>
+          {chapters.map((c) => (
+            <li><a href={`#${c.id}`} data-chapter={c.id}>{c.label}</a></li>
+          ))}
+        </ol>
+        <a class="rail-cta" href="/contact">Start a project</a>
+      </nav>
+
+      <div class="content">
+        <!-- Problem -->
+        <section id="problem" class="chapter">
+          <p class="kicker">The problem</p>
+          <h2>Leads were dying in WhatsApp DMs.</h2>
+          <p class="lead">
+            Times Consultant was getting hundreds of student enquiries a month. The team was
+            drowning in chats, and management was flying blind.
+          </p>
+
+          <ul class="problems">
+            {problems.map((p) => (
+              <li>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+              </li>
+            ))}
+          </ul>
+          <p class="turn">So we rebuilt everything.</p>
+        </section>
+
+        <!-- Solution 01: WhatsApp bot -->
+        <section id="whatsapp" class="chapter">
+          <p class="kicker">Solution 1 of 2: the WhatsApp bot</p>
+          <h2>A bot that onboards students <em>while the team sleeps.</em></h2>
+
+          <div class="split">
+            <!-- Chat mock. Messages play in when scrolled into view (see script). -->
+            <div class="phone" data-chat>
+              <div class="phone-head">
+                <img src="/logos/times-consultant.png" alt="" width="34" height="34" />
+                <div>
+                  <strong>Times Consultant</strong>
+                  <span>online, replies instantly</span>
+                </div>
+              </div>
+              <div class="thread">
+                <span class="day">Today</span>
+                <p class="msg out">Hi, I want to study in the UK</p>
+                <div class="msg in">
+                  <strong>Welcome to Times Consultant 👋</strong>
+                  <span>How can I help you today? Tap an option below.</span>
+                  <ol>
+                    <li>Explore countries</li>
+                    <li>Book free consultation</li>
+                    <li>Application process</li>
+                    <li>Fees and funding</li>
+                    <li>Talk to a counsellor</li>
+                  </ol>
+                </div>
+                <p class="msg out short">2</p>
+                <p class="msg in">
+                  Great choice! Share your name and preferred time, and a counsellor will call you
+                  back.
+                </p>
+                <p class="msg sys">Lead synced to CRM</p>
+              </div>
+            </div>
+
+            <div class="split-copy">
+              <div class="big-stat">
+                <strong>500+</strong>
+                <span>WhatsApp users connected straight into the CRM through the chatbot</span>
+              </div>
+              <ul class="points">
+                {botPoints.map(([head, rest]) => (
+                  <li><strong>{head}</strong> {rest}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Solution 02: AI analysis -->
+        <section id="analysis" class="chapter">
+          <p class="kicker">Solution 2 of 2: AI analysis</p>
+          <h2>Every counselor, <em>scored by AI.</em></h2>
+          <p class="lead">
+            The CRM reads every WhatsApp conversation and tells management exactly who is
+            converting, who is slow, and who needs coaching.
+          </p>
+
+          <div class="report">
+            <div class="report-head">
+              <strong>AI counselor performance report</strong>
+              <span>Auto-generated weekly</span>
+            </div>
+            <ul class="scores">
+              {counselors.map((c) => (
+                <li class:list={{ low: c.low }}>
+                  <span class="avatar">{c.initials}</span>
+                  <span class="name">{c.name}</span>
+                  <span class="bar"><i style={`--w:${c.score}%`}></i></span>
+                  <span class="score">{c.score}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="insight">
+              <strong>AI insight</strong> Tariq's average first reply is 4h slower than the team. 6
+              leads went cold after a missed follow-up. Recommend a callback reminder rule.
+            </p>
+          </div>
+
+          <ul class="tracks" aria-label="What the AI tracks">
+            {tracks.map((t) => <li>{t}</li>)}
+          </ul>
+        </section>
+
+        <!-- Results -->
+        <section id="results" class="chapter">
+          <p class="kicker">The results</p>
+          <h2>From chaos in chats to <em>a pipeline on autopilot.</em></h2>
+
+          <ul class="results">
+            {results.map((r) => (
+              <li>
+                <strong>{r.value}</strong>
+                <span>{r.label}</span>
+              </li>
+            ))}
+          </ul>
+
+          <figure class="shot">
+            <img
+              src={`${base}/crm-dashboard.jpg`}
+              alt="Times Consultant CRM dashboard showing active students, applications, visas approved, expected commission, the application funnel and priority alerts"
+              loading="lazy"
+              width="2000"
+              height="936"
+            />
+            <figcaption>
+              The CRM dashboard: pipeline, funnel and priority alerts in one view.
+            </figcaption>
+          </figure>
+        </section>
+
+        <!-- Carousel strip -->
+        <section class="carousel" aria-label="Case study carousel">
+          <p class="kicker">As seen on Instagram</p>
+          <div class="strip">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <img
+                src={`${base}/slide-${n}.jpg`}
+                alt={`Times Consultant case study, slide ${n} of 5`}
+                loading="lazy"
+                width="240"
+                height="300"
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ───────────── CTA ───────────── -->
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta-card">
+          <div>
+            <h2>Want this for your consultancy?</h2>
+            <p>Message us "CRM" and we'll walk you through how it works.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn" href="https://wa.me/923217555516?text=CRM" target="_blank" rel="noopener">
+              WhatsApp us
+            </a>
+            <a class="btn ghost" href="/contact">Contact form</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</AgencyLayout>
+
+<script>
+  // Scroll-spy for the chapter rail, and a one-time play-in for the chat thread.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-chapter]')];
+  const sections = links
+    .map((l) => document.getElementById(l.dataset.chapter!))
+    .filter((s): s is HTMLElement => !!s);
+
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((l) => l.classList.toggle('is-active', l.dataset.chapter === e.target.id));
+      });
+    },
+    { rootMargin: '-40% 0px -55% 0px' }
+  );
+  sections.forEach((s) => spy.observe(s));
+
+  const chat = document.querySelector('[data-chat]');
+  if (chat) {
+    const play = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          chat.classList.add('is-playing');
+          play.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    play.observe(chat);
+    // Safety net: if the observer never fires, play anyway.
+    setTimeout(() => chat.classList.add('is-playing'), 6000);
+  }
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  .cs {
+    --ink: #ffffff;
+    --surface: #f6f7fb;
+    --surface-2: #eef0f7;
+    --line: rgba(11, 16, 32, 0.09);
+    --text: #0b1020;
+    --muted: #5b6478;
+    --blue: #4f7cff;
+    --violet: #8b5cf6;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #e0202a;
+    --grad: linear-gradient(90deg, var(--blue), var(--violet));
+    --font: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --wrap: 120rem;
+    --gutter: clamp(1rem, 2.5vw, 3rem);
+    --r-lg: 22px;
+    --r-md: 14px;
+    --r-sm: 10px;
+
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.55;
+    overflow-x: clip;
+  }
+
+  .cs :is(h1, h2, h3) {
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  .cs p {
+    margin: 0;
+  }
+  .cs :is(ul, ol) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cs a {
+    color: inherit;
+  }
+  .cs em {
+    font-style: normal;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cs :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .wrap {
+    width: 100%;
+    max-width: var(--wrap);
+    padding-inline: var(--gutter);
+    margin-inline: auto;
+  }
+  .kicker {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+
+  /* ── Hero ──────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: calc(var(--header-h, 5.5rem) + clamp(1.5rem, 3vw, 3rem)) 0 0;
+    isolation: isolate;
+  }
+  .hero::before {
+    /* single soft glow behind the headline, nothing else */
+    content: '';
+    position: absolute;
+    inset: -20% auto auto -10%;
+    width: 60vw;
+    height: 60vw;
+    max-width: 900px;
+    max-height: 900px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(79, 124, 255, 0.14), transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .back {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+  }
+  .back::before {
+    content: '←  ';
+  }
+  .back:hover {
+    color: var(--text);
+  }
+  .client {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem 1rem;
+    margin-bottom: 2rem;
+  }
+  .client img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--line);
+    object-fit: contain;
+    padding: 4px;
+  }
+  .client strong {
+    display: block;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .client span {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-left: auto;
+  }
+  .tags li {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 6.2rem);
+    max-width: 22ch;
+  }
+  .dek {
+    margin-top: 1.5rem;
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  .frame {
+    width: calc(100% - 2 * var(--gutter));
+    max-width: var(--wrap);
+    margin: clamp(2.5rem, 5vw, 4.5rem) auto 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--r-lg);
+    background: #0b1020;
+    color: #c7cde0;
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px -30px rgba(11, 16, 32, 0.45),
+      0 0 0 1px rgba(79, 124, 255, 0.1);
+  }
+  .frame-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+  }
+  .dots {
+    display: flex;
+    gap: 6px;
+  }
+  .dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .url {
+    flex: 1;
+    text-align: center;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .live {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--green);
+    background: rgba(34, 197, 94, 0.12);
+  }
+  .live::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+  }
+  .frame video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 898;
+    object-fit: cover;
+  }
+
+  /* ── Body + rail ───────────────────────────────────────── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: clamp(4rem, 8vw, 7rem) 0 2rem;
+  }
+  .rail {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .body {
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 4rem;
+    }
+    .rail {
+      display: block;
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+    }
+  }
+  .rail ol {
+    display: grid;
+    gap: 0.2rem;
+    border-left: 1px solid var(--line);
+  }
+  .rail a {
+    display: block;
+    padding: 0.45rem 0 0.45rem 1rem;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .rail a:hover {
+    color: var(--text);
+  }
+  .rail a.is-active {
+    color: var(--text);
+    border-color: var(--blue);
+  }
+  .rail-cta {
+    display: inline-block;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .content {
+    min-width: 0;
+  }
+  .chapter {
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+    scroll-margin-top: 5rem;
+  }
+  .chapter h2 {
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    max-width: 24ch;
+  }
+  .lead {
+    margin-top: 1.25rem;
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 65ch;
+  }
+
+  /* Problem list: three rows, each a stacked statement */
+  .problems {
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .problems li {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 720px) {
+    .problems li {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      align-items: start;
+    }
+  }
+  .problems h3 {
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .problems h3::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-right: 0.7rem;
+    vertical-align: 0.15em;
+  }
+  .problems p {
+    color: var(--muted);
+  }
+  .turn {
+    margin-top: 2rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  /* Split layout for the bot section */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 820px) {
+    .split {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      align-items: start;
+      gap: 3rem;
+    }
+  }
+  .big-stat {
+    padding: 1.5rem 1.6rem;
+    border-radius: var(--r-md);
+    background: linear-gradient(135deg, rgba(79, 124, 255, 0.1), rgba(139, 92, 246, 0.12));
+    border: 1px solid rgba(139, 92, 246, 0.25);
+  }
+  .big-stat strong {
+    display: block;
+    font-size: clamp(2.6rem, 5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .big-stat span {
+    display: block;
+    margin-top: 0.4rem;
+    color: var(--muted);
+  }
+  .points {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+  .points li {
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 10px;
+    height: 2px;
+    background: var(--blue);
+  }
+  .points strong {
+    color: var(--text);
+  }
+
+  /* Phone / chat thread */
+  .phone {
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    background: #eef1f6;
+    overflow: hidden;
+    max-width: 380px;
+    box-shadow: 0 24px 50px -30px rgba(11, 16, 32, 0.35);
+  }
+  .phone-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+  }
+  .phone-head img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 3px;
+    object-fit: contain;
+  }
+  .phone-head strong {
+    display: block;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  .phone-head span {
+    font-size: 0.75rem;
+    color: #16a34a;
+  }
+  .thread {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem;
+    min-height: 420px;
+  }
+  .day {
+    align-self: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .msg {
+    max-width: 86%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .msg.in {
+    align-self: flex-start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 4px;
+  }
+  .msg.out {
+    align-self: flex-end;
+    background: #d9fdd3;
+    color: #0b1020;
+    border-bottom-right-radius: 4px;
+  }
+  .msg.short {
+    padding-inline: 1rem;
+  }
+  .msg.in strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .msg.in span {
+    display: block;
+    color: var(--muted);
+  }
+  .msg.in ol {
+    list-style: decimal;
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+  .msg.sys {
+    align-self: flex-start;
+    background: rgba(79, 124, 255, 0.12);
+    color: #2f5be6;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .msg.sys::before {
+    content: '✓  ';
+  }
+  /* Play-in: each bubble waits for the previous one. Only runs once. */
+  [data-chat] .msg {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  [data-chat].is-playing .msg {
+    animation: bubble 0.4s ease forwards;
+  }
+  [data-chat].is-playing .msg:nth-child(2) { animation-delay: 0.2s; }
+  [data-chat].is-playing .msg:nth-child(3) { animation-delay: 1s; }
+  [data-chat].is-playing .msg:nth-child(4) { animation-delay: 2.1s; }
+  [data-chat].is-playing .msg:nth-child(5) { animation-delay: 2.9s; }
+  [data-chat].is-playing .msg:nth-child(6) { animation-delay: 3.6s; }
+  @keyframes bubble {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-chat] .msg {
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+  }
+
+  /* AI report */
+  .report {
+    margin-top: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .report-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .report-head span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .scores {
+    padding: 0.5rem 1.4rem;
+  }
+  .scores li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 150px) minmax(0, 1fr) 3ch;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .scores li:last-child {
+    border-bottom: 0;
+  }
+  @media (max-width: 560px) {
+    .scores li {
+      grid-template-columns: 36px minmax(0, 1fr) 3ch;
+    }
+    .scores .bar {
+      grid-column: 2 / 4;
+    }
+  }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--grad);
+    color: #fff;
+  }
+  .scores .name {
+    font-weight: 600;
+  }
+  .bar {
+    display: block;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(11, 16, 32, 0.08);
+    overflow: hidden;
+  }
+  .bar i {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    border-radius: inherit;
+    background: var(--grad);
+  }
+  .scores .score {
+    font-weight: 800;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .scores .low .bar i {
+    background: linear-gradient(90deg, #f97316, var(--amber));
+  }
+  .scores .low .score {
+    color: #d97706;
+  }
+  .insight {
+    margin: 0.5rem 1.4rem 1.4rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--r-md);
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.22);
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .insight strong {
+    color: var(--text);
+    margin-right: 0.4rem;
+  }
+  .tracks {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+  .tracks li {
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .tracks li::before {
+    content: 'Tracks';
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--violet);
+    margin-bottom: 0.2rem;
+  }
+
+  /* Results */
+  .results {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+  @media (min-width: 820px) {
+    .results {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .results li {
+    padding: 1.4rem 1.3rem;
+    border-radius: var(--r-md);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .results strong {
+    display: block;
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .results span {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .shot {
+    margin: 2rem 0 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .shot figcaption {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Carousel strip */
+  .carousel {
+    padding-bottom: 2rem;
+  }
+  .strip {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .strip img {
+    flex: 0 0 auto;
+    width: 200px;
+    height: auto;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--line);
+    scroll-snap-align: start;
+  }
+
+  /* CTA */
+  .cta {
+    padding: 2rem 0 clamp(4rem, 8vw, 7rem);
+  }
+  .cta-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    padding: clamp(1.8rem, 4vw, 3rem);
+    border-radius: var(--r-lg);
+    background: var(--grad);
+    color: #fff;
+  }
+  .cta-card h2 {
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  }
+  .cta-card p {
+    margin-top: 0.5rem;
+    opacity: 0.9;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .cs .btn {
+    display: inline-block;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    background: #fff;
+    color: #0b1020;
+    font-weight: 700;
+    box-shadow: 0 6px 16px -8px rgba(0,0,0,.4);
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .cs .btn.ghost {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 import Icon from '@ui/icons/Icon.astro';
-import { navLinks, serviceMenu } from '@/data/agency';
+import { navLinks, serviceMenu, caseStudyMenu } from '@/data/agency';
 
 const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
 ---
@@ -70,6 +70,43 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
         </div>
       </div>
 
+      <div class="nav-dropdown nav-dropdown--case" data-dropdown>
+        <button
+          type="button"
+          class="nav-link"
+          aria-expanded="false"
+          aria-controls="case-studies-menu"
+          data-dropdown-toggle
+        >
+          Case Studies
+          <svg class="nav-chevron" viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6"></path>
+          </svg>
+        </button>
+
+        <div class="mega mega--sm" id="case-studies-menu">
+          <div class="case-panel">
+            <p class="mega-title">Case Studies</p>
+            <ul>
+              {
+                caseStudyMenu.map(cs => (
+                  <li>
+                    <a href={cs.href} class="mega-link">
+                      <span class="mega-icon">
+                        <Icon name={cs.icon} class="size-5" aria-hidden="true" />
+                      </span>
+                      <span class="roll" data-text={cs.title}>
+                        <span>{cs.title}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {
         linksAfter.map(link => (
           <a href={link.href} class="nav-link">
@@ -114,6 +151,18 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
             serviceMenu.flatMap(group => group.links).map(link => (
               <li>
                 <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+      <details class="mobile-services">
+        <summary class="mobile-link">Case Studies</summary>
+        <ul>
+          {
+            caseStudyMenu.map(cs => (
+              <li>
+                <a href={cs.href}>{cs.title}</a>
               </li>
             ))
           }
@@ -227,7 +276,7 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
     position: absolute;
     top: 100%;
     left: 50%;
-    width: min(64rem, calc(100vw - 2 * var(--gutter)));
+    width: min(72rem, calc(100vw - 2 * var(--gutter)));
     padding-top: 0.25rem;
     visibility: hidden;
     opacity: 0;
@@ -236,6 +285,31 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
       opacity 0.25s,
       transform 0.45s var(--ease-out-expo),
       visibility 0s 0.25s;
+  }
+
+  .nav-dropdown--case {
+    position: relative;
+  }
+
+  .nav-dropdown--case .mega--sm {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: min(20rem, calc(100vw - 2 * var(--gutter)));
+  }
+
+  .case-panel {
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow:
+      0 30px 80px -20px rgb(11 11 15 / 0.25),
+      0 0 0 1px rgb(11 11 15 / 0.06);
+  }
+
+  .case-panel ul {
+    display: grid;
+    gap: 0.35rem;
   }
 
   .nav-dropdown[data-open] .mega {
@@ -274,8 +348,8 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
 
   .mega-panel {
     display: grid;
-    grid-template-columns: repeat(3, 1fr) 1.2fr;
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr) 1.2fr;
+    gap: 1.5rem;
     padding: 2rem;
     border-radius: var(--radius-lg);
     background: #fff;
@@ -541,8 +615,7 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
   import { lockScroll } from '@/scripts/agency/smooth-scroll';
 
   const header = document.querySelector<HTMLElement>('[data-header]')!;
-  const dropdown = header.querySelector<HTMLElement>('[data-dropdown]')!;
-  const dropdownToggle = header.querySelector<HTMLButtonElement>('[data-dropdown-toggle]')!;
+  const dropdowns = header.querySelectorAll<HTMLElement>('[data-dropdown]');
   const menuToggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
   const mobileMenu = header.querySelector<HTMLElement>('[data-mobile-menu]')!;
 
@@ -552,7 +625,8 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
   function onScroll() {
     const y = window.scrollY;
     header.classList.toggle('is-scrolled', y > 8 || menuOpen);
-    const hide = y > lastY && y > 160 && !menuOpen && !dropdown.hasAttribute('data-open');
+    const anyDropdownOpen = Array.from(dropdowns).some(d => d.hasAttribute('data-open'));
+    const hide = y > lastY && y > 160 && !menuOpen && !anyDropdownOpen;
     header.classList.toggle('is-hidden', hide);
     lastY = y;
   }
@@ -560,17 +634,30 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  function setDropdown(open: boolean) {
-    dropdown.toggleAttribute('data-open', open);
-    dropdownToggle.setAttribute('aria-expanded', String(open));
-  }
-
-  dropdownToggle.addEventListener('click', () => {
-    setDropdown(!dropdown.hasAttribute('data-open'));
+  dropdowns.forEach(dd => {
+    const toggle = dd.querySelector<HTMLButtonElement>('[data-dropdown-toggle]');
+    if (!toggle) return;
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = dd.hasAttribute('data-open');
+      dropdowns.forEach(other => {
+        other.removeAttribute('data-open');
+        other.querySelector('[data-dropdown-toggle]')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        dd.setAttribute('data-open', '');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
   });
 
   document.addEventListener('click', event => {
-    if (!dropdown.contains(event.target as Node)) setDropdown(false);
+    dropdowns.forEach(dd => {
+      if (!dd.contains(event.target as Node)) {
+        dd.removeAttribute('data-open');
+        dd.querySelector('[data-dropdown-toggle]')?.setAttribute('aria-expanded', 'false');
+      }
+    });
   });
 
   function setMenu(open: boolean) {
@@ -590,10 +677,12 @@ const [linksBefore, linksAfter] = [navLinks.slice(0, 2), navLinks.slice(2)];
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
-    if (dropdown.hasAttribute('data-open')) {
-      setDropdown(false);
-      dropdownToggle.focus();
-    }
+    dropdowns.forEach(dd => {
+      if (dd.hasAttribute('data-open')) {
+        dd.removeAttribute('data-open');
+        dd.querySelector<HTMLButtonElement>('[data-dropdown-toggle]')?.focus();
+      }
+    });
     if (menuOpen) {
       setMenu(false);
       menuToggle.focus();

@@ -21,6 +21,7 @@ export const hero = {
   // Drop a video at public/videos/showreel.mp4 and the hero will play it
   // instead of the animated fallback panel.
   showreel: '/videos/showreel.mp4',
+  image: '/homepageimages/Glowing Blue Glass Waves.png',
 };
 
 // The Services dropdown is inserted after the first two links.
@@ -52,6 +53,28 @@ export const serviceMenu = [
   {
     title: 'Design',
     links: [{ label: 'Creative & Branding', href: '/creative', icon: 'lightbulb' }],
+  },
+  {
+    title: 'Case Studies',
+    links: [
+      { label: 'Times Consultant', href: '/case-studies/times-consultant', icon: 'chatBubble' },
+      { label: 'Education CRM', href: '/case-studies/education-crm', icon: 'portfolio' },
+    ],
+  },
+];
+
+export const caseStudyMenu = [
+  {
+    title: 'Times Consultant',
+    description: 'AI CRM + WhatsApp automation for 500+ students',
+    href: '/case-studies/times-consultant',
+    icon: 'chatBubble',
+  },
+  {
+    title: 'Education CRM',
+    description: 'Workflow-first CRM for education consultancies',
+    href: '/case-studies/education-crm',
+    icon: 'portfolio',
   },
 ];
 
@@ -94,7 +117,7 @@ export const work: WorkItem[] = [
     tags: ['AI', 'Web App'],
     href: '/products/construction-price-estimator',
     size: 'lg',
-    cover: '/work/covers/pink_shapes.jpg',
+    cover: '/homepageimages/estimator_cover.png',
     image: '/homepageimages/estimator_mockup_real_screenshot.png',
   },
   {
@@ -102,7 +125,7 @@ export const work: WorkItem[] = [
     tags: ['Automation', 'AI'],
     href: '/whatsapp-chatbot',
     size: 'sm',
-    cover: '/work/covers/neon_rock.jpg',
+    cover: '/homepageimages/whatsapp_bot_cover.png',
     image: '/homepageimages/whatsapp_bot_mobile_mockup_1.png',
   },
   {
