@@ -1,1 +1,0 @@
-import{i as e,t}from"./motion.D38eYQTD.js";t||document.querySelectorAll(`[data-case-frame]`).forEach(t=>{e.from(t,{y:80,opacity:0,duration:1.3,ease:`expo.out`,scrollTrigger:{trigger:t,start:`top 90%`,once:!0}})});
