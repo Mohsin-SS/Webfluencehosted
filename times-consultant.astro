@@ -1,0 +1,309 @@
+---
+export const prerender = true;
+import BaseLayout from '@layout/BaseLayout.astro';
+import Button from '@ui/Button.astro';
+import Icon from '@ui/icons/Icon.astro';
+import type { WithContext, Thing } from 'schema-dts';
+
+const base = '/case-studies/times-consultant';
+
+const seo = {
+  title: 'Times Consultant Case Study — AI CRM & WhatsApp Automation | Webfluence',
+  description:
+    'How Webfluence engineered an AI-powered CRM and WhatsApp automation for Times Consultant, connecting 500+ overseas students and eliminating missed leads.',
+};
+
+const schema: WithContext<Thing> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: seo.title,
+  url: Astro.url.href,
+  description: seo.description,
+};
+
+const slides = [
+  { num: 1, title: 'The Problem: Scattered WhatsApp Chats' },
+  { num: 2, title: 'The Solution: Intelligent Automation' },
+  { num: 3, title: 'The CRM: Unified Student Dashboard' },
+  { num: 4, title: 'The Results: 45% Faster Turnaround' },
+  { num: 5, title: 'The Impact: Scalable Operations' },
+];
+---
+
+<BaseLayout seo={seo} schema={schema}>
+  {/* ───────────── Hero Section ───────────── */}
+  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
+    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 shadow-xs mb-6">
+        <img
+          src="/logos/times-consultant.png"
+          alt="Times Consultant"
+          class="h-5 w-5 object-contain"
+        />
+        <span class="text-xs font-semibold text-slate-700">Times Consultant Case Study</span>
+      </div>
+
+      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl font-bold">
+        AI CRM & WhatsApp Automation
+      </h1>
+      <p class="mt-6 text-lg text-pretty text-slate-700 max-w-3xl mx-auto">
+        How Webfluence engineered an AI-powered CRM and WhatsApp automation for Times Consultant, connecting 500+ overseas students, accelerating lead responses by 45%, and eliminating missed inquiries.
+      </p>
+      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
+        <Button href="/contact" variant="primary">Book a Consultation</Button>
+        <Button
+          href="https://wa.me/923217555516?text=CRM"
+          variant="secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          Chat on WhatsApp
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  {/* ───────────── Features Section ───────────── */}
+  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
+        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+          <Icon name="chatBubble" class="h-7 w-7 text-blue-700" />
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 mb-3">45% Faster Response</h3>
+        <p class="text-slate-600">
+          Average student inquiry response time dropped from 8+ hours down to under 60 seconds with automated 24/7 first-reply bots.
+        </p>
+      </div>
+
+      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
+        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+          <Icon name="portfolio" class="h-7 w-7 text-white" />
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">500+ Students Connected</h3>
+        <p class="text-white/90">
+          Over 10,000 automated WhatsApp chats handled and routed directly into unified, role-based CRM counselor pipelines.
+        </p>
+      </div>
+
+      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
+        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
+          <Icon name="presentationChart" class="h-7 w-7 text-blue-700" />
+        </div>
+        <h3 class="text-xl font-bold text-slate-800 mb-3">100% Centralized Data</h3>
+        <p class="text-slate-600">
+          Zero conversations lost on personal counselor phones. Complete operational visibility over admissions, visas, and commissions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* ───────────── Product Showcase Sections ───────────── */}
+  <section class="mx-auto max-w-[85rem] px-4 py-20 sm:px-6 lg:px-8 space-y-32">
+    
+    {/* 01 Live System Walkthrough */}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+        <div class="overflow-hidden rounded-xl bg-slate-950">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            poster={`${base}/cover-poster.jpg`}
+            class="w-full h-auto aspect-16/9 object-cover"
+            aria-label="Times Consultant CRM Video Walkthrough"
+          >
+            <source src={`${base}/cover-loop.mp4`} type="video/mp4" />
+          </video>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 lg:pl-10">
+        <span class="text-orange-500 font-medium tracking-wider text-sm">01</span>
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Live system walkthrough</h2>
+        <p class="mt-4 text-lg text-slate-600 max-w-md">
+          Watch how student inquiries on WhatsApp automatically trigger instant qualification, create CRM profiles, and assign counselors in real time.
+        </p>
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors"
+        >
+          Explore the live CRM
+          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    {/* 02 Executive dashboard */}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="lg:pr-10">
+        <span class="text-orange-500 font-medium tracking-wider text-sm">02</span>
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Executive dashboard</h2>
+        <p class="mt-4 text-lg text-slate-600 max-w-md">
+          A single operational view across active students, applications, visas, commissions and priority alerts.
+        </p>
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors"
+        >
+          Explore the live CRM
+          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+        <img
+          src={`${base}/crm-dashboard.jpg`}
+          alt="Times Consultant CRM Dashboard"
+          class="w-full h-auto rounded-xl"
+        />
+      </div>
+    </div>
+
+    {/* 03 WhatsApp lead qualification */}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+        <img
+          src={`${base}/slide-2.jpg`}
+          alt="WhatsApp lead qualification"
+          class="w-full h-auto rounded-xl"
+        />
+      </div>
+      <div class="order-1 lg:order-2 lg:pl-10">
+        <span class="text-orange-500 font-medium tracking-wider text-sm">03</span>
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">WhatsApp lead qualification</h2>
+        <p class="mt-4 text-lg text-slate-600 max-w-md">
+          Prospective students are qualified by target country, budget, and intake timeline automatically before a human counselor steps in.
+        </p>
+        <a
+          href="/contact"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors"
+        >
+          Request a Consultation
+          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    {/* 04 Admissions & visa pipeline */}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="lg:pr-10">
+        <span class="text-orange-500 font-medium tracking-wider text-sm">04</span>
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Admissions & visa pipeline</h2>
+        <p class="mt-4 text-lg text-slate-600 max-w-md">
+          Every inquiry moves through a visible pipeline instead of living inside personal inboxes, tracking application stages and commission splits.
+        </p>
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors"
+        >
+          Explore the live CRM
+          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+        <img
+          src={`${base}/slide-3.jpg`}
+          alt="Admissions and visa pipeline"
+          class="w-full h-auto rounded-xl"
+        />
+      </div>
+    </div>
+
+  </section>
+
+  {/* ───────────── Client Testimonial ───────────── */}
+  <section class="bg-blue-50/60 py-20 border-y border-blue-100">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="inline-flex items-center justify-center gap-1 text-amber-400 mb-6">
+        {[...Array(5)].map(() => (
+          <svg class="h-6 w-6 fill-current" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
+
+      <blockquote class="text-2xl font-bold text-slate-900 sm:text-3xl sm:leading-snug text-balance">
+        "Mohsin's team understood our workflow better than we expected. Before Webfluence, leads were getting lost
+        in counselors' personal WhatsApp chats. Today, every conversation is logged, assigned, and tracked automatically.
+        It has completely transformed our student enrollment pipeline."
+      </blockquote>
+
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <img
+          src="/logos/times-consultant.png"
+          alt="Ali, Operations Director"
+          class="h-12 w-12 rounded-full border border-slate-200 bg-white p-1 object-contain"
+        />
+        <div class="text-left">
+          <p class="font-bold text-slate-900 text-base">Ali</p>
+          <p class="text-sm text-slate-500">Operations Director, Times Consultant</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ───────────── Presentation Slides / Asset Gallery ───────────── */}
+  <section class="mx-auto max-w-[85rem] px-4 py-20 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-orange-500 font-medium tracking-wider text-sm">GALLERY</span>
+      <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Case study presentation</h2>
+      <p class="mt-4 text-lg text-slate-600">
+        Visual breakdown detailing the transformation from manual chats to automated student intake.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+      {slides.map((s) => (
+        <div class="rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-100 p-2 hover:shadow-xl transition">
+          <img
+            src={`${base}/slide-${s.num}.jpg`}
+            alt={s.title}
+            class="w-full h-auto rounded-xl"
+            loading="lazy"
+          />
+          <div class="p-3 text-center">
+            <span class="text-xs font-bold text-blue-700 uppercase tracking-wider block">Slide 0{s.num}</span>
+            <p class="text-xs font-medium text-slate-700 truncate mt-1">{s.title}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* ───────────── CTA Section ───────────── */}
+  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+    <div class="rounded-3xl bg-linear-to-b/oklch from-blue-200 via-blue-100/50 to-white border border-blue-200 p-8 sm:p-12 md:p-16 text-center shadow-xs">
+      <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl md:text-5xl text-balance max-w-3xl mx-auto">
+        Transform your business with <span class="text-blue-700">Web</span><span class="font-normal text-slate-500">fluence</span>.
+      </h2>
+      <p class="mt-5 text-lg text-slate-600 max-w-2xl mx-auto text-pretty">
+        Ready to automate your operations and scale your pipeline? Partner with Webfluence for bespoke software solutions and AI automations built for measurable growth.
+      </p>
+      <div class="mt-8 flex flex-col justify-center gap-5 sm:flex-row">
+        <Button href="/contact" variant="primary">Book a Consultation</Button>
+        <Button
+          href="https://wa.me/923217555516?text=CRM"
+          variant="secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          Chat on WhatsApp
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,85 @@
+---
+import Icon from '@ui/icons/Icon.astro';
+
+const currentPath = Astro.url.pathname;
+
+const caseStudiesList = [
+  {
+    title: 'Times Consultant',
+    description: 'AI-powered CRM + WhatsApp automation for 500+ overseas students',
+    href: '/work/times-consultant',
+    badge: 'Featured',
+    logo: '/logos/times-consultant.png',
+  },
+  {
+    title: 'Education Links CRM',
+    description: 'Centralized lead management & admissions workflow portal',
+    href: '/products/education-crm',
+    badge: 'CRM',
+    logo: '/logos/education-links.png',
+  },
+];
+---
+
+<div
+  class="hs-dropdown [--adaptive:none] [--is-collapse:true] [--strategy:static] xl:[--is-collapse:false] xl:[--strategy:absolute] xl:[--trigger:hover]"
+>
+  <button
+    id="mega-menu-case-studies"
+    type="button"
+    class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
+      currentPath.includes('/times-consultant') || currentPath.includes('/case-studies')
+        ? 'underline underline-offset-4'
+        : ''
+    }`}
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-label="Case Studies Menu"
+  >
+    Case Studies <Icon name="arrowDownRight" />
+  </button>
+
+  <div
+    class="hs-dropdown-menu hs-dropdown-open:opacity-100 relative start-0 top-full z-10 mt-2 hidden w-full max-w-md min-w-80 opacity-0 transition-[opacity,margin] duration-150 before:absolute before:start-0 before:-top-5 before:h-5 before:w-full xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="mega-menu-case-studies"
+  >
+    <div
+      class="from-blue-100 via-transparent to-white px-3 py-3 lg:mx-8 xl:mx-6 xl:rounded-xl xl:bg-white xl:bg-linear-to-t/oklch xl:p-4 xl:shadow-lg xl:ring-1 xl:ring-blue-950/5"
+    >
+      <div class="flex flex-col gap-1.5">
+        {
+          caseStudiesList.map(item => (
+            <a
+              class="group flex items-start gap-x-3.5 rounded-xl p-3 transition hover:bg-blue-50/70 focus:bg-blue-50/70 focus:outline-hidden border border-transparent hover:border-blue-100"
+              href={item.href}
+            >
+              <div class="h-10 w-10 shrink-0 rounded-lg bg-white border border-slate-200/80 p-1 flex items-center justify-center shadow-xs">
+                <img
+                  src={item.logo}
+                  alt={item.title}
+                  class="h-8 w-8 object-contain"
+                />
+              </div>
+
+              <div class="grow">
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    {item.title}
+                  </p>
+                  <span class="rounded-full bg-blue-100 px-2 py-0.2 text-[10px] font-semibold text-blue-700">
+                    {item.badge}
+                  </span>
+                </div>
+                <p class="mt-0.5 text-xs text-slate-500 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>

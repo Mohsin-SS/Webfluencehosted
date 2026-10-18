@@ -1,20 +1,9 @@
 ---
-import { Image } from 'astro:assets';
-import chart from '@images/chart.webp';
 import InteractiveEditor from '@ui/InteractiveEditor';
 ---
 
 {/* Hero Visual */}
 <div class="relative m-auto w-full pt-16 sm:w-[90%]">
-
-
-  <Image
-    src={chart}
-    alt="Chart"
-    loading={'eager'}
-    class="absolute inset-[25%_auto_auto_-8%] z-20 hidden w-[25%] sm:block"
-  />
-
   <div class="relative z-10 w-full mt-4">
     <InteractiveEditor client:only="react" />
   </div>
