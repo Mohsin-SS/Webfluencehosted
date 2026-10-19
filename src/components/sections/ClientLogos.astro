@@ -10,11 +10,11 @@ const logos = [
   { src: '/logos/data-foods.png', alt: 'Data Foods' },
   { src: '/logos/dfm.png', alt: 'DFM' },
   { src: '/logos/slap-media.png', alt: 'Slap Media' },
-  { src: '/logos/image copy 2.png', alt: 'Client' },
-  { src: '/logos/image copy 3.png', alt: 'Client' },
-  { src: '/logos/image copy 6.png', alt: 'Client' },
-  { src: '/logos/image copy 7.png', alt: 'Client' },
-  { src: '/logos/image copy 8.png', alt: 'Client' },
+  { src: '/logos/image copy 2.png', alt: 'The Carology' },
+  { src: '/logos/image copy 3.png', alt: 'Data Flour Mills' },
+  { src: '/logos/image copy 6.png', alt: 'Pitstop 63' },
+  { src: '/logos/image copy 7.png', alt: 'Gari Baich' },
+  { src: '/logos/image copy 8.png', alt: 'Adoro' },
 ];
 
 // One extra copy is the minimum needed for a seamless loop; more would
@@ -35,11 +35,11 @@ const marqueeLogos = [...logos, ...logos];
       <div class="animate-marquee flex items-center">
         {
           marqueeLogos.map(logo => (
-            <div class="mx-8 flex flex-shrink-0 items-center justify-center w-32 sm:w-40">
+            <div class="mx-5 sm:mx-7 flex flex-shrink-0 items-center justify-center h-20 sm:h-24 w-44 sm:w-52">
               <img
                 src={logo.src}
                 alt={logo.alt}
-                class="max-h-16 w-auto object-contain grayscale transition duration-300 hover:grayscale-0"
+                class="max-h-16 sm:max-h-20 max-w-[160px] sm:max-w-[190px] w-auto h-auto object-contain transition-transform duration-300 hover:scale-105"
                 loading="lazy"
               />
             </div>
@@ -57,7 +57,7 @@ const marqueeLogos = [...logos, ...logos];
   }
   
   .animate-marquee {
-    animation: marquee 40s linear infinite;
+    animation: marquee 45s linear infinite;
     /* The array is rendered twice, so -50% lands exactly on the second copy */
   }
   

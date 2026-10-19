@@ -1,0 +1,307 @@
+---
+import Icon from '@ui/icons/Icon.astro';
+import Button from '@ui/Button.astro';
+
+// Section copy
+const eyebrow = 'Growth & Acquisition Engine';
+const heading = 'Digital Marketing Engineered for';
+const headingAccent = 'Measurable Growth';
+const subHeading =
+  'Turn clicks into revenue. We design, execute, and scale high-performance marketing campaigns and SEO architectures that accelerate customer acquisition and maximize ROI.';
+
+const performanceFeatures = [
+  {
+    title: 'Google Search & Display Ads',
+    desc: 'Capture high-intent prospects at the exact moment they search for your solutions with hyper-targeted paid search campaigns.',
+  },
+  {
+    title: 'Meta & Instagram Growth Funnels',
+    desc: 'Engage and convert targeted demographics with compelling visual storytelling, custom lookalike audiences, and retargeting flows.',
+  },
+  {
+    title: 'Conversion Rate Optimization (CRO)',
+    desc: 'Eliminate drop-off points with rapid A/B testing, speed-optimized landing page UX, and persuasive call-to-actions.',
+  },
+  {
+    title: 'Real-Time Attribution & ROAS Tracking',
+    desc: 'Monitor full-funnel profitability with transparent live dashboards connecting every ad dollar to qualified pipeline and revenue.',
+  },
+];
+
+const seoFeatures = [
+  {
+    title: 'Technical SEO & Core Web Vitals',
+    desc: 'Engineer lightning-fast load times, semantic schema markup, and clean crawl architectures that Google rewards with top rankings.',
+  },
+  {
+    title: 'Commercial Keyword Dominance',
+    desc: 'Rank at the top for high-intent search terms that consistently drive qualified organic inbound leads month after month.',
+  },
+  {
+    title: 'Topical Authority & Content Strategy',
+    desc: 'Establish commanding industry leadership through data-informed content clusters and targeted thought leadership articles.',
+  },
+  {
+    title: 'High-Authority Backlink Acquisition',
+    desc: 'Strengthen domain power and search rankings with white-hat digital PR and high-authority industry editorial placements.',
+  },
+];
+
+const stats = [
+  { value: '3.8x', label: 'Average Client ROAS' },
+  { value: '45%', label: 'Lower Cost Per Acquisition' },
+  { value: '10M+', label: 'Targeted Ad Impressions' },
+  { value: '150+', label: 'Campaigns Scaled' },
+];
+
+const frameworkSteps = [
+  {
+    num: '01',
+    title: 'Audit & Intelligence',
+    desc: 'Deep competitor research, audience persona mapping, and untapped high-intent search keyword discovery.',
+    icon: 'documentMagnifyingGlass',
+  },
+  {
+    num: '02',
+    title: 'Creative & Funnels',
+    desc: 'Bespoke high-converting landing pages, compelling ad copywriting, and rich visual creatives that drive action.',
+    icon: 'puzzle',
+  },
+  {
+    num: '03',
+    title: 'Precision Launch',
+    desc: 'Omni-channel rollout across Google, Meta, and remarketing networks with laser-focused audience targeting.',
+    icon: 'cursorRays',
+  },
+  {
+    num: '04',
+    title: 'Scale & Maximize ROI',
+    desc: 'Continuous A/B testing, bid and budget reallocation, and aggressive scaling of highest-converting channels.',
+    icon: 'chartPie',
+  },
+];
+---
+
+<section
+  id="digital-marketing-growth"
+  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+  aria-label="Digital Marketing and Performance Growth Services"
+>
+  {/* Section Header */}
+  <div class="mx-auto mb-10 max-w-3xl text-center lg:mb-14">
+    <p class="text-sm font-semibold uppercase tracking-wider text-blue-700">
+      {eyebrow}
+    </p>
+
+    <h2
+      class="mt-3 text-2xl font-semibold tracking-tight text-balance text-slate-800 sm:text-3xl md:text-4xl md:leading-tight"
+    >
+      {heading} <span class="text-blue-700">{headingAccent}</span>
+    </h2>
+
+    <p class="mt-4 text-base/7 sm:text-lg/8 text-pretty text-slate-700">
+      {subHeading}
+    </p>
+  </div>
+
+  {/* Metric Highlights Strip */}
+  <div
+    class="mb-10 grid grid-cols-2 gap-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:grid-cols-4 sm:p-8"
+  >
+    {
+      stats.map((stat) => (
+        <div class="text-center">
+          <p class="text-2xl font-bold tracking-tight text-blue-700 sm:text-3xl md:text-4xl">
+            {stat.value}
+          </p>
+          <p class="mt-1 text-xs sm:text-sm font-medium text-slate-600">
+            {stat.label}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+
+  {/* Dual Pillars Grid: Performance Paid Marketing (Left) + SEO & Organic Dominance (Right) */}
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+    {/* Pillar 1: Paid Media & Performance Marketing */}
+    <div
+      class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-7 sm:p-9 shadow-xs hover:shadow-md transition-shadow duration-300"
+    >
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <div
+            class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-700"
+          >
+            <Icon name="presentationChart" class="h-6 w-6 text-blue-700" />
+          </div>
+          <span
+            class="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 border border-blue-100 uppercase tracking-wider"
+          >
+            Paid Media &amp; PPC
+          </span>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-800">
+          Performance &amp; Paid Acquisition
+        </h3>
+        <p class="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+          Maximize return on ad spend across search and social channels with hyper-targeted buyer acquisition campaigns engineered for direct ROI.
+        </p>
+
+        {/* Features List */}
+        <div class="mt-6 space-y-4">
+          {
+            performanceFeatures.map((item) => (
+              <div class="flex items-start gap-3">
+                <div class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                  <Icon name="check" class="h-3.5 w-3.5 text-blue-700" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-semibold text-slate-800">
+                    {item.title}
+                  </h4>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between"
+      >
+        <a
+          href="/digital-marketing"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 hover:text-blue-800 transition"
+        >
+          Explore Performance Marketing
+          <Icon name="chevronRight" class="h-4 w-4" />
+        </a>
+        <span class="text-xs text-slate-500">Google &amp; Meta Certified</span>
+      </div>
+    </div>
+
+    {/* Pillar 2: Organic Search & Authority (SEO) */}
+    <div
+      class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-7 sm:p-9 shadow-xs hover:shadow-md transition-shadow duration-300"
+    >
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <div
+            class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-700"
+          >
+            <Icon name="world" class="h-6 w-6 text-blue-700" />
+          </div>
+          <span
+            class="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 border border-blue-100 uppercase tracking-wider"
+          >
+            Organic Visibility &amp; SEO
+          </span>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-800">
+          Search Engine Optimization (SEO)
+        </h3>
+        <p class="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+          Dominate top search positions for high-intent queries, earning consistent, high-converting organic inbound leads without recurring ad fees.
+        </p>
+
+        {/* Features List */}
+        <div class="mt-6 space-y-4">
+          {
+            seoFeatures.map((item) => (
+              <div class="flex items-start gap-3">
+                <div class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                  <Icon name="check" class="h-3.5 w-3.5 text-blue-700" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-semibold text-slate-800">
+                    {item.title}
+                  </h4>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between"
+      >
+        <a
+          href="/seo"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 hover:text-blue-800 transition"
+        >
+          Explore SEO Solutions
+          <Icon name="chevronRight" class="h-4 w-4" />
+        </a>
+        <span class="text-xs text-slate-500">Sustainable Organic Growth</span>
+      </div>
+    </div>
+  </div>
+
+  {/* Growth Acceleration Framework Banner */}
+  <div
+    class="mt-10 rounded-2xl border border-blue-200/80 bg-linear-to-b/oklch from-blue-50/70 via-blue-50/30 to-white p-7 sm:p-10 shadow-xs"
+  >
+    <div
+      class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-blue-100"
+    >
+      <div>
+        <span
+          class="text-xs font-semibold tracking-wider text-blue-700 uppercase"
+        >
+          Proven Methodology
+        </span>
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-800 mt-1">
+          Our 4-Stage Growth Acceleration Framework
+        </h3>
+        <p class="text-sm sm:text-base text-slate-600 mt-1 max-w-2xl">
+          From initial audience intelligence to high-converting creative and aggressive ROAS optimization, our framework drives predictable customer acquisition.
+        </p>
+      </div>
+
+      {/* Action buttons */}
+      <div class="flex flex-wrap items-center gap-3 shrink-0">
+        <Button href="/contact" variant="primary">
+          Start Your Campaign
+        </Button>
+        <Button
+          href="https://wa.me/923217555516?text=Digital%20Marketing%20Audit%20Inquiry"
+          variant="secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          Chat on WhatsApp
+        </Button>
+      </div>
+    </div>
+
+    {/* 4 Steps Progression */}
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        frameworkSteps.map((s) => (
+          <div class="rounded-xl border border-slate-200/80 bg-white p-5 shadow-xs hover:shadow-sm transition">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-blue-700 tracking-wider">
+                STAGE {s.num}
+              </span>
+              <Icon name={s.icon} class="h-5 w-5 text-slate-500" />
+            </div>
+            <h4 class="text-base font-semibold text-slate-800">{s.title}</h4>
+            <p class="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              {s.desc}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
