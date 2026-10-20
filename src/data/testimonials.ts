@@ -46,6 +46,7 @@ export const testimonials: Testimonial[] = [
       'Our social media finally looks consistent and professional. The Webfluence team handles everything from content to posting, so we can focus on our projects.',
     initials: 'MZ',
     rating: 5,
+    logo: '/logos/ahm-developers.jpg',
     company: 'AHM Developers',
   },
   {
@@ -65,6 +66,7 @@ export const testimonials: Testimonial[] = [
       'The WhatsApp automation alone saved our team hours every day. Student inquiries get answered instantly and nothing slips through the cracks anymore. Highly recommend Webfluence to any consultancy.',
     initials: 'AT',
     rating: 5,
+    logo: '/logos/maktron.jpeg',
     company: 'Maktron Consultant',
   },
   {
