@@ -44,6 +44,23 @@ const defaultSchema: WithContext<Thing> = {
 
 <html lang="en" class="scroll-pt-32">
   <head>
+    <script is:inline>
+      // Ensure page starts from top on reload
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.addEventListener('beforeunload', () => {
+        window.scrollTo(0, 0);
+      });
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+      window.addEventListener('pageshow', () => {
+        if (!window.location.hash) {
+          window.scrollTo(0, 0);
+        }
+      });
+    </script>
     {/* SEO Meta Tags */}
     <SEO
       charset="utf-8"
