@@ -5,6 +5,20 @@ const currentPath = Astro.url.pathname;
 
 const caseStudiesList = [
   {
+    title: 'Adoro (ECS)',
+    description: 'Performance marketing scaling monthly sales by 57%',
+    href: '/work/adoro',
+    badge: 'Marketing',
+    logo: '/logos/adoro.png',
+  },
+  {
+    title: 'The Carology',
+    description: 'AI Car Customiser previewing 715 parts on customer vehicles',
+    href: '/work/carology',
+    badge: 'AI Studio',
+    logo: '/logos/carology.png',
+  },
+  {
     title: 'Times Consultant',
     description: 'AI-powered CRM + WhatsApp automation for 500+ overseas students',
     href: '/work/times-consultant',
@@ -28,7 +42,7 @@ const caseStudiesList = [
     id="mega-menu-case-studies"
     type="button"
     class={`hs-dropdown-toggle flex w-full items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-      currentPath.includes('/times-consultant') || currentPath.includes('/case-studies')
+      currentPath.includes('/times-consultant') || currentPath.includes('/carology') || currentPath.includes('/adoro') || currentPath.includes('/case-studies')
         ? 'underline underline-offset-4'
         : ''
     }`}
@@ -40,39 +54,49 @@ const caseStudiesList = [
   </button>
 
   <div
-    class="hs-dropdown-menu hs-dropdown-open:opacity-100 relative start-0 top-full z-10 mt-2 hidden w-full max-w-md min-w-80 opacity-0 transition-[opacity,margin] duration-150 before:absolute before:start-0 before:-top-5 before:h-5 before:w-full xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
+    class="hs-dropdown-menu hs-dropdown-open:opacity-100 relative start-0 top-full z-10 mt-2 hidden w-full max-w-2xl min-w-80 opacity-0 transition-[opacity,margin] duration-150 before:absolute before:start-0 before:-top-5 before:h-5 before:w-full xl:left-1/2 xl:-translate-x-1/2 xl:duration-300"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="mega-menu-case-studies"
   >
     <div
-      class="from-blue-100 via-transparent to-white px-3 py-3 lg:mx-8 xl:mx-6 xl:rounded-xl xl:bg-white xl:bg-linear-to-t/oklch xl:p-4 xl:shadow-lg xl:ring-1 xl:ring-blue-950/5"
+      class="from-blue-100 via-transparent to-white p-3 sm:p-4 xl:rounded-xl xl:bg-white xl:bg-linear-to-t/oklch xl:p-5 xl:shadow-xl xl:ring-1 xl:ring-blue-950/5"
     >
-      <div class="flex flex-col gap-1.5">
+      <div class="mb-3 px-1 flex items-center justify-between border-b border-blue-100 pb-2.5">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-blue-600">Case Studies</p>
+          <p class="text-xs text-slate-500">Real outcomes delivered for innovative brands</p>
+        </div>
+        <span class="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 border border-blue-100">
+          {caseStudiesList.length} Stories
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         {
           caseStudiesList.map(item => (
             <a
-              class="group flex items-start gap-x-3.5 rounded-xl p-3 transition hover:bg-blue-50/70 focus:bg-blue-50/70 focus:outline-hidden border border-transparent hover:border-blue-100"
+              class="group flex items-start gap-x-3 rounded-xl p-3 transition hover:bg-blue-50/70 focus:bg-blue-50/70 focus:outline-hidden border border-transparent hover:border-blue-100 bg-white/60 sm:bg-transparent"
               href={item.href}
             >
-              <div class="h-10 w-10 shrink-0 rounded-lg bg-white border border-slate-200/80 p-1 flex items-center justify-center shadow-xs">
+              <div class="h-11 w-11 shrink-0 rounded-lg bg-white border border-slate-200/80 p-1 flex items-center justify-center shadow-xs">
                 <img
                   src={item.logo}
                   alt={item.title}
-                  class="h-8 w-8 object-contain"
+                  class="h-9 w-9 object-contain"
                 />
               </div>
 
-              <div class="grow">
-                <div class="flex items-center gap-2">
-                  <p class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <div class="grow min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <p class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
                     {item.title}
                   </p>
                   <span class="rounded-full bg-blue-100 px-2 py-0.2 text-[10px] font-semibold text-blue-700">
                     {item.badge}
                   </span>
                 </div>
-                <p class="mt-0.5 text-xs text-slate-500 leading-relaxed">
+                <p class="mt-0.5 text-xs text-slate-500 leading-relaxed line-clamp-2">
                   {item.description}
                 </p>
               </div>

@@ -1,0 +1,703 @@
+---
+export const prerender = true;
+import BaseLayout from '@layout/BaseLayout.astro';
+import type { WithContext, Thing } from 'schema-dts';
+
+const pageTitle = "Adoro (ECS) Case Study — Performance Marketing | Webfluence";
+const pageDescription =
+  "How Webfluence runs performance marketing for Adoro (ECS): Shopify optimisation, SEO, product copywriting, Meta ads and Google ads. Sales up 57% in the first 30 days.";
+
+const liveUrl = "https://adoro.com.pk";
+const contactUrl = "/contact";
+const whatsappUrl = "https://wa.me/923217555516?text=Performance%20Marketing";
+const img = "/case-studies/adoro";
+
+const results = [
+  { value: "+57%", label: "Sales a month" },
+  { value: "+65%", label: "Store visits a month" },
+  { value: "+32%", label: "Average order value" },
+  { value: "+19%", label: "Orders a month" },
+];
+
+const services = [
+  { title: "Shopify optimisation", body: "Product pages, collections and checkout." },
+  { title: "SEO", body: "The whole site, from collections to product pages." },
+  { title: "Product copywriting", body: "Descriptions and on-page copy for the catalogue." },
+  { title: "Meta ads", body: "Instagram and Facebook campaigns." },
+  { title: "Google ads", body: "Search campaigns and conversion tracking." },
+];
+
+const features = [
+  {
+    title: "Bigger baskets on the store",
+    body: "We work through Adoro (ECS)'s Shopify store with their team, from product pages to checkout. In the first 30 days average order value rose 32% while orders grew 19%, so sales grew faster than the order count.",
+    image: `${img}/product-page.webp`,
+    alt: "The Vesper Belle product page on adoro.com.pk",
+    cta: { label: "Visit adoro.com.pk", href: liveUrl, external: true },
+  },
+  {
+    title: "SEO and product copy",
+    body: "We handle SEO across the whole site and write the product copy, so collection and product pages describe each style clearly for shoppers and for search.",
+    image: `${img}/collection.webp`,
+    alt: "New arrivals collection on adoro.com.pk",
+    cta: { label: "Visit adoro.com.pk", href: liveUrl, external: true },
+  },
+  {
+    title: "Google now counts real sales",
+    body: "Google Ads was counting page views as sales, so its reports looked far better than the store did. We rebuilt the tracking around purchases, and every campaign is now checked against Shopify in a daily tracker.",
+    image: `${img}/slide-6.webp`,
+    alt: "Before and after of Google Ads conversion tracking",
+    portrait: true,
+    cta: { label: "Request a Consultation", href: contactUrl, external: false },
+  },
+  {
+    title: "A cleaner Meta account",
+    body: "We fixed targeting that reached outside Pakistan, corrected ad captions and matched women's and men's ads to the right audiences. Men's new arrivals is now a proven winning campaign.",
+    image: `${img}/slide-7.webp`,
+    alt: "Adoro (ECS) Instagram ads shown on two phones",
+    portrait: true,
+    cta: { label: "Request a Consultation", href: contactUrl, external: false },
+  },
+];
+
+const slides = [
+  "Performance marketing for Adoro (ECS)",
+  "The brand",
+  "What we run",
+  "The first 30 days",
+  "Bigger baskets",
+  "Google tracking",
+  "Meta clean-up",
+  "Creative by Slap Media",
+  "Work with Webfluence",
+];
+
+const seo = {
+  title: pageTitle,
+  description: pageDescription,
+};
+
+const structuredData: WithContext<Thing> = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  name: pageTitle,
+  headline: "Adoro (ECS) Case Study: Performance Marketing",
+  url: Astro.url.href,
+  description: pageDescription,
+  author: { "@type": "Organization", name: "Webfluence", url: "https://www.webfluence.tech" },
+  publisher: { "@type": "Organization", name: "Webfluence", url: "https://www.webfluence.tech" },
+  image: `https://www.webfluence.tech${img}/slide-1.webp`,
+  about: { "@type": "Organization", name: "Adoro (ECS)", url: "https://adoro.com.pk" },
+};
+---
+
+<BaseLayout seo={seo} schema={structuredData}>
+  <div class="cs">
+    <!-- Hero -->
+    <section class="cs-wrap cs-hero">
+      <div class="cs-hero-copy">
+        <p class="cs-badge">
+          <span class="cs-badge-logo"><img src="/logos/adoro.png" alt="Adoro" width="60" height="20" /></span>
+          Adoro (ECS) Case Study
+        </p>
+        <h1>Performance Marketing</h1>
+        <p class="cs-lead">
+          Webfluence runs performance marketing for Adoro (ECS), the shoes, bags and fragrances brand from ECS. We
+          handle Shopify optimisation, SEO, product copywriting, Meta ads and Google ads as one plan. In the first 30
+          days, monthly sales rose 57%.
+        </p>
+        <div class="cs-actions">
+          <a class="cs-btn cs-btn-primary" href={contactUrl}>Book a Consultation</a>
+          <a class="cs-btn cs-btn-ghost" href={whatsappUrl} target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+      </div>
+      <figure class="cs-glass cs-hero-shot">
+        <img
+          src={`${img}/home.webp`}
+          alt="The adoro.com.pk homepage with The Winter Edit '26 campaign"
+          width="1800"
+          height="935"
+          fetchpriority="high"
+        />
+      </figure>
+    </section>
+
+    <!-- Results -->
+    <section class="cs-wrap cs-results" aria-label="Results">
+      <div class="cs-results-grid">
+        {
+          results.map((r) => (
+            <div class="cs-glass cs-stat">
+              <span class="cs-stat-value">{r.value}</span>
+              <span class="cs-stat-label">{r.label}</span>
+            </div>
+          ))
+        }
+      </div>
+      <p class="cs-note">First 30 days, compared with the month before we started.</p>
+    </section>
+
+    <!-- Scope -->
+    <section class="cs-wrap cs-scope">
+      <div class="cs-scope-head">
+        <p class="cs-eyebrow">What we run</p>
+        <h2>The whole performance marketing plan</h2>
+      </div>
+      <div class="cs-scope-grid">
+        {
+          services.map((s) => (
+            <div class="cs-glass cs-card">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))
+        }
+        <div class="cs-partner">
+          <span class="cs-partner-logo"><img src="/logos/slap-media.png" alt="Slap Media" width="120" height="75" /></span>
+          <div>
+            <h3>Creative by Slap Media</h3>
+            <p>Our partner team makes the product photos, ad images and videos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature sections -->
+    {
+      features.map((f, i) => (
+        <section class={`cs-wrap cs-feature ${i % 2 === 1 ? "cs-flip" : ""}`}>
+          <div class="cs-feature-copy">
+            <span class="cs-num">{String(i + 1).padStart(2, "0")}</span>
+            <h2>{f.title}</h2>
+            <p>{f.body}</p>
+            <a
+              class="cs-link"
+              href={f.cta.href}
+              {...(f.cta.external ? { target: "_blank", rel: "noopener" } : {})}
+            >
+              {f.cta.label}
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            </a>
+          </div>
+          <figure class={`cs-glass cs-feature-shot ${f.portrait ? "cs-portrait" : ""}`}>
+            <img src={f.image} alt={f.alt} loading="lazy" decoding="async" />
+          </figure>
+        </section>
+      ))
+    }
+
+    <!-- Creative partner -->
+    <section class="cs-wrap cs-creative">
+      <div class="cs-creative-copy">
+        <p class="cs-eyebrow">Creative partner</p>
+        <h2>Shot and edited by Slap Media</h2>
+        <p>
+          Slap Media makes Adoro (ECS)'s product photos, ad images and videos. We turn them into product pages and
+          campaigns.
+        </p>
+        <img class="cs-creative-logo" src="/logos/slap-media.png" alt="Slap Media" width="160" height="100" loading="lazy" />
+      </div>
+      <div class="cs-creative-grid">
+        <figure class="cs-glass"><img src={`${img}/vesper-belle.webp`} alt="Vesper Belle pumps product photo" loading="lazy" /></figure>
+        <figure class="cs-glass"><img src={`${img}/mens-loafer.webp`} alt="Men's loafer product photo" loading="lazy" /></figure>
+        <figure class="cs-glass"><img src={`${img}/ad-slingback.webp`} alt="Embellished slingback ad image" loading="lazy" /></figure>
+        <figure class="cs-glass"><img src={`${img}/ad-heel.webp`} alt="Burgundy heel ad image" loading="lazy" /></figure>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="cs-wrap cs-gallery">
+      <p class="cs-eyebrow">Gallery</p>
+      <h2>Case study presentation</h2>
+      <p class="cs-sub">The Instagram carousel for this case study, from the brand to the results.</p>
+      <div class="cs-gallery-grid">
+        {
+          slides.map((caption, i) => (
+            <figure class="cs-slide">
+              <a href={`${img}/slide-${i + 1}.webp`} target="_blank" rel="noopener">
+                <img
+                  src={`${img}/slide-${i + 1}.webp`}
+                  alt={caption}
+                  width="1080"
+                  height="1350"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <figcaption>
+                <span>Slide {String(i + 1).padStart(2, "0")}</span>
+                {caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cs-wrap">
+      <div class="cs-cta">
+        <h2>Want numbers like these for your brand?</h2>
+        <p>
+          We run Shopify, SEO, copy, Meta and Google as one plan, measured against real orders. Tell us about your
+          store and we'll scope it with you.
+        </p>
+        <div class="cs-actions">
+          <a class="cs-btn cs-btn-light" href={contactUrl}>Book a Consultation</a>
+          <a class="cs-btn cs-btn-outline" href={whatsappUrl} target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .cs {
+    --cs-ink: #0e1b3d;
+    --cs-ink-2: #3a4a6d;
+    --cs-accent: #2457d6;
+    --cs-accent-deep: #16349a;
+    --cs-line: rgba(36, 87, 214, 0.14);
+    --cs-glass: linear-gradient(160deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.45));
+    --cs-glass-rim: rgba(255, 255, 255, 0.9);
+    --cs-shadow: 0 1px 2px rgba(22, 52, 154, 0.06), 0 24px 60px -20px rgba(22, 52, 154, 0.28);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--cs-ink);
+    padding-bottom: 96px;
+    background:
+      radial-gradient(60rem 40rem at 85% -10%, rgba(127, 174, 245, 0.45), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 30%, rgba(191, 215, 251, 0.7), transparent 60%),
+      radial-gradient(60rem 44rem at 100% 70%, rgba(59, 120, 238, 0.22), transparent 60%),
+      linear-gradient(180deg, #f4f8fe, #eaf1fc 60%, #f4f8fe);
+  }
+  .cs::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  }
+
+  :global(.dark) .cs {
+    --cs-ink: #e8eefc;
+    --cs-ink-2: #a9b8d8;
+    --cs-accent: #7fa8ff;
+    --cs-line: rgba(127, 168, 255, 0.18);
+    --cs-glass: linear-gradient(160deg, rgba(40, 56, 98, 0.62), rgba(20, 30, 58, 0.5));
+    --cs-glass-rim: rgba(160, 190, 255, 0.28);
+    --cs-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+    background:
+      radial-gradient(60rem 40rem at 85% -10%, rgba(36, 87, 214, 0.35), transparent 60%),
+      radial-gradient(60rem 44rem at 0% 60%, rgba(22, 52, 154, 0.35), transparent 60%),
+      #0b1226;
+  }
+
+  .cs-wrap {
+    max-width: 92rem;
+    margin: 0 auto;
+    padding: 0 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .cs-wrap { padding: 0 1rem; }
+  }
+  @media (min-width: 1024px) {
+    .cs-wrap { padding: 0 1.25rem; }
+  }
+  @media (min-width: 1400px) {
+    .cs-wrap { max-width: 98rem; padding: 0 1.5rem; }
+  }
+
+  .cs-glass {
+    position: relative;
+    background: var(--cs-glass);
+    border: 1px solid var(--cs-glass-rim);
+    box-shadow: inset 0 1px 0 var(--cs-glass-rim), var(--cs-shadow);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  }
+
+  /* Hero */
+  .cs-hero {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-hero { grid-template-columns: 5fr 7fr; padding-top: 10rem; }
+  }
+  .cs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1.25rem;
+    padding: 0.35rem 0.9rem 0.35rem 0.4rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--cs-accent);
+    background: var(--cs-glass);
+    border: 1px solid var(--cs-glass-rim);
+  }
+  .cs-badge-logo {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    background: #fff;
+  }
+  .cs-badge-logo img { border-radius: 0; height: 16px; width: auto; }
+  .cs h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--cs-ink);
+  }
+  .cs-lead {
+    margin: 1.25rem 0 0;
+    max-width: 44rem;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--cs-ink-2);
+  }
+  .cs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .cs-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.4rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .cs-btn:focus-visible,
+  .cs-link:focus-visible,
+  .cs-slide a:focus-visible {
+    outline: 2px solid var(--cs-accent);
+    outline-offset: 3px;
+  }
+  .cs-btn-primary {
+    color: #fff;
+    background: linear-gradient(160deg, #3d7bf0, #1e48c8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 14px 30px -12px rgba(30, 72, 200, 0.7);
+  }
+  .cs-btn-primary:hover { transform: translateY(-1px); }
+  .cs-btn-ghost {
+    color: var(--cs-ink);
+    background: var(--cs-glass);
+    border: 1px solid var(--cs-glass-rim);
+    box-shadow: inset 0 1px 0 var(--cs-glass-rim);
+  }
+  .cs-btn-ghost:hover { border-color: var(--cs-accent); }
+
+  .cs-hero-shot {
+    margin: 0;
+    padding: 0.6rem;
+    border-radius: 1.5rem;
+  }
+  .cs-hero-shot img,
+  .cs-feature-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+  }
+
+  /* Results */
+  .cs-results { padding-bottom: 5rem; }
+  .cs-results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-results-grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  }
+  .cs-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+  }
+  .cs-stat-value {
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--cs-accent);
+  }
+  .cs-stat-label { font-weight: 500; color: var(--cs-ink); }
+  .cs-note { margin: 1rem 0 0; font-size: 0.9rem; color: var(--cs-ink-2); }
+
+  /* Scope */
+  .cs-scope { padding-bottom: 3rem; }
+  .cs-scope h2,
+  .cs-creative h2 {
+    margin: 1rem 0 0;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--cs-ink);
+  }
+  .cs-scope-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) {
+    .cs-scope-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  }
+  .cs-card {
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+  }
+  .cs-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cs-ink);
+  }
+  .cs-card p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--cs-ink-2);
+  }
+  .cs-partner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    color: #fff;
+    background: linear-gradient(150deg, #2a63e0, #16349a);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), var(--cs-shadow);
+  }
+  .cs-partner h3 { margin: 0 0 0.35rem; font-size: 1.15rem; font-weight: 600; color: #fff; }
+  .cs-partner p { margin: 0; line-height: 1.55; color: rgba(255, 255, 255, 0.86); }
+  .cs-partner-logo {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.5rem;
+    height: 4rem;
+    border-radius: 0.9rem;
+    background: #fff;
+  }
+  .cs-partner-logo img { width: 4.5rem; height: auto; object-fit: contain; }
+
+  /* Features */
+  .cs-feature {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-feature { grid-template-columns: 5fr 7fr; gap: 4rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .cs-flip .cs-feature-copy { order: 2; }
+    .cs-flip { grid-template-columns: 7fr 5fr; }
+  }
+  .cs-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(160deg, #3d7bf0, #1e48c8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+  .cs-feature h2,
+  .cs-gallery h2 {
+    margin: 1rem 0 0;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--cs-ink);
+  }
+  .cs-feature p {
+    margin: 1rem 0 0;
+    max-width: 42rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--cs-ink-2);
+  }
+  .cs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: var(--cs-accent);
+    text-decoration: none;
+  }
+  .cs-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .cs-link svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .cs-feature-shot {
+    margin: 0;
+    padding: 0.6rem;
+    border-radius: 1.5rem;
+  }
+  .cs-portrait {
+    max-width: 26rem;
+    justify-self: center;
+  }
+
+  /* Creative partner */
+  .cs-creative {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-creative { grid-template-columns: 5fr 7fr; gap: 4rem; }
+  }
+  .cs-creative-copy p:not(.cs-eyebrow) {
+    margin: 1rem 0 0;
+    max-width: 40rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--cs-ink-2);
+  }
+  .cs-creative-logo { display: block; margin-top: 1.75rem; width: 9rem; height: auto; object-fit: contain; }
+  .cs-creative-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .cs-creative-grid figure {
+    margin: 0;
+    padding: 0.5rem;
+    border-radius: 1.25rem;
+  }
+  .cs-creative-grid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 0.85rem;
+  }
+
+  /* Gallery */
+  .cs-gallery { padding-top: 5rem; }
+  .cs-eyebrow {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--cs-accent);
+  }
+  .cs-sub {
+    margin: 0.75rem 0 0;
+    max-width: 44rem;
+    line-height: 1.65;
+    color: var(--cs-ink-2);
+  }
+  .cs-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  }
+  .cs-slide { margin: 0; }
+  .cs-slide a { display: block; border-radius: 1rem; }
+  .cs-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: var(--cs-shadow);
+    transition: transform 0.2s ease;
+  }
+  .cs-slide a:hover img { transform: translateY(-3px); }
+  .cs-slide figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--cs-ink);
+  }
+  .cs-slide figcaption span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--cs-ink-2);
+  }
+
+  /* CTA */
+  .cs-cta {
+    margin-top: 5rem;
+    padding: clamp(2rem, 5vw, 4rem);
+    border-radius: 1.75rem;
+    color: #fff;
+    background:
+      radial-gradient(40rem 20rem at 90% 0%, rgba(157, 193, 244, 0.45), transparent 60%),
+      linear-gradient(150deg, #2a63e0, #16349a);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 30px 70px -30px rgba(22, 52, 154, 0.8);
+  }
+  .cs-cta h2 {
+    margin: 0;
+    max-width: 48rem;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .cs-cta p {
+    margin: 1rem 0 0;
+    max-width: 48rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.86);
+  }
+  .cs-btn-light {
+    color: #16349a;
+    background: #fff;
+  }
+  .cs-btn-light:hover { transform: translateY(-1px); }
+  .cs-btn-outline {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .cs-btn-outline:hover { background: rgba(255, 255, 255, 0.16); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-btn,
+    .cs-slide img { transition: none; }
+  }
+</style>

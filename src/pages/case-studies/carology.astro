@@ -1,0 +1,638 @@
+---
+export const prerender = true;
+import BaseLayout from '@layout/BaseLayout.astro';
+import type { WithContext, Thing } from 'schema-dts';
+
+const pageTitle = "The Carology Case Study — AI Car Customiser | Webfluence";
+const pageDescription =
+  "How Webfluence built an AI car customiser for The Carology. Shoppers upload a photo of their car, pick from 715 parts and see a photorealistic preview before they buy.";
+
+const liveUrl = "https://thecarologyinc.com/pages/ai-car-customizer";
+const contactUrl = "/contact";
+const whatsappUrl = "https://wa.me/923217555516?text=AI%20Car%20Customiser";
+const img = "/case-studies/carology";
+
+const highlights = [
+  {
+    title: "715 parts to preview",
+    body: "The part picker reads The Carology's whole catalogue, so any product in the store can be tried on a customer's own car.",
+  },
+  {
+    title: "Previews in seconds",
+    body: "Shoppers upload one photo and get a photorealistic render of the part fitted, then stack more parts on top of it.",
+  },
+  {
+    title: "Checkout from the preview",
+    body: "Every catalogue part carries its store price, with an add to cart button directly under the preview.",
+  },
+];
+
+const features = [
+  {
+    title: "Upload once, stack modifications",
+    body: "A shopper uploads a photo of their car one time. Each part they add builds on the previous preview, so a full build comes together one change at a time across exterior, interior and wheels.",
+    image: `${img}/car-preview.webp`,
+    alt: "AI preview of a black Mercedes with a BER 007 number plate fitted",
+    cta: { label: "Try the live customiser", href: liveUrl, external: true },
+  },
+  {
+    title: "Number plate visualiser",
+    body: "Shoppers type their registration and choose a white or yellow plate. One tap puts that exact plate on the uploaded photo, front or rear, with 3D Gel Number Plates already selected in the studio.",
+    image: `${img}/plate-visualiser.webp`,
+    alt: "The number plate visualiser showing a BER 007 registration on white and yellow plates",
+    cta: { label: "Try the live customiser", href: liveUrl, external: true },
+  },
+  {
+    title: "Every version saved",
+    body: "Each modification is saved as its own version. Tapping any version carries on from that point, so a shopper can compare two front grilles on the same car without starting over.",
+    image: `${img}/modifications.webp`,
+    alt: "Saved modification versions next to the exterior parts menu",
+    cta: { label: "Request a Consultation", href: contactUrl, external: false },
+  },
+  {
+    title: "Connected to the store",
+    body: "Previews link to real catalogue products with their prices, like 3D Gel Number Plates at Rs. 7,300. A part described in words can be previewed too, but only catalogue products go to cart, so every order maps to something the store stocks.",
+    image: `${img}/slide-7.webp`,
+    alt: "Product card for 3D Gel Number Plates with add to cart and download buttons",
+    portrait: true,
+    cta: { label: "Try the live customiser", href: liveUrl, external: true },
+  },
+];
+
+const slides = [
+  "AI Car Customiser",
+  "The client and the brief",
+  "What we built",
+  "Four steps from photo to cart",
+  "Number plate visualiser",
+  "Stacking and versions",
+  "Connected to the shop",
+  "Work with Webfluence",
+];
+
+const seo = {
+  title: pageTitle,
+  description: pageDescription,
+};
+
+const structuredData: WithContext<Thing> = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  name: pageTitle,
+  headline: "The Carology Case Study: AI Car Customiser",
+  url: Astro.url.href,
+  description: pageDescription,
+  author: { "@type": "Organization", name: "Webfluence", url: "https://www.webfluence.tech" },
+  publisher: { "@type": "Organization", name: "Webfluence", url: "https://www.webfluence.tech" },
+  image: `https://www.webfluence.tech${img}/slide-1.webp`,
+  about: { "@type": "Organization", name: "The Carology", url: "https://thecarologyinc.com" },
+};
+---
+
+<BaseLayout seo={seo} schema={structuredData}>
+  <div class="cs">
+    <!-- Hero -->
+    <section class="cs-wrap cs-hero">
+      <div class="cs-hero-copy">
+        <p class="cs-badge">
+          <img src="/logos/carology.png" alt="The Carology" width="28" height="28" />
+          The Carology Case Study
+        </p>
+        <h1>AI Car Customiser</h1>
+        <p class="cs-lead">
+          How Webfluence built an AI customiser for The Carology's car accessories store. Shoppers upload a photo of
+          their car, pick from 715 parts and see a photorealistic preview of the part fitted before they buy.
+        </p>
+        <div class="cs-actions">
+          <a class="cs-btn cs-btn-primary" href={contactUrl}>Book a Consultation</a>
+          <a class="cs-btn cs-btn-ghost" href={liveUrl} target="_blank" rel="noopener">Try the live customiser</a>
+        </div>
+      </div>
+      <figure class="cs-glass cs-hero-shot">
+        <img
+          src={`${img}/studio.webp`}
+          alt="The AI Modification Studio on thecarologyinc.com with a car preview and part picker"
+          width="1576"
+          height="814"
+          fetchpriority="high"
+        />
+      </figure>
+    </section>
+
+    <!-- Highlights -->
+    <section class="cs-wrap cs-highlights" aria-label="Highlights">
+      {
+        highlights.map((h) => (
+          <div class="cs-glass cs-card">
+            <h3>{h.title}</h3>
+            <p>{h.body}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Feature sections -->
+    {
+      features.map((f, i) => (
+        <section class={`cs-wrap cs-feature ${i % 2 === 1 ? "cs-flip" : ""}`}>
+          <div class="cs-feature-copy">
+            <span class="cs-num">{String(i + 1).padStart(2, "0")}</span>
+            <h2>{f.title}</h2>
+            <p>{f.body}</p>
+            <a
+              class="cs-link"
+              href={f.cta.href}
+              {...(f.cta.external ? { target: "_blank", rel: "noopener" } : {})}
+            >
+              {f.cta.label}
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            </a>
+          </div>
+          <figure class={`cs-glass cs-feature-shot ${f.portrait ? "cs-portrait" : ""}`}>
+            <img src={f.image} alt={f.alt} loading="lazy" decoding="async" />
+          </figure>
+        </section>
+      ))
+    }
+
+    <!-- Testimonial -->
+    <section class="cs-wrap cs-quote">
+      <blockquote class="cs-glass">
+        <div class="cs-stars" aria-label="5 out of 5 stars">
+          <svg class="cs-star" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="cs-star" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="cs-star" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="cs-star" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="cs-star" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </div>
+        <p>
+          "The AI car customiser was a complex idea and honestly we weren’t sure it could be done properly.
+          Mohsin and his team built it, integrated it into our store, and our customers love playing with it."
+        </p>
+        <footer>
+          <img src="/logos/carology.png" alt="Momin Haider" width="44" height="44" />
+          <div class="cs-quote-author">
+            <strong>Momin Haider</strong>
+            <span class="role">CEO, The Carology</span>
+          </div>
+        </footer>
+      </blockquote>
+    </section>
+
+    <!-- Gallery -->
+    <section class="cs-wrap cs-gallery">
+      <p class="cs-eyebrow">Gallery</p>
+      <h2>Case study presentation</h2>
+      <p class="cs-sub">The Instagram carousel we made for the launch, from the brief to the finished customiser.</p>
+      <div class="cs-gallery-grid">
+        {
+          slides.map((caption, i) => (
+            <figure class="cs-slide">
+              <a href={`${img}/slide-${i + 1}.webp`} target="_blank" rel="noopener">
+                <img
+                  src={`${img}/slide-${i + 1}.webp`}
+                  alt={caption}
+                  width="1080"
+                  height="1350"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <figcaption>
+                <span>Slide {String(i + 1).padStart(2, "0")}</span>
+                {caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cs-wrap">
+      <div class="cs-cta">
+        <h2>Want something like this for your store?</h2>
+        <p>
+          We design and build AI products for online stores. Tell us what your customers need to see before they buy,
+          and we'll scope it with you.
+        </p>
+        <div class="cs-actions">
+          <a class="cs-btn cs-btn-light" href={contactUrl}>Book a Consultation</a>
+          <a class="cs-btn cs-btn-outline" href={whatsappUrl} target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .cs {
+    --cs-ink: #0e1b3d;
+    --cs-ink-2: #3a4a6d;
+    --cs-accent: #2457d6;
+    --cs-accent-deep: #16349a;
+    --cs-line: rgba(36, 87, 214, 0.14);
+    --cs-glass: linear-gradient(160deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.45));
+    --cs-glass-rim: rgba(255, 255, 255, 0.9);
+    --cs-shadow: 0 1px 2px rgba(22, 52, 154, 0.06), 0 24px 60px -20px rgba(22, 52, 154, 0.28);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--cs-ink);
+    padding-bottom: 96px;
+    background:
+      radial-gradient(60rem 40rem at 85% -10%, rgba(127, 174, 245, 0.45), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 30%, rgba(191, 215, 251, 0.7), transparent 60%),
+      radial-gradient(60rem 44rem at 100% 70%, rgba(59, 120, 238, 0.22), transparent 60%),
+      linear-gradient(180deg, #f4f8fe, #eaf1fc 60%, #f4f8fe);
+  }
+  .cs::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  }
+
+  :global(.dark) .cs {
+    --cs-ink: #e8eefc;
+    --cs-ink-2: #a9b8d8;
+    --cs-accent: #7fa8ff;
+    --cs-line: rgba(127, 168, 255, 0.18);
+    --cs-glass: linear-gradient(160deg, rgba(40, 56, 98, 0.62), rgba(20, 30, 58, 0.5));
+    --cs-glass-rim: rgba(160, 190, 255, 0.28);
+    --cs-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+    background:
+      radial-gradient(60rem 40rem at 85% -10%, rgba(36, 87, 214, 0.35), transparent 60%),
+      radial-gradient(60rem 44rem at 0% 60%, rgba(22, 52, 154, 0.35), transparent 60%),
+      #0b1226;
+  }
+
+  .cs-wrap {
+    max-width: 92rem;
+    margin: 0 auto;
+    padding: 0 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .cs-wrap { padding: 0 1rem; }
+  }
+  @media (min-width: 1024px) {
+    .cs-wrap { padding: 0 1.25rem; }
+  }
+  @media (min-width: 1400px) {
+    .cs-wrap { max-width: 98rem; padding: 0 1.5rem; }
+  }
+
+  .cs-glass {
+    position: relative;
+    background: var(--cs-glass);
+    border: 1px solid var(--cs-glass-rim);
+    box-shadow: inset 0 1px 0 var(--cs-glass-rim), var(--cs-shadow);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  }
+
+  /* Hero */
+  .cs-hero {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-hero { grid-template-columns: 5fr 7fr; padding-top: 10rem; }
+  }
+  .cs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1.25rem;
+    padding: 0.35rem 0.9rem 0.35rem 0.4rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--cs-accent);
+    background: var(--cs-glass);
+    border: 1px solid var(--cs-glass-rim);
+  }
+  .cs-badge img { border-radius: 50%; }
+  .cs h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--cs-ink);
+  }
+  .cs-lead {
+    margin: 1.25rem 0 0;
+    max-width: 44rem;
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--cs-ink-2);
+  }
+  .cs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .cs-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.4rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .cs-btn:focus-visible,
+  .cs-link:focus-visible,
+  .cs-slide a:focus-visible {
+    outline: 2px solid var(--cs-accent);
+    outline-offset: 3px;
+  }
+  .cs-btn-primary {
+    color: #fff;
+    background: linear-gradient(160deg, #3d7bf0, #1e48c8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 14px 30px -12px rgba(30, 72, 200, 0.7);
+  }
+  .cs-btn-primary:hover { transform: translateY(-1px); }
+  .cs-btn-ghost {
+    color: var(--cs-ink);
+    background: var(--cs-glass);
+    border: 1px solid var(--cs-glass-rim);
+    box-shadow: inset 0 1px 0 var(--cs-glass-rim);
+  }
+  .cs-btn-ghost:hover { border-color: var(--cs-accent); }
+
+  .cs-hero-shot {
+    margin: 0;
+    padding: 0.6rem;
+    border-radius: 1.5rem;
+  }
+  .cs-hero-shot img,
+  .cs-feature-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+  }
+
+  /* Highlights */
+  .cs-highlights {
+    display: grid;
+    gap: 1.25rem;
+    padding-bottom: 5rem;
+  }
+  @media (min-width: 768px) {
+    .cs-highlights { grid-template-columns: repeat(3, 1fr); }
+  }
+  .cs-card {
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+  }
+  .cs-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cs-ink);
+  }
+  .cs-card p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--cs-ink-2);
+  }
+
+  /* Features */
+  .cs-feature {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-feature { grid-template-columns: 5fr 7fr; gap: 4rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .cs-flip .cs-feature-copy { order: 2; }
+    .cs-flip { grid-template-columns: 7fr 5fr; }
+  }
+  .cs-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(160deg, #3d7bf0, #1e48c8);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+  .cs-feature h2,
+  .cs-gallery h2 {
+    margin: 1rem 0 0;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--cs-ink);
+  }
+  .cs-feature p {
+    margin: 1rem 0 0;
+    max-width: 42rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--cs-ink-2);
+  }
+  .cs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: var(--cs-accent);
+    text-decoration: none;
+  }
+  .cs-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .cs-link svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .cs-feature-shot {
+    margin: 0;
+    padding: 0.6rem;
+    border-radius: 1.5rem;
+  }
+  .cs-portrait {
+    max-width: 26rem;
+    justify-self: center;
+  }
+
+  /* Testimonial Quote */
+  .cs-quote {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .cs-quote blockquote {
+    margin: 0 auto;
+    max-width: 52rem;
+    padding: clamp(2rem, 4vw, 3.25rem);
+    border-radius: 1.5rem;
+    text-align: center;
+  }
+  .cs-quote .cs-stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+    color: #f59e0b;
+  }
+  .cs-quote p {
+    margin: 0;
+    font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--cs-ink);
+  }
+  .cs-quote footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+  .cs-quote footer img {
+    border-radius: 50%;
+    border: 1px solid var(--cs-glass-rim);
+    background: #fff;
+    padding: 2px;
+    object-fit: contain;
+  }
+  .cs-quote-author {
+    text-align: left;
+  }
+  .cs-quote-author strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cs-ink);
+  }
+  .cs-quote-author .role {
+    display: block;
+    font-size: 0.825rem;
+    color: var(--cs-ink-2);
+  }
+
+  /* Gallery */
+  .cs-gallery { padding-top: 5rem; }
+  .cs-eyebrow {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--cs-accent);
+  }
+  .cs-sub {
+    margin: 0.75rem 0 0;
+    max-width: 40rem;
+    line-height: 1.65;
+    color: var(--cs-ink-2);
+  }
+  .cs-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  }
+  .cs-slide { margin: 0; }
+  .cs-slide a { display: block; border-radius: 1rem; }
+  .cs-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: var(--cs-shadow);
+    transition: transform 0.2s ease;
+  }
+  .cs-slide a:hover img { transform: translateY(-3px); }
+  .cs-slide figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--cs-ink);
+  }
+  .cs-slide figcaption span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--cs-ink-2);
+  }
+
+  /* CTA */
+  .cs-cta {
+    margin-top: 5rem;
+    padding: clamp(2rem, 5vw, 4rem);
+    border-radius: 1.75rem;
+    color: #fff;
+    background:
+      radial-gradient(40rem 20rem at 90% 0%, rgba(157, 193, 244, 0.45), transparent 60%),
+      linear-gradient(150deg, #2a63e0, #16349a);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 30px 70px -30px rgba(22, 52, 154, 0.8);
+  }
+  .cs-cta h2 {
+    margin: 0;
+    max-width: 48rem;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .cs-cta p {
+    margin: 1rem 0 0;
+    max-width: 48rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.86);
+  }
+  .cs-btn-light {
+    color: #16349a;
+    background: #fff;
+  }
+  .cs-btn-light:hover { transform: translateY(-1px); }
+  .cs-btn-outline {
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .cs-btn-outline:hover { background: rgba(255, 255, 255, 0.16); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-btn,
+    .cs-slide img { transition: none; }
+  }
+</style>
