@@ -1,0 +1,285 @@
+---
+export const prerender = true;
+/**
+ * Case study: Latch × Webfluence
+ * Route: /case-studies/latch
+ *
+ * Uses the site's BaseLayout so navbar, footer, fonts (Work Sans / DM Sans)
+ * and the off-white body come from the site.
+ */
+import BaseLayout from '@layout/BaseLayout.astro';
+import { caseStudy as cs, formatDelta } from '../../data/latch-case-study';
+
+const wa = "https://wa.me/923217555516?text=Ecommerce%20Growth";
+const contact = "/contact";
+
+const placeholder = cs.defaultMode === "placeholder";
+const stats = cs.metrics.combined;
+const allVerified = stats.every((m: { status: string }) => m.status === "verified");
+
+const seo = {
+  title: "Latch Case Study — Shopify, SEO & Paid Media | Webfluence",
+  description: "How Webfluence rebuilt Latch's Shopify storefront and connected it to SEO, Google Ads and Meta Ads so every channel lands on pages built to convert.",
+};
+---
+<BaseLayout seo={seo}>
+<div class="cs">
+  <!-- Hero -->
+  <section class="cs-wrap cs-hero">
+    <div class="cs-hero-copy">
+      <p class="cs-badge"><span class="cs-badge-logo"><img src="/logos/latch.png" alt="Latch" width="60" height="19"></span>Latch Case Study</p>
+      <h1>Shopify, SEO &amp; Paid Media</h1>
+      <p class="cs-lead">Latch sells everyday innerwear, loungewear and babywear for women, men and kids. Webfluence rebuilt the Shopify storefront from the ground up, then wired it to an SEO programme and Google and Meta campaigns, so the same team that built the landing pages runs the traffic that lands on them.</p>
+      <div class="cs-actions">
+        <a class="cs-btn cs-btn-primary" href={contact}>Book a Consultation</a>
+        <a class="cs-btn cs-btn-ghost" href={wa} target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </div>
+    <figure class="cs-glass cs-hero-shot">
+      <img src="/case-studies/latch/latch-home.jpg" alt="The wearlatch.com homepage with the Easy summer essentials campaign and free-shipping bar" width="1600" height="846" fetchpriority="high">
+    </figure>
+  </section>
+
+  <!-- Results -->
+  <section class="cs-wrap cs-results" aria-label="Results">
+    <div class="cs-results-grid">
+      {stats.map((m) => (
+        <div class="cs-glass cs-stat">
+          <span class="cs-stat-value">{placeholder || m.status === "pending" ? "[ — ]" : formatDelta(m)}</span>
+          <span class="cs-stat-label">{m.label}</span>
+          {!placeholder && (m.status === "verified"
+            ? <span class="cs-stat-tag is-verified">Verified · {m.source}</span>
+            : <span class="cs-stat-tag">Illustrative · {m.source}</span>)}
+        </div>
+      ))}
+    </div>
+    <p class="cs-note">{allVerified ? cs.comparisonVerified : cs.comparison}</p>
+  </section>
+
+  <!-- Scope -->
+  <section class="cs-wrap cs-scope">
+    <div class="cs-scope-head">
+      <p class="cs-eyebrow">What we run</p>
+      <h2>Three disciplines, one funnel</h2>
+    </div>
+    <div class="cs-scope-grid">
+      <div class="cs-glass cs-card"><h3>Shopify storefront</h3><p>Ground-up redesign and redevelopment: the page every channel lands on.</p></div>
+      <div class="cs-glass cs-card"><h3>SEO</h3><p>Crawlable collections, clean URLs and metadata that mirrors how innerwear is searched.</p></div>
+      <div class="cs-glass cs-card"><h3>Google Ads</h3><p>Shopping, Performance Max and search campaigns fed from the product catalogue.</p></div>
+      <div class="cs-glass cs-card"><h3>Meta Ads</h3><p>Prospecting, dynamic retargeting and creative rotated on a schedule.</p></div>
+      <div class="cs-glass cs-card"><h3>Conversion tracking</h3><p>Google and Meta tracking configured through Shopify so purchases, not clicks, drive optimisation.</p></div>
+      <div class="cs-partner">
+        <span class="cs-partner-logo"><img src="/logos/latch.png" alt="Latch" width="120" height="38"></span>
+        <div><h3>One growth loop</h3><p>Paid media buys the first visit, the storefront turns it into an order, SEO lowers the cost of the next one.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature sections -->
+  <section class="cs-wrap cs-feature">
+    <div class="cs-feature-copy">
+      <span class="cs-num">01</span>
+      <h2>Audience-first browsing</h2>
+      <p>One storefront serves three audiences and a lot of SKUs. A single Women / Men / Baby switch sits at the top of the catalogue, and each audience gets illustrated category tiles, so a shopper picks "hipsters" or "co-ord sets" by sight rather than by reading a list. Tile grids reflow from five across on desktop to two on a phone.</p>
+      <a class="cs-link" href={cs.client.url} target="_blank" rel="noopener">Visit wearlatch.com<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="cs-glass cs-feature-shot"><img src="/case-studies/latch/latch-categories.jpg" alt="The wearlatch.com category browser with a Women / Men / Baby switch and illustrated product tiles" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <section class="cs-wrap cs-feature cs-flip">
+    <div class="cs-feature-copy">
+      <span class="cs-num">02</span>
+      <h2>Product pages that answer first</h2>
+      <p>A product like the Women's Bikini Brief ships as a pack of three in S to XL, so size, pack, price and the buy button need to sit together above the fold. The page leads with a size selector and size-chart link, a quantity stepper, and Add to cart and Buy it now stacked beneath. Descriptions and key features collapse underneath so the page stays short on mobile, and Buy it now goes straight to Shopify's checkout.</p>
+      <a class="cs-link" href={cs.client.url} target="_blank" rel="noopener">Visit wearlatch.com<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="cs-glass cs-feature-shot"><img src="/case-studies/latch/latch-product.jpg" alt="A Latch product page with size selector, quantity stepper, Add to cart and Buy it now above the fold" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <section class="cs-wrap cs-feature">
+    <div class="cs-feature-copy">
+      <span class="cs-num">03</span>
+      <h2>A calm, campaign-led home</h2>
+      <p>Full-bleed seasonal photography, the Latch wordmark centred, and a free-shipping bar that states the order threshold up front. Nothing competes with the product. Layouts are built mobile-first: single-column product pages and a hamburger-led header, with technical SEO (URLs, titles, descriptions, image weights, crawlable navigation) set up as part of development rather than retrofitted.</p>
+      <a class="cs-link" href={contact}>Request a Consultation<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="cs-glass cs-feature-shot"><img src="/case-studies/latch/latch-hero-banner.jpg" alt="The Easy summer essentials campaign banner on the Latch homepage" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <section class="cs-wrap cs-feature cs-flip">
+    <div class="cs-feature-copy">
+      <span class="cs-num">04</span>
+      <h2>Making every collection page findable</h2>
+      <p>Paid traffic stops when the budget stops, so the SEO programme exists to grow the share of orders that arrive without a bought click. Foundations first: crawlable navigation, canonical tags and sitemap submission. Then pages: titles, descriptions and copy for each collection and product written around the category term. A keyword map follows how innerwear is searched (product type, audience, pack size) with one page owning each cluster, and Search Console is reviewed on a schedule.</p>
+      <a class="cs-link" href={contact}>Request a Consultation<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="cs-glass cs-feature-shot cs-portrait"><img src="/case-studies/latch/latch-product-bikini.jpg" alt="Women's Bikini Brief pack of three product page on wearlatch.com" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <section class="cs-wrap cs-feature">
+    <div class="cs-feature-copy">
+      <span class="cs-num">05</span>
+      <h2>Paid traffic that lands on pages built to convert</h2>
+      <p>Google Ads and Meta Ads are managed by the same team that built the store, so campaign structure follows the catalogue and every ad has a landing page designed for its intent. Ads map to specific collection and product pages, never only to the homepage, and budget moves weekly toward the campaigns and collections with the lowest cost per purchase.</p>
+      <a class="cs-link" href={contact}>Request a Consultation<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="cs-glass cs-feature-list">
+      <div><h3>Google Ads</h3><ul><li>Shopping and Performance Max fed from the Shopify catalogue, so packs, sizes and prices stay current.</li><li>Search campaigns built around category intent, each pointed at its matching collection.</li><li>Brand search protected; negative keywords maintained.</li></ul></div>
+      <div><h3>Meta Ads</h3><ul><li>Prospecting on interest and lookalike audiences, with photography and pack-size messaging tested against each other.</li><li>Dynamic product ads retarget product viewers and cart abandoners.</li><li>Creative rotated on a schedule; winners scaled, fatigued ads retired.</li></ul></div>
+      <div><h3>Tracking &amp; review</h3><ul><li>Conversion tracking configured through Shopify so purchases drive optimisation.</li><li>Weekly review of cost per purchase, return on ad spend and conversion rate by campaign.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- The catalogue -->
+  <section class="cs-wrap cs-creative">
+    <div class="cs-creative-copy">
+      <p class="cs-eyebrow">The catalogue</p>
+      <h2>Category tiles you shop by sight</h2>
+      <p>The illustrated tiles from the live category browser. Each one opens a collection page that doubles as an ad landing page and a search result.</p>
+    </div>
+    <div class="cs-creative-grid cs-grid-4">
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-bikini-brief.jpg" alt="Bikini brief category tile" loading="lazy"><figcaption>Bikini brief</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-hipsters.jpg" alt="Hipsters category tile" loading="lazy"><figcaption>Hipsters</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-boy-shorts.jpg" alt="Boy shorts category tile" loading="lazy"><figcaption>Boy shorts</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-basic-brief.jpg" alt="Basic brief category tile" loading="lazy"><figcaption>Basic brief</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-tank-tops.jpg" alt="Tank tops category tile" loading="lazy"><figcaption>Tank tops</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-camisole.jpg" alt="Camisole category tile" loading="lazy"><figcaption>Camisole</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-dresses.jpg" alt="Dresses category tile" loading="lazy"><figcaption>Dresses</figcaption></figure>
+      <figure class="cs-glass"><img src="/case-studies/latch/tile-co-ord-sets.jpg" alt="Co-ord sets category tile" loading="lazy"><figcaption>Co-ord sets</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Outcome -->
+  <section class="cs-wrap cs-values">
+    <p class="cs-eyebrow">What Latch has now</p>
+    <h2>A storefront, a search footprint and a paid engine that share one goal</h2>
+    <p class="cs-sub">A storefront redesign does not move numbers on its own. Any change in traffic, conversion rate or cost per purchase reflects the combined effect of the new site, the SEO programme and the campaigns, which is why Webfluence keeps all three under one roof.</p>
+    <div class="cs-scope-grid">
+      <div class="cs-glass cs-card"><h3>Redesigned storefront</h3><p>A Shopify store built around how innerwear is actually bought.</p></div>
+      <div class="cs-glass cs-card"><h3>SEO foundation</h3><p>Across every collection and product page, with a keyword map that follows search intent.</p></div>
+      <div class="cs-glass cs-card"><h3>Google and Meta Ads</h3><p>Run against the same catalogue, landing on pages designed to convert.</p></div>
+      <div class="cs-glass cs-card"><h3>Weekly performance review</h3><p>Cost per purchase, return on ad spend and conversion rate, by campaign.</p></div>
+      <div class="cs-glass cs-card"><h3>A system that scales</h3><p>New products and collections slot into the same structure, search and campaigns.</p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cs-wrap">
+    <div class="cs-cta">
+      <h2>Ready to turn your ecommerce store into a growth engine?</h2>
+      <p>Webfluence combines development, design, SEO and performance marketing for ecommerce brands. Tell us what you sell and we'll show you how the three fit together.</p>
+      <div class="cs-actions">
+        <a class="cs-btn cs-btn-light" href={contact}>Book a Consultation</a>
+        <a class="cs-btn cs-btn-outline" href={wa} target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</div>
+</BaseLayout>
+
+<style>
+
+.cs{--cs-ink:#0e1b3d;--cs-ink-2:#3a4a6d;--cs-accent:#2457d6;--cs-accent-deep:#16349a;--cs-line:#2457d624;--cs-glass:linear-gradient(160deg, #ffffffc7, #ffffff73);--cs-glass-rim:#ffffffe6;--cs-shadow:0 1px 2px #16349a0f, 0 24px 60px -20px #16349a47;isolation:isolate;color:var(--cs-ink);background:radial-gradient(60rem 40rem at 85% -10%,#7faef573,#0000 60%),radial-gradient(50rem 36rem at -10% 30%,#bfd7fbb3,#0000 60%),radial-gradient(60rem 44rem at 100% 70%,#3b78ee38,#0000 60%),linear-gradient(#f4f8fe,#eaf1fc 60%,#f4f8fe);padding-bottom:96px;position:relative;overflow:hidden}
+.cs:after{content:"";z-index:-1;pointer-events:none;opacity:.18;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");position:absolute;inset:0}
+.dark .cs{--cs-ink:#e8eefc;--cs-ink-2:#a9b8d8;--cs-accent:#7fa8ff;--cs-line:#7fa8ff2e;--cs-glass:linear-gradient(160deg, #2838629e, #141e3a80);--cs-glass-rim:#a0beff47;--cs-shadow:0 24px 60px -20px #0009;background:radial-gradient(60rem 40rem at 85% -10%,#2457d659,#0000 60%),radial-gradient(60rem 44rem at 0 60%,#16349a59,#0000 60%),#0b1226}
+.cs-wrap{max-width:92rem;margin:0 auto;padding:0 .75rem}
+@media (width>=640px){.cs-wrap{padding:0 1rem}}
+@media (width>=1024px){.cs-wrap{padding:0 1.25rem}}
+@media (width>=1400px){.cs-wrap{max-width:98rem;padding:0 1.5rem}}
+.cs-glass{background:var(--cs-glass);border:1px solid var(--cs-glass-rim);box-shadow:inset 0 1px 0 var(--cs-glass-rim), var(--cs-shadow);-webkit-backdrop-filter:blur(18px)saturate(1.4);position:relative}
+.cs-hero{align-items:center;gap:3rem;padding-top:8rem;padding-bottom:4rem;display:grid}
+@media (width>=1024px){.cs-hero{grid-template-columns:5fr 7fr;padding-top:10rem}}
+.cs-badge{color:var(--cs-accent);background:var(--cs-glass);border:1px solid var(--cs-glass-rim);border-radius:999px;align-items:center;gap:.6rem;margin:0 0 1.25rem;padding:.35rem .9rem .35rem .4rem;font-size:.875rem;font-weight:500;display:inline-flex}
+.cs-badge-logo{background:#fff;border-radius:999px;align-items:center;padding:.3rem .6rem;display:inline-flex}
+.cs-badge-logo img{border-radius:0;width:auto;height:16px}
+.cs h1{letter-spacing:-.03em;color:var(--cs-ink);margin:0;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:600;line-height:1.02}
+.cs-lead{max-width:44rem;color:var(--cs-ink-2);margin:1.25rem 0 0;font-size:1.125rem;line-height:1.65}
+.cs-actions{flex-wrap:wrap;gap:.75rem;margin-top:2rem;display:flex}
+.cs-btn{border-radius:.75rem;justify-content:center;align-items:center;min-height:3rem;padding:0 1.4rem;font-size:.95rem;font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s;display:inline-flex}
+.cs-btn:focus-visible,.cs-link:focus-visible,.cs-slide a:focus-visible{outline:2px solid var(--cs-accent);outline-offset:3px}
+.cs-btn-primary{color:#fff;background:linear-gradient(160deg,#3d7bf0,#1e48c8);box-shadow:inset 0 1px #ffffff73,0 14px 30px -12px #1e48c8b3}
+.cs-btn-primary:hover{transform:translateY(-1px)}
+.cs-btn-ghost{color:var(--cs-ink);background:var(--cs-glass);border:1px solid var(--cs-glass-rim);box-shadow:inset 0 1px 0 var(--cs-glass-rim)}
+.cs-btn-ghost:hover{border-color:var(--cs-accent)}
+.cs-hero-shot{border-radius:1.5rem;margin:0;padding:.6rem}
+.cs-hero-shot img,.cs-feature-shot img{border-radius:1rem;width:100%;height:auto;display:block}
+.cs-results{padding-bottom:5rem}
+.cs-results-grid{grid-template-columns:repeat(2,1fr);gap:1rem;display:grid}
+@media (width>=1024px){.cs-results-grid{grid-template-columns:repeat(4,1fr);gap:1.25rem}}
+.cs-stat{border-radius:1.25rem;flex-direction:column;gap:.5rem;padding:1.75rem;display:flex}
+.cs-stat-value{letter-spacing:-.03em;color:var(--cs-accent);font-size:clamp(2.5rem,5vw,3.75rem);font-weight:600;line-height:1}
+.cs-stat-label{color:var(--cs-ink);font-weight:500}
+.cs-note{color:var(--cs-ink-2);margin:1rem 0 0;font-size:.9rem}
+.cs-scope{padding-bottom:3rem}
+.cs-scope h2,.cs-creative h2{letter-spacing:-.02em;color:var(--cs-ink);margin:1rem 0 0;font-size:clamp(1.75rem,3.4vw,2.5rem);font-weight:600;line-height:1.15}
+.cs-scope-grid{gap:1rem;margin-top:2rem;display:grid}
+@media (width>=768px){.cs-scope-grid{grid-template-columns:repeat(3,1fr);gap:1.25rem}}
+.cs-card{border-radius:1.25rem;padding:1.75rem}
+.cs-card h3{color:var(--cs-ink);margin:0 0 .5rem;font-size:1.25rem;font-weight:600}
+.cs-card p{color:var(--cs-ink-2);margin:0;line-height:1.6}
+.cs-partner{color:#fff;box-shadow:inset 0 1px 0 #ffffff59, var(--cs-shadow);background:linear-gradient(150deg,#2a63e0,#16349a);border-radius:1.25rem;align-items:center;gap:1.25rem;padding:1.5rem 1.75rem;display:flex}
+.cs-partner h3{color:#fff;margin:0 0 .35rem;font-size:1.15rem;font-weight:600}
+.cs-partner p{color:#ffffffdb;margin:0;line-height:1.55}
+.cs-partner-logo{background:#fff;border-radius:.9rem;flex:none;justify-content:center;align-items:center;width:5.5rem;height:4rem;display:flex}
+.cs-partner-logo img{object-fit:contain;width:4.5rem;height:auto}
+.cs-feature{align-items:center;gap:2.5rem;padding-top:3rem;padding-bottom:3rem;display:grid}
+@media (width>=1024px){.cs-feature{grid-template-columns:5fr 7fr;gap:4rem;padding-top:4rem;padding-bottom:4rem}
+.cs-flip .cs-feature-copy{order:2}
+.cs-flip{grid-template-columns:7fr 5fr}
+}
+.cs-num{color:#fff;background:linear-gradient(160deg,#3d7bf0,#1e48c8);border-radius:50%;justify-content:center;align-items:center;width:2.75rem;height:2.75rem;font-weight:600;display:inline-flex;box-shadow:inset 0 1px #ffffff73}
+.cs-feature h2,.cs-gallery h2{letter-spacing:-.02em;color:var(--cs-ink);margin:1rem 0 0;font-size:clamp(1.75rem,3.4vw,2.5rem);font-weight:600;line-height:1.15}
+.cs-feature p{max-width:42rem;color:var(--cs-ink-2);margin:1rem 0 0;font-size:1.0625rem;line-height:1.7}
+.cs-link{color:var(--cs-accent);align-items:center;gap:.35rem;margin-top:1.5rem;font-weight:600;text-decoration:none;display:inline-flex}
+.cs-link:hover{text-underline-offset:4px;text-decoration:underline}
+.cs-link svg{fill:none;stroke:currentColor;stroke-width:2px;stroke-linecap:round;stroke-linejoin:round;width:1.1rem;height:1.1rem}
+.cs-feature-shot{border-radius:1.5rem;margin:0;padding:.6rem}
+.cs-portrait{justify-self:center;max-width:26rem}
+.cs-creative{align-items:center;gap:2.5rem;padding-top:4rem;padding-bottom:2rem;display:grid}
+@media (width>=1024px){.cs-creative{grid-template-columns:5fr 7fr;gap:4rem}}
+.cs-creative-copy p:not(.cs-eyebrow){max-width:40rem;color:var(--cs-ink-2);margin:1rem 0 0;font-size:1.0625rem;line-height:1.7}
+.cs-creative-logo{object-fit:contain;width:9rem;height:auto;margin-top:1.75rem;display:block}
+.cs-creative-grid{grid-template-columns:repeat(2,1fr);gap:1rem;display:grid}
+.cs-creative-grid figure{border-radius:1.25rem;margin:0;padding:.5rem}
+.cs-creative-grid img{aspect-ratio:1;object-fit:cover;border-radius:.85rem;width:100%;display:block}
+.cs-gallery{padding-top:5rem}
+.cs-eyebrow{color:var(--cs-accent);margin:0;font-size:.875rem;font-weight:600}
+.cs-sub{max-width:44rem;color:var(--cs-ink-2);margin:.75rem 0 0;line-height:1.65}
+.cs-gallery-grid{grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2.5rem;display:grid}
+@media (width>=1024px){.cs-gallery-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}}
+.cs-slide{margin:0}
+.cs-slide a{border-radius:1rem;display:block}
+.cs-slide img{width:100%;height:auto;box-shadow:var(--cs-shadow);border-radius:1rem;transition:transform .2s;display:block}
+.cs-slide a:hover img{transform:translateY(-3px)}
+.cs-slide figcaption{color:var(--cs-ink);margin-top:.75rem;font-size:.9rem;font-weight:500}
+.cs-slide figcaption span{color:var(--cs-ink-2);font-size:.75rem;font-weight:500;display:block}
+.cs-cta{color:#fff;background:radial-gradient(40rem 20rem at 90% 0,#9dc1f473,#0000 60%),linear-gradient(150deg,#2a63e0,#16349a);border-radius:1.75rem;margin-top:5rem;padding:clamp(2rem,5vw,4rem);box-shadow:inset 0 1px #ffffff59,0 30px 70px -30px #16349acc}
+.cs-cta h2{letter-spacing:-.02em;color:#fff;max-width:48rem;margin:0;font-size:clamp(1.75rem,3.4vw,2.5rem);font-weight:600;line-height:1.15}
+.cs-cta p{color:#ffffffdb;max-width:48rem;margin:1rem 0 0;line-height:1.65}
+.cs-btn-light{color:#16349a;background:#fff}
+.cs-btn-light:hover{transform:translateY(-1px)}
+.cs-btn-outline{color:#fff;background:#ffffff14;border:1px solid #ffffff8c}
+.cs-btn-outline:hover{background:#ffffff29}
+@media (prefers-reduced-motion:reduce){.cs-btn,.cs-slide img{transition:none}}
+
+/* --- Latch additions --- */
+.cs-badge-logo img.cs-badge-logo-tall{height:14px}
+.cs-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem}
+.cs-creative-grid.cs-grid-4{grid-template-columns:repeat(2,1fr)}
+@media (width>=640px){.cs-creative-grid.cs-grid-4{grid-template-columns:repeat(4,1fr)}}
+.cs-creative-grid.cs-grid-4 img{aspect-ratio:1}
+.cs-creative-grid figcaption{color:var(--cs-ink-2);font-size:.8rem;font-weight:500;margin:.6rem .25rem .1rem}
+.cs-values{padding-top:5rem}
+.cs-values h2{letter-spacing:-.02em;color:var(--cs-ink);margin:1rem 0 0;font-size:clamp(1.75rem,3.4vw,2.5rem);font-weight:600;line-height:1.15}
+.cs-values .cs-scope-grid{margin-top:2.5rem}
+.cs-card .cs-chip-row{margin:0 0 .9rem}
+.cs-stat-value.cs-stat-value-sm{font-size:clamp(1.75rem,3.2vw,2.5rem);line-height:1.1}
+.cs-feature-shot.cs-wide{padding:.6rem}
+.cs-feature figure img{object-fit:cover}
+.cs-stat-tag{font-size:.7rem;font-weight:600;color:#9a5b00;background:#fff3dc;border:1px solid #f2d39b;border-radius:999px;padding:.1rem .55rem;width:max-content}
+.cs-stat-tag.is-verified{color:#0b6a50;background:#e6f5ef;border-color:#b7e0cd}
+.cs-feature-list{border-radius:1.5rem;margin:0;padding:1.75rem;display:grid;gap:1.25rem}
+.cs-feature-list h3{color:var(--cs-ink);margin:0 0 .4rem;font-size:1.05rem;font-weight:600}
+.cs-feature-list ul{margin:0;padding-left:1.1rem;color:var(--cs-ink-2);line-height:1.6}
+.cs-feature-list li+li{margin-top:.35rem}
+</style>
