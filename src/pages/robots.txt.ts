@@ -1,14 +1,15 @@
 import type { APIRoute } from 'astro';
+import { SITE_URL } from '@/data/business';
 
-// Helper function that generates the content for the robots.txt file
-// This specifies that all web crawlers (User-agent: *) have access to the entire site (Allow: /)
-const getRobotsTxt = () => `
-User-agent: *
+// Allow all crawlers everywhere and point them at the sitemap.
+const getRobotsTxt = () => `User-agent: *
 Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
 `;
 
-// API route for serving the robots.txt file
-// When a GET request is made to this route, it returns the generated robots.txt content
 export const GET: APIRoute = () => {
-  return new Response(getRobotsTxt());
+  return new Response(getRobotsTxt(), {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
 };

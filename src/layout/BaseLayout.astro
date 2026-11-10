@@ -3,43 +3,57 @@ import Navbar from '@sections/Navbar.astro';
 import Footer from '@sections/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SEO, type Props as SEOProps } from 'astro-seo';
-import { Schema } from 'astro-seo-schema';
 import type { WithContext, Thing } from 'schema-dts';
 import { AstroFont } from 'astro-font';
 import '@styles/global.css';
+import {
+  canonicalUrl,
+  organizationSchema,
+  websiteSchema,
+  SITE_URL,
+} from '@/data/business';
 
 interface Props {
   seo?: SEOProps; // Optional SEO properties to customize meta tags
-  schema?: WithContext<Thing>; // Optional schema.org properties for structured data
+  schema?: WithContext<Thing> | WithContext<Thing>[]; // Optional schema.org properties for structured data
 }
 
 // Extract `seo` and `schema` from properties or define defaults
 const { seo, schema } = Astro.props;
-const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
+const socialImage = `${SITE_URL}/social.png`; // Path to the default social sharing image
 
-const ogTitle = seo?.title ?? 'Webfluence - Your Digital Growth Partner';
-const ogDescription =
-  seo?.description ??
-  "Transform your business with Webfluence's comprehensive software and digital marketing services. From ERP and CRM to mobile apps, websites, and performance marketing, we drive your digital growth.";
+// Clean canonical URL (no .html, /case-studies -> /work); pages can override.
+const canonical = String(seo?.canonical ?? canonicalUrl(Astro.url.pathname));
+
+const defaultTitle =
+  'Webfluence — Software Development Company in Lahore, Pakistan';
+const defaultDescription =
+  'Webfluence is a software development and digital marketing company in Lahore, Pakistan. We build custom ERP, CRM, web and mobile apps and run SEO and performance marketing for growing businesses.';
+
+const title = seo?.title ?? defaultTitle;
+const description = seo?.description ?? defaultDescription;
 
 // Define default JSON-LD Schema.org data if no schema is passed
 const defaultSchema: WithContext<Thing> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  inLanguage: 'en-US',
-  '@id': Astro.url.href,
-  url: Astro.url.href,
-  name: 'Webfluence',
-  description:
-    "Empower your business with Webfluence's robust software and digital marketing solutions. Specializing in ERP, CRM, mobile apps, web development, creatives, and performance marketing.",
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'Webfluence',
-    description:
-      'Webfluence provides top-tier software engineering and digital marketing services, helping businesses scale and succeed in the digital world.',
-  },
-};
+  inLanguage: 'en',
+  '@id': canonical,
+  url: canonical,
+  name: title,
+  description,
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  about: { '@id': `${SITE_URL}/#organization` },
+} as WithContext<Thing>;
+
+// Pages build their own schema with `Astro.url.href`, which in the static
+// build is the `.html` file URL. Swap it for the canonical URL everywhere.
+const withCanonicalUrls = (item: WithContext<Thing>): WithContext<Thing> =>
+  JSON.parse(JSON.stringify(item).split(Astro.url.href).join(canonical));
+
+const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
+  withCanonicalUrls
+);
 ---
 
 <html lang="en" class="scroll-pt-32">
@@ -64,25 +78,32 @@ const defaultSchema: WithContext<Thing> = {
     {/* SEO Meta Tags */}
     <SEO
       charset="utf-8"
-      title={seo?.title ?? 'Webfluence'}
-      description={seo?.description ??
-        "Transform your business with Webfluence's comprehensive software and digital marketing services. From ERP and CRM to mobile apps, websites, and performance marketing, we drive your digital growth."}
+      title={title}
+      description={description}
+      canonical={canonical}
+      noindex={seo?.noindex}
       openGraph={{
         basic: {
-          title: ogTitle,
+          title,
           type: 'website',
           image: socialImage,
+          url: canonical,
         },
         optional: {
-          description: ogDescription,
+          description,
+          siteName: 'Webfluence',
+          locale: 'en_US',
+        },
+        image: {
+          alt: 'Webfluence — software development and digital marketing, Lahore',
         },
       }}
       twitter={{
         card: 'summary_large_image',
-        title: ogTitle,
-        description: ogDescription,
+        title,
+        description,
         image: socialImage,
-        imageAlt: 'Webfluence Logo.',
+        imageAlt: 'Webfluence — software development and digital marketing, Lahore',
       }}
       extend={{
         link: [
@@ -97,7 +118,16 @@ const defaultSchema: WithContext<Thing> = {
       }}
     />
     {/* Schema.org JSON-LD */}
-    <Schema item={schema ?? defaultSchema} />
+    {/* Site-wide business entity (must match Google Business Profile) */}
+    {/* Rendered raw (not via <Schema>), which HTML-escapes "&" to "&amp;" inside the JSON. */}
+    {
+      [organizationSchema, websiteSchema, ...pageSchemas].map(item => (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(item).replace(/</g, '\\u003c')}
+        />
+      ))
+    }
 
     {/* Client-Side Router for page transitions */}
     <ClientRouter />

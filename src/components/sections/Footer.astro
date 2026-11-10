@@ -1,21 +1,21 @@
 ---
 import FooterForm from '@ui/forms/FooterForm.astro';
 import ContactInfo from '@common/ContactInfo.astro';
+import { business, addressLine } from '@/data/business';
 
 // Props for customization
-const companyName = 'Webfluence';
+const companyName = business.name;
 const companyDescription =
-  'Webfluence is a leading software development and digital marketing agency, providing comprehensive solutions from ERP systems to performance marketing.';
+  'Webfluence is a software development and digital marketing company in Lahore, Pakistan, providing comprehensive solutions from ERP systems to performance marketing.';
 
-// Contact information for the company
+// Contact information for the company (shared with the schema; see src/data/business.ts)
 const contactDetails = {
-  address: 'Phase 6 DHA Lahore, Pakistan',
-  phone: '+92 321 7555516',
-  email: 'momin@webfluence.tech',
+  name: business.name,
+  address: addressLine,
+  phone: business.phone,
+  email: business.email,
   website: 'www.webfluence.tech',
 };
-
-
 
 ---
 

@@ -43,6 +43,7 @@ const seo = {
   title: 'Page Not Found - Webfluence',
   description:
     "Sorry, we couldn't find the page you're looking for. Explore our resources or go back to the homepage.",
+  noindex: true,
 };
 
 const schema: WithContext<Thing> = {
@@ -59,7 +60,7 @@ const schema: WithContext<Thing> = {
     url: `${Astro.site}`,
     name: 'Webfluence',
     description:
-      'Webfluence Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
+      'Webfluence is a software development and digital marketing company in Lahore, Pakistan.',
   },
 };
 ---

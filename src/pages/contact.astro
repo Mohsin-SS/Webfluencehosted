@@ -4,16 +4,18 @@ import BaseLayout from '@layout/BaseLayout.astro';
 import Icon from '@ui/icons/Icon.astro';
 import ContactForm from '@ui/forms/ContactForm.astro';
 import type { WithContext, Thing } from 'schema-dts';
+import { business, phoneE164 } from '@/data/business';
 
 const addressHeading = 'Our address:';
 const emailHeading = 'Contact us by email:';
 const knowledgeBaseHeading = 'Knowledge base';
 
+// Shared with the footer and LocalBusiness schema; see src/data/business.ts
 const contactDetails = {
-  addressLine1: 'Phase 6 DHA Lahore,',
-  addressLine2: 'Pakistan',
-  phone: '+92 321 7555516',
-  email: 'momin@webfluence.tech',
+  addressLine1: `${business.address.streetAddress},`,
+  addressLine2: `${business.address.addressLocality}, Pakistan`,
+  phone: business.phone,
+  email: business.email,
 };
 
 const knowledgeBaseDetails = {
@@ -28,9 +30,9 @@ const subTitle = 'Questions, Comments or Feedback.';
 
 // SEO metadata for the page
 const seo = {
-  title: 'Contact Webfluence',
+  title: 'Contact Webfluence — Software Development Company in Lahore',
   description:
-    'Get in touch with Webfluence for inquiries, project estimation, and digital marketing consultations.',
+    'Contact Webfluence in DHA Phase 6, Lahore. Call +92 324 4477757 or email info@webfluence.tech to discuss your software, website or marketing project.',
 };
 
 // Schema.org metadata for SEO
@@ -93,7 +95,7 @@ const schema: WithContext<Thing> = {
 
             <a
               class="mt-1 text-sm text-slate-500 transition-colors duration-300 hover:text-slate-400 focus:text-slate-400 focus:outline-hidden"
-              href={`tel:${contactDetails.phone}`}
+              href={`tel:${phoneE164}`}
             >
               {contactDetails.phone}
             </a>
