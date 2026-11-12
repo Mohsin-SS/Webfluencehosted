@@ -152,6 +152,8 @@ export const caseStudies: CaseStudy[] = [
 export interface Client {
   name: string;
   logo: string;
+  /** Enlarge a logo that looks small in its slot (tall, narrow artwork). */
+  scale?: number;
 }
 
 /** Every client brand, in display order (see the ORDER note at the top). */
@@ -168,7 +170,7 @@ export const clients: Client[] = [
   { name: 'Fastaxi', logo: '/logos/fastaxi.png' },
   { name: 'Property Linkers', logo: '/logos/property-linkers.png' },
   { name: 'Zamindar Premium', logo: '/logos/zamindar-premium.png' },
-  { name: 'Data Foods', logo: '/logos/data-foods.png' },
+  { name: 'Data Foods', logo: '/logos/data-foods-logo.png', scale: 1.35 },
   { name: 'Data Flour Mills', logo: '/logos/data-flour-mills.png' },
   { name: 'Pitstop 63', logo: '/logos/pitstop.png' },
   { name: 'Gari Baich', logo: '/logos/image copy 7.png' },

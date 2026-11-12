@@ -3,7 +3,7 @@ import { clients } from '@/data/site';
 
 const title = 'Brands that build and grow with Webfluence';
 // Order lives in src/data/site.ts (`clients`).
-const logos = clients.map(c => ({ src: c.logo, alt: c.name }));
+const logos = clients.map(c => ({ src: c.logo, alt: c.name, scale: c.scale }));
 
 // One extra copy is the minimum needed for a seamless loop; more would
 // show the same brand twice on screen at once.
@@ -41,7 +41,11 @@ const marqueeLogos = [...logos, ...logos];
       </h2>
 
       {/* Marquee */}
-      <div class="logo-mask relative mt-8 flex w-full overflow-hidden">
+      {/* py-4 gives enlarged logos room inside the overflow clip; mt-4 and
+          -mb-4 cancel it so the card keeps its size. */}
+      <div
+        class="logo-mask relative mt-4 -mb-4 flex w-full overflow-hidden py-4"
+      >
         <ul class="logo-marquee flex items-center" aria-label="Client logos">
           {
             marqueeLogos.map((logo, i) => (
@@ -53,6 +57,7 @@ const marqueeLogos = [...logos, ...logos];
                   src={logo.src}
                   alt={i >= logos.length ? '' : logo.alt}
                   class="max-h-full max-w-full object-contain mix-blend-multiply"
+                  style={logo.scale ? `transform: scale(${logo.scale})` : undefined}
                   loading="lazy"
                 />
               </li>
