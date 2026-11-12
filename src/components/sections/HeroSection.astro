@@ -1,18 +1,281 @@
 ---
-import AnnouncementBanner from '@common/AnnouncementBanner.astro';
-import HeroContent from '@common/HeroContent.astro';
-import HeroVideo from '@common/HeroVideo.astro';
+import Button from '@ui/Button.astro';
+
+const eyebrow = 'Performance marketing & software company in Lahore, Pakistan';
+const headline = 'Your digital growth partner';
+// Words typed after "for" in the headline. The first one is what shows
+// without JavaScript or with reduced motion.
+// Order follows the service priority in src/data/site.ts.
+const typedWords = [
+  'performance marketing',
+  'social media content',
+  'ERP systems',
+  'custom CRMs',
+  'mobile apps',
+  'websites',
+  'SEO',
+];
+const longestWord = typedWords.reduce((a, b) => (b.length > a.length ? b : a));
+
+const subTitle =
+  'Webfluence runs the marketing that grows your business and builds the software that runs it: performance marketing on Google and Meta, creative and social media content, ERP and CRM systems, mobile apps, websites and SEO from one team.';
+
+const primaryCTA = { text: 'Book a consultation', href: '/contact' };
+const secondaryCTA = { text: 'Our services', href: '/#services' };
+
+// Real client work shown in the panel. `crop` trims a screenshot that was
+// saved with a coloured backdrop down to just the app window:
+// width / left offset as % of the frame width, top offset as % of its height.
+const slides = [
+  {
+    src: '/case-studies/times-consultant/crm-dashboard.jpg',
+    alt: 'EduConsult CRM dashboard showing active students, applications and the admissions funnel',
+    caption: 'CRM for Times Consultant',
+    crop: { width: 132.36, left: -16.15, top: -5.71 },
+  },
+  {
+    src: '/case-studies/carology/studio.webp',
+    alt: 'The Carology AI studio previewing a number plate on a customer car',
+    caption: 'AI customiser for The Carology',
+  },
+  {
+    src: '/case-studies/latch/latch-home.jpg',
+    alt: 'Latch online store homepage',
+    caption: 'Shopify store for Latch',
+  },
+];
 ---
 
-<section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-  <div class="mx-auto max-w-[85rem] space-y-8 px-4 pt-48 pb-12 sm:px-6 lg:px-8">
-    {/* Announcement Banner */}
-    <AnnouncementBanner />
+<section class="overflow-hidden bg-white">
+  <div
+    class="grid w-full items-center gap-x-10 gap-y-14 px-6 pt-12 sm:px-10 lg:px-16 xl:px-24 pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:pt-20 lg:pb-24"
+  >
+    {/* Copy */}
+    <div>
+      <h1>
+        <span class="eyebrow mb-7">{eyebrow}</span>
+        <span
+          class="block text-[2.5rem] leading-[1.16] sm:text-5xl sm:leading-[1.14] xl:text-[3.5rem]"
+        >
+          {headline}
+          <span class="sr-only"> for software and marketing</span>
+          <span class="text-brand-bright grid" aria-hidden="true">
+            {/* Invisible copy of the longest word holds the height, so the
+                page below does not jump when a long word wraps on phones. */}
+            <span class="invisible col-start-1 row-start-1"
+              >for {longestWord}</span
+            >
+            <span class="col-start-1 row-start-1"
+              >for <span data-typed data-words={JSON.stringify(typedWords)}
+                >{typedWords[0]}</span
+              ><span class="typed-caret"></span></span
+            >
+          </span>
+        </span>
+      </h1>
 
-    {/* Hero Content */}
-    <HeroContent />
+      <p class="text-ink mt-7 max-w-xl text-base leading-[2.1]">
+        {subTitle}
+      </p>
 
-    {/* Hero Visual */}
-    <HeroVideo />
+      <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+        <Button href={primaryCTA.href} variant="primary"
+          >{primaryCTA.text}</Button
+        >
+        <Button href={secondaryCTA.href} variant="tertiary"
+          >{secondaryCTA.text}</Button
+        >
+      </div>
+    </div>
+
+    {/* Visual */}
+    <div class="relative mx-auto w-full max-w-xl lg:max-w-none">
+      <div class="relative aspect-[10/9] sm:aspect-[5/4]">
+        {/* Stripe run behind the panel's top-left corner */}
+        <div
+          class="stripes stripes-fade-b absolute top-0 left-[8%] h-[46%] w-[46%] [--stripe-color:rgb(125_211_252/0.75)]"
+          aria-hidden="true"
+        >
+        </div>
+
+        {/* Pale panel with one large corner */}
+        <div
+          class="bg-ice absolute top-[11%] right-0 h-[74%] w-[70%] rounded-xl rounded-tr-[5.5rem]"
+          aria-hidden="true"
+        >
+        </div>
+
+        {/* Screenshot frame */}
+        <div
+          class="absolute top-[24%] left-0 w-[93%] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_30px_60px_-30px_rgb(20_20_20/0.45)]"
+        >
+          <div
+            class="relative aspect-[1511/840] overflow-hidden"
+            data-hero-slides
+          >
+            {
+              slides.map((slide, i) => (
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  data-slide
+                  data-active={i === 0 ? '' : undefined}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={i === 0 ? 'high' : undefined}
+                  decoding="async"
+                  class={`hero-slide absolute max-w-none ${
+                    slide.crop
+                      ? 'h-auto'
+                      : 'inset-0 size-full object-cover object-top'
+                  }`}
+                  style={
+                    slide.crop
+                      ? `width:${slide.crop.width}%;left:${slide.crop.left}%;top:${slide.crop.top}%`
+                      : undefined
+                  }
+                />
+              ))
+            }
+          </div>
+        </div>
+
+        {/* Rules under the frame */}
+        <div
+          class="absolute right-[6%] bottom-[5%] w-[38%] space-y-1.5"
+          aria-hidden="true"
+        >
+          <span class="bg-sky block h-0.5"></span>
+          <span class="bg-sky/70 block h-0.5"></span>
+          <span class="bg-sky/40 block h-0.5"></span>
+        </div>
+      </div>
+
+      {/* Caption follows the visible screenshot */}
+      <p
+        class="text-brand mt-2 text-center text-xl font-bold tracking-tight sm:text-2xl lg:pl-[20%]"
+        aria-live="off"
+      >
+        {
+          slides.map((slide, i) => (
+            <span
+              data-caption
+              data-active={i === 0 ? '' : undefined}
+              class="hero-caption"
+            >
+              {slide.caption}
+            </span>
+          ))
+        }
+      </p>
+    </div>
   </div>
 </section>
+
+<style>
+  .typed-caret {
+    display: inline-block;
+    width: 3px;
+    height: 0.9em;
+    margin-left: 0.08em;
+    vertical-align: -0.08em;
+    background: currentColor;
+    animation: caret 1s steps(1) infinite;
+  }
+
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  .hero-slide[data-active] {
+    opacity: 1;
+  }
+
+  .hero-caption {
+    display: none;
+  }
+
+  .hero-caption[data-active] {
+    display: inline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typed-caret {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  let timers: number[] = [];
+
+  function startHero() {
+    timers.forEach(t => window.clearTimeout(t));
+    timers = [];
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (reduceMotion) return;
+
+    const later = (fn: () => void, ms: number) => {
+      timers.push(window.setTimeout(fn, ms));
+    };
+
+    // Typed word in the headline
+    const typed = document.querySelector<HTMLElement>('[data-typed]');
+    if (typed) {
+      const words: string[] = JSON.parse(typed.dataset.words || '[]');
+      let word = 0;
+      let length = words[0]?.length ?? 0;
+      let deleting = true;
+
+      const tick = () => {
+        const current = words[word];
+        length += deleting ? -1 : 1;
+        typed.textContent = current.slice(0, length);
+
+        if (deleting && length === 0) {
+          deleting = false;
+          word = (word + 1) % words.length;
+          later(tick, 350);
+        } else if (!deleting && length === words[word].length) {
+          deleting = true;
+          later(tick, 2200);
+        } else {
+          later(tick, deleting ? 45 : 85);
+        }
+      };
+
+      if (words.length > 1) later(tick, 2600);
+    }
+
+    // Screenshot rotation with its caption
+    const slides = [...document.querySelectorAll<HTMLElement>('[data-slide]')];
+    const captions = [
+      ...document.querySelectorAll<HTMLElement>('[data-caption]'),
+    ];
+    if (slides.length > 1) {
+      let index = 0;
+      const next = () => {
+        index = (index + 1) % slides.length;
+        slides.forEach((el, i) =>
+          el.toggleAttribute('data-active', i === index)
+        );
+        captions.forEach((el, i) =>
+          el.toggleAttribute('data-active', i === index)
+        );
+        later(next, 4800);
+      };
+      later(next, 4800);
+    }
+  }
+
+  document.addEventListener('astro:page-load', startHero);
+</script>

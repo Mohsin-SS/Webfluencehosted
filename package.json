@@ -10,7 +10,8 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "pnpm": {
     "peerDependencyRules": {

@@ -1,9 +1,17 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import Button from '@ui/Button.astro';
-import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import PageHero from '@sections/PageHero.astro';
+import FeatureColumns from '@sections/FeatureColumns.astro';
+import ClientLogos from '@sections/ClientLogos.astro';
+import CTA from '@sections/CTA.astro';
+import FAQ from '@sections/FAQ.astro';
+import { faqs } from '@/data/faqs';
+import {
+  webPageSchema,
+  serviceSchema,
+  faqSchema,
+} from '@/data/schema';
 
 const seo = {
   title: 'CRM Development Company in Lahore, Pakistan | Webfluence',
@@ -11,89 +19,98 @@ const seo = {
     'Custom CRM development in Lahore, Pakistan. Webfluence builds CRM systems for lead management and sales analytics that integrate with the tools your team already uses.',
 };
 
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: seo.title,
-  url: Astro.url.href,
-  description: seo.description,
+const pageFaqs = faqs['crm'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: seo.title,
+    description: seo.description,
+  }),
+  serviceSchema({
+    url: Astro.url.href,
+    name: 'Custom CRM Development',
+    serviceType: 'CRM development',
+    description: seo.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
+const hero = {
+  eyebrow: 'CRM development',
+  title: 'CRM Solutions',
+  lead: 'Webfluence builds custom CRM systems that put every lead and customer in one place. Track each enquiry through your pipeline, automate follow-ups and see what is converting.',
+  cta: { text: 'Start your project', href: '/contact' },
+  icon: 'portfolio',
+};
+
+const features = {
+  eyebrow: 'What is included',
+  title: 'A CRM shaped around',
+  accent: 'your sales process',
+  items: [
+    {
+      icon: 'portfolio',
+      title: 'Lead Management',
+      description:
+        'Capture, track, and nurture leads through every stage of the sales funnel with automated workflows.',
+    },
+    {
+      icon: 'chartPie',
+      title: 'Sales Analytics',
+      description:
+        'Gain deep insights into your sales performance with customizable dashboards and real-time reporting.',
+    },
+    {
+      icon: 'cog',
+      title: 'System Integration',
+      description:
+        'Connect your CRM seamlessly with your email marketing, accounting, and support tools.',
+    },
+  ],
 };
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        CRM Solutions
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Build stronger relationships with your customers. Our custom CRM solutions help you track leads, manage sales pipelines, and boost retention.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Start Your Project</Button>
+  <PageHero {...hero} points={features.items.map(item => item.title)} />
+
+  <ClientLogos />
+
+  <FeatureColumns {...features} />
+  {/* Case study: real client work (Times Consultant) */}
+  <section class="wrap pb-16 sm:pb-24">
+    <div
+      class="mx-auto grid max-w-6xl items-center gap-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-10 lg:grid-cols-2 lg:gap-14"
+    >
+      <div>
+        <p class="eyebrow mb-5">Case study</p>
+        <h2 class="text-3xl text-balance sm:text-[2.125rem] sm:leading-tight">
+          How Times Consultant runs 500+ overseas students from one CRM
+        </h2>
+        <p class="mt-5 text-[15px] leading-8">
+          Times Consultant, an education consultancy, had student leads
+          scattered across WhatsApp chats and spreadsheets. Webfluence built an
+          AI-powered CRM with WhatsApp automation, so every inquiry is answered,
+          logged against the student and tracked through to enrolment.
+        </p>
+        <a
+          href="/work/times-consultant"
+          class="text-brand mt-7 inline-flex items-center gap-2 text-[15px] font-semibold hover:underline"
+        >
+          Read the Times Consultant case study
+          <span aria-hidden="true">&rarr;</span>
+        </a>
       </div>
+      <img
+        src="/case-studies/times-consultant/crm-dashboard.jpg"
+        alt="EduConsult CRM dashboard built by Webfluence for Times Consultant"
+        class="w-full rounded-xl border border-slate-200 object-cover shadow-md"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   </section>
 
-  {/* Services Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="portfolio" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Lead Management</h3>
-        <p class="text-slate-600">Capture, track, and nurture leads through every stage of the sales funnel with automated workflows.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
-        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="chartPie" class="h-7 w-7 text-white" />
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Sales Analytics</h3>
-        <p class="text-white/90">Gain deep insights into your sales performance with customizable dashboards and real-time reporting.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="cog" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">System Integration</h3>
-        <p class="text-slate-600">Connect your CRM seamlessly with your email marketing, accounting, and support tools.</p>
-      </div>
-    </div>
-  </section>
-  {/* Case Study Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 bg-slate-50 rounded-3xl mt-12 mb-16">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl">Case Study: ACME-ERP Transformation</h2>
-      <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">See how we modernized ACME's customer relationship processes with a tailor-made CRM and ERP integration.</p>
-    </div>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-xl font-semibold text-slate-800">The Challenge</h3>
-          <p class="mt-2 text-slate-600">ACME Corporation struggled with disconnected data silos, leading to slow response times and missed sales opportunities. Their legacy ERP system needed a modern, streamlined CRM interface.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold text-slate-800">Our Solution</h3>
-          <p class="mt-2 text-slate-600">We developed a custom CRM integrated directly with their existing ERP. Featuring real-time synchronization, automated lead routing, and dynamic dashboards tailored to their sales cycle.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold text-slate-800">The Results</h3>
-          <ul class="mt-2 space-y-2 text-slate-600 list-disc list-inside">
-            <li>45% faster lead response times</li>
-            <li>30% increase in team productivity</li>
-            <li>Unified view of customer data across all departments</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="grid grid-cols-2 gap-4">
-        <img src="/crm-images/1.webp" alt="ACME ERP Dashboard" class="rounded-xl shadow-md w-full h-48 object-cover col-span-2 hover:scale-[1.02] transition-transform duration-300" />
-        <img src="/crm-images/2.png" alt="Analytics View" class="rounded-xl shadow-md w-full h-48 object-cover hover:scale-[1.05] transition-transform duration-300" />
-        <img src="/crm-images/3.webp" alt="Lead Management" class="rounded-xl shadow-md w-full h-48 object-cover hover:scale-[1.05] transition-transform duration-300" />
-      </div>
-    </div>
-  </section>
+  <FAQ items={pageFaqs} />
+
+  <CTA />
 </BaseLayout>

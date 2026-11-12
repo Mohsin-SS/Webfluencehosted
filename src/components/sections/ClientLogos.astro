@@ -1,80 +1,91 @@
 ---
-const title = 'Trusted by Innovative Brands';
-const logos = [
-  { src: '/logos/education-links.png', alt: 'Education Links' },
-  { src: '/logos/fastaxi.png', alt: 'Fastaxi' },
-  { src: '/logos/property-linkers.png', alt: 'Property Linkers' },
-  { src: '/logos/times-consultant.png', alt: 'Times Consultant' },
-  { src: '/logos/ghausia-floor-mills.png', alt: 'Ghausia Floor Mills' },
-  { src: '/logos/zamindar-premium.png', alt: 'Zamindar Premium' },
-  { src: '/logos/data-foods.png', alt: 'Data Foods' },
-  { src: '/logos/dfm.png', alt: 'DFM' },
-  { src: '/logos/slap-media.png', alt: 'Slap Media' },
-  { src: '/logos/carology.png', alt: 'The Carology' },
-  { src: '/logos/image copy 3.png', alt: 'Data Flour Mills' },
-  { src: '/logos/image copy 6.png', alt: 'Pitstop 63' },
-  { src: '/logos/image copy 7.png', alt: 'Gari Baich' },
-  { src: '/logos/adoro.png', alt: 'Adoro' },
-  { src: '/logos/latch.png', alt: 'Latch' },
-  { src: '/logos/zelvior.png', alt: 'Zelvior' },
-  { src: '/logos/modus-1.avif', alt: 'Modus' },
-  { src: '/logos/maktron.jpeg', alt: 'Maktron' },
-  { src: '/logos/ahm-developers.jpg', alt: 'AHM Developers' },
-];
+import { clients } from '@/data/site';
+
+const title = 'Brands that build and grow with Webfluence';
+// Order lives in src/data/site.ts (`clients`).
+const logos = clients.map(c => ({ src: c.logo, alt: c.name }));
 
 // One extra copy is the minimum needed for a seamless loop; more would
 // show the same brand twice on screen at once.
 const marqueeLogos = [...logos, ...logos];
 ---
 
-<section class="border-y border-slate-200 bg-slate-50 py-10 sm:py-16 overflow-hidden">
-  <div class="mx-auto w-full px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-8">
-      <h2 class="text-sm font-semibold tracking-wide text-slate-500 uppercase">
+<section class="relative isolate overflow-hidden py-14 sm:py-20">
+  {/* Band behind the card: soft blocks with stripe runs top and bottom */}
+  <div
+    class="absolute inset-x-0 top-1/2 -z-10 h-[78%] -translate-y-1/2"
+    aria-hidden="true"
+  >
+    <div
+      class="via-ice/70 absolute inset-0 bg-linear-to-r from-blue-50 to-blue-50"
+    >
+    </div>
+    <div
+      class="stripes stripes-fade-x absolute inset-x-[8%] top-0 h-7 [--stripe-color:rgb(20_118_235/0.32)]"
+    >
+    </div>
+    <div
+      class="stripes stripes-fade-x absolute inset-x-[8%] bottom-0 h-7 [--stripe-color:rgb(20_118_235/0.32)]"
+    >
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div
+      class="rounded-2xl border border-slate-200 bg-white/70 px-4 py-9 shadow-[0_20px_50px_-36px_rgb(20_20_20/0.5)] backdrop-blur-md sm:px-8 sm:py-11"
+    >
+      <h2
+        class="text-center text-xl font-semibold tracking-tight sm:text-[1.75rem]"
+      >
         {title}
       </h2>
-    </div>
 
-    {/* Marquee Container */}
-    <div class="relative flex w-full overflow-hidden mask-image-linear-gradient">
-      <div class="animate-marquee flex items-center">
-        {
-          marqueeLogos.map(logo => (
-            <div class="mx-5 sm:mx-7 flex flex-shrink-0 items-center justify-center h-20 sm:h-24 w-44 sm:w-52">
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                class="max-h-16 sm:max-h-20 max-w-[160px] sm:max-w-[190px] w-auto h-auto object-contain transition-transform duration-300 hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-          ))
-        }
+      {/* Marquee */}
+      <div class="logo-mask relative mt-8 flex w-full overflow-hidden">
+        <ul class="logo-marquee flex items-center" aria-label="Client logos">
+          {
+            marqueeLogos.map((logo, i) => (
+              <li
+                class="mx-5 flex h-16 w-36 shrink-0 items-center justify-center sm:mx-8 sm:h-20 sm:w-44"
+                aria-hidden={i >= logos.length ? 'true' : undefined}
+              >
+                <img
+                  src={logo.src}
+                  alt={i >= logos.length ? '' : logo.alt}
+                  class="max-h-full max-w-full object-contain mix-blend-multiply"
+                  loading="lazy"
+                />
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .mask-image-linear-gradient {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  .logo-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
   }
-  
-  .animate-marquee {
-    animation: marquee 45s linear infinite;
-    /* The array is rendered twice, so -50% lands exactly on the second copy */
+
+  /* The list is rendered twice, so -50% lands exactly on the second copy. */
+  .logo-marquee {
+    animation: marquee 50s linear infinite;
   }
-  
-  .animate-marquee:hover {
+
+  .logo-marquee:hover {
     animation-play-state: paused;
   }
 
   @keyframes marquee {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
+    to {
       transform: translateX(-50%);
     }
   }

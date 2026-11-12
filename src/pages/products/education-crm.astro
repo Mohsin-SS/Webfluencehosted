@@ -1,148 +1,273 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import Button from '@ui/Button.astro';
-import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import PageHero from '@sections/PageHero.astro';
+import FeatureColumns from '@sections/FeatureColumns.astro';
+import ClientLogos from '@sections/ClientLogos.astro';
+import CTA from '@sections/CTA.astro';
+import FAQ from '@sections/FAQ.astro';
+import { faqs } from '@/data/faqs';
+import {
+  webPageSchema,
+  softwareSchema,
+  faqSchema,
+} from '@/data/schema';
 
 const seo = {
-  title: 'Education Consultancy CRM - Webfluence',
-  description: 'A centralized CRM tailored to streamline operations and student management for education consultants.',
+  title: 'Education Consultancy CRM Software in Pakistan | Webfluence',
+  description:
+    'CRM software for education consultants in Pakistan, built by Webfluence in Lahore. Manage students, applications and agents, and track conversions from inquiry to enrolment.',
 };
 
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: seo.title,
-  url: Astro.url.href,
-  description: seo.description,
+const pageFaqs = faqs['education-crm'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: seo.title,
+    description: seo.description,
+  }),
+  softwareSchema({
+    url: Astro.url.href,
+    name: 'Education Consultancy CRM',
+    category: 'BusinessApplication',
+    description: seo.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
+const hero = {
+  eyebrow: 'Webfluence product',
+  title: 'Education Consultancy CRM',
+  lead: 'The Webfluence Education Consultancy CRM manages students, applications, agents and communication in one portal, from first inquiry to enrolment.',
+  cta: { text: 'Request a demo', href: '/contact' },
+  icon: 'presentationChart',
+};
+
+const features = {
+  eyebrow: 'What is included',
+  title: 'Built for',
+  accent: 'education consultancies',
+  items: [
+    {
+      icon: 'portfolio',
+      title: 'Student Management',
+      description:
+        'Track student profiles, academic records, and application statuses from initial inquiry to final admission.',
+    },
+    {
+      icon: 'chatBubble',
+      title: 'Centralized Communication',
+      description:
+        'Communicate with students via email and SMS directly through the platform and keep a complete history.',
+    },
+    {
+      icon: 'presentationChart',
+      title: 'Performance Tracking',
+      description:
+        "Monitor your agents' performance and track conversion rates with built-in analytics dashboards.",
+    },
+  ],
 };
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        Education Consultancy CRM
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Streamline your consultancy operations. Our centralized CRM is designed specifically to help education consultants manage students, applications, and communications effectively.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Request a Demo</Button>
-      </div>
-    </div>
-  </section>
+  <PageHero {...hero} points={features.items.map(item => item.title)} />
 
-  {/* Features Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="portfolio" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Student Management</h3>
-        <p class="text-slate-600">Track student profiles, academic records, and application statuses from initial inquiry to final admission.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
-        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="chatBubble" class="h-7 w-7 text-white" />
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Centralized Communcation</h3>
-        <p class="text-white/90">Communicate with students via email and SMS directly through the platform and keep a complete history.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="presentationChart" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Performance Tracking</h3>
-        <p class="text-slate-600">Monitor your agents' performance and track conversion rates with built-in analytics dashboards.</p>
-      </div>
-    </div>
-  </section>
+  <ClientLogos />
+
+  <FeatureColumns {...features} />
   {/* Product Showcase Sections */}
-  <section class="mx-auto max-w-[85rem] px-4 py-20 sm:px-6 lg:px-8 space-y-32">
-    
+  <section class="mx-auto space-y-32 px-4 py-20">
     {/* 01 Executive dashboard */}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <div class="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
-        <img src="/crm-images/1.webp" alt="Executive dashboard" class="w-full h-auto rounded-xl" onerror="this.src='https://placehold.co/800x500?text=Dashboard+Mockup'" />
+    <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+      <div
+        class="order-2 overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl lg:order-1"
+      >
+        <img
+          src="/crm-images/1.webp"
+          alt="Executive dashboard"
+          class="h-auto w-full rounded-xl"
+          onerror="this.src='https://placehold.co/800x500?text=Dashboard+Mockup'"
+        />
       </div>
       <div class="order-1 lg:order-2 lg:pl-10">
-        <span class="text-orange-500 font-medium tracking-wider text-sm">01</span>
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Executive dashboard</h2>
-        <p class="mt-4 text-lg text-slate-600 max-w-md">
-          A single operational view across active students, applications, visas, commissions and priority alerts.
+        <span class="text-sm font-medium tracking-wider text-orange-500"
+          >01</span
+        >
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+          Executive dashboard
+        </h2>
+        <p class="mt-4 max-w-md text-lg text-slate-600">
+          A single operational view across active students, applications, visas,
+          commissions and priority alerts.
         </p>
-        <a href="https://educonsult.webfluence.tech/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors">
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+        >
           Explore the live CRM
-          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <svg
+            class="ml-2 h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </a>
       </div>
     </div>
 
     {/* 02 Lead pipeline */}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
       <div class="lg:pr-10">
-        <span class="text-orange-500 font-medium tracking-wider text-sm">02</span>
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Lead pipeline</h2>
-        <p class="mt-4 text-lg text-slate-600 max-w-md">
-          Every opportunity moves through a visible pipeline instead of living inside spreadsheets or personal inboxes.
+        <span class="text-sm font-medium tracking-wider text-orange-500"
+          >02</span
+        >
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+          Lead pipeline
+        </h2>
+        <p class="mt-4 max-w-md text-lg text-slate-600">
+          Every opportunity moves through a visible pipeline instead of living
+          inside spreadsheets or personal inboxes.
         </p>
-        <a href="https://educonsult.webfluence.tech/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors">
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+        >
           Explore the live CRM
-          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <svg
+            class="ml-2 h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </a>
       </div>
-      <div class="rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
-        <img src="/crm-images/2.png" alt="Lead pipeline" class="w-full h-auto rounded-xl" onerror="this.src='https://placehold.co/800x500?text=Pipeline+Mockup'" />
+      <div
+        class="overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl"
+      >
+        <img
+          src="/crm-images/2.png"
+          alt="Lead pipeline"
+          class="h-auto w-full rounded-xl"
+          onerror="this.src='https://placehold.co/800x500?text=Pipeline+Mockup'"
+        />
       </div>
     </div>
 
     {/* 03 University directory */}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <div class="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
-        <img src="/crm-images/3.webp" alt="University directory" class="w-full h-auto rounded-xl" onerror="this.src='https://placehold.co/800x500?text=Directory+Mockup'" />
+    <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+      <div
+        class="order-2 overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl lg:order-1"
+      >
+        <img
+          src="/crm-images/3.webp"
+          alt="University directory"
+          class="h-auto w-full rounded-xl"
+          onerror="this.src='https://placehold.co/800x500?text=Directory+Mockup'"
+        />
       </div>
       <div class="order-1 lg:order-2 lg:pl-10">
-        <span class="text-orange-500 font-medium tracking-wider text-sm">03</span>
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">University directory</h2>
-        <p class="mt-4 text-lg text-slate-600 max-w-md">
-          Partner institutions, programs, countries and commission information are structured in one searchable workspace.
+        <span class="text-sm font-medium tracking-wider text-orange-500"
+          >03</span
+        >
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+          University directory
+        </h2>
+        <p class="mt-4 max-w-md text-lg text-slate-600">
+          Partner institutions, programs, countries and commission information
+          are structured in one searchable workspace.
         </p>
-        <a href="https://educonsult.webfluence.tech/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors">
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+        >
           Explore the live CRM
-          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <svg
+            class="ml-2 h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </a>
       </div>
     </div>
 
     {/* 04 Agent management */}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
       <div class="lg:pr-10">
-        <span class="text-orange-500 font-medium tracking-wider text-sm">04</span>
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Agent management</h2>
-        <p class="mt-4 text-lg text-slate-600 max-w-md">
-          Sub-agents, referrals, commission splits, performance and compliance can be managed from the same system.
+        <span class="text-sm font-medium tracking-wider text-orange-500"
+          >04</span
+        >
+        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+          Agent management
+        </h2>
+        <p class="mt-4 max-w-md text-lg text-slate-600">
+          Sub-agents, referrals, commission splits, performance and compliance
+          can be managed from the same system.
         </p>
-        <a href="https://educonsult.webfluence.tech/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center font-medium text-slate-900 hover:text-blue-600 transition-colors">
+        <a
+          href="https://educonsult.webfluence.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+        >
           Explore the live CRM
-          <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <svg
+            class="ml-2 h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
         </a>
       </div>
-      <div class="rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
-        <img src="/crm-images/1.webp" alt="Agent management" class="w-full h-auto rounded-xl" onerror="this.src='https://placehold.co/800x500?text=Agent+Mockup'" />
+      <div
+        class="overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl"
+      >
+        <img
+          src="/crm-images/1.webp"
+          alt="Agent management"
+          class="h-auto w-full rounded-xl"
+          onerror="this.src='https://placehold.co/800x500?text=Agent+Mockup'"
+        />
       </div>
     </div>
-
   </section>
+
+  <FAQ items={pageFaqs} />
+
+  <CTA />
 </BaseLayout>

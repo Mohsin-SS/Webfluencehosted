@@ -1,65 +1,83 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import Button from '@ui/Button.astro';
-import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import PageHero from '@sections/PageHero.astro';
+import FeatureColumns from '@sections/FeatureColumns.astro';
+import ClientLogos from '@sections/ClientLogos.astro';
+import CTA from '@sections/CTA.astro';
+import FAQ from '@sections/FAQ.astro';
+import { faqs } from '@/data/faqs';
+import {
+  webPageSchema,
+  serviceSchema,
+  faqSchema,
+} from '@/data/schema';
 
 const seo = {
-  title: 'Digital Marketing Agency in Lahore, Pakistan | Webfluence',
+  title: 'Performance & Digital Marketing Agency in Lahore | Webfluence',
   description:
     'Digital marketing agency in Lahore, Pakistan. Webfluence runs performance marketing, SEO and content, and creative campaigns measured on real leads and sales.',
 };
 
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'Digital Marketing Services - Webfluence',
-  url: Astro.url.href,
-  description: seo.description,
+const pageFaqs = faqs['digital-marketing'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: seo.title,
+    description: seo.description,
+  }),
+  serviceSchema({
+    url: Astro.url.href,
+    name: 'Performance Marketing',
+    serviceType: 'Performance marketing',
+    description: seo.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
+const hero = {
+  eyebrow: 'Performance marketing',
+  title: 'Digital Marketing & Performance',
+  lead: 'Webfluence is a digital marketing agency in Lahore that runs Google Ads, Meta Ads, SEO and creative, measured on leads and sales. For Adoro (ECS) it grew monthly sales by 57%.',
+  cta: { text: 'Start your campaign', href: '/contact' },
+  icon: 'cursorRays',
+};
+
+const features = {
+  eyebrow: 'What is included',
+  title: 'Marketing measured on',
+  accent: 'what it earns',
+  items: [
+    {
+      icon: 'cursorRays',
+      title: 'SEO & Content',
+      description:
+        'Rank higher on search engines and engage your audience with high-quality content optimized for conversion.',
+    },
+    {
+      icon: 'brain',
+      title: 'Performance Marketing',
+      description:
+        'Maximize your ROI through data-backed paid advertising campaigns across social and search networks.',
+    },
+    {
+      icon: 'puzzle',
+      title: 'Creative & Branding',
+      description:
+        'Stand out from the competition with stunning visual creatives, UI/UX designs, and compelling brand storytelling.',
+    },
+  ],
 };
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        Digital Marketing & Performance
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Elevate your brand, drive targeted traffic, and convert visitors into loyal customers with our data-driven approach to digital marketing.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Start Your Campaign</Button>
-      </div>
-    </div>
-  </section>
+  <PageHero {...hero} points={features.items.map(item => item.title)} />
 
-  {/* Services Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="cursorRays" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">SEO & Content</h3>
-        <p class="text-slate-600">Rank higher on search engines and engage your audience with high-quality content optimized for conversion.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
-        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="brain" class="h-7 w-7 text-white" />
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Performance Marketing</h3>
-        <p class="text-white/90">Maximize your ROI through data-backed paid advertising campaigns across social and search networks.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="puzzle" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Creative & Branding</h3>
-        <p class="text-slate-600">Stand out from the competition with stunning visual creatives, UI/UX designs, and compelling brand storytelling.</p>
-      </div>
-    </div>
-  </section>
+  <ClientLogos />
+
+  <FeatureColumns {...features} />
+
+  <FAQ items={pageFaqs} />
+
+  <CTA />
 </BaseLayout>

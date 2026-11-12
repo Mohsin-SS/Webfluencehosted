@@ -1,0 +1,212 @@
+---
+import Icon from '@ui/icons/Icon.astro';
+import Button from '@ui/Button.astro';
+import { softwareServices, marketingServices } from '@/data/site';
+
+const title = 'Our core services';
+const subTitle =
+  'Marketing to grow your business and custom software to run it. Pick a side to see what each team delivers.';
+
+// One tab per team. Each tab carries its own accent colours, set as CSS
+// variables on the panel so the card, stripes and pills all follow.
+const tabs = [
+  {
+    id: 'marketing',
+    label: 'Marketing',
+    name: 'Digital marketing',
+    icon: 'cursorRays',
+    blurb:
+      'Campaigns measured on leads and sales: performance marketing on Google and Meta, creative and social media content, and SEO that turns attention into customers.',
+    note: 'Every channel reports back to the same number: what it earned.',
+    services: marketingServices,
+    vars: '--accent-from:#5bb947;--accent-to:#01a4ca;--tint:#eef8f1;--stripe-color:rgb(1 164 202 / 0.38)',
+  },
+  {
+    id: 'software',
+    label: 'Software',
+    name: 'Software development',
+    icon: 'cog',
+    blurb:
+      'Systems built around how your business runs: ERP and CRM platforms, web and mobile apps, and WhatsApp automation, engineered to scale securely as you grow.',
+    note: 'Start with the system you need most. Add the rest when you are ready.',
+    services: softwareServices,
+    vars: '--accent-from:#1476eb;--accent-to:#1d81f2;--tint:#f0f7fe;--stripe-color:rgb(20 118 235 / 0.32)',
+  },
+];
+---
+
+<section id="services" class="wrap py-16 sm:py-24" data-tabs>
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="text-3xl sm:text-[2.125rem] sm:leading-tight">{title}</h2>
+    <p class="mt-4 text-[15px] leading-8">{subTitle}</p>
+  </div>
+
+  <div
+    class="mt-8 flex justify-center gap-3"
+    role="tablist"
+    aria-label="Service teams"
+  >
+    {
+      tabs.map((tab, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${tab.id}`}
+          aria-controls={`panel-${tab.id}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          style={tab.vars}
+          class="service-tab hover:text-ink h-[52px] min-w-36 rounded-[10px] border border-slate-300 bg-white px-8 text-[15px] text-slate-500 transition-colors sm:min-w-44"
+        >
+          {tab.label}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    tabs.map((tab, i) => (
+      <div
+        role="tabpanel"
+        id={`panel-${tab.id}`}
+        aria-labelledby={`tab-${tab.id}`}
+        hidden={i !== 0}
+        style={tab.vars}
+        class="mt-8 grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]"
+      >
+        {/* Team card */}
+        <article class="relative flex min-h-[24rem] flex-col justify-center overflow-hidden rounded-2xl border border-slate-300 bg-white px-7 py-16 sm:px-10">
+          <div
+            class="stripes stripes-fade-b absolute inset-x-10 top-0 h-14"
+            aria-hidden="true"
+          />
+          <div
+            class="stripes absolute inset-x-2 bottom-0 h-5"
+            aria-hidden="true"
+          />
+
+          <div class="flex items-center gap-3.5">
+            <span class="accent-fill grid size-11 shrink-0 place-items-center rounded-lg text-white">
+              <Icon name={tab.icon} class="size-6 text-white" />
+            </span>
+            <h3 class="text-ink text-2xl font-semibold tracking-tight">
+              {tab.name}
+            </h3>
+          </div>
+          <p class="mt-5 max-w-md text-[15px] leading-8">{tab.blurb}</p>
+          <div class="mt-7">
+            <Button href="/contact" variant="secondary" size="sm">
+              Get in touch
+            </Button>
+          </div>
+        </article>
+
+        {/* Services in this team */}
+        <div class="grid gap-4">
+          <div class="tint relative overflow-hidden rounded-2xl px-7 pt-8 pb-14 text-center">
+            <p class="mx-auto max-w-sm text-[15px] leading-7">{tab.note}</p>
+            <div
+              class="stripes stripes-fade-x absolute inset-x-[30%] bottom-3 h-4"
+              aria-hidden="true"
+            />
+          </div>
+          <div class="tint rounded-2xl px-6 py-8">
+            <ul class="mx-auto grid max-w-sm gap-3">
+              {tab.services.map(service => (
+                <li>
+                  <a
+                    href={service.href}
+                    class="service-pill group text-ink flex h-[52px] items-center justify-between rounded-[10px] border border-slate-200 bg-white px-5 text-[15px] font-semibold shadow-[0_1px_2px_rgb(20_20_20/0.06)] transition-colors"
+                  >
+                    {service.title}
+                    <svg
+                      class="size-4 opacity-50 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M7 17 17 7M8 7h9v9" />
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .service-tab[aria-selected='true'] {
+    border-color: transparent;
+    color: #fff;
+    background-image: linear-gradient(
+      90deg,
+      var(--accent-from),
+      var(--accent-to)
+    );
+  }
+
+  .accent-fill {
+    background-image: linear-gradient(
+      135deg,
+      var(--accent-from),
+      var(--accent-to)
+    );
+  }
+
+  .tint {
+    background-color: var(--tint);
+  }
+
+  .service-pill:hover,
+  .service-pill:focus-visible {
+    border-color: transparent;
+    color: #fff;
+    background-image: linear-gradient(
+      90deg,
+      var(--accent-from),
+      var(--accent-to)
+    );
+  }
+</style>
+
+<script>
+  function initTabs() {
+    document.querySelectorAll<HTMLElement>('[data-tabs]').forEach(root => {
+      const tabs = [...root.querySelectorAll<HTMLElement>('[role="tab"]')];
+
+      const select = (tab: HTMLElement, focus = false) => {
+        tabs.forEach(t => {
+          const active = t === tab;
+          t.setAttribute('aria-selected', String(active));
+          t.tabIndex = active ? 0 : -1;
+          const panel = document.getElementById(
+            t.getAttribute('aria-controls') || ''
+          );
+          if (panel) panel.hidden = !active;
+        });
+        if (focus) tab.focus();
+      };
+
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => select(tab));
+        tab.addEventListener('keydown', event => {
+          const step =
+            event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+          if (!step) return;
+          event.preventDefault();
+          select(tabs[(i + step + tabs.length) % tabs.length], true);
+        });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTabs);
+</script>

@@ -1,0 +1,47 @@
+---
+import type { Faq } from '@/data/schema';
+
+// Questions as real headings with the answer straight underneath, always
+// visible in the HTML, so search engines and AI assistants can lift a
+// question and its answer as one unit. Pair with faqSchema() on the page.
+interface Props {
+  items: Faq[];
+  title?: string;
+  eyebrow?: string;
+}
+
+const {
+  items,
+  title = 'Frequently asked questions',
+  eyebrow = 'FAQ',
+} = Astro.props;
+---
+
+<section class="wrap py-16 sm:py-24" aria-labelledby="faq-heading">
+  <div class="mx-auto max-w-3xl text-center">
+    <p class="text-ink mb-3 text-[11px] tracking-[0.18em] uppercase">
+      {eyebrow}
+    </p>
+    <h2
+      id="faq-heading"
+      class="text-3xl text-balance sm:text-[2.125rem] sm:leading-tight"
+    >
+      {title}
+    </h2>
+  </div>
+
+  <div
+    class="mx-auto mt-12 grid max-w-6xl gap-x-12 gap-y-10 md:grid-cols-2 lg:px-10"
+  >
+    {
+      items.map(item => (
+        <div class="border-t border-slate-200 pt-6">
+          <h3 class="text-ink text-[17px] leading-snug font-bold">
+            {item.question}
+          </h3>
+          <p class="mt-3 text-[15px] leading-7">{item.answer}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

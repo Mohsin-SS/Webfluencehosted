@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import { SITE_URL } from '@/data/business';
 import Icon from '@ui/icons/Icon.astro';
 import PostFeedback from '@common/PostFeedback.svelte';
 import type { WithContext, Thing } from 'schema-dts';
@@ -39,26 +40,28 @@ const seo = {
   description: post.data.description,
 };
 
-// Schema.org metadata for SEO
+// Schema.org metadata for SEO. Author and publisher point at the one
+// Webfluence Organization entity defined in src/data/business.ts.
+const org = { '@id': `${SITE_URL}/#organization` };
 const schema: WithContext<Thing> = {
   '@context': 'https://schema.org',
   '@type': 'Article',
+  '@id': `${Astro.url.href}#article`,
   url: Astro.url.href,
+  mainEntityOfPage: Astro.url.href,
+  headline: post.data.title,
   name: post.data.title,
   description: post.data.description,
-  datePublished: post.data.date.toLocaleDateString('en-UK'),
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'Webfluence',
-    description:
-      'Webfluence Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
-  },
-};
+  datePublished: post.data.date.toISOString().slice(0, 10),
+  inLanguage: 'en',
+  author: org,
+  publisher: org,
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+} as WithContext<Thing>;
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8">
+  <section class="mx-auto px-4 py-24">
     <div class="mx-auto max-w-(--breakpoint-xl)">
       <div class="grid gap-8 md:grid-cols-4 lg:gap-12">
         {

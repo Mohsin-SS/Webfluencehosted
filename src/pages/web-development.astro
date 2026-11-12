@@ -1,9 +1,17 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import Button from '@ui/Button.astro';
-import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import PageHero from '@sections/PageHero.astro';
+import FeatureColumns from '@sections/FeatureColumns.astro';
+import ClientLogos from '@sections/ClientLogos.astro';
+import CTA from '@sections/CTA.astro';
+import FAQ from '@sections/FAQ.astro';
+import { faqs } from '@/data/faqs';
+import {
+  webPageSchema,
+  serviceSchema,
+  faqSchema,
+} from '@/data/schema';
 
 const seo = {
   title: 'Web Development Company in Lahore, Pakistan | Webfluence',
@@ -11,55 +19,65 @@ const seo = {
     'Web development in Lahore, Pakistan. Webfluence builds fast, secure websites and custom web applications, from frontend design to scalable backend architecture.',
 };
 
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: seo.title,
-  url: Astro.url.href,
-  description: seo.description,
+const pageFaqs = faqs['web-development'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: seo.title,
+    description: seo.description,
+  }),
+  serviceSchema({
+    url: Astro.url.href,
+    name: 'Web Development',
+    serviceType: 'Web development',
+    description: seo.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
+const hero = {
+  eyebrow: 'Web development',
+  title: 'Web Development',
+  lead: 'Webfluence builds fast, secure websites, Shopify stores and custom web applications for businesses in Pakistan and abroad, from design through to backend.',
+  cta: { text: 'Start your project', href: '/contact' },
+  icon: 'newWindow',
+};
+
+const features = {
+  eyebrow: 'What is included',
+  title: 'Websites and web apps',
+  accent: 'built to perform',
+  items: [
+    {
+      icon: 'cog',
+      title: 'Custom Web Apps',
+      description:
+        'We build fully customized web applications tailored specifically to meet your unique business requirements.',
+    },
+    {
+      icon: 'newWindow',
+      title: 'Frontend Excellence',
+      description:
+        'Deliver engaging user experiences with responsive, accessible, and lightning-fast frontend interfaces.',
+    },
+    {
+      icon: 'dataBase',
+      title: 'Backend Architecture',
+      description:
+        'Develop robust, scalable, and secure backend systems and APIs to power your digital ecosystem.',
+    },
+  ],
 };
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        Web Development
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Empower your business with highly performant, accessible, and scalable web applications crafted with cutting-edge technologies.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Start Your Project</Button>
-      </div>
-    </div>
-  </section>
+  <PageHero {...hero} points={features.items.map(item => item.title)} />
 
-  {/* Services Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="cog" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Custom Web Apps</h3>
-        <p class="text-slate-600">We build fully customized web applications tailored specifically to meet your unique business requirements.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
-        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="newWindow" class="h-7 w-7 text-white" />
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Frontend Excellence</h3>
-        <p class="text-white/90">Deliver engaging user experiences with responsive, accessible, and lightning-fast frontend interfaces.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="dataBase" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Backend Architecture</h3>
-        <p class="text-slate-600">Develop robust, scalable, and secure backend systems and APIs to power your digital ecosystem.</p>
-      </div>
-    </div>
-  </section>
+  <ClientLogos />
+
+  <FeatureColumns {...features} />
+
+  <FAQ items={pageFaqs} />
+
+  <CTA />
 </BaseLayout>

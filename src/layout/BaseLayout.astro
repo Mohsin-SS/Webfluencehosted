@@ -26,9 +26,9 @@ const socialImage = `${SITE_URL}/social.png`; // Path to the default social shar
 const canonical = String(seo?.canonical ?? canonicalUrl(Astro.url.pathname));
 
 const defaultTitle =
-  'Webfluence — Software Development Company in Lahore, Pakistan';
+  'Webfluence — Performance Marketing & Software Company in Lahore';
 const defaultDescription =
-  'Webfluence is a software development and digital marketing company in Lahore, Pakistan. We build custom ERP, CRM, web and mobile apps and run SEO and performance marketing for growing businesses.';
+  'Webfluence is a performance marketing and software development company in Lahore, Pakistan. We run Google and Meta campaigns, create social media content, and build ERP, CRM, mobile and web apps for growing businesses.';
 
 const title = seo?.title ?? defaultTitle;
 const description = seo?.description ?? defaultDescription;
@@ -56,7 +56,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
 );
 ---
 
-<html lang="en" class="scroll-pt-32">
+<html lang="en" class="scroll-pt-24">
   <head>
     <script is:inline>
       // Ensure page starts from top on reload
@@ -95,7 +95,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
           locale: 'en_US',
         },
         image: {
-          alt: 'Webfluence — software development and digital marketing, Lahore',
+          alt: 'Webfluence — performance marketing and software development, Lahore',
         },
       }}
       twitter={{
@@ -103,7 +103,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         title,
         description,
         image: socialImage,
-        imageAlt: 'Webfluence — software development and digital marketing, Lahore',
+        imageAlt: 'Webfluence — performance marketing and software development, Lahore',
       }}
       extend={{
         link: [
@@ -137,19 +137,9 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
       config={[
         {
           src: [],
-          name: 'DM Sans',
+          name: 'Poppins',
           googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap',
-          preload: true,
-          display: 'swap',
-          selector: 'h1, h2, h3, h4',
-          fallback: 'sans-serif',
-        },
-        {
-          src: [],
-          name: 'Work Sans',
-          googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap',
+            'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap',
           preload: true,
           display: 'swap',
           selector: 'body',
@@ -170,7 +160,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
       );
     </script>
   </head>
-  <body class="bg-off-white selection:bg-blue-400 selection:text-slate-700">
+  <body class="bg-white text-ink selection:bg-blue-200 selection:text-ink-deep">
     <Navbar />
 
     <main>

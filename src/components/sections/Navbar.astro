@@ -1,39 +1,112 @@
 ---
-import Support from '@megaMenu/Support.astro';
-import Products from '@megaMenu/Products.astro';
-import Services from '@megaMenu/Services.astro';
-import CaseStudies from '@megaMenu/CaseStudies.astro';
 import Button from '@ui/Button.astro';
-import { navigationLinks } from '@utils/navigation';
+import {
+  softwareServices,
+  marketingServices,
+  products,
+  caseStudies,
+  supportLinks,
+  companyLinks,
+} from '@/data/site';
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\.html$/, '');
 
-// Call-to-action configuration for the primary button
-const primaryCTA = {
-  text: 'Start a Project',
-  href: '/contact',
-};
+const primaryCTA = { text: 'Start a project', href: '/contact' };
+
+const isActive = (prefixes: string[]) =>
+  prefixes.some(p => currentPath === p || currentPath.startsWith(p + '/'));
+
+// Each dropdown is a list of columns; a column is a labelled list of links.
+const menus = [
+  {
+    id: 'services',
+    label: 'Services',
+    active: isActive([
+      ...marketingServices.map(s => s.href),
+      ...softwareServices.map(s => s.href),
+    ]),
+    width: 'lg:w-[44rem]',
+    columns: [
+      {
+        heading: 'Marketing',
+        accent: 'bg-linear-to-r from-leaf to-lagoon',
+        items: marketingServices,
+      },
+      { heading: 'Software', accent: 'bg-brand', items: softwareServices },
+    ],
+  },
+  {
+    id: 'products',
+    label: 'Products',
+    active: isActive(['/products']),
+    width: 'lg:w-[24rem]',
+    columns: [{ heading: 'Our products', accent: 'bg-brand', items: products }],
+  },
+  {
+    id: 'work',
+    label: 'Case studies',
+    active: isActive(['/work', '/case-studies']),
+    width: 'lg:w-[44rem]',
+    split: true,
+    columns: [
+      {
+        heading: 'Client work',
+        accent: 'bg-brand',
+        items: caseStudies.map(c => ({
+          title: c.client,
+          href: c.href,
+          description: c.summary,
+          logo: c.logo,
+        })),
+      },
+    ],
+  },
+  {
+    id: 'support',
+    label: 'Support',
+    active: isActive(['/support']),
+    width: 'lg:w-[24rem]',
+    columns: [
+      { heading: 'Resources', accent: 'bg-brand', items: supportLinks },
+    ],
+  },
+];
+
+const linkBase =
+  'flex w-full items-center gap-1.5 rounded-md px-3 py-2 text-[15px] lg:text-[13.5px] text-ink hover:text-brand focus-visible:text-brand transition-colors';
 ---
 
 <header
-  class="fixed start-1/2 top-5 z-50 mx-auto flex w-full max-w-sm -translate-x-1/2 transform flex-wrap rounded-2xl border-b border-slate-100 bg-white bg-linear-to-t/oklch from-blue-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:flex-nowrap md:justify-start lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-blue-950/5 2xl:max-w-[81rem] 2xl:via-0%"
+  id="site-header"
+  class="sticky top-0 z-50 bg-white transition-shadow duration-300 data-[scrolled]:shadow-[0_1px_0_0_var(--color-slate-200),0_8px_24px_-18px_rgb(20_20_20/0.35)]"
 >
   <nav
-    class="relative mx-auto w-full px-4 py-2 sm:px-6 lg:px-8 xl:flex xl:max-w-7xl xl:items-center xl:justify-between xl:gap-3 2xl:max-w-[85rem]"
+    class="wrap relative lg:flex lg:h-[72px] lg:items-center lg:justify-between lg:gap-6"
+    aria-label="Main"
   >
-    <div class="flex items-center justify-between gap-x-1">
+    <div class="flex h-[64px] items-center justify-between lg:h-auto">
       <a
-        class="flex-none focus:opacity-80 focus:outline-hidden"
+        class="flex flex-none items-center gap-2.5"
         href="/"
-        aria-label="Webfluence Logo"
+        aria-label="Webfluence home"
         translate="no"
+      >
+        <img
+          src="/logos/WFLogo.png"
+          alt=""
+          width="40"
+          height="40"
+          class="size-10 object-contain mix-blend-multiply"
+        />
+        <span
+          class="text-ink text-[19px] leading-none font-bold tracking-[0.02em]"
+          >WEBFLUENCE</span
         >
-        <img src="/logos/WFLogo.png" alt="Webfluence" class="h-8 w-auto object-contain mix-blend-multiply" />
       </a>
 
       <button
         type="button"
-        class="hs-collapse-toggle relative flex size-9 items-center justify-center rounded-lg border border-slate-200 text-[12px] font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden xl:hidden"
+        class="hs-collapse-toggle text-ink hover:bg-mist relative flex size-10 items-center justify-center rounded-md border border-slate-300 lg:hidden"
         id="hs-header-base-collapse"
         aria-expanded="false"
         aria-controls="hs-header-base"
@@ -41,99 +114,143 @@ const primaryCTA = {
         data-hs-collapse="#hs-header-base"
       >
         <svg
-          class="hs-collapse-open:hidden size-4"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          class="hs-collapse-open:hidden size-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><line x1="3" x2="21" y1="6" y2="6"></line><line
-            x1="3"
-            x2="21"
-            y1="12"
-            y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
+          stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg
         >
         <svg
-          class="hs-collapse-open:block hidden size-4 shrink-0"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          class="hs-collapse-open:block hidden size-5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+          stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg
         >
-        <span class="sr-only">Toggle navigation</span>
       </button>
     </div>
 
     <div
       id="hs-header-base"
-      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 xl:ml-12 xl:block 2xl:ml-20"
+      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 lg:block"
       aria-labelledby="hs-header-base-collapse"
     >
       <div
-        class="max-h-[75vh] overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-slate-100"
+        class="max-h-[75vh] overflow-y-auto border-t border-slate-200 py-3 lg:max-h-none lg:overflow-visible lg:border-0 lg:py-0"
       >
-        <div
-          class="flex flex-col gap-0.5 py-2 xl:flex-row xl:items-center xl:gap-1 xl:py-0"
-        >
-          <div class="grow">
-            <div
-              class="flex flex-col gap-0.5 xl:flex-row xl:items-center xl:justify-evenly xl:gap-1"
-            >
-              <a
-                href="/"
-                class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-                  currentPath === '/' ? 'underline underline-offset-4' : ''
-                }`}
-                aria-current={currentPath === '/' ? 'page' : undefined}
-              >
-                Home
-              </a>
-
-              <Services />
-
-              <Products />
-
-              <CaseStudies />
-              
-              <Support />
-
-              {
-                navigationLinks.map(link => (
-                  <a
-                    href={link.href}
-                    class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden ${
-                      currentPath === link.href
-                        ? 'underline underline-offset-4'
-                        : ''
-                    }`}
-                    aria-current={
-                      currentPath === link.href ? 'page' : undefined
-                    }
+        <div class="flex flex-col gap-1 lg:flex-row lg:items-center">
+          <div
+            class="flex grow flex-col gap-0.5 lg:flex-row lg:items-center lg:justify-center lg:gap-1"
+          >
+            {
+              menus.map(menu => (
+                <div class="hs-dropdown [--adaptive:none] [--is-collapse:true] [--strategy:static] lg:[--is-collapse:false] lg:[--strategy:absolute] lg:[--trigger:hover]">
+                  <button
+                    id={`menu-${menu.id}`}
+                    type="button"
+                    class={`hs-dropdown-toggle ${linkBase} ${menu.active ? 'text-brand font-semibold' : ''}`}
+                    aria-haspopup="menu"
+                    aria-expanded="false"
                   >
-                    {link.label}
-                  </a>
-                ))
-              }
-            </div>
+                    {menu.label}
+                    <svg
+                      class="hs-dropdown-open:rotate-180 ml-auto size-3.5 transition-transform duration-200 lg:ml-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+
+                  <div
+                    class={`hs-dropdown-menu hs-dropdown-open:opacity-100 relative start-0 top-full z-10 hidden w-full opacity-0 transition-[opacity,margin] duration-200 before:absolute before:start-0 before:-top-4 before:h-4 before:w-full lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 ${menu.width}`}
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby={`menu-${menu.id}`}
+                  >
+                    <div class="relative overflow-hidden px-3 pt-1 pb-3 lg:rounded-2xl lg:border lg:border-slate-200 lg:bg-white lg:p-6 lg:shadow-[0_24px_48px_-24px_rgb(20_20_20/0.3)]">
+                      <div
+                        class="stripes stripes-fade-b pointer-events-none absolute inset-x-6 top-0 hidden h-8 [--stripe-color:rgb(20_118_235/0.18)] lg:block"
+                        aria-hidden="true"
+                      />
+                      <div
+                        class={`relative grid gap-x-8 gap-y-4 ${menu.columns.length > 1 ? 'lg:grid-cols-[1.25fr_1fr]' : ''}`}
+                      >
+                        {menu.columns.map(column => (
+                          <div>
+                            <p class="mb-2 flex items-center gap-2 px-2 text-[11px] tracking-[0.14em] text-slate-500 uppercase">
+                              <span
+                                class={`h-0.5 w-5 rounded-full ${column.accent}`}
+                              />
+                              {column.heading}
+                            </p>
+                            <ul
+                              class={`grid gap-0.5 ${menu.split ? 'sm:grid-cols-2' : ''}`}
+                            >
+                              {column.items.map((item: any) => (
+                                <li>
+                                  <a
+                                    href={item.href}
+                                    class="group/item hover:bg-mist focus-visible:bg-mist flex items-start gap-3 rounded-lg p-2"
+                                    aria-current={
+                                      currentPath === item.href
+                                        ? 'page'
+                                        : undefined
+                                    }
+                                  >
+                                    {item.logo && (
+                                      <span class="grid size-10 shrink-0 place-items-center rounded-lg border border-slate-200 bg-white p-1">
+                                        <img
+                                          src={item.logo}
+                                          alt=""
+                                          class="max-h-full max-w-full object-contain"
+                                          loading="lazy"
+                                        />
+                                      </span>
+                                    )}
+                                    <span class="min-w-0">
+                                      <span class="text-ink group-hover/item:text-brand block text-sm font-medium">
+                                        {item.title}
+                                      </span>
+                                      <span class="mt-0.5 block text-xs leading-relaxed text-slate-500">
+                                        {item.description}
+                                      </span>
+                                    </span>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+
+            {
+              companyLinks.map(link => (
+                <a
+                  href={link.href}
+                  class={`${linkBase} lg:w-auto ${currentPath === link.href ? 'text-brand font-semibold' : ''}`}
+                  aria-current={currentPath === link.href ? 'page' : undefined}
+                >
+                  {link.title}
+                </a>
+              ))
+            }
           </div>
 
-          <div
-            class="mt-5 flex flex-wrap items-center gap-x-1.5 xl:mt-0 xl:ml-6"
-          >
-            <Button
-              href={primaryCTA.href}
-              variant="primary"
-              className="inline-flex border-none py-2! text-nowrap"
+          <div class="mt-3 px-3 lg:mt-0 lg:px-0">
+            <Button href={primaryCTA.href} variant="primary" size="sm"
               >{primaryCTA.text}</Button
             >
           </div>
@@ -144,8 +261,19 @@ const primaryCTA = {
 </header>
 
 <script>
+  // Preline powers the dropdowns and the mobile collapse.
   document.addEventListener('astro:page-load', async () => {
     const { HSStaticMethods } = await import('preline');
     HSStaticMethods.autoInit();
   });
+
+  // Add a hairline + soft shadow once the page has scrolled.
+  const markScrolled = () => {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    if (window.scrollY > 4) header.setAttribute('data-scrolled', '');
+    else header.removeAttribute('data-scrolled');
+  };
+  window.addEventListener('scroll', markScrolled, { passive: true });
+  document.addEventListener('astro:page-load', markScrolled);
 </script>

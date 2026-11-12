@@ -1,55 +1,120 @@
 ---
-import FooterForm from '@ui/forms/FooterForm.astro';
-import ContactInfo from '@common/ContactInfo.astro';
-import { business, addressLine } from '@/data/business';
+import {
+  softwareServices,
+  marketingServices,
+  products,
+  caseStudies,
+  companyLinks,
+} from '@/data/site';
+// Contact details are shared with the schema; see src/data/business.ts
+import { business, addressLine, phoneE164 } from '@/data/business';
 
-// Props for customization
-const companyName = business.name;
-const companyDescription =
-  'Webfluence is a software development and digital marketing company in Lahore, Pakistan, providing comprehensive solutions from ERP systems to performance marketing.';
+const year = new Date().getFullYear();
 
-// Contact information for the company (shared with the schema; see src/data/business.ts)
-const contactDetails = {
-  name: business.name,
-  address: addressLine,
-  phone: business.phone,
-  email: business.email,
-  website: 'www.webfluence.tech',
-};
+const columns = [
+  { heading: 'Marketing', links: marketingServices },
+  { heading: 'Software', links: softwareServices },
+  { heading: 'Products', links: products },
+  {
+    heading: 'Case studies',
+    links: caseStudies.map(c => ({ title: c.client, href: c.href })),
+  },
+];
 
+const linkClass =
+  'text-white/85 transition-colors hover:text-white focus-visible:text-white';
 ---
 
-<footer
-  class="mt-auto w-full bg-linear-to-t/oklch from-blue-200 via-transparent to-white pb-10"
->
-  <div class="mx-auto mt-auto w-full max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8">
-    <hr class="mb-10 border-slate-200" />
-
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-5">
-      {/* Company Information */}
-      <div class="col-span-full self-center xl:col-span-2">
-        <a
-          href="/"
-          class="flex-none text-xl font-semibold text-slate-700 uppercase focus:opacity-80 focus:outline-hidden"
-          aria-label="{companyName} Homepage"
+<footer class="from-coal to-night bg-linear-to-r text-sm text-white">
+  <div class="wrap grid gap-x-8 gap-y-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+    {/* Brand + company */}
+    <div class="lg:col-span-3">
+      <a
+        href="/"
+        class="flex items-center gap-2.5"
+        aria-label={`${business.name} home`}
+        translate="no"
+      >
+        <img
+          src="/logos/WFLogo.png"
+          alt=""
+          width="40"
+          height="40"
+          class="size-10 object-contain mix-blend-screen invert"
+          loading="lazy"
+        />
+        <span class="text-[19px] leading-none font-bold tracking-[0.02em]"
+          >WEBFLUENCE</span
         >
-          {companyName}
-        </a>
-        <p class="mt-5 text-pretty text-slate-600 lg:w-5/12 xl:w-10/12">
-          {companyDescription}
+      </a>
+      <p class="mt-5 max-w-xs leading-relaxed text-white/70">
+        Software development and digital marketing company in Lahore, Pakistan.
+      </p>
+      <ul class="mt-6 space-y-2.5">
+        {
+          companyLinks.map(link => (
+            <li>
+              <a href={link.href} class={linkClass}>
+                {link.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    {/* Link columns */}
+    <div
+      class="grid grid-cols-2 gap-x-8 gap-y-10 sm:col-span-2 md:grid-cols-4 lg:col-span-6"
+    >
+      {
+        columns.map(column => (
+          <div>
+            <h3 class="font-semibold text-white/70">{column.heading}</h3>
+            <ul class="mt-4 space-y-2.5">
+              {column.links.map(link => (
+                <li>
+                  <a href={link.href} class={linkClass}>
+                    {link.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* Contact */}
+    <div class="lg:col-span-3">
+      <h3 class="font-semibold text-white/70">Contact us</h3>
+      <address class="mt-4 space-y-2.5 not-italic">
+        <p class="text-base font-medium">{business.name}</p>
+        <p class="text-white/85">{addressLine}</p>
+        <p>
+          <span class="text-white/70">Phone:</span>{' '}
+          <a href={`tel:${phoneE164}`} class={linkClass}>{business.phone}</a>
         </p>
-      </div>
+        <p>
+          <span class="text-white/70">Email:</span>{' '}
+          <a href={`mailto:${business.email}`} class={linkClass}
+            >{business.email}</a
+          >
+        </p>
+      </address>
+    </div>
+  </div>
 
-      {/* Contact Information Section */}
-      <div class="col-span-1 md:col-span-2 xl:col-span-1 xl:col-start-3">
-        <ContactInfo {...contactDetails} />
-      </div>
-
-      {/* Email Subscription Form */}
-      <div class="col-span-2 md:col-span-3 xl:col-span-2">
-        <h3 class="font-semibold text-slate-700">More information?</h3>
-        <FooterForm />
-      </div>
+  <div class="bg-black/60">
+    <div
+      class="wrap flex flex-col gap-2 py-5 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {business.name}. All rights reserved.</p>
+      <p>
+        <a href="https://www.webfluence.tech" class={linkClass}
+          >www.webfluence.tech</a
+        >
+      </p>
     </div>
   </div>
 </footer>

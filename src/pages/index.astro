@@ -2,32 +2,46 @@
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
 import Hero from '@sections/HeroSection.astro';
-import FeatureShowcase from '@sections/FeatureShowcase.astro';
-// import FeatureBento from "@sections/FeatureBento.astro";
-import FeatureAnimated from '@sections/FeatureAnimated.astro';
-import FeatureGrid from '@sections/FeatureGrid.astro';
-import CTA from '@sections/CTA.astro';
 import ClientLogos from '@sections/ClientLogos.astro';
-import ErpMarketing from '@sections/ErpMarketing.astro';
+import ServicesTabs from '@sections/ServicesTabs.astro';
+import WhyUs from '@sections/WhyUs.astro';
+import GrowthPanel from '@sections/GrowthPanel.astro';
 import Testimonials from '@sections/Testimonials.astro';
+import FeaturedWork from '@sections/FeaturedWork.astro';
+import FAQ from '@sections/FAQ.astro';
+import CTA from '@sections/CTA.astro';
+import { faqs } from '@/data/faqs';
+import { business } from '@/data/business';
+import { webPageSchema, faqSchema } from '@/data/schema';
+
+const pageFaqs = faqs['home'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: 'Webfluence — Performance Marketing & Software Company in Lahore',
+    description: business.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
 ---
 
-<BaseLayout>
+<BaseLayout schema={schema}>
   <Hero />
 
   <ClientLogos />
 
-  <FeatureShowcase />
+  <ServicesTabs />
 
-  {/* <FeatureBento /> */}
+  <WhyUs />
 
-  <FeatureAnimated />
-
-  <FeatureGrid />
-
-  <ErpMarketing />
+  <GrowthPanel />
 
   <Testimonials />
+
+  <FeaturedWork />
+
+  <FAQ items={pageFaqs} />
 
   <CTA />
 </BaseLayout>

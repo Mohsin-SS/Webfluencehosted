@@ -1,0 +1,56 @@
+---
+import Icon from '@ui/icons/Icon.astro';
+import Button from '@ui/Button.astro';
+
+const title = 'Why choose Webfluence';
+const subTitle =
+  'Technical depth and creative range in one team, for startups and established businesses alike.';
+
+const reasons = [
+  {
+    icon: 'cursorRays',
+    heading: 'Built for scale',
+    description:
+      'From scalable APIs to complex database design, our software architectures are built to grow securely with your business.',
+  },
+  {
+    icon: 'cog',
+    heading: 'Enterprise-grade quality',
+    description:
+      'Rigorous testing and careful deployment on every project, so what we ship performs without compromises on quality.',
+  },
+  {
+    icon: 'puzzle',
+    heading: 'SEO-friendly from day one',
+    description:
+      'Speed, semantic structure and search visibility are built into every website and platform, not bolted on afterwards.',
+  },
+];
+---
+
+<section class="wrap py-16 sm:py-24">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="text-3xl sm:text-[2.125rem] sm:leading-tight">{title}</h2>
+    <p class="mt-4 text-[15px] leading-8">{subTitle}</p>
+  </div>
+
+  <ul
+    class="mt-12 grid gap-y-12 md:grid-cols-3 md:divide-x md:divide-slate-200"
+  >
+    {
+      reasons.map(reason => (
+        <li class="px-6 text-center lg:px-10">
+          <span class="text-ink mx-auto grid size-12 place-items-center rounded-xl border border-slate-300">
+            <Icon name={reason.icon} class="size-6" />
+          </span>
+          <h3 class="text-ink mt-6 text-[17px] font-bold">{reason.heading}</h3>
+          <p class="mt-3 text-sm leading-7">{reason.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-12 flex justify-center">
+    <Button href="/contact" variant="primary">Connect with us</Button>
+  </div>
+</section>

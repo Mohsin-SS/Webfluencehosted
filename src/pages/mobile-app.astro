@@ -1,9 +1,17 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import Button from '@ui/Button.astro';
-import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import PageHero from '@sections/PageHero.astro';
+import FeatureColumns from '@sections/FeatureColumns.astro';
+import ClientLogos from '@sections/ClientLogos.astro';
+import CTA from '@sections/CTA.astro';
+import FAQ from '@sections/FAQ.astro';
+import { faqs } from '@/data/faqs';
+import {
+  webPageSchema,
+  serviceSchema,
+  faqSchema,
+} from '@/data/schema';
 
 const seo = {
   title: 'Mobile App Development Company in Lahore | Webfluence',
@@ -11,55 +19,65 @@ const seo = {
     'Mobile app development in Lahore, Pakistan. Webfluence designs and builds cross-platform iOS and Android apps, then maintains them after launch.',
 };
 
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: seo.title,
-  url: Astro.url.href,
-  description: seo.description,
+const pageFaqs = faqs['mobile-app'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: seo.title,
+    description: seo.description,
+  }),
+  serviceSchema({
+    url: Astro.url.href,
+    name: 'Mobile App Development',
+    serviceType: 'Mobile app development',
+    description: seo.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
+const hero = {
+  eyebrow: 'Mobile app development',
+  title: 'Mobile App Development',
+  lead: 'Webfluence designs and builds cross-platform mobile apps for iOS and Android, then keeps them secure and up to date after launch.',
+  cta: { text: 'Start your project', href: '/contact' },
+  icon: 'mobile',
+};
+
+const features = {
+  eyebrow: 'What is included',
+  title: 'iOS and Android apps',
+  accent: 'from one team',
+  items: [
+    {
+      icon: 'mobile',
+      title: 'Cross-Platform',
+      description:
+        'Build once, run anywhere. We utilize modern frameworks to deliver native-like apps on both major platforms efficiently.',
+    },
+    {
+      icon: 'puzzle',
+      title: 'UI/UX Design',
+      description:
+        'Engage your users with beautiful, intuitive interfaces optimized specifically for touch and mobile displays.',
+    },
+    {
+      icon: 'cog',
+      title: 'App Maintenance',
+      description:
+        'Ensure your application stays secure and compatible with ongoing updates, bug fixes, and feature enhancements.',
+    },
+  ],
 };
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        Mobile App Development
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Bring your ideas to users' pockets. We craft high-performance, intuitive, and secure mobile applications for iOS and Android.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Start Your Project</Button>
-      </div>
-    </div>
-  </section>
+  <PageHero {...hero} points={features.items.map(item => item.title)} />
 
-  {/* Services Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="mobile" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">Cross-Platform</h3>
-        <p class="text-slate-600">Build once, run anywhere. We utilize modern frameworks to deliver native-like apps on both major platforms efficiently.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
-        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="puzzle" class="h-7 w-7 text-white" />
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">UI/UX Design</h3>
-        <p class="text-white/90">Engage your users with beautiful, intuitive interfaces optimized specifically for touch and mobile displays.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="cog" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">App Maintenance</h3>
-        <p class="text-slate-600">Ensure your application stays secure and compatible with ongoing updates, bug fixes, and feature enhancements.</p>
-      </div>
-    </div>
-  </section>
+  <ClientLogos />
+
+  <FeatureColumns {...features} />
+
+  <FAQ items={pageFaqs} />
+
+  <CTA />
 </BaseLayout>

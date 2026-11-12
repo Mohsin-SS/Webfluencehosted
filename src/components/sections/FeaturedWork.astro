@@ -1,0 +1,152 @@
+---
+import { caseStudies } from '@/data/site';
+
+const subTitle =
+  'Software we shipped and campaigns we ran, with what each one changed for the client.';
+
+const arrowButton =
+  'grid size-10 place-items-center rounded-full border border-slate-300 bg-white text-ink transition-colors hover:border-ink disabled:opacity-35 disabled:hover:border-slate-300';
+---
+
+<section class="wrap py-16 sm:py-24" aria-labelledby="work-heading" data-rail>
+  <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
+    <div class="max-w-xl">
+      <h2
+        id="work-heading"
+        class="text-3xl sm:text-[2.125rem] sm:leading-tight"
+      >
+        Featured <span class="text-brand-bright">work &amp; results</span>
+      </h2>
+      <p class="mt-4 text-[15px] leading-8">{subTitle}</p>
+    </div>
+
+    <div class="flex gap-3">
+      <button
+        type="button"
+        class={arrowButton}
+        aria-label="Previous case studies"
+        data-rail-prev
+      >
+        <svg
+          class="size-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"></path></svg
+        >
+      </button>
+      <button
+        type="button"
+        class={arrowButton}
+        aria-label="Next case studies"
+        data-rail-next
+      >
+        <svg
+          class="size-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg
+        >
+      </button>
+    </div>
+  </div>
+
+  <ul
+    class="rail-track -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4"
+    data-rail-track
+  >
+    {
+      caseStudies.map(study => (
+        <li class="w-[82%] shrink-0 snap-start sm:w-[46%] lg:w-[calc((100%-2.5rem)/3)]">
+          <a
+            href={study.href}
+            class="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-shadow duration-300 hover:shadow-[0_24px_48px_-28px_rgb(20_20_20/0.4)]"
+          >
+            <div class="bg-ice relative aspect-[16/10] overflow-hidden">
+              <img
+                src={study.image}
+                alt={study.imageAlt}
+                class="size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex grow flex-col px-5 pt-5 pb-6">
+              <p class="text-brand text-[11px] tracking-[0.08em]">
+                {study.tag} · {study.client}
+              </p>
+              <h3 class="text-ink-deep mt-2 text-base leading-snug font-semibold">
+                {study.title}
+              </h3>
+              <p class="text-ink-deep mt-auto flex items-center gap-2 pt-5 text-[13px]">
+                Read case study
+                <svg
+                  class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
+              </p>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .rail-track {
+    scrollbar-width: none;
+  }
+
+  .rail-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  function initRails() {
+    document.querySelectorAll<HTMLElement>('[data-rail]').forEach(rail => {
+      const track = rail.querySelector<HTMLElement>('[data-rail-track]');
+      const prev = rail.querySelector<HTMLButtonElement>('[data-rail-prev]');
+      const next = rail.querySelector<HTMLButtonElement>('[data-rail-next]');
+      if (!track || !prev || !next) return;
+
+      const step = () => {
+        const card = track.querySelector<HTMLElement>('li');
+        return card ? card.offsetWidth + 20 : track.clientWidth;
+      };
+
+      const update = () => {
+        prev.disabled = track.scrollLeft <= 4;
+        next.disabled =
+          track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      };
+
+      prev.addEventListener('click', () =>
+        track.scrollBy({ left: -step(), behavior: 'smooth' })
+      );
+      next.addEventListener('click', () =>
+        track.scrollBy({ left: step(), behavior: 'smooth' })
+      );
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
+  }
+
+  document.addEventListener('astro:page-load', initRails);
+</script>

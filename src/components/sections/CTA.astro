@@ -1,30 +1,36 @@
 ---
 import Button from '@ui/Button.astro';
 
-// Content for the section title and subtitle
-const title =
-  'Transform your business today. <br /> Get started with <span class="font-medium text-blue-700">Web</span><span class="font-light text-slate-400">fluence</span>.';
-const subTitle =
-  "Partner with Webfluence and let our experts architect the perfect software or digital marketing solution to drive your business forward.";
+interface Props {
+  title?: string;
+  subTitle?: string;
+  cta?: { text: string; href: string };
+}
 
-// Call-to-action configuration for the primary button
-const primaryCTA = { text: 'Book a Consultation', href: '/contact' };
+const {
+  title = "Let's talk about what's next",
+  subTitle = 'Tell us what you want to build or grow, and our team will map out the software or marketing plan to get you there.',
+  cta = { text: 'Book a consultation', href: '/contact' },
+} = Astro.props;
 ---
 
-<section
-  class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
->
-  <div class="mx-auto mb-10 max-w-3xl text-center lg:mb-14">
-    <h2 class="text-4xl text-balance text-slate-800 sm:text-5xl">
-      <Fragment set:html={title} />
-    </h2>
-    <p class="text-lg\/8 mt-5 text-pretty text-slate-600">
-      {subTitle}
-    </p>
-    <Button
-      href={primaryCTA.href}
-      variant="primary"
-      className="mt-7 inline-flex border-none px-3.5!">{primaryCTA.text}</Button
-    >
+<section class="pt-16 sm:pt-24">
+  <div class="wrap pb-20 text-center sm:pb-28">
+    <h2 class="text-3xl sm:text-[2.125rem] sm:leading-tight">{title}</h2>
+    <p class="mx-auto mt-4 max-w-xl text-[15px] leading-8">{subTitle}</p>
+    <div class="mt-8 flex justify-center">
+      <Button href={cta.href} variant="primary">{cta.text}</Button>
+    </div>
+  </div>
+
+  {/* Closing band that sits on top of the footer */}
+  <div class="flex h-20 sm:h-28" aria-hidden="true">
+    <div class="relative w-[42%] bg-blue-50">
+      <div
+        class="stripes stripes-fade-x absolute inset-0 [--stripe-color:rgb(20_118_235/0.22)]"
+      >
+      </div>
+    </div>
+    <div class="from-sky to-brand grow bg-linear-to-r"></div>
   </div>
 </section>

@@ -3,7 +3,7 @@ export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
 import Diagram from '@common/Diagram.astro';
 import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import { webPageSchema } from '@/data/schema';
 import { Image } from 'astro:assets';
 import image_1 from '@images/toolbar.webp';
 
@@ -89,34 +89,26 @@ const threatDetection = [
 
 // SEO metadata for the page
 const seo = {
-  title: 'Webfluence Solutions - Engineering & Marketing',
+  title: 'Products | Webfluence',
   description:
-    'Discover Webfluence digital solutions. We build scalable software architectures and run data-driven performance marketing campaigns.',
+    'Software products built by Webfluence in Lahore, Pakistan: Construction Price Estimator AI and the Education Consultancy CRM.',
+  // This page still carries template sections (security-vendor lists,
+  // "View pricing" placeholder links) that do not describe Webfluence, so it
+  // stays out of search until it is rewritten. The product pages themselves
+  // are indexed.
+  noindex: true,
 };
 
-// Schema.org metadata for SEO
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  inLanguage: 'en-US',
-  '@id': Astro.url.href,
+const schema = webPageSchema({
   url: Astro.url.href,
-  name: 'Webfluence Solutions - Engineering & Marketing',
-  description:
-    'Explore Webfluence, the comprehensive digital agency that builds custom software and drives growth through performance marketing.',
-  isPartOf: {
-    '@type': 'WebSite',
-    url: `${Astro.site}`,
-    name: 'Webfluence',
-    description:
-      'Webfluence provides top-tier software engineering and digital marketing services.',
-  },
-};
+  name: seo.title,
+  description: seo.description,
+});
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
-    <div class="max-w-7xl">
+  <section class="mx-auto px-4 pt-20 pb-12">
+    <div class="">
       <div class="mx-auto max-w-2xl lg:mx-0">
         <h1
           class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
@@ -153,7 +145,7 @@ const schema: WithContext<Thing> = {
   </section>
 
   <section
-    class="mx-auto max-w-[85rem] border-b border-dashed border-slate-400 px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+    class="mx-auto border-b border-dashed border-slate-400 px-4 py-10 md:py-14 lg:py-20"
   >
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
@@ -185,7 +177,7 @@ const schema: WithContext<Thing> = {
   </section>
 
   <section
-    class="mx-auto max-w-[85rem] border-b border-dashed border-slate-400 px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+    class="mx-auto border-b border-dashed border-slate-400 px-4 py-10 md:py-14 lg:py-20"
   >
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="order-last md:order-first">
@@ -205,7 +197,7 @@ const schema: WithContext<Thing> = {
   </section>
 
   <section
-    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+    class="mx-auto px-4 py-10 md:py-14 lg:py-20"
   >
     <div
       class="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 md:justify-items-end"
@@ -312,7 +304,7 @@ const schema: WithContext<Thing> = {
     </div>
   </section>
 
-  <section class="mx-auto max-w-[85rem] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+  <section class="mx-auto px-4 py-24 lg:py-32">
     <div
       class="group relative isolate overflow-hidden rounded-3xl bg-blue-200 p-5 sm:p-11"
     >
@@ -320,7 +312,7 @@ const schema: WithContext<Thing> = {
         class="group to-off-white pointer-events-none absolute inset-0 -top-[10%] h-[120%] w-full rounded-xl bg-linear-to-r/oklch from-blue-200 opacity-0 transition duration-1000 group-hover:opacity-100"
       >
       </div>
-      <div class="svgBlock mx-auto max-w-7xl">
+      <div class="svgBlock mx-auto">
         <div class="relative z-5 mx-auto text-center">
           <h2
             class="text-2xl font-semibold tracking-tight text-balance text-slate-800 md:text-3xl md:leading-tight"

@@ -1,0 +1,117 @@
+---
+import Button from '@ui/Button.astro';
+import Icon from '@ui/icons/Icon.astro';
+
+interface Props {
+  /** Small tracked label above the title. */
+  eyebrow?: string;
+  title: string;
+  lead: string;
+  cta?: { text: string; href: string };
+  /** Icon shown on the summary card. */
+  icon?: string;
+  /** Heading and short list shown on the summary card. */
+  summaryTitle?: string;
+  points?: string[];
+}
+
+const {
+  eyebrow,
+  title,
+  lead,
+  cta,
+  icon = 'cog',
+  summaryTitle = 'What is included',
+  points = [],
+} = Astro.props;
+---
+
+<section class="overflow-hidden bg-white">
+  <div
+    class="grid w-full items-center gap-x-12 gap-y-12 px-6 pt-12 sm:px-10 lg:px-16 xl:px-24 pb-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:pt-20 lg:pb-20"
+  >
+    <div>
+      {eyebrow && <p class="eyebrow mb-7">{eyebrow}</p>}
+      <h1
+        class="text-[2.5rem] leading-[1.16] text-balance sm:text-5xl sm:leading-[1.14]"
+      >
+        {title}
+      </h1>
+      <p class="mt-6 max-w-xl text-base leading-[2.1]">{lead}</p>
+      {
+        cta && (
+          <div class="mt-9">
+            <Button href={cta.href} variant="primary">
+              {cta.text}
+            </Button>
+          </div>
+        )
+      }
+    </div>
+
+    <div
+      class="relative mx-auto w-full max-w-md lg:max-w-none"
+      aria-hidden={points.length ? undefined : 'true'}
+    >
+      <div class="relative aspect-[5/4]">
+        <div
+          class="stripes stripes-fade-b absolute top-0 left-[10%] h-[46%] w-[44%] [--stripe-color:rgb(125_211_252/0.75)]"
+          aria-hidden="true"
+        >
+        </div>
+        <div
+          class="bg-ice absolute top-[11%] right-0 h-[74%] w-[70%] rounded-xl rounded-tr-[5.5rem]"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div
+          class="absolute top-1/2 left-[4%] w-[80%] -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-6 shadow-[0_30px_60px_-30px_rgb(20_20_20/0.4)] sm:p-7"
+        >
+          <div class="flex items-center gap-3.5">
+            <span
+              class="bg-brand grid size-11 shrink-0 place-items-center rounded-lg text-white"
+            >
+              <Icon name={icon} class="size-6 text-white" />
+            </span>
+            <p class="text-ink text-lg font-semibold tracking-tight">
+              {summaryTitle}
+            </p>
+          </div>
+          {
+            points.length > 0 && (
+              <ul class="mt-5 space-y-3 border-t border-slate-200 pt-5">
+                {points.map(point => (
+                  <li class="text-ink flex items-center gap-3 text-[15px]">
+                    <svg
+                      class="text-brand size-4 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="m5 12.5 4.5 4.5L19 7.5" />
+                    </svg>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+
+        <div
+          class="absolute right-[6%] bottom-[5%] w-[38%] space-y-1.5"
+          aria-hidden="true"
+        >
+          <span class="bg-sky block h-0.5"></span>
+          <span class="bg-sky/70 block h-0.5"></span>
+          <span class="bg-sky/40 block h-0.5"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

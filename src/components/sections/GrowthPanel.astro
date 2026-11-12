@@ -1,0 +1,172 @@
+---
+import Button from '@ui/Button.astro';
+
+const heading = 'Digital marketing engineered for';
+const headingAccent = 'measurable growth';
+const subHeading =
+  'Turn clicks into revenue. We design, run and scale marketing campaigns and SEO programmes that bring in customers and can show what each one cost.';
+
+const stats = [
+  { value: '3.8x', label: 'Average client ROAS' },
+  { value: '45%', label: 'Lower cost per acquisition' },
+  { value: '10M+', label: 'Targeted ad impressions' },
+  { value: '150+', label: 'Campaigns scaled' },
+];
+
+const featureGroups = [
+  {
+    title: 'Paid performance',
+    items: [
+      {
+        title: 'Google Search & Display ads',
+        desc: 'Reach high-intent prospects at the moment they search for what you sell.',
+      },
+      {
+        title: 'Meta & Instagram funnels',
+        desc: 'Lookalike audiences, retargeting flows and creative built to convert.',
+      },
+      {
+        title: 'Conversion rate optimisation',
+        desc: 'A/B tests and faster landing pages that remove drop-off points.',
+      },
+      {
+        title: 'Attribution & ROAS tracking',
+        desc: 'Live dashboards that connect ad spend to pipeline and revenue.',
+      },
+    ],
+  },
+  {
+    title: 'Organic search',
+    items: [
+      {
+        title: 'Technical SEO & Core Web Vitals',
+        desc: 'Fast load times, schema markup and a clean crawl structure.',
+      },
+      {
+        title: 'Commercial keywords',
+        desc: 'Rankings for the search terms that bring qualified inbound leads.',
+      },
+      {
+        title: 'Content strategy',
+        desc: 'Content clusters planned from data to build topical authority.',
+      },
+      {
+        title: 'Backlink acquisition',
+        desc: 'White-hat digital PR and editorial placements that lift domain strength.',
+      },
+    ],
+  },
+];
+
+// A real sequence: each campaign moves through these stages in order.
+const steps = [
+  {
+    title: 'Audit & intelligence',
+    desc: 'Competitor research, audience mapping and keyword discovery.',
+  },
+  {
+    title: 'Creative & funnels',
+    desc: 'Landing pages, ad copy and visuals built to drive action.',
+  },
+  {
+    title: 'Precision launch',
+    desc: 'Rollout across Google, Meta and remarketing with tight targeting.',
+  },
+  {
+    title: 'Scale & maximise ROI',
+    desc: 'Ongoing testing, budget shifts and scaling of what converts best.',
+  },
+];
+---
+
+<section
+  id="digital-marketing-growth"
+  class="wrap py-8 sm:py-12"
+  aria-labelledby="growth-heading"
+>
+  <div
+    class="border-brand bg-fog grid gap-x-14 gap-y-12 border-t-2 px-5 py-12 sm:px-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:px-14 lg:py-16"
+  >
+    {/* Campaign stages */}
+    <div class="lg:pt-2">
+      <p class="eyebrow">How a campaign runs</p>
+      <ol class="mt-8">
+        {
+          steps.map((step, i) => (
+            <li class="relative flex gap-5 pb-8 last:pb-0">
+              {i < steps.length - 1 && (
+                <span
+                  class="bg-line absolute top-10 bottom-0 left-[19px] w-px"
+                  aria-hidden="true"
+                />
+              )}
+              <span class="text-brand grid size-10 shrink-0 place-items-center rounded-full border border-slate-300 bg-white text-sm font-semibold">
+                {i + 1}
+              </span>
+              <div class="pt-1.5">
+                <h3 class="text-ink text-[15px] font-semibold">{step.title}</h3>
+                <p class="mt-1 text-sm leading-6 text-slate-600">{step.desc}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    {/* Pitch, numbers and what is included */}
+    <div>
+      <h2
+        id="growth-heading"
+        class="text-3xl leading-tight sm:text-[2.125rem] sm:leading-[1.2]"
+      >
+        {heading}{' '}
+        <span class="text-brand-bright">{headingAccent}</span>
+      </h2>
+      <p class="mt-5 text-[15px] leading-8">{subHeading}</p>
+
+      <dl class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {
+          stats.map(stat => (
+            <div class="flex flex-col-reverse rounded-lg bg-white px-3 py-5 text-center">
+              <dt class="mt-1.5 text-xs leading-5 text-slate-600">
+                {stat.label}
+              </dt>
+              <dd class="text-ink text-[1.75rem] leading-none font-bold tracking-tight">
+                {stat.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+        {
+          featureGroups.map(group => (
+            <div>
+              <h3 class="border-line text-ink border-b pb-3 text-[15px] font-semibold">
+                {group.title}
+              </h3>
+              <ul class="mt-4 space-y-4">
+                {group.items.map(item => (
+                  <li>
+                    <p class="text-ink text-sm font-semibold">{item.title}</p>
+                    <p class="mt-0.5 text-[13px] leading-6 text-slate-600">
+                      {item.desc}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+        <Button href="/contact" variant="primary">Start your campaign</Button>
+        <Button href="/digital-marketing" variant="tertiary"
+          >Digital marketing services</Button
+        >
+      </div>
+    </div>
+  </div>
+</section>

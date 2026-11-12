@@ -8,7 +8,22 @@ import { canonicalUrl } from '@/data/business';
 // /case-studies/* pages, which duplicate /work/* and canonicalise to it.
 const pageFiles = Object.keys(import.meta.glob('./**/*.astro'));
 
-const EXCLUDE = [/^\/404$/, /\[/, /^\/case-studies\//];
+const EXCLUDE = [
+  /^\/404$/,
+  /\[/,
+  /^\/case-studies\//,
+  // noindex pages: placeholder or template content (see each page's seo).
+  /^\/products\/$/,
+  /^\/support\/knowledge-base$/,
+  /^\/support\/sample-spreadsheets$/,
+];
+
+// Listing pages that are noindex while their collection is empty.
+const LISTINGS: Record<string, 'articles' | 'reference' | 'whitepapers'> = {
+  '/support/articles/': 'articles',
+  '/support/reference/': 'reference',
+  '/support/whitepapers': 'whitepapers',
+};
 
 function pathFromFile(file: string): string {
   const path = file
@@ -31,9 +46,16 @@ async function collectionPaths(
 }
 
 export const GET: APIRoute = async () => {
+  const emptyListings = new Set<string>();
+  for (const [path, name] of Object.entries(LISTINGS)) {
+    const entries = await getCollection(name).catch(() => []);
+    if (entries.length === 0) emptyListings.add(path);
+  }
+
   const staticPaths = pageFiles
     .map(pathFromFile)
-    .filter(path => !EXCLUDE.some(rule => rule.test(path)));
+    .filter(path => !EXCLUDE.some(rule => rule.test(path)))
+    .filter(path => !emptyListings.has(path));
 
   const paths = [
     ...staticPaths,

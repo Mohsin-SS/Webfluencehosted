@@ -20,16 +20,17 @@ export const business = {
     addressCountry: 'PK',
   },
   description:
-    'Webfluence is a software development and digital marketing company in Lahore, Pakistan, building ERP, CRM, web and mobile applications and running SEO and performance marketing for businesses across Pakistan and internationally.',
+    'Webfluence is a performance marketing and software development company in Lahore, Pakistan. It runs Google and Meta ad campaigns, creates social media and video content, and builds ERP, CRM, mobile and web applications for businesses across Pakistan and internationally.',
+  // Priority order (see src/data/site.ts).
   services: [
+    'Performance Marketing',
+    'Creative & Media Content',
     'ERP Development',
     'CRM Development',
-    'Web Development',
     'Mobile App Development',
     'WhatsApp Chatbot Development',
+    'Web Development',
     'SEO Services',
-    'Digital Marketing',
-    'Creative & Branding',
   ],
   // Add LinkedIn, Facebook, Instagram, Clutch etc. profile URLs here once
   // they exist; they are output as `sameAs` in the schema.

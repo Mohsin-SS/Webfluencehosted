@@ -1,9 +1,17 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
-import Button from '@ui/Button.astro';
-import Icon from '@ui/icons/Icon.astro';
-import type { WithContext, Thing } from 'schema-dts';
+import PageHero from '@sections/PageHero.astro';
+import FeatureColumns from '@sections/FeatureColumns.astro';
+import ClientLogos from '@sections/ClientLogos.astro';
+import CTA from '@sections/CTA.astro';
+import FAQ from '@sections/FAQ.astro';
+import { faqs } from '@/data/faqs';
+import {
+  webPageSchema,
+  serviceSchema,
+  faqSchema,
+} from '@/data/schema';
 
 const seo = {
   title: 'WhatsApp Chatbot Development in Pakistan | Webfluence',
@@ -11,55 +19,65 @@ const seo = {
     'WhatsApp chatbot development in Pakistan. Webfluence builds AI WhatsApp chatbots that answer customers 24/7, process orders and sync conversations to your CRM.',
 };
 
-const schema: WithContext<Thing> = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: seo.title,
-  url: Astro.url.href,
-  description: seo.description,
+const pageFaqs = faqs['whatsapp-chatbot'];
+
+const schema = [
+  webPageSchema({
+    url: Astro.url.href,
+    name: seo.title,
+    description: seo.description,
+  }),
+  serviceSchema({
+    url: Astro.url.href,
+    name: 'WhatsApp Chatbot Development',
+    serviceType: 'Chatbot development',
+    description: seo.description,
+  }),
+  faqSchema(Astro.url.href, pageFaqs),
+];
+const hero = {
+  eyebrow: 'WhatsApp automation',
+  title: 'WhatsApp Chatbot',
+  lead: 'Webfluence builds AI WhatsApp chatbots that answer customers 24/7, take orders and log every conversation in your CRM.',
+  cta: { text: 'Start your project', href: '/contact' },
+  icon: 'chatBubble',
+};
+
+const features = {
+  eyebrow: 'What is included',
+  title: 'Customer conversations,',
+  accent: 'handled around the clock',
+  items: [
+    {
+      icon: 'chatBubble',
+      title: '24/7 Automation',
+      description:
+        'Answer FAQs, process orders, and assist customers around the clock without human intervention.',
+    },
+    {
+      icon: 'brain',
+      title: 'AI Integration',
+      description:
+        'Connect natural language processing to understand complex queries and provide human-like responses.',
+    },
+    {
+      icon: 'portfolio',
+      title: 'CRM Sync',
+      description:
+        'Seamlessly integrate chats with your CRM to track conversations and build rich customer profiles.',
+    },
+  ],
 };
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  {/* Hero Section */}
-  <section class="bg-linear-to-b/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto max-w-4xl px-4 pt-48 pb-12 sm:px-6 lg:px-8 text-center">
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl">
-        WhatsApp Chatbot
-      </h1>
-      <p class="mt-6 text-lg text-pretty text-slate-700">
-        Transform your customer engagement. Build intelligent conversational flows that provide 24/7 support directly on WhatsApp.
-      </p>
-      <div class="mt-10 flex flex-col justify-center gap-5 sm:flex-row">
-        <Button href="/contact" variant="primary">Start Your Project</Button>
-      </div>
-    </div>
-  </section>
+  <PageHero {...hero} points={features.items.map(item => item.title)} />
 
-  {/* Services Section */}
-  <section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="chatBubble" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">24/7 Automation</h3>
-        <p class="text-slate-600">Answer FAQs, process orders, and assist customers around the clock without human intervention.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
-        <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="brain" class="h-7 w-7 text-white" />
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">AI Integration</h3>
-        <p class="text-white/90">Connect natural language processing to understand complex queries and provide human-like responses.</p>
-      </div>
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
-        <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-          <Icon name="portfolio" class="h-7 w-7 text-blue-700" />
-        </div>
-        <h3 class="text-xl font-bold text-slate-800 mb-3">CRM Sync</h3>
-        <p class="text-slate-600">Seamlessly integrate chats with your CRM to track conversations and build rich customer profiles.</p>
-      </div>
-    </div>
-  </section>
+  <ClientLogos />
+
+  <FeatureColumns {...features} />
+
+  <FAQ items={pageFaqs} />
+
+  <CTA />
 </BaseLayout>

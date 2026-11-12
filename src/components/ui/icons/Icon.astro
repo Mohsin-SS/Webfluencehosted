@@ -1,4 +1,5 @@
 ---
+import { twMerge } from 'tailwind-merge';
 import { Icons } from './icons.ts';
 
 interface Path {
@@ -10,7 +11,9 @@ const { name, class: className, ...attributes } = Astro.props;
 let icon = (Icons as any)[name] || {};
 let paths: Path[] = icon.paths || [];
 
-const combinedClass = [icon.class, className].filter(Boolean).join(' ');
+// twMerge lets a class passed by the caller win over the icon's default
+// (e.g. text-white over text-slate-500).
+const combinedClass = twMerge(icon.class, className);
 ---
 
 {

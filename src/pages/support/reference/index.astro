@@ -15,9 +15,17 @@ export const pageContent = {
 };
 ---
 
-<BaseLayout>
-  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
-    <div class="max-w-7xl">
+<BaseLayout
+  seo={{
+    title: 'Reference | Webfluence',
+    description:
+      'Technical reference and documentation for Webfluence software products.',
+    // Kept out of search until there is at least one document to show.
+    noindex: reference.length === 0,
+  }}
+>
+  <section class="mx-auto px-4 pt-20 pb-12">
+    <div class="">
       <div class="mx-auto max-w-3xl lg:mx-0">
         <h1
           class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
@@ -28,7 +36,7 @@ export const pageContent = {
     </div>
   </section>
   <section
-    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8 lg:py-20"
+    class="mx-auto px-4 py-10 md:py-14 lg:py-20"
   >
     {reference.length > 0 ? (
       <div class="grid grid-cols-1 items-center lg:grid-cols-3">

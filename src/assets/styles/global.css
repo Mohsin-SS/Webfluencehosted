@@ -9,35 +9,75 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-@theme {
-  /* https://tailwindcss.com/docs/colors#customizing-your-colors */
+/*
+  Design tokens.
 
+  Charcoal text on white, one blue accent, pale cyan and grey panels, and a
+  dark footer. `slate-*` and `blue-*` are remapped onto this palette so every
+  existing page picks the scheme up without touching its markup.
+*/
+@theme {
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-black: #000;
   --color-white: #fff;
-  --color-off-white: oklch(0.997 0 0);
+  --color-off-white: #fff;
 
-  --color-slate-50: oklch(0.984 0.003 247.858);
-  --color-slate-100: oklch(0.968 0.007 247.896);
-  --color-slate-200: oklch(0.929 0.013 255.508);
-  --color-slate-300: oklch(0.869 0.022 252.894);
-  --color-slate-400: oklch(0.704 0.04 256.788);
-  --color-slate-500: oklch(0.554 0.046 257.417);
-  --color-slate-600: oklch(0.446 0.043 257.281);
-  --color-slate-700: oklch(0.372 0.044 257.287);
-  --color-slate-800: oklch(0.279 0.041 260.031);
-  --color-slate-900: oklch(0.208 0.042 265.755);
-  --color-slate-950: oklch(0.129 0.042 264.695);
+  /* Named roles */
+  --color-ink: #454648; /* headings and body text */
+  --color-ink-deep: #141414; /* strongest text, dark surfaces */
+  --color-brand: #1476eb; /* buttons, links */
+  --color-brand-bright: #1d81f2; /* highlighted words */
+  --color-brand-deep: #1032cf;
+  --color-mist: #f4f4f4; /* grey panels */
+  --color-fog: #f6f6f6;
+  --color-line: #d6d6d6; /* dividers */
+  --color-ice: #dff5fb; /* pale cyan panels */
+  --color-sky: #7dd3fc;
+  --color-leaf: #5bb947; /* marketing accent, start */
+  --color-lagoon: #01a4ca; /* marketing accent, end */
+  --color-coal: #3a3a3a; /* footer gradient start */
+  --color-night: #181818; /* footer gradient end */
+
+  /* Neutral grey scale (was blue-tinted slate) */
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f4f4f4;
+  --color-slate-200: #e5e7eb;
+  --color-slate-300: #d6d6d6;
+  --color-slate-400: #98a2b3;
+  --color-slate-500: #717377;
+  --color-slate-600: #5a5b5e;
+  --color-slate-700: #4d4e51;
+  --color-slate-800: #454648;
+  --color-slate-900: #232324;
+  --color-slate-950: #141414;
+
+  /* Blue scale anchored on the brand blue at 600 */
+  --color-blue-50: #f0f7fe;
+  --color-blue-100: #dcebfd;
+  --color-blue-200: #bfdbfc;
+  --color-blue-300: #93c3f9;
+  --color-blue-400: #58a2f5;
+  --color-blue-500: #1d81f2;
+  --color-blue-600: #1476eb;
+  --color-blue-700: #1476eb;
+  --color-blue-800: #0f62cc;
+  --color-blue-900: #0d4a99;
+  --color-blue-950: #08254b;
+
+  --font-sans:
+    'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-chip: 10px;
 }
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards)
     linear infinite;
 
-  /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: 'DM Sans', sans-serif;
-  --font-work-sans: 'Work Sans', sans-serif;
+  /* Older class names still used across pages; both now resolve to Poppins. */
+  --font-dm-sans: var(--font-sans);
+  --font-work-sans: var(--font-sans);
 
   @keyframes scroll {
     to {
@@ -46,14 +86,6 @@
   }
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
@@ -63,21 +95,136 @@
     border-color: var(--color-slate-200, currentColor);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply font-work-sans;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    color: var(--color-ink);
+  }
+
   h3,
-  h4,
-  .dm-sans {
-    @apply font-dm-sans;
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/*
+  Stripe band: the site's one recurring background motif. A run of thin
+  vertical bars that fades out, drawn in CSS so it needs no image file.
+  Tune with --stripe-color / --stripe-gap, and pick a fade direction with
+  stripes-fade-{b,t,x}.
+*/
+@utility stripes {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--stripe-color, rgb(20 118 235 / 0.3)) 0 2px,
+    transparent 2px var(--stripe-gap, 9px)
+  );
+}
+
+@utility stripes-fade-b {
+  mask-image: linear-gradient(to bottom, #000 10%, transparent);
+}
+
+@utility stripes-fade-t {
+  mask-image: linear-gradient(to top, #000 10%, transparent);
+}
+
+@utility stripes-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 18%,
+    #000 82%,
+    transparent
+  );
+}
+
+/* Small tracked label with a rule on its left, used above headings. */
+@utility eyebrow {
+  display: inline-block;
+  border-left: 2px solid var(--color-line);
+  padding-left: 1.25rem;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--color-ink);
+}
+
+/* Page container: full width with a slim 16px gutter so text never touches the screen edge. */
+@utility wrap {
+  width: 100%;
+  padding-inline: 1rem;
+}
+
+/*
+  Header band for inner pages: white, with a stripe run fading in from the
+  top edge. Replaces the old blue wash gradient.
+*/
+@utility hero-band {
+  position: relative;
+  isolation: isolate;
+  background-color: #fff;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto 0;
+    height: 15rem;
+    background-image:
+      linear-gradient(to bottom, rgb(255 255 255 / 0) 0%, #fff 100%),
+      repeating-linear-gradient(
+        to right,
+        rgb(20 118 235 / 0.16) 0 2px,
+        transparent 2px 9px
+      );
+    mask-image: linear-gradient(
+      to right,
+      transparent 4%,
+      #000 30%,
+      #000 70%,
+      transparent 96%
+    );
   }
 }
 

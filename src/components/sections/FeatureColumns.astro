@@ -1,0 +1,48 @@
+---
+import Icon from '@ui/icons/Icon.astro';
+
+interface Props {
+  /** Tiny uppercase label above the heading. */
+  eyebrow?: string;
+  /** Heading text; `accent` is appended in blue. */
+  title: string;
+  accent?: string;
+  intro?: string;
+  items: { icon: string; title: string; description: string }[];
+}
+
+const { eyebrow, title, accent, intro, items } = Astro.props;
+---
+
+<section class="wrap py-16 sm:py-24">
+  <div class="mx-auto max-w-3xl text-center">
+    {
+      eyebrow && (
+        <p class="text-ink mb-3 text-[11px] tracking-[0.18em] uppercase">
+          {eyebrow}
+        </p>
+      )
+    }
+    <h2 class="text-3xl text-balance sm:text-[2.125rem] sm:leading-tight">
+      {title}
+      {accent && <span class="text-brand-bright"> {accent}</span>}
+    </h2>
+    {intro && <p class="mt-4 text-[15px] leading-8">{intro}</p>}
+  </div>
+
+  <ul
+    class="mt-12 grid gap-y-12 md:grid-cols-3 md:divide-x md:divide-slate-200"
+  >
+    {
+      items.map(item => (
+        <li class="px-6 text-center lg:px-10">
+          <span class="text-ink mx-auto grid size-12 place-items-center rounded-xl border border-slate-300">
+            <Icon name={item.icon} class="text-ink size-6" />
+          </span>
+          <h3 class="text-ink mt-6 text-[17px] font-bold">{item.title}</h3>
+          <p class="mt-3 text-sm leading-7">{item.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

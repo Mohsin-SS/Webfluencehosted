@@ -15,9 +15,17 @@ export const pageContent = {
 };
 ---
 
-<BaseLayout>
-  <section class="mx-auto max-w-[85rem] px-4 pt-48 pb-12 sm:px-6 lg:px-8">
-    <div class="max-w-7xl">
+<BaseLayout
+  seo={{
+    title: 'Sample Spreadsheets | Webfluence',
+    description: 'Sample spreadsheets.',
+    // Template sample files unrelated to Webfluence's services; kept out of
+    // search so AI assistants do not describe the business by them.
+    noindex: true,
+  }}
+>
+  <section class="mx-auto px-4 pt-20 pb-12">
+    <div class="">
       <div class="mx-auto max-w-3xl lg:mx-0">
         <h1
           class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
@@ -28,7 +36,7 @@ export const pageContent = {
     </div>
   </section>
 
-  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 md:py-14 lg:px-8">
+  <section class="mx-auto px-4 py-10 md:py-14">
     <div class="flex flex-col">
       <div class="overflow-x-auto">
         <div class="inline-block p-1.5 align-middle lg:w-4/5">
