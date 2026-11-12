@@ -169,13 +169,12 @@ export const clients: Client[] = [
   { name: 'Property Linkers', logo: '/logos/property-linkers.png' },
   { name: 'Zamindar Premium', logo: '/logos/zamindar-premium.png' },
   { name: 'Data Foods', logo: '/logos/data-foods.png' },
-  { name: 'DFM', logo: '/logos/dfm.png' },
-  { name: 'Data Flour Mills', logo: '/logos/image copy 3.png' },
-  { name: 'Pitstop 63', logo: '/logos/image copy 6.png' },
+  { name: 'Data Flour Mills', logo: '/logos/data-flour-mills.png' },
+  { name: 'Pitstop 63', logo: '/logos/pitstop.png' },
   { name: 'Gari Baich', logo: '/logos/image copy 7.png' },
   { name: 'Modus', logo: '/logos/modus-1.avif' },
-  { name: 'Maktron Consultant', logo: '/logos/maktron.jpeg' },
-  { name: 'AHM Developers', logo: '/logos/ahm-developers.jpg' },
+  { name: 'Maktron Consultant', logo: '/logos/maktron.png' },
+  { name: 'AHM Developers', logo: '/logos/ahm-developers.png' },
 ];
 
 export const supportLinks: ServiceLink[] = [
