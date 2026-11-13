@@ -7,6 +7,7 @@ import type { WithContext, Thing } from 'schema-dts';
 import { AstroFont } from 'astro-font';
 import '@styles/global.css';
 import GoogleAnalytics from '@common/GoogleAnalytics.astro';
+import MetaPixel from '@common/MetaPixel.astro';
 import {
   canonicalUrl,
   organizationSchema,
@@ -141,6 +142,9 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
 
     {/* Google Analytics (renders only when an ID is set in business.ts) */}
     <GoogleAnalytics />
+
+    {/* Meta Pixel (renders only when a Pixel ID is set in business.ts) */}
+    <MetaPixel />
 
     {/* Client-Side Router for page transitions */}
     <ClientRouter />

@@ -51,6 +51,15 @@ export const google = {
   searchConsoleVerification: '',
 };
 
+/**
+ * Meta (Facebook/Instagram) Pixel. Paste the numeric Pixel ID here
+ * (Meta Events Manager > Data sources > your pixel). Empty = not output.
+ * Public by design, like the Google ID.
+ */
+export const meta = {
+  pixelId: '',
+};
+
 /** One-line address, as shown in the footer. */
 export const addressLine = `${business.address.streetAddress}, ${business.address.addressLocality}, Pakistan`;
 

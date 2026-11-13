@@ -1,0 +1,81 @@
+---
+// Meta (Facebook/Instagram) Pixel. Renders nothing until a Pixel ID is set in
+// src/data/business.ts (`meta.pixelId`).
+//
+// Page views: the site uses Astro's ClientRouter (pages swap without a full
+// reload). Meta's pixel would also fire its own PageView on every history
+// change, so that is switched off (fbq.disablePushState) and exactly one
+// PageView is sent per page on `astro:page-load` (fires on first load too).
+// Verified 2026-11-13 with a test ID: one PageView per page, first load and
+// after page swaps; Contact on phone/email/WhatsApp clicks.
+//
+// Leads: clicks on phone, email and WhatsApp links send Meta's standard
+// `Contact` event (with method); forms marked data-lead-form send `Lead`.
+// Use these as the optimisation event for lead campaigns in Ads Manager.
+import { meta } from '@/data/business';
+
+const id = meta.pixelId.trim();
+---
+
+{
+  id && (
+    <script is:inline define:vars={{ id }}>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        'script',
+        'https://connect.facebook.net/en_US/fbevents.js'
+      );
+
+      // We send PageView ourselves on each page swap (see above).
+      fbq.disablePushState = true;
+      // Without this, fbevents drops every PageView after the first in the
+      // same document, so ClientRouter page swaps would never be counted.
+      fbq.allowDuplicatePageViews = true;
+      fbq('init', id);
+
+      document.addEventListener('astro:page-load', () => {
+        fbq('track', 'PageView');
+      });
+
+      document.addEventListener('click', event => {
+        const link = event.target.closest && event.target.closest('a[href]');
+        if (!link) return;
+        const href = link.getAttribute('href') || '';
+        const method = href.startsWith('tel:')
+          ? 'phone'
+          : href.startsWith('mailto:')
+            ? 'email'
+            : /(^https?:\/\/)?(wa\.me|api\.whatsapp\.com)\//.test(href)
+              ? 'whatsapp'
+              : null;
+        if (method) fbq('track', 'Contact', { content_name: method });
+      });
+
+      // Only add data-lead-form to a form that really delivers the enquiry.
+      document.addEventListener('submit', event => {
+        const form = event.target;
+        if (form.matches && form.matches('form[data-lead-form]')) {
+          fbq('track', 'Lead');
+        }
+      });
+    </script>
+  )
+}
