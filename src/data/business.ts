@@ -47,7 +47,7 @@ export const business = {
  * These values are public by design (every visitor's browser sees them).
  */
 export const google = {
-  analyticsId: '',
+  analyticsId: 'G-3JN1CS0DJP',
   searchConsoleVerification: '',
 };
 
