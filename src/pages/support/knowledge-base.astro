@@ -1,43 +1,126 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
+import { faqs } from '@/data/faqs';
+import { webPageSchema } from '@/data/schema';
 
-export const pageContent = {
-  pageTitle: 'Webfluence Resources',
-  content:
-    'Find guides, case studies, and documentation for Webfluence software architectures and digital marketing campaigns.',
-};
+// Every FAQ on the site in one searchable place, grouped in the service
+// priority order (see src/data/site.ts). Answers come from src/data/faqs.ts,
+// so they always match the service pages.
+const groups = [
+  { key: 'home', title: 'About Webfluence', href: '/about' },
+  { key: 'digital-marketing', title: 'Performance marketing', href: '/digital-marketing' },
+  { key: 'creative', title: 'Creative & media content', href: '/creative' },
+  { key: 'erp', title: 'ERP systems', href: '/erp' },
+  { key: 'crm', title: 'CRM platforms', href: '/crm' },
+  { key: 'mobile-app', title: 'Mobile apps', href: '/mobile-app' },
+  { key: 'whatsapp-chatbot', title: 'WhatsApp chatbots', href: '/whatsapp-chatbot' },
+  { key: 'web-development', title: 'Web development', href: '/web-development' },
+  { key: 'seo', title: 'SEO', href: '/seo' },
+  { key: 'education-crm', title: 'Education Consultancy CRM', href: '/products/education-crm' },
+  {
+    key: 'construction-price-estimator',
+    title: 'Construction Price Estimator AI',
+    href: '/products/construction-price-estimator',
+  },
+].filter(group => faqs[group.key]?.length);
+
+const total = groups.reduce((n, g) => n + faqs[g.key].length, 0);
 
 const seo = {
-  title: 'Knowledge Base | Webfluence',
+  title: 'Knowledge Base: Answers About Webfluence Services',
   description:
-    'Guides and answers about Webfluence software and digital marketing services.',
-  // No content yet ("Will be updated soon"), so kept out of search.
-  noindex: true,
+    'Answers to common questions about Webfluence: performance marketing, creative content, ERP and CRM software, mobile apps, WhatsApp chatbots, web development and SEO.',
 };
+
+const schema = webPageSchema({
+  type: 'CollectionPage',
+  url: Astro.url.href,
+  name: seo.title,
+  description: seo.description,
+});
 ---
 
-<BaseLayout seo={seo}>
-  <section class="bg-linear-to-br/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto px-4 pt-20 pb-12">
-      <div class="">
-        <div class="mx-auto max-w-3xl lg:mx-0">
-          <h1
-            class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-          >
-            {pageContent.pageTitle}
-          </h1>
-          <p
-            class="mt-8 text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
-          >
-            {pageContent.content}
-          </p>
-        </div>
+<BaseLayout seo={seo} schema={schema}>
+  <section class="hero-band">
+    <div class="wrap pt-16 pb-10 sm:pt-20">
+      <div class="mx-auto max-w-3xl">
+        <p class="eyebrow mb-6">Knowledge base</p>
+        <h1 class="text-4xl text-balance sm:text-5xl">
+          Answers to common questions
+        </h1>
+        <p class="mt-6 text-base leading-8">
+          {total} answers about Webfluence's services, grouped by service. Can't
+          find yours? <a href="/contact" class="text-brand font-semibold hover:underline"
+            >Ask the team</a
+          >.
+        </p>
+        <label class="mt-8 block">
+          <span class="sr-only">Search the knowledge base</span>
+          <input
+            type="search"
+            data-kb-search
+            placeholder="Search, e.g. WhatsApp, Shopify, tracking"
+            class="w-full rounded-[10px] border border-slate-300 bg-white px-4 py-3.5 text-[15px] focus:border-blue-700/80 focus:ring-2 focus:ring-blue-700/80 focus:outline-hidden"
+          />
+        </label>
+        <p data-kb-empty hidden class="mt-4 text-[15px]">
+          No answers match that search. Try another word, or
+          <a href="/contact" class="text-brand font-semibold hover:underline"
+            >ask us directly</a
+          >.
+        </p>
       </div>
     </div>
   </section>
-  <section
-    class="mx-auto px-4 py-10 md:py-14 lg:py-20"
-  >
-    <div class="text-lg text-slate-500">Will be updated soon.</div>
+
+  <section class="wrap pb-20">
+    <div class="mx-auto max-w-3xl space-y-14">
+      {
+        groups.map(group => (
+          <div data-kb-group>
+            <h2 class="text-2xl sm:text-[1.75rem]">
+              <a href={group.href} class="hover:text-brand">
+                {group.title}
+              </a>
+            </h2>
+            <div class="mt-6 space-y-8">
+              {faqs[group.key].map(item => (
+                <div data-kb-item class="border-t border-slate-200 pt-6">
+                  <h3 class="text-ink text-[17px] leading-snug font-bold">
+                    {item.question}
+                  </h3>
+                  <p class="mt-3 text-[15px] leading-7">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
   </section>
+
+  <script>
+    // Filters questions as you type; everything is visible without JS.
+    document.addEventListener('astro:page-load', () => {
+      const input = document.querySelector<HTMLInputElement>('[data-kb-search]');
+      if (!input) return;
+      const empty = document.querySelector<HTMLElement>('[data-kb-empty]');
+      input.addEventListener('input', () => {
+        const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+        let shown = 0;
+        document.querySelectorAll<HTMLElement>('[data-kb-group]').forEach(group => {
+          let groupShown = 0;
+          group.querySelectorAll<HTMLElement>('[data-kb-item]').forEach(item => {
+            const text = item.textContent!.toLowerCase();
+            const match = words.every(w => text.includes(w));
+            item.hidden = !match;
+            if (match) groupShown++;
+          });
+          group.hidden = groupShown === 0;
+          shown += groupShown;
+        });
+        if (empty) empty.hidden = shown > 0;
+      });
+    });
+  </script>
 </BaseLayout>

@@ -12,6 +12,8 @@ const articles = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
+    /** Tie-breaker for articles published on the same date (lower first). */
+    order: z.number().optional(),
   }),
 });
 
@@ -24,6 +26,7 @@ const reference = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
+    order: z.number().optional(),
   }),
 });
 
@@ -42,6 +45,7 @@ const whitepapers = defineCollection({
     title: z.string(),
     description: z.string(),
     readLink: z.string().optional(),
+    order: z.number().optional(),
     btnTitle: z.string().optional(),
     btnLink: z.string().optional(),
   }),

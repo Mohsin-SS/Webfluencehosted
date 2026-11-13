@@ -14,7 +14,6 @@ const EXCLUDE = [
   /^\/case-studies\//,
   // noindex pages: placeholder or template content (see each page's seo).
   /^\/products\/$/,
-  /^\/support\/knowledge-base$/,
   /^\/support\/sample-spreadsheets$/,
 ];
 

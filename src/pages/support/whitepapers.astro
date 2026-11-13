@@ -3,11 +3,13 @@ import BaseLayout from '@layout/BaseLayout.astro';
 import Icon from '@ui/icons/Icon.astro';
 import { getCollection } from 'astro:content';
 
-const whitepapers = await getCollection('whitepapers');
+const whitepapers = (await getCollection('whitepapers')).toSorted(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
 
 export const pageContent = {
   pageTitle: 'Case Studies & Whitepapers',
-  actionLabel: 'Read more',
+  actionLabel: 'Read the case study',
 };
 ---
 
@@ -15,7 +17,7 @@ export const pageContent = {
   seo={{
     title: 'Case Studies & Whitepapers | Webfluence',
     description:
-      'Webfluence whitepapers and reports on digital transformation projects.',
+      'Case studies from Webfluence client projects: CRM and WhatsApp automation, performance marketing, AI ecommerce tools and Shopify stores.',
     // Kept out of search until there is at least one whitepaper to show.
     noindex: whitepapers.length === 0,
   }}
@@ -63,14 +65,16 @@ export const pageContent = {
                 <div class="mt-auto">
                   {paper.data.readLink && (
                     <a
-                      href="#"
+                      href={paper.data.readLink}
                       class="group mt-6 mr-6 inline-flex items-center border-b-2 border-slate-500 pb-1 text-sm font-medium text-slate-700 transition-colors duration-300 hover:border-blue-500 hover:text-slate-500 focus:ring-2 focus:ring-blue-400 focus:outline-hidden"
                     >
                       {pageContent.actionLabel}
-                      <Icon
-                        name="newWindow"
-                        class="ms-2 size-4 text-slate-900 transition duration-300 group-hover:text-slate-600"
-                      />
+                      {/^https?:/.test(paper.data.readLink) && (
+                        <Icon
+                          name="newWindow"
+                          class="ms-2 size-4 text-slate-900 transition duration-300 group-hover:text-slate-600"
+                        />
+                      )}
                     </a>
                   )}
                   {paper.data.btnLink && (

@@ -4,10 +4,13 @@ import BaseLayout from '@layout/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const reference = (await getCollection('reference')).toSorted(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  (a, b) =>
+    b.data.date.valueOf() - a.data.date.valueOf() ||
+    (a.data.order ?? 99) - (b.data.order ?? 99)
 );
 
-const urlPath = Astro.url.pathname;
+// Fixed path: Astro.url in the static build ends in .html.
+const urlPath = '/support/reference';
 
 export const pageContent = {
   pageTitle: 'Reference',

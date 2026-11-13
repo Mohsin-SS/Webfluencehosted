@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '@layout/BaseLayout.astro';
 import { SITE_URL } from '@/data/business';
-import Icon from '@ui/icons/Icon.astro';
-import PostFeedback from '@common/PostFeedback.svelte';
 import type { WithContext, Thing } from 'schema-dts';
 import { formatDate } from '@utils/utils';
 import { getReadingTime } from '@utils/reading-time';
@@ -32,11 +30,10 @@ const { Content, headings } = await render(post);
 
 const validHeadings = headings.filter(heading => heading.depth === 2);
 const readingTime = getReadingTime(post.body ?? '');
-const slug = id;
 
 // Prepare SEO metadata based on the article content
 const seo = {
-  title: post.data.title,
+  title: `${post.data.title} | Webfluence`,
   description: post.data.description,
 };
 
@@ -110,26 +107,6 @@ const schema: WithContext<Thing> = {
           >
             <Content />
           </section>
-          <PostFeedback
-            client:only="svelte"
-            title="Was this post helpful?"
-            firstChoice="Yes"
-            secondChoice="No"
-            slug={slug}
-          >
-            <fragment slot="helpfulIcon">
-              <Icon
-                name="thumbUp"
-                class="transition duration-300 group-hover:-translate-y-1 group-focus-visible:-translate-y-1"
-              />
-            </fragment>
-            <fragment slot="notHelpfulIcon">
-              <Icon
-                name="thumbDown"
-                class="transition duration-300 group-hover:translate-y-1 group-focus-visible:translate-y-1"
-              />
-            </fragment>
-          </PostFeedback>
         </div>
       </div>
     </div>

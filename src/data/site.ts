@@ -184,25 +184,25 @@ export const supportLinks: ServiceLink[] = [
     title: 'Articles',
     href: '/support/articles',
     icon: 'articles',
-    description: 'Learn from our collection of insightful articles.',
+    description: 'Guides on performance marketing, content and software.',
   },
   {
     title: 'Whitepapers',
     href: '/support/whitepapers',
     icon: 'blankDocument',
-    description: 'Detailed reports on successful digital transformations.',
+    description: 'Reports from real Webfluence client projects.',
   },
   {
     title: 'Reference',
     href: '/support/reference',
     icon: 'documentMagnifyingGlass',
-    description: 'Technical documentation and reference materials.',
+    description: 'Glossary, tracking and project checklists.',
   },
   {
     title: 'Knowledge base',
     href: '/support/knowledge-base',
     icon: 'info',
-    description: 'Search for answers to your questions.',
+    description: 'Search answers to common questions.',
   },
 ];
 
