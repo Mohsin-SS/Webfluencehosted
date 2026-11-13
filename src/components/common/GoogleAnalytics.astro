@@ -2,9 +2,13 @@
 // Google Analytics 4 (gtag.js) plus lead tracking. Renders nothing until a
 // Measurement ID is set in src/data/business.ts (`google.analyticsId`).
 //
-// The site uses Astro's ClientRouter, which swaps pages without a full
-// reload, so the automatic page_view is turned off and one is sent on every
-// `astro:page-load` (this fires on the first load too).
+// Page views: Google's tag sends the page view for the first page load
+// itself (Enhanced measurement > Page views; it does so even with
+// send_page_view: false). The site uses Astro's ClientRouter, which swaps
+// pages without a full reload, so we send one page_view for each later page
+// swap. "Page changes based on browser history events" must stay OFF in the
+// GA4 stream settings, or Google counts those swaps a second time.
+// Verified 2026-11-13: one page_view per page, on first load and after swaps.
 //
 // Leads are sent as GA4's recommended `generate_lead` event, with `method`
 // = phone | email | whatsapp | form. Mark them as key events in
@@ -31,7 +35,12 @@ const id = google.analyticsId.trim();
         gtag('js', new Date());
         gtag('config', id, { send_page_view: false });
 
+        let firstLoad = true;
         document.addEventListener('astro:page-load', () => {
+          if (firstLoad) {
+            firstLoad = false; // Google already counted this one.
+            return;
+          }
           gtag('event', 'page_view', {
             page_location: location.href,
             page_title: document.title,
