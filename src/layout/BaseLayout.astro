@@ -6,11 +6,13 @@ import { SEO, type Props as SEOProps } from 'astro-seo';
 import type { WithContext, Thing } from 'schema-dts';
 import { AstroFont } from 'astro-font';
 import '@styles/global.css';
+import GoogleAnalytics from '@common/GoogleAnalytics.astro';
 import {
   canonicalUrl,
   organizationSchema,
   websiteSchema,
   SITE_URL,
+  google,
 } from '@/data/business';
 
 interface Props {
@@ -114,6 +116,14 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         meta: [
           { name: 'viewport', content: 'width=device-width' },
           { name: 'generator', content: `${Astro.generator}` },
+          ...(google.searchConsoleVerification
+            ? [
+                {
+                  name: 'google-site-verification',
+                  content: google.searchConsoleVerification,
+                },
+              ]
+            : []),
         ],
       }}
     />
@@ -128,6 +138,9 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         />
       ))
     }
+
+    {/* Google Analytics (renders only when an ID is set in business.ts) */}
+    <GoogleAnalytics />
 
     {/* Client-Side Router for page transitions */}
     <ClientRouter />

@@ -37,6 +37,20 @@ export const business = {
   sameAs: [] as string[],
 } as const;
 
+/**
+ * Google tools. Paste the IDs here; anything left empty is simply not output.
+ * - analyticsId: GA4 Measurement ID, "G-XXXXXXXXXX"
+ *   (analytics.google.com > Admin > Data streams > Web)
+ * - searchConsoleVerification: only the `content` value of the
+ *   <meta name="google-site-verification"> tag Search Console gives you.
+ *   Not needed if you verify with a DNS record at GoDaddy instead.
+ * These values are public by design (every visitor's browser sees them).
+ */
+export const google = {
+  analyticsId: '',
+  searchConsoleVerification: '',
+};
+
 /** One-line address, as shown in the footer. */
 export const addressLine = `${business.address.streetAddress}, ${business.address.addressLocality}, Pakistan`;
 
