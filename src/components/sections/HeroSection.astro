@@ -70,6 +70,8 @@ const tags = [
 ---
 
 <section class="hero relative isolate overflow-hidden" aria-labelledby="hero-title">
+  {/* The line's height follows the screen: never taller than ~46% of it,
+      so every tag fits above the fold on wide and short screens alike. */}
   {/* Moving light, only in the hero */}
   <div class="hero-light" aria-hidden="true">
     <span class="hero-light-a"></span>
@@ -115,11 +117,11 @@ const tags = [
   </div>
 
   {/* The signal line */}
-  <div class="signal relative z-0 mt-24 sm:-mt-10 lg:-mt-52 xl:-mt-[17rem]" aria-hidden="true">
+  <div class="signal relative z-0 mt-24 sm:-mt-10" aria-hidden="true">
     <svg
-      class="block h-auto w-full overflow-visible"
+      class="absolute inset-0 h-full w-full overflow-visible"
       viewBox={`0 0 ${W} ${H}`}
-      preserveAspectRatio="xMidYMid meet"
+      preserveAspectRatio="none"
     >
       <defs>
         <linearGradient id="signal-stroke" x1="0" x2="1" y1="0" y2="0">
@@ -157,20 +159,25 @@ const tags = [
         stroke="#ffffff"
         stroke-width="3.5"
         stroke-linecap="round"></path>
-      {
-        tags.map(t => (
-          <g class="signal-dot" style={`--d: ${t.delay}s`}>
-            <circle cx={t.at[0]} cy={t.at[1]} r="16" fill="#2b8cff" opacity="0.18" class="signal-ring" />
-            <circle cx={t.at[0]} cy={t.at[1]} r="6.5" fill="#fff" stroke="#1476eb" stroke-width="3" />
-          </g>
-        ))
-      }
     </svg>
+
+    {/* Points on the line, as page elements so they stay round */}
+    {
+      tags.map(t => (
+        <span
+          class={`signal-pin ${t.hideOnPhone ? 'hidden sm:block' : ''} ${t === tags[0] ? 'is-first' : ''}`}
+          style={`left: ${(t.at[0] / W) * 100}%; top: ${(t.at[1] / H) * 100}%; --d: ${t.delay}s`}
+        >
+          <span class="signal-ring"></span>
+          <span class="signal-dot"></span>
+        </span>
+      ))
+    }
 
     {
       tags.map(t => (
         <div
-          class={`signal-tag absolute ${t.hideOnPhone ? 'hidden sm:block' : ''}`}
+          class={`signal-tag absolute ${t.hideOnPhone ? 'hidden sm:block' : ''} ${t === tags[0] ? 'is-first' : ''}`}
           style={`left: ${(t.at[0] / W) * 100}%; top: ${(t.at[1] / H) * 100}%; --d: ${t.delay + 0.1}s`}
         >
           <div class="glass-thin rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3">
@@ -305,16 +312,59 @@ const tags = [
       travel 5.5s linear 3s infinite;
   }
 
+  .signal {
+    height: var(--chart-h);
+  }
+
+  .hero {
+    --chart-h: clamp(140px, min(34vw, 46vh), 560px);
+  }
+
+  @media (min-width: 1024px) {
+    .signal {
+      margin-top: calc(var(--chart-h) * -0.42);
+    }
+  }
+
+  /* Short laptop screens: the first tag would meet the buttons; drop it
+     (the +57% and tracking tags still show). */
+  @media (min-width: 1024px) and (max-height: 760px) {
+    .signal-tag.is-first,
+    .signal-pin.is-first {
+      display: none;
+    }
+  }
+
+  .signal-pin {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .signal-dot,
+  .signal-ring {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 9999px;
+    translate: -50% -50%;
+  }
+
   .signal-dot {
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border: 3px solid var(--color-brand);
+    box-shadow: 0 0 0 4px rgb(43 140 255 / 0.18);
     opacity: 0;
-    transform-box: fill-box;
-    transform-origin: center;
     animation: pop 0.7s var(--ease-spring) var(--d) both;
   }
 
   .signal-ring {
-    transform-box: fill-box;
-    transform-origin: center;
+    width: 34px;
+    height: 34px;
+    background: rgb(43 140 255 / 0.22);
+    opacity: 0;
     animation: ring 2.6s ease-out calc(var(--d) + 0.6s) infinite;
   }
 
@@ -350,21 +400,21 @@ const tags = [
   @keyframes pop {
     from {
       opacity: 0;
-      transform: scale(0.2);
+      scale: 0.2;
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      scale: 1;
     }
   }
 
   @keyframes ring {
     from {
-      transform: scale(0.6);
+      scale: 0.6;
       opacity: 0.9;
     }
     to {
-      transform: scale(2.4);
+      scale: 2.4;
       opacity: 0;
     }
   }
