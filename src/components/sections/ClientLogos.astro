@@ -10,54 +10,32 @@ const logos = clients.map(c => ({ src: c.logo, alt: c.name, scale: c.scale }));
 const marqueeLogos = [...logos, ...logos];
 ---
 
-<section class="relative isolate overflow-hidden py-14 sm:py-20">
-  {/* Band behind the card: soft blocks with stripe runs top and bottom */}
-  <div
-    class="absolute inset-x-0 top-1/2 -z-10 h-[78%] -translate-y-1/2"
-    aria-hidden="true"
-  >
-    <div
-      class="via-ice/70 absolute inset-0 bg-linear-to-r from-blue-50 to-blue-50"
+<section class="wrap relative py-10 sm:py-14" aria-labelledby="clients-heading">
+  <div class="shell">
+    <h2
+      id="clients-heading"
+      data-reveal
+      class="text-center font-mono text-xs font-medium tracking-[0.1em] text-slate-500 uppercase"
     >
-    </div>
-    <div
-      class="stripes stripes-fade-x absolute inset-x-[8%] top-0 h-7 [--stripe-color:rgb(20_118_235/0.32)]"
-    >
-    </div>
-    <div
-      class="stripes stripes-fade-x absolute inset-x-[8%] bottom-0 h-7 [--stripe-color:rgb(20_118_235/0.32)]"
-    >
-    </div>
-  </div>
+      {title}
+    </h2>
 
-  <div class="wrap">
-    <div
-      class="rounded-2xl border border-slate-200 bg-white/70 px-4 py-9 shadow-[0_20px_50px_-36px_rgb(20_20_20/0.5)] backdrop-blur-md sm:px-8 sm:py-11"
-    >
-      <h2
-        class="text-center text-xl font-semibold tracking-tight sm:text-[1.75rem]"
-      >
-        {title}
-      </h2>
-
-      {/* Marquee */}
-      {/* py-4 gives enlarged logos room inside the overflow clip; mt-4 and
-          -mb-4 cancel it so the card keeps its size. */}
-      <div
-        class="logo-mask relative mt-4 -mb-4 flex w-full overflow-hidden py-4"
-      >
+    {/* Glass band with the marquee. py-4 gives enlarged logos room inside
+        the overflow clip. */}
+    <div data-reveal style="--i: 1" class="glass mt-6 rounded-[28px] px-2 py-3 sm:py-4">
+      <div class="logo-mask relative flex w-full overflow-hidden py-4">
         <ul class="logo-marquee flex items-center" aria-label="Client logos">
           {
             marqueeLogos.map((logo, i) => (
               <li
-                class="mx-5 flex h-16 w-36 shrink-0 items-center justify-center sm:mx-8 sm:h-20 sm:w-44"
+                class="mx-5 flex h-14 w-32 shrink-0 items-center justify-center sm:mx-8 sm:h-[4.5rem] sm:w-40"
                 aria-hidden={i >= logos.length ? 'true' : undefined}
               >
                 <img
                   src={logo.src}
                   alt={i >= logos.length ? '' : logo.alt}
-                  class="max-h-full max-w-full object-contain mix-blend-multiply"
-                  style={logo.scale ? `transform: scale(${logo.scale})` : undefined}
+                  class="logo-img max-h-full max-w-full object-contain mix-blend-multiply"
+                  style={logo.scale ? `--s: ${logo.scale}` : undefined}
                   loading="lazy"
                 />
               </li>
@@ -87,6 +65,19 @@ const marqueeLogos = [...logos, ...logos];
 
   .logo-marquee:hover {
     animation-play-state: paused;
+  }
+
+  .logo-img {
+    transform: scale(var(--s, 1));
+    filter: saturate(0.9);
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      filter 0.5s;
+  }
+
+  .logo-img:hover {
+    transform: scale(calc(var(--s, 1) * 1.08));
+    filter: saturate(1.1);
   }
 
   @keyframes marquee {

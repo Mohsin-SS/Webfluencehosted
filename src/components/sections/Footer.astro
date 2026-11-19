@@ -22,11 +22,13 @@ const columns = [
 ];
 
 const linkClass =
-  'text-white/85 transition-colors hover:text-white focus-visible:text-white';
+  'text-white/75 transition-colors duration-200 hover:text-white focus-visible:text-white';
 ---
 
-<footer class="from-coal to-night bg-linear-to-r text-sm text-white">
-  <div class="wrap grid gap-x-8 gap-y-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+<footer class="band-night text-sm text-white">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="wrap">
+  <div class="shell grid gap-x-8 gap-y-12 pt-20 pb-16 sm:grid-cols-2 lg:grid-cols-12">
     {/* Brand + company */}
     <div class="lg:col-span-3">
       <a
@@ -43,12 +45,13 @@ const linkClass =
           class="size-10 object-contain mix-blend-screen invert"
           loading="lazy"
         />
-        <span class="text-[19px] leading-none font-bold tracking-[0.02em]"
+        <span class="font-display text-[19px] leading-none font-bold tracking-[0.01em]"
           >WEBFLUENCE</span
         >
       </a>
       <p class="mt-5 max-w-xs leading-relaxed text-white/70">
-        Software development and digital marketing company in Lahore, Pakistan.
+        Performance marketing and software development company in Lahore,
+        Pakistan.
       </p>
       <ul class="mt-6 space-y-2.5">
         {
@@ -70,7 +73,7 @@ const linkClass =
       {
         columns.map(column => (
           <div>
-            <h3 class="font-semibold text-white/70">{column.heading}</h3>
+            <h3 class="font-mono text-[11px] font-medium tracking-[0.1em] text-white/50 uppercase">{column.heading}</h3>
             <ul class="mt-4 space-y-2.5">
               {column.links.map(link => (
                 <li>
@@ -86,8 +89,8 @@ const linkClass =
     </div>
 
     {/* Contact */}
-    <div class="lg:col-span-3">
-      <h3 class="font-semibold text-white/70">Contact us</h3>
+    <div class="glass-dark rounded-3xl p-6 lg:col-span-3">
+      <h3 class="font-mono text-[11px] font-medium tracking-[0.1em] text-white/50 uppercase">Contact us</h3>
       <address class="mt-4 space-y-2.5 not-italic">
         <p class="text-base font-medium">{business.name}</p>
         <p class="text-white/85">{addressLine}</p>
@@ -105,9 +108,10 @@ const linkClass =
     </div>
   </div>
 
-  <div class="bg-black/60">
+  </div>
+  <div class="wrap border-t border-white/10">
     <div
-      class="wrap flex flex-col gap-2 py-5 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between"
+      class="shell flex flex-col gap-2 py-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between"
     >
       <p>© {year} {business.name}. All rights reserved.</p>
       <p>
@@ -118,3 +122,17 @@ const linkClass =
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-glow {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: -1;
+    width: min(70rem, 100%);
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgb(124 196 255 / 0.7), rgb(47 208 240 / 0.7), transparent);
+    box-shadow: 0 0 40px 6px rgb(20 118 235 / 0.35);
+  }
+</style>

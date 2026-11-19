@@ -1,5 +1,6 @@
 ---
 import Button from '@ui/Button.astro';
+import { business, phoneE164 } from '@/data/business';
 
 interface Props {
   title?: string;
@@ -14,23 +15,78 @@ const {
 } = Astro.props;
 ---
 
-<section class="pt-16 sm:pt-24">
-  <div class="wrap pb-20 text-center sm:pb-28">
-    <h2 class="text-3xl sm:text-[2.125rem] sm:leading-tight">{title}</h2>
-    <p class="mx-auto mt-4 max-w-xl text-[15px] leading-8">{subTitle}</p>
-    <div class="mt-8 flex justify-center">
-      <Button href={cta.href} variant="primary">{cta.text}</Button>
+<section class="wrap overflow-x-clip pt-10 pb-20 sm:pt-16 sm:pb-28" aria-labelledby="cta-heading">
+  <div class="cta-stage shell relative isolate">
+    {/* Light that the glass panel blurs */}
+    <div class="cta-light" aria-hidden="true">
+      <span class="cta-light-a"></span>
+      <span class="cta-light-b"></span>
     </div>
-  </div>
 
-  {/* Closing band that sits on top of the footer */}
-  <div class="flex h-20 sm:h-28" aria-hidden="true">
-    <div class="relative w-[42%] bg-blue-50">
-      <div
-        class="stripes stripes-fade-x absolute inset-0 [--stripe-color:rgb(20_118_235/0.22)]"
-      >
+    <div
+      data-reveal
+      class="glass mx-auto max-w-5xl rounded-[36px] px-6 py-14 text-center sm:px-14 sm:py-20"
+    >
+      <p class="eyebrow justify-center">Start a project</p>
+      <h2 id="cta-heading" class="mx-auto mt-5 max-w-3xl text-4xl leading-[1.05] text-balance sm:text-[3.4rem]">
+        {title}
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-[16px] leading-8">{subTitle}</p>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <Button href={cta.href} variant="primary">{cta.text}</Button>
+        <Button href={`tel:${phoneE164}`} variant="secondary" arrow={false}>
+          Call {business.phone}
+        </Button>
       </div>
+      <p class="mt-6 text-sm text-slate-500">
+        Or email{' '}
+        <a href={`mailto:${business.email}`} class="text-brand font-medium underline-offset-4 hover:underline">{business.email}</a>
+      </p>
     </div>
-    <div class="from-sky to-brand grow bg-linear-to-r"></div>
   </div>
 </section>
+
+<style>
+  .cta-light {
+    position: absolute;
+    inset: -2rem 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .cta-light span {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(2px);
+  }
+
+  .cta-light-a {
+    width: 28rem;
+    height: 28rem;
+    left: 6%;
+    top: 0;
+    background: radial-gradient(circle, rgb(20 118 235 / 0.55), transparent 65%);
+    animation: cta-a 14s ease-in-out infinite alternate;
+  }
+
+  .cta-light-b {
+    width: 26rem;
+    height: 26rem;
+    right: 6%;
+    bottom: -2rem;
+    background: radial-gradient(circle, rgb(1 164 202 / 0.5), transparent 65%);
+    animation: cta-b 16s ease-in-out infinite alternate;
+  }
+
+  @keyframes cta-a {
+    to {
+      transform: translate3d(5rem, 3rem, 0);
+    }
+  }
+
+  @keyframes cta-b {
+    to {
+      transform: translate3d(-5rem, -2rem, 0);
+    }
+  }
+</style>

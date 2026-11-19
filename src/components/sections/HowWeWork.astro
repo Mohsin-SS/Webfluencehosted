@@ -1,0 +1,157 @@
+---
+import Button from '@ui/Button.astro';
+
+// Dark band. Replaces the older "Why choose us" and growth panels, whose
+// headline numbers (ROAS, campaign counts) were not backed by case studies.
+const principles = [
+  {
+    title: 'Measured on sales, not likes',
+    text: 'We track purchases and leads, then check campaigns against your own sales records. For Adoro (ECS), every campaign is checked against Shopify daily.',
+  },
+  {
+    title: 'Marketing and software, one team',
+    text: 'The people running your ads can also build the website, CRM or WhatsApp automation those leads land in.',
+  },
+  {
+    title: 'A team you can call',
+    text: 'Based in DHA Phase 6, Lahore. Working with clients across Pakistan and abroad, in English and Urdu.',
+  },
+];
+
+// A real sequence: every campaign moves through these stages in order.
+const steps = [
+  { title: 'Audit and tracking', text: 'Find where sales come from today, and fix tracking so ads count real purchases.' },
+  { title: 'Creative and landing pages', text: 'Ads, content and pages built for the people most likely to buy.' },
+  { title: 'Launch on Google and Meta', text: 'Campaigns go live with tight targeting and budgets set against your margins.' },
+  { title: 'Scale what sells', text: 'Weekly checks against real sales; budget moves to what is working.' },
+];
+---
+
+<section class="wrap py-6 sm:py-10" aria-labelledby="how-heading">
+  <div class="band-night shell rounded-[36px] px-6 py-14 sm:px-12 sm:py-20 lg:px-16">
+    <div class="band-grid" aria-hidden="true"></div>
+
+    <div class="relative grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <div>
+        <p class="eyebrow text-sky!" data-reveal>How we work</p>
+        <h2 id="how-heading" data-reveal style="--i: 1" class="mt-5 text-4xl leading-[1.05] sm:text-5xl">
+          One team, judged on what it <span class="text-signal-light">earns.</span>
+        </h2>
+        <p data-reveal style="--i: 2" class="mt-5 max-w-md text-[16px] leading-8 text-white/70">
+          Clicks and followers are easy to report. We report the number you
+          care about, and change course when it is not moving.
+        </p>
+        <div data-reveal style="--i: 3" class="mt-8">
+          <Button href="/contact" variant="primary">Start your campaign</Button>
+        </div>
+      </div>
+
+      <ul class="grid gap-4">
+        {
+          principles.map((p, i) => (
+            <li data-reveal style={`--i: ${i + 1}`} class="glass-dark rounded-3xl p-6 sm:p-7">
+              <h3 class="text-xl">{p.title}</h3>
+              <p class="mt-2 text-[15px] leading-7 text-white/70">{p.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    {/* Campaign stages: a line that draws as the row scrolls in */}
+    <div class="relative mt-16 sm:mt-20">
+      <p class="font-mono text-xs tracking-[0.1em] text-white/50 uppercase" data-reveal>
+        How a campaign runs
+      </p>
+      <ol class="steps relative mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6" data-reveal>
+        <span class="steps-line hidden lg:block" aria-hidden="true"></span>
+        {
+          steps.map((step, i) => (
+            <li class="step relative" style={`--i: ${i}`}>
+              <span class="step-num">{i + 1}</span>
+              <h3 class="mt-5 text-lg">{step.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-white/65">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(80% 60% at 20% 0%, #000, transparent 80%);
+  }
+
+  .text-signal-light {
+    background: linear-gradient(100deg, #7cc4ff, #2fd0f0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .step-num {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: #fff;
+    background: linear-gradient(140deg, var(--color-brand), var(--color-lagoon));
+    box-shadow:
+      0 0 0 6px rgb(20 118 235 / 0.16),
+      0 10px 24px -8px rgb(1 164 202 / 0.7);
+  }
+
+  /* Line through the step numbers; grows from left once revealed. */
+  .steps-line {
+    position: absolute;
+    top: 1.375rem;
+    left: 1.375rem;
+    right: 1.375rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-brand), var(--color-lagoon), transparent);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.6s var(--ease-out-expo) 0.2s;
+  }
+
+  .steps.is-in .steps-line,
+  html:not(.js) .steps-line {
+    transform: scaleX(1);
+  }
+
+  /* Steps follow the line in order. */
+  html.js .steps .step {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition:
+      opacity 0.9s var(--ease-out-expo),
+      transform 0.9s var(--ease-out-expo);
+    transition-delay: calc(0.25s + var(--i) * 0.28s);
+  }
+
+  html.js .steps.is-in .step {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* The list itself is the reveal trigger; keep it from fading as a block. */
+  html.js .steps[data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+</style>

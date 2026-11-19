@@ -45,88 +45,94 @@ const schema = webPageSchema({
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  <section class="hero-band">
-    <div class="mx-auto px-4 pt-20 pb-28">
-      <div class="mb-10 max-w-3xl lg:mb-14">
-      <h1
-        class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-      >
-        {title}
-      </h1>
-      <p class="mt-1 ml-1 text-slate-600">{subTitle}</p>
-    </div>
-
-    <div class="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:gap-x-16">
-      <div
-        class="mb-10 h-fit rounded-2xl border border-slate-200 bg-fog pb-10 md:order-2 md:mb-0 md:pb-0"
-      >
-        <ContactForm />
-      </div>
-
-      <div class="space-y-14">
-        <div class="flex gap-x-5">
-          <Icon name="mapPin" />
-          <div class="grow">
-            <h4 class="font-semibold text-slate-600">{addressHeading}</h4>
-
-            <address class="mt-1 text-sm text-slate-500 not-italic">
-              {contactDetails.addressLine1}
-              <br />
-              {contactDetails.addressLine2}
-            </address>
-          </div>
+  <section class="hero-band lit [--l1x:40%] [--l1y:20%] [--l2y:0%]">
+    <div class="wrap pt-14 pb-24 sm:pt-20 lg:pt-24">
+      <div class="shell">
+        <div class="mb-12 max-w-3xl lg:mb-16">
+          <p class="eyebrow" data-reveal>Contact</p>
+          <h1 data-reveal style="--i: 1" class="mt-6 text-[2.6rem] leading-[1.04] text-balance sm:text-6xl">
+            {title}
+          </h1>
+          <p data-reveal style="--i: 2" class="mt-5 text-[17px] leading-8">{subTitle}</p>
         </div>
 
-        <div class="flex gap-x-5">
-          <Icon name="mobile" class="size-6 shrink-0 text-slate-600" />
-          <div class="grow">
-            <h4 class="font-semibold text-slate-600">Give us a call:</h4>
+        <div class="grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-x-14">
+          <div class="space-y-4">
+            {
+              [
+                { icon: 'mapPin', heading: addressHeading, body: `${contactDetails.addressLine1} ${contactDetails.addressLine2}` },
+                { icon: 'mobile', heading: 'Give us a call', body: contactDetails.phone, href: `tel:${phoneE164}` },
+                { icon: 'email', heading: emailHeading, body: contactDetails.email, href: `mailto:${contactDetails.email}` },
+              ].map((row, i) => (
+                <div data-reveal data-spotlight style={`--i: ${i}`} class="glass flex gap-x-5 rounded-3xl p-6">
+                  <span class="contact-icon">
+                    <Icon name={row.icon} class="size-5 text-white" />
+                  </span>
+                  <div class="grow">
+                    <h2 class="font-mono text-[11px] font-medium tracking-[0.1em] text-slate-500 uppercase">{row.heading}</h2>
+                    {row.href ? (
+                      <a class="text-ink-deep hover:text-brand mt-1.5 block text-[17px] font-medium transition-colors" href={row.href}>
+                        {row.body}
+                      </a>
+                    ) : (
+                      <p class="text-ink-deep mt-1.5 text-[17px] font-medium not-italic">{row.body}</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            }
 
-            <a
-              class="mt-1 text-sm text-slate-500 transition-colors duration-300 hover:text-slate-400 focus:text-slate-400 focus:outline-hidden"
-              href={`tel:${phoneE164}`}
-            >
-              {contactDetails.phone}
-            </a>
+            <div data-reveal style="--i: 3" class="glass flex gap-x-5 rounded-3xl p-6">
+              <span class="contact-icon">
+                <Icon name="info" class="size-5 text-white" />
+              </span>
+              <div class="grow">
+                <h2 class="font-mono text-[11px] font-medium tracking-[0.1em] text-slate-500 uppercase">{knowledgeBaseHeading}</h2>
+                <p class="mt-1.5 text-[15px] leading-7">{knowledgeBaseDetails.description}</p>
+                <a
+                  class="text-brand hover:text-brand-deep mt-2 inline-flex items-center gap-x-1.5 text-sm font-medium transition-colors"
+                  href={knowledgeBaseDetails.linkUrl}
+                >
+                  {knowledgeBaseDetails.linkText}
+                  <Icon name="chevronRight" class="size-4 text-current" />
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="flex gap-x-5">
-          <Icon name="email" class="size-6 shrink-0 text-slate-600" />
-          <div class="grow">
-            <h4 class="font-semibold text-slate-600">{emailHeading}</h4>
-
-            <a
-              class="mt-1 text-sm text-slate-500 transition-colors duration-300 hover:text-slate-400 focus:text-slate-400 focus:outline-hidden"
-              href={`mailto:${contactDetails.email}`}
-            >
-              {contactDetails.email}
-            </a>
-          </div>
-        </div>
-
-        <div class="flex gap-x-5">
-          <Icon name="info" class="size-6 shrink-0 text-slate-600" />
-          <div class="grow">
-            <h4 class="font-semibold text-slate-600">{knowledgeBaseHeading}</h4>
-            <p class="mt-1 text-sm text-slate-500">
-              {knowledgeBaseDetails.description}
-            </p>
-            <p class="mt-2">
-              <a
-                class="group inline-flex items-center gap-x-2 text-sm font-medium text-slate-600 decoration-2 transition duration-300 hover:underline focus:underline focus:outline-hidden"
-                href={knowledgeBaseDetails.linkUrl}
-              >
-                {knowledgeBaseDetails.linkText}
-                <Icon name="chevronRight" />
-              </a>
-            </p>
+          <div data-reveal style="--i: 1" class="relative h-fit">
+            <div class="form-light" aria-hidden="true"></div>
+            <div class="glass rounded-[32px] p-3 sm:p-6">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <style>
+    .contact-icon {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      flex: none;
+      border-radius: 0.9rem;
+      background: linear-gradient(140deg, var(--color-brand), var(--color-lagoon));
+      box-shadow: 0 10px 22px -10px rgb(20 118 235 / 0.7);
+    }
+
+    .form-light {
+      position: absolute;
+      inset: 8% -4% -6% 10%;
+      z-index: -1;
+      border-radius: 9999px;
+      background:
+        radial-gradient(circle at 25% 30%, rgb(20 118 235 / 0.35), transparent 60%),
+        radial-gradient(circle at 80% 80%, rgb(1 164 202 / 0.32), transparent 60%);
+    }
+  </style>
 
   <script>
     // Automatically adjusting the height of the textarea

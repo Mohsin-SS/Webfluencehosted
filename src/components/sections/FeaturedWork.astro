@@ -5,22 +5,31 @@ const subTitle =
   'Software we shipped and campaigns we ran, with what each one changed for the client.';
 
 const arrowButton =
-  'grid size-10 place-items-center rounded-full border border-slate-300 bg-white text-ink transition-colors hover:border-ink disabled:opacity-35 disabled:hover:border-slate-300';
+  'glass-thin grid size-11 place-items-center rounded-full text-ink-deep transition-[transform,opacity] duration-300 hover:-translate-y-0.5 disabled:opacity-35 disabled:hover:translate-y-0';
 ---
 
-<section class="wrap py-16 sm:py-24" aria-labelledby="work-heading" data-rail>
+<section
+  id="work"
+  class="lit wrap scroll-mt-24 py-16 sm:py-24 [--l1x:30%] [--l1y:20%] [--l2y:10%]"
+  aria-labelledby="work-heading"
+  data-rail
+>
+  <div class="shell">
   <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
     <div class="max-w-xl">
+      <p class="eyebrow" data-reveal>Case studies</p>
       <h2
         id="work-heading"
-        class="text-3xl sm:text-[2.125rem] sm:leading-tight"
+        data-reveal
+        style="--i: 1"
+        class="mt-5 text-4xl leading-[1.05] sm:text-5xl"
       >
-        Featured <span class="text-brand-bright">work &amp; results</span>
+        Work and <span class="text-signal">results</span>
       </h2>
-      <p class="mt-4 text-[15px] leading-8">{subTitle}</p>
+      <p data-reveal style="--i: 2" class="mt-5 text-[16px] leading-8">{subTitle}</p>
     </div>
 
-    <div class="flex gap-3">
+    <div class="flex gap-3" data-reveal style="--i: 2">
       <button
         type="button"
         class={arrowButton}
@@ -59,32 +68,40 @@ const arrowButton =
   </div>
 
   <ul
-    class="rail-track -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4"
+    class="rail-track -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pt-2 pb-10"
     data-rail-track
   >
     {
-      caseStudies.map(study => (
-        <li class="w-[82%] shrink-0 snap-start sm:w-[46%] lg:w-[calc((100%-2.5rem)/3)]">
+      caseStudies.map((study, i) => (
+        <li
+          class="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-[calc((100%-2.5rem)/3)]"
+          data-reveal
+          style={`--i: ${Math.min(i, 3)}`}
+        >
           <a
             href={study.href}
-            class="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-shadow duration-300 hover:shadow-[0_24px_48px_-28px_rgb(20_20_20/0.4)]"
+            data-spotlight
+            class="work-card glass group flex h-full flex-col overflow-hidden rounded-[28px] p-2.5"
           >
-            <div class="bg-ice relative aspect-[16/10] overflow-hidden">
+            <div class="bg-ice relative aspect-[16/10] overflow-hidden rounded-[20px]">
               <img
                 src={study.image}
                 alt={study.imageAlt}
-                class="size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                class="size-full object-cover object-top transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
                 loading="lazy"
               />
+              <span class="glass-thin absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-medium text-ink-deep">
+                {study.tag}
+              </span>
             </div>
-            <div class="flex grow flex-col px-5 pt-5 pb-6">
-              <p class="text-brand text-[11px] tracking-[0.08em]">
-                {study.tag} · {study.client}
+            <div class="flex grow flex-col px-3.5 pt-5 pb-4">
+              <p class="font-mono text-[11px] tracking-[0.08em] text-slate-500 uppercase">
+                {study.client}
               </p>
-              <h3 class="text-ink-deep mt-2 text-base leading-snug font-semibold">
+              <h3 class="mt-2 text-lg leading-snug">
                 {study.title}
               </h3>
-              <p class="text-ink-deep mt-auto flex items-center gap-2 pt-5 text-[13px]">
+              <p class="text-brand mt-auto flex items-center gap-2 pt-5 text-sm font-medium">
                 Read case study
                 <svg
                   class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -105,9 +122,24 @@ const arrowButton =
       ))
     }
   </ul>
+  </div>
 </section>
 
 <style>
+  .work-card {
+    transition:
+      transform 0.6s var(--ease-out-expo),
+      box-shadow 0.6s var(--ease-out-expo);
+  }
+
+  .work-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      0 0 0 1px rgb(20 118 235 / 0.1),
+      0 36px 70px -34px rgb(10 40 90 / 0.5);
+  }
+
   .rail-track {
     scrollbar-width: none;
   }

@@ -27,12 +27,15 @@ export const pageContent = {
     noindex: articles.length === 0,
   }}
 >
-  <section class="bg-linear-to-br/oklch from-blue-200 via-transparent to-white">
-    <div class="mx-auto px-4 pt-20 pb-12">
+  <section class="hero-band">
+    <div class="page pt-14 pb-6 sm:pt-20">
       <div class="">
         <div class="mx-auto max-w-3xl lg:mx-0">
+          <p class="eyebrow" data-reveal>Support</p>
           <h1
-            class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+            data-reveal
+            style="--i: 1"
+            class="mt-6 text-[2.6rem] leading-[1.04] text-balance sm:text-6xl"
           >
             {pageContent.pageTitle}
           </h1>
@@ -41,10 +44,10 @@ export const pageContent = {
     </div>
   </section>
   <section
-    class="mx-auto px-4 py-10 md:py-14 lg:py-20"
+    class="page py-10 md:py-14 lg:py-20"
   >
     {articles.length > 0 ? (
-      <div class="grid grid-cols-1 items-center lg:grid-cols-3">
+      <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {
           articles.map((item, index) => {
             const totalItems = articles.length;
@@ -68,7 +71,7 @@ export const pageContent = {
 
             return (
               <a
-                class={`card group ${borderClasses}`}
+                class="card group" data-reveal data-spotlight
                 href={`${urlPath}/${item.id}`}
               >
                 <div class="mb-5">

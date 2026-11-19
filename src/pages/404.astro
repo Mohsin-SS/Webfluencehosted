@@ -67,14 +67,14 @@ const schema: WithContext<Thing> = {
 
 <BaseLayout seo={seo} schema={schema}>
   <section
-    class="grid min-h-full place-items-center px-6 pt-16 pb-10 sm:pt-24 lg:px-8"
+    class="hero-band lit grid min-h-full place-items-center px-6 pt-16 pb-24 sm:pt-24 lg:px-8 [--l1x:20%] [--l2x:20%]"
   >
     <div class="text-center">
-      <p class="text-xl font-semibold text-blue-600">
+      <p class="font-display text-signal text-[7rem] leading-none font-bold tracking-tight sm:text-[10rem]">
         {pageContent.errorCode}
       </p>
       <h1
-        class="mt-4 text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+        class="mt-2 text-4xl text-balance sm:text-5xl"
       >
         {pageContent.title}
       </h1>
@@ -87,17 +87,17 @@ const schema: WithContext<Thing> = {
 
     <div class="mx-auto w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <div class="mx-auto w-full max-w-lg px-4 sm:px-6 lg:px-8">
-        <ul class="divide-y divide-dashed divide-slate-300">
+        <ul class="glass divide-y divide-white/80 overflow-hidden rounded-[28px]">
           {
             resources.map(resource => (
               <li>
                 <a
                   href={resource.link}
-                  class="group flex gap-x-5 px-2 py-8 transition hover:bg-slate-100"
+                  class="group flex gap-x-5 px-6 py-6 transition-colors hover:bg-white/60"
                 >
-                  <Icon name={resource.icon} class="size-6 text-blue-600" />
+                  <Icon name={resource.icon} class="text-brand size-6" />
                   <div class="grow">
-                    <h3 class="font-semibold text-slate-600 transition group-hover:text-blue-700">
+                    <h3 class="text-ink-deep group-hover:text-brand text-lg transition-colors">
                       {resource.title}
                     </h3>
                     <p class="mt-1 text-slate-500">{resource.description}</p>

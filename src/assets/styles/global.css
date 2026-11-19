@@ -10,72 +10,83 @@
 @plugin '@tailwindcss/typography';
 
 /*
-  Design tokens.
+  Webfluence design system: "frost & signal".
 
-  Charcoal text on white, one blue accent, pale cyan and grey panels, and a
-  dark footer. `slate-*` and `blue-*` are remapped onto this palette so every
-  existing page picks the scheme up without touching its markup.
+  A cool frost-white page lit by soft fields of the two brand colours
+  (signal blue #1476eb and lagoon #01a4ca), with frosted-glass panels on top
+  and a deep navy for the dark bands. No purple anywhere: every gradient runs
+  blue -> lagoon. Leaf green is kept for positive results only.
+
+  `slate-*` and `blue-*` are remapped onto this palette so older pages pick
+  the scheme up without touching their markup.
 */
 @theme {
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-black: #000;
   --color-white: #fff;
-  --color-off-white: #fff;
+  --color-off-white: #f6f9fd;
 
   /* Named roles */
-  --color-ink: #454648; /* headings and body text */
-  --color-ink-deep: #141414; /* strongest text, dark surfaces */
-  --color-brand: #1476eb; /* buttons, links */
-  --color-brand-bright: #1d81f2; /* highlighted words */
-  --color-brand-deep: #1032cf;
-  --color-mist: #f4f4f4; /* grey panels */
-  --color-fog: #f6f6f6;
-  --color-line: #d6d6d6; /* dividers */
-  --color-ice: #dff5fb; /* pale cyan panels */
-  --color-sky: #7dd3fc;
-  --color-leaf: #5bb947; /* marketing accent, start */
-  --color-lagoon: #01a4ca; /* marketing accent, end */
-  --color-coal: #3a3a3a; /* footer gradient start */
-  --color-night: #181818; /* footer gradient end */
+  --color-ink: #2a3547; /* body text */
+  --color-ink-deep: #0a1628; /* headings, strongest text */
+  --color-brand: #1476eb; /* signal blue: buttons, links */
+  --color-brand-bright: #2b8cff; /* highlighted words */
+  --color-brand-deep: #0a55c2;
+  --color-lagoon: #01a4ca; /* second brand colour */
+  --color-leaf: #5bb947; /* positive results only */
+  --color-sky: #7cc4ff;
+  --color-ice: #e3f2fb;
+  --color-frost: #f3f7fc; /* page base */
+  --color-mist: #eaf0f8; /* quiet panels */
+  --color-fog: #f6f9fd;
+  --color-line: #dbe4ef; /* dividers */
+  --color-coal: #0f1e33; /* dark band start */
+  --color-night: #07111f; /* dark band end */
 
-  /* Neutral grey scale (was blue-tinted slate) */
-  --color-slate-50: #fafafa;
-  --color-slate-100: #f4f4f4;
-  --color-slate-200: #e5e7eb;
-  --color-slate-300: #d6d6d6;
-  --color-slate-400: #98a2b3;
-  --color-slate-500: #717377;
-  --color-slate-600: #5a5b5e;
-  --color-slate-700: #4d4e51;
-  --color-slate-800: #454648;
-  --color-slate-900: #232324;
-  --color-slate-950: #141414;
+  /* Cool blue-grey neutrals */
+  --color-slate-50: #f6f8fb;
+  --color-slate-100: #eef2f7;
+  --color-slate-200: #dfe6ef;
+  --color-slate-300: #c9d3e0;
+  --color-slate-400: #98a6b8;
+  --color-slate-500: #66758a;
+  --color-slate-600: #4f5d71;
+  --color-slate-700: #3c495c;
+  --color-slate-800: #2a3547;
+  --color-slate-900: #162133;
+  --color-slate-950: #0a1628;
 
   /* Blue scale anchored on the brand blue at 600 */
-  --color-blue-50: #f0f7fe;
-  --color-blue-100: #dcebfd;
-  --color-blue-200: #bfdbfc;
-  --color-blue-300: #93c3f9;
-  --color-blue-400: #58a2f5;
-  --color-blue-500: #1d81f2;
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdcfd;
+  --color-blue-300: #8fc2fb;
+  --color-blue-400: #4fa2f7;
+  --color-blue-500: #2b8cff;
   --color-blue-600: #1476eb;
   --color-blue-700: #1476eb;
-  --color-blue-800: #0f62cc;
-  --color-blue-900: #0d4a99;
+  --color-blue-800: #0a5fcc;
+  --color-blue-900: #0b4a9c;
   --color-blue-950: #08254b;
 
   --font-sans:
-    'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display:
+    'Bricolage Grotesque', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --radius-chip: 10px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards)
     linear infinite;
 
-  /* Older class names still used across pages; both now resolve to Poppins. */
+  /* Older class names still used across pages. */
   --font-dm-sans: var(--font-sans);
   --font-work-sans: var(--font-sans);
 
@@ -97,28 +108,40 @@
 
   html {
     scroll-behavior: smooth;
+    background-color: var(--color-frost);
+    overflow-x: clip;
   }
 
   body {
+    /* clip, not hidden: section lights may poke past the edge, and clip
+       keeps position: sticky working. */
+    overflow-x: clip;
     font-family: var(--font-sans);
     color: var(--color-ink);
+    background-color: var(--color-frost);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   h1,
   h2 {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    letter-spacing: -0.022em;
-    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    color: var(--color-ink-deep);
   }
 
   h3,
   h4 {
-    font-family: var(--font-sans);
+    font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-deep);
+  }
+
+  ::selection {
+    background: rgb(20 118 235 / 0.18);
+    color: var(--color-ink-deep);
   }
 
   button:not(:disabled),
@@ -129,6 +152,7 @@
   :focus-visible {
     outline: 2px solid var(--color-brand);
     outline-offset: 3px;
+    border-radius: 6px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -146,12 +170,212 @@
   }
 }
 
-/*
-  Stripe band: the site's one recurring background motif. A run of thin
-  vertical bars that fades out, drawn in CSS so it needs no image file.
-  Tune with --stripe-color / --stripe-gap, and pick a fade direction with
-  stripes-fade-{b,t,x}.
-*/
+/* ------------------------------------------------------------------ */
+/* Light fields: the page-wide atmosphere behind the glass.            */
+/* Static on purpose: moving light under many glass panels forces the  */
+/* browser to re-blur every frame. Only the hero's light moves.        */
+/* ------------------------------------------------------------------ */
+.light-fields {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(42rem 32rem at 8% -6%, rgb(20 118 235 / 0.16), transparent 70%),
+    radial-gradient(38rem 30rem at 96% 12%, rgb(1 164 202 / 0.14), transparent 70%),
+    radial-gradient(46rem 34rem at 70% 108%, rgb(124 196 255 / 0.18), transparent 70%),
+    var(--color-frost);
+}
+
+/* ------------------------------------------------------------------ */
+/* Glass                                                               */
+/* ------------------------------------------------------------------ */
+@utility glass {
+  position: relative;
+  background: linear-gradient(
+    150deg,
+    rgb(255 255 255 / 0.7),
+    rgb(255 255 255 / 0.38)
+  );
+  border: 1px solid rgb(255 255 255 / 0.8);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    0 0 0 1px rgb(14 52 110 / 0.05),
+    0 24px 60px -32px rgb(10 40 90 / 0.38);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+}
+
+/* Thinner glass for small chips and pills. */
+@utility glass-thin {
+  position: relative;
+  background: rgb(255 255 255 / 0.62);
+  border: 1px solid rgb(255 255 255 / 0.85);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 0 0 1px rgb(14 52 110 / 0.06),
+    0 12px 30px -18px rgb(10 40 90 / 0.4);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+}
+
+/* Soft blue and lagoon light behind a section, for its glass to frost.
+   Move the lights with --l1x/--l1y (blue, from top-left) and
+   --l2x/--l2y (lagoon, from bottom-right). */
+@utility lit {
+  position: relative;
+  isolation: isolate;
+  /* Keep the lights inside the viewport width; phones otherwise zoom out
+     to fit them. clip (not hidden) keeps position: sticky working. */
+  overflow-x: clip;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: var(--lw, 36rem);
+    height: var(--lw, 36rem);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: var(--l1x, -8rem);
+    top: var(--l1y, 8%);
+    background: radial-gradient(circle, rgb(20 118 235 / 0.3), transparent 66%);
+  }
+
+  &::after {
+    right: var(--l2x, -8rem);
+    bottom: var(--l2y, 4%);
+    background: radial-gradient(circle, rgb(1 164 202 / 0.26), transparent 66%);
+  }
+}
+
+/* Glass on the dark navy bands. */
+@utility glass-dark {
+  position: relative;
+  background: linear-gradient(
+    150deg,
+    rgb(255 255 255 / 0.1),
+    rgb(255 255 255 / 0.03)
+  );
+  border: 1px solid rgb(255 255 255 / 0.12);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 30px 60px -36px rgb(0 0 0 / 0.7);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* The dark navy band itself, lit from inside by the brand colours. */
+@utility band-night {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: rgb(255 255 255 / 0.78);
+  background:
+    radial-gradient(40rem 26rem at 12% 0%, rgb(20 118 235 / 0.42), transparent 70%),
+    radial-gradient(36rem 26rem at 92% 100%, rgb(1 164 202 / 0.32), transparent 70%),
+    linear-gradient(160deg, var(--color-coal), var(--color-night));
+
+  & :where(h1, h2, h3, h4) {
+    color: #fff;
+  }
+}
+
+/* Blue -> lagoon text for the one accented phrase in a heading. */
+@utility text-signal {
+  background: linear-gradient(100deg, var(--color-brand) 10%, var(--color-lagoon) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Small monospaced label above headings. */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+
+  &::before {
+    content: '';
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--color-brand), var(--color-lagoon));
+  }
+}
+
+/* Page container: full width with a comfortable gutter. */
+@utility wrap {
+  width: 100%;
+  padding-inline: 1rem;
+
+  @media (min-width: 640px) {
+    padding-inline: 1.75rem;
+  }
+
+  @media (min-width: 1280px) {
+    padding-inline: 3rem;
+  }
+}
+
+/* Constrained content width inside .wrap. */
+@utility shell {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+}
+
+/* wrap + shell on a single element: same gutter, same content width. */
+@utility page {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: calc(76rem + 2rem);
+
+  @media (min-width: 640px) {
+    padding-inline: 1.75rem;
+    max-width: calc(76rem + 3.5rem);
+  }
+
+  @media (min-width: 1280px) {
+    padding-inline: 3rem;
+    max-width: calc(76rem + 6rem);
+  }
+}
+
+/* Header band for inner pages: transparent over the light fields, with a
+   faint engineering grid fading out from the top. */
+@utility hero-band {
+  position: relative;
+  isolation: isolate;
+  background-color: transparent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto 0;
+    height: 26rem;
+    background-image:
+      linear-gradient(rgb(20 118 235 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(20 118 235 / 0.07) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(60% 100% at 50% 0%, #000, transparent);
+  }
+}
+
+/* Kept for older markup: a run of thin vertical bars that fades out. */
 @utility stripes {
   background-image: repeating-linear-gradient(
     to right,
@@ -178,56 +402,142 @@
   );
 }
 
-/* Small tracked label with a rule on its left, used above headings. */
-@utility eyebrow {
-  display: inline-block;
-  border-left: 2px solid var(--color-line);
-  padding-left: 1.25rem;
-  font-size: 0.6875rem;
-  line-height: 1.6;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  color: var(--color-ink);
-}
+@utility card {
+  @apply relative z-10 flex h-full flex-col rounded-2xl p-5 transition-transform duration-500 md:p-6;
+  background: linear-gradient(150deg, rgb(255 255 255 / 0.74), rgb(255 255 255 / 0.46));
+  border: 1px solid rgb(255 255 255 / 0.8);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    0 0 0 1px rgb(14 52 110 / 0.05),
+    0 24px 60px -32px rgb(10 40 90 / 0.38);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
 
-/* Page container: full width with a slim 16px gutter so text never touches the screen edge. */
-@utility wrap {
-  width: 100%;
-  padding-inline: 1rem;
-}
-
-/*
-  Header band for inner pages: white, with a stripe run fading in from the
-  top edge. Replaces the old blue wash gradient.
-*/
-@utility hero-band {
-  position: relative;
-  isolation: isolate;
-  background-color: #fff;
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: 0 0 auto 0;
-    height: 15rem;
-    background-image:
-      linear-gradient(to bottom, rgb(255 255 255 / 0) 0%, #fff 100%),
-      repeating-linear-gradient(
-        to right,
-        rgb(20 118 235 / 0.16) 0 2px,
-        transparent 2px 9px
-      );
-    mask-image: linear-gradient(
-      to right,
-      transparent 4%,
-      #000 30%,
-      #000 70%,
-      transparent 96%
-    );
+  &:hover {
+    transform: translateY(-3px);
   }
 }
 
-@utility card {
-  @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b/oklch before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-blue-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-blue-500/20 focus:before:opacity-100 md:p-6;
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+/* Scroll reveal. Only hidden once JS has marked the page (html.js), so the
+   content is always visible without JavaScript and to crawlers. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  filter: blur(8px);
+  transition:
+    opacity 1s var(--ease-out-expo),
+    transform 1s var(--ease-out-expo),
+    filter 1s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Cursor spotlight on glass cards: a soft brand light follows the pointer. */
+[data-spotlight] {
+  --mx: 50%;
+  --my: 0%;
+  overflow: hidden;
+}
+
+[data-spotlight]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-expo);
+  background: radial-gradient(
+    22rem 22rem at var(--mx) var(--my),
+    rgb(43 140 255 / 0.16),
+    rgb(1 164 202 / 0.06) 40%,
+    transparent 70%
+  );
+}
+
+[data-spotlight]:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Case study pages (/work/*) use their own .cs-* styles. These rules  */
+/* retune their tokens to this system. `body .cs.cs` outranks each     */
+/* page's scoped `.cs[data-astro-cid-…]` without !important.           */
+/* ------------------------------------------------------------------ */
+body .cs.cs {
+  --cs-ink: #0a1628;
+  --cs-ink-2: #3c495c;
+  --cs-accent: #1476eb;
+  --cs-accent-deep: #0a55c2;
+  --cs-line: rgb(20 118 235 / 0.16);
+  --cs-glass: linear-gradient(150deg, rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.38));
+  --cs-glass-rim: rgb(255 255 255 / 0.85);
+  --cs-shadow: 0 0 0 1px rgb(14 52 110 / 0.05), 0 24px 60px -32px rgb(10 40 90 / 0.38);
+  background:
+    radial-gradient(40rem 30rem at 88% 0%, rgb(1 164 202 / 0.16), transparent 70%),
+    radial-gradient(40rem 30rem at 0% 35%, rgb(20 118 235 / 0.16), transparent 70%),
+    radial-gradient(40rem 30rem at 100% 78%, rgb(124 196 255 / 0.2), transparent 70%),
+    transparent;
+}
+
+body .cs .cs-glass.cs-glass {
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+}
+
+body .cs .cs-btn.cs-btn {
+  border-radius: 9999px;
+  transition:
+    transform 0.3s var(--ease-out-expo),
+    box-shadow 0.3s var(--ease-out-expo);
+}
+
+body .cs .cs-btn-primary.cs-btn-primary {
+  background: linear-gradient(180deg, #2b8cff 0%, #1476eb 55%, #0a63d6 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 10px 24px -10px rgb(20 118 235 / 0.7);
+}
+
+body .cs .cs-btn-primary.cs-btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+body .cs :is(h1, h2, h3) {
+  font-family: var(--font-display);
+}
+
+/* Case study content follows the same width and gutter as .page. */
+body .cs .cs-wrap.cs-wrap {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: calc(76rem + 2rem);
+
+  @media (min-width: 640px) {
+    padding-inline: 1.75rem;
+    max-width: calc(76rem + 3.5rem);
+  }
+
+  @media (min-width: 1280px) {
+    padding-inline: 3rem;
+    max-width: calc(76rem + 6rem);
+  }
 }

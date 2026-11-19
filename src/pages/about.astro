@@ -1,13 +1,16 @@
 ---
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
+import CTA from '@sections/CTA.astro';
 import { webPageSchema } from '@/data/schema';
 
 // Data describing the "About" section content
 const aboutData = {
-  title: 'Webfluence,',
+  title: 'Webfluence',
+  headline:
+    'is a performance marketing and software company in Lahore, Pakistan.',
   description:
-    'is a software development and digital marketing company in Lahore, Pakistan. We build custom ERP and CRM systems, websites, mobile apps and WhatsApp chatbots, and run SEO, Google Ads, Meta Ads and creative work for businesses across Pakistan and internationally.',
+    'We run Google and Meta campaigns, create social media and video content, and build ERP, CRM, mobile and web applications for businesses across Pakistan and internationally.',
   statistics: [
     {
       label: 'Digital Products Launched',
@@ -82,31 +85,24 @@ const schema = webPageSchema({
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-  <section class="mx-auto px-4 pt-20 pb-12">
-    <div class="">
-      <div class="mx-auto max-w-2xl lg:mx-0">
-        <h1
-          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-        >
-          {aboutData.title}
+  <section class="hero-band lit [--l1x:50%] [--l1y:-10%] [--l2y:-30%]">
+    <div class="wrap pt-14 pb-12 sm:pt-20 lg:pt-24">
+      <div class="shell">
+        <p class="eyebrow" data-reveal>About us</p>
+        <h1 data-reveal style="--i: 1" class="mt-6 max-w-4xl text-[2.6rem] leading-[1.06] sm:text-6xl">
+          <span class="text-signal">{aboutData.title}</span>{' '}
+          <span class="text-ink-deep">{aboutData.headline}</span>
         </h1>
-        <p
-          class="mt-8 text-lg font-medium text-pretty text-slate-700 sm:text-xl/8"
-        >
+        <p data-reveal style="--i: 2" class="mt-6 max-w-2xl text-[17px] leading-8">
           {aboutData.description}
         </p>
-      </div>
 
-      {/* Statistics Section */}
-      <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
-        <dl
-          class="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4"
-        >
+        <dl class="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {
-            aboutData.statistics.map(stat => (
-              <div class="flex flex-col-reverse gap-1">
-                <dt class="text-base/7 text-slate-700">{stat.label}</dt>
-                <dd class="text-4xl font-semibold tracking-tight text-slate-800">
+            aboutData.statistics.map((stat, i) => (
+              <div data-reveal data-spotlight style={`--i: ${i}`} class="glass flex flex-col-reverse rounded-3xl p-6">
+                <dt class="mt-2 text-sm leading-6 text-slate-600">{stat.label}</dt>
+                <dd class="font-display text-ink-deep text-4xl font-bold tracking-tight sm:text-5xl">
                   {stat.value}
                 </dd>
               </div>
@@ -117,70 +113,37 @@ const schema = webPageSchema({
     </div>
   </section>
 
-  {/* Mission Statement Section */}
-  <section class="mx-auto px-4 py-16">
-    <div class="rounded-3xl bg-slate-50 p-10 lg:p-16 text-center shadow-sm border border-slate-200">
-      <h2 class="text-3xl font-bold text-slate-800 sm:text-4xl">Our Mission</h2>
-      <p class="mx-auto mt-6 max-w-3xl text-lg text-slate-600 leading-relaxed">
+  {/* Mission */}
+  <section class="wrap py-10 sm:py-16">
+    <div class="band-night shell rounded-[36px] px-6 py-14 text-center sm:px-14 sm:py-20" data-reveal>
+      <p class="eyebrow justify-center text-sky!">Our mission</p>
+      <p class="font-display mx-auto mt-6 max-w-4xl text-2xl leading-[1.4] font-medium tracking-[-0.015em] text-white sm:text-[2rem]">
         To empower businesses by engineering intelligent, robust software solutions that redefine industry standards. We believe that technology should be an enabler, not a bottleneck. That's why we combine deep technical expertise with strategic thinking to build software that not only looks beautiful but scales effortlessly and delivers measurable impact.
       </p>
     </div>
   </section>
 
-  {/* Expertise Section */}
-  <section class="mx-auto px-4 py-24 lg:py-32">
-    <div
-      class="group relative isolate overflow-hidden rounded-3xl bg-blue-200 p-5 sm:p-11"
-    >
-      <div
-        class="group to-off-white pointer-events-none absolute inset-0 -top-[10%] h-[120%] w-full rounded-xl bg-linear-to-r/oklch from-blue-200 opacity-0 transition duration-1000 group-hover:opacity-100"
-      >
-      </div>
-      <div class="svgBlock mx-auto">
-        <h2
-          class="relative pl-4 text-2xl font-semibold text-balance text-slate-800 md:text-3xl md:leading-tight"
-        >
-          {expertiseData.title}
-        </h2>
-        <dl
-          class="relative mt-10 grid max-w-xl grid-cols-1 items-start text-base/7 text-slate-600 sm:max-w-none lg:grid-flow-row-dense lg:auto-rows-fr lg:grid-cols-3 gap-y-10"
-        >
-          {
-            expertiseData.expertise.map((item, index) => (
-              <div
-                class={`px-5 py-5 sm:px-10 lg:py-0 ${
-                  index % 3 === 1
-                    ? 'h-full border-y border-dashed border-slate-400 lg:border-x lg:border-y-0'
-                    : ''
-                } ${(index > 2) ? 'lg:mt-10' : ''}`}
-              >
-                <dt class="text-lg font-semibold text-balance text-slate-600">
-                  {item.title}
-                </dt>
-                <dd class="mt-2 text-pretty text-slate-500">
-                  {item.description}
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
+  {/* Expertise */}
+  <section class="lit wrap py-16 sm:py-24 [--l1x:30%] [--l2y:10%]">
+    <div class="shell">
+      <p class="eyebrow" data-reveal>Expertise</p>
+      <h2 data-reveal style="--i: 1" class="mt-5 max-w-2xl text-4xl leading-[1.05] sm:text-5xl">
+        {expertiseData.title.replace(/:$/, '')}
+      </h2>
+      <dl class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+        {
+          expertiseData.expertise.map((item, i) => (
+            <div data-reveal data-spotlight style={`--i: ${i % 3}`} class="glass rounded-[28px] p-7">
+              <dt class="font-display text-ink-deep text-xl font-semibold tracking-tight">
+                {item.title.replace(/:$/, '')}
+              </dt>
+              <dd class="mt-3 text-[15px] leading-7">{item.description}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
   </section>
 
-  <style>
-    .svgBlock::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url(/guilloche.svg);
-      background-repeat: repeat;
-      background-position: right top;
-      background-size: 20px, 20px;
-      opacity: 0.075;
-      background-clip: padding-box;
-      mask-image: linear-gradient(270deg, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-      pointer-events: none;
-    }
-  </style>
+  <CTA />
 </BaseLayout>

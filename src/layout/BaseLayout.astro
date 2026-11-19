@@ -4,7 +4,6 @@ import Footer from '@sections/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
 import { SEO, type Props as SEOProps } from 'astro-seo';
 import type { WithContext, Thing } from 'schema-dts';
-import { AstroFont } from 'astro-font';
 import '@styles/global.css';
 import GoogleAnalytics from '@common/GoogleAnalytics.astro';
 import MetaPixel from '@common/MetaPixel.astro';
@@ -62,6 +61,13 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
 <html lang="en" class="scroll-pt-24">
   <head>
     <script is:inline>
+      // Mark JS as available (scroll reveals only hide content when it is).
+      // Re-added after each page swap, which replaces <html> attributes.
+      document.documentElement.classList.add('js');
+      document.addEventListener('astro:after-swap', () =>
+        document.documentElement.classList.add('js')
+      );
+
       // Ensure page starts from top on reload
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
@@ -115,7 +121,8 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
           { rel: 'manifest', href: '/manifest.webmanifest' },
         ],
         meta: [
-          { name: 'viewport', content: 'width=device-width' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { name: 'theme-color', content: '#f3f7fc' },
           { name: 'generator', content: `${Astro.generator}` },
           ...(google.searchConsoleVerification
             ? [
@@ -149,35 +156,18 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
     {/* Client-Side Router for page transitions */}
     <ClientRouter />
 
-    {/* Font Definitions */}
-    <AstroFont
-      config={[
-        {
-          src: [],
-          name: 'Poppins',
-          googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap',
-          preload: true,
-          display: 'swap',
-          selector: 'body',
-          fallback: 'sans-serif',
-        },
-      ]}
+    {/* Fonts: Bricolage Grotesque (headlines), Geist (text), Geist Mono (labels) */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist+Mono:wght@400;500&family=Geist:wght@400..600&display=swap"
     />
-
-    {/* Remove duplicate font links during transitions */}
-    <script>
-      import type { TransitionBeforeSwapEvent } from 'astro:transitions/client';
-      document.addEventListener('astro:before-swap', e =>
-        [
-          ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
-            'link[as="font"]'
-          ),
-        ].forEach(link => link.remove())
-      );
-    </script>
   </head>
-  <body class="bg-white text-ink selection:bg-blue-200 selection:text-ink-deep">
+  <body class="text-ink">
+    {/* Page-wide light behind the glass */}
+    <div class="light-fields" aria-hidden="true"></div>
+
     <Navbar />
 
     <main>
@@ -185,5 +175,74 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
     </main>
 
     <Footer />
+
+    <script>
+      // Motion engine: scroll reveals, number count-ups and the cursor
+      // spotlight on glass cards. Everything is skipped for visitors who ask
+      // for reduced motion; content is always in the HTML regardless.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let observer: IntersectionObserver | null = null;
+
+      function countUp(el: HTMLElement) {
+        const target = Number(el.dataset.count);
+        if (!Number.isFinite(target)) return;
+        const decimals = (el.dataset.count!.split('.')[1] || '').length;
+        const prefix = el.dataset.prefix ?? '';
+        const suffix = el.dataset.suffix ?? '';
+        const start = performance.now();
+        const duration = 1600;
+        const frame = (now: number) => {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 4);
+          el.textContent = `${prefix}${(target * eased).toFixed(decimals)}${suffix}`;
+          if (t < 1) requestAnimationFrame(frame);
+        };
+        requestAnimationFrame(frame);
+      }
+
+      function initMotion() {
+        observer?.disconnect();
+        const items = document.querySelectorAll<HTMLElement>(
+          '[data-reveal]:not(.is-in), [data-count]:not([data-counted])'
+        );
+        if (reduce.matches || !('IntersectionObserver' in window)) {
+          items.forEach(el => el.classList.add('is-in'));
+          return;
+        }
+        observer = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              el.classList.add('is-in');
+              if (el.dataset.count !== undefined && !el.dataset.counted) {
+                el.dataset.counted = '';
+                countUp(el);
+              }
+              observer?.unobserve(el);
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+        );
+        items.forEach(el => observer!.observe(el));
+      }
+
+      // One delegated listener feeds every [data-spotlight] card.
+      document.addEventListener(
+        'pointermove',
+        event => {
+          const card = (event.target as Element).closest?.<HTMLElement>(
+            '[data-spotlight]'
+          );
+          if (!card) return;
+          const box = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${event.clientX - box.left}px`);
+          card.style.setProperty('--my', `${event.clientY - box.top}px`);
+        },
+        { passive: true }
+      );
+
+      document.addEventListener('astro:page-load', initMotion);
+    </script>
   </body>
 </html>

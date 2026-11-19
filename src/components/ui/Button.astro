@@ -32,25 +32,27 @@ const {
 } = Astro.props;
 
 const base =
-  'group inline-flex items-center justify-center text-nowrap font-normal transition-colors duration-200 select-none';
+  'btn group relative inline-flex items-center justify-center text-nowrap font-medium select-none transition-[transform,box-shadow,background-color,color,border-color] duration-300 ease-[var(--ease-out-expo)]';
 
 const sizes = {
   md: {
-    box: 'h-[52px] text-base',
-    chip: 'size-8 rounded-lg',
+    box: 'h-[52px] text-[15px]',
+    chip: 'size-8 rounded-full',
     icon: 'size-3.5',
   },
-  sm: { box: 'h-10 text-sm', chip: 'size-6 rounded-md', icon: 'size-3' },
+  sm: { box: 'h-10 text-sm', chip: 'size-6 rounded-full', icon: 'size-3' },
 }[size];
 
 const variants = {
-  primary: `rounded-[10px] bg-brand text-white hover:bg-blue-800 gap-3 ${
-    arrow ? (size === 'sm' ? 'pl-4 pr-2' : 'pl-5 pr-2.5') : 'px-6'
+  // Signal blue with a light rim and a sheen that sweeps across on hover.
+  primary: `btn-primary overflow-hidden rounded-full text-white hover:-translate-y-0.5 gap-3 ${
+    arrow ? (size === 'sm' ? 'pl-4 pr-1.5' : 'pl-6 pr-2.5') : 'px-6'
   }`,
-  secondary: `rounded-[10px] border border-slate-400 bg-white text-ink hover:border-ink hover:bg-mist gap-2.5 ${
-    size === 'sm' ? 'px-4' : 'px-5'
+  // Frosted glass.
+  secondary: `glass-thin rounded-full text-ink-deep hover:-translate-y-0.5 hover:bg-white/80 gap-2.5 ${
+    size === 'sm' ? 'px-4' : 'px-6'
   }`,
-  tertiary: 'h-auto gap-2 text-brand hover:text-blue-800',
+  tertiary: 'h-auto gap-2 text-brand hover:text-brand-deep',
 }[variant];
 
 const classes = twMerge(base, sizes.box, variants, className);
@@ -62,11 +64,11 @@ const arrowPath = 'M7 17 17 7M8 7h9v9';
 ---
 
 <Tag id={id} class={classes} {...tagProps}>
-  <span><slot /></span>
+  <span class="relative z-[1]"><slot /></span>
   {
     arrow && variant === 'primary' && (
       <span
-        class={`text-brand grid shrink-0 place-items-center bg-white ${sizes.chip}`}
+        class={`text-brand relative z-[1] grid shrink-0 place-items-center bg-white shadow-sm ${sizes.chip}`}
         aria-hidden="true"
       >
         <svg
@@ -100,3 +102,43 @@ const arrowPath = 'M7 17 17 7M8 7h9v9';
     )
   }
 </Tag>
+
+<style is:global>
+  .btn-primary {
+    background: linear-gradient(180deg, #2b8cff 0%, #1476eb 55%, #0a63d6 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.35),
+      inset 0 -1px 0 rgb(0 0 0 / 0.12),
+      0 10px 24px -10px rgb(20 118 235 / 0.7);
+  }
+
+  .btn-primary:hover {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.4),
+      inset 0 -1px 0 rgb(0 0 0 / 0.12),
+      0 16px 32px -12px rgb(20 118 235 / 0.75);
+  }
+
+  /* Sheen */
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.35) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.9s var(--ease-out-expo);
+  }
+
+  .btn-primary:hover::before {
+    transform: translateX(120%);
+  }
+
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+</style>

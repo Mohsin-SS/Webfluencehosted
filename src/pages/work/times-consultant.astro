@@ -32,9 +32,9 @@ const slides = [
 
 <BaseLayout seo={seo} schema={structuredData}>
   {/* ───────────── Hero Section ───────────── */}
-  <section class="hero-band">
+  <section class="hero-band lit [--l1x:30%] [--l1y:-20%]">
     <div class="mx-auto max-w-4xl px-4 pt-20 pb-12 text-center">
-      <div class="inline-flex items-center gap-2 rounded-full bg-white/80 border border-slate-200 px-3.5 py-1.5 shadow-xs mb-6">
+      <div class="glass-thin inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 mb-6">
         <img
           src="/logos/times-consultant.png"
           alt="Times Consultant"
@@ -43,7 +43,7 @@ const slides = [
         <span class="text-xs font-semibold text-slate-700">Times Consultant Case Study</span>
       </div>
 
-      <h1 class="block text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl font-bold">
+      <h1 class="block text-[2.6rem] leading-[1.04] text-balance sm:text-6xl">
         AI CRM & WhatsApp Automation
       </h1>
       <p class="mt-6 text-lg text-pretty text-slate-700 max-w-3xl mx-auto">
@@ -66,7 +66,7 @@ const slides = [
   {/* ───────────── Features Section ───────────── */}
   <section class="w-full px-4 py-16">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
+      <div data-reveal data-spotlight class="glass rounded-[28px] p-8">
         <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
           <Icon name="chatBubble" class="h-7 w-7 text-blue-700" />
         </div>
@@ -76,7 +76,7 @@ const slides = [
         </p>
       </div>
 
-      <div class="rounded-2xl bg-blue-500 p-8 shadow-lg transition hover:shadow-xl hover:-translate-y-1 duration-300">
+      <div data-reveal class="band-night rounded-[28px] p-8">
         <div class="bg-blue-400 rounded-full w-14 h-14 flex items-center justify-center mb-6">
           <Icon name="portfolio" class="h-7 w-7 text-white" />
         </div>
@@ -86,7 +86,7 @@ const slides = [
         </p>
       </div>
 
-      <div class="rounded-2xl bg-blue-50 p-8 shadow-sm transition hover:shadow-md border border-blue-100">
+      <div data-reveal data-spotlight class="glass rounded-[28px] p-8">
         <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center mb-6">
           <Icon name="presentationChart" class="h-7 w-7 text-blue-700" />
         </div>
@@ -103,7 +103,7 @@ const slides = [
     
     {/* 01 Live System Walkthrough */}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <div class="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+      <div data-reveal class="glass order-2 lg:order-1 rounded-[28px] overflow-hidden p-2.5">
         <div class="overflow-hidden rounded-xl bg-slate-950">
           <video
             autoplay
@@ -158,22 +158,22 @@ const slides = [
           </svg>
         </a>
       </div>
-      <div class="rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+      <div data-reveal class="glass rounded-[28px] overflow-hidden p-2.5">
         <img
           src={`${base}/crm-dashboard.jpg`}
           alt="Times Consultant CRM Dashboard"
-          class="w-full h-auto rounded-xl"
+          class="w-full h-auto rounded-[20px]"
         />
       </div>
     </div>
 
     {/* 03 WhatsApp lead qualification */}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-      <div class="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+      <div data-reveal class="glass order-2 lg:order-1 rounded-[28px] overflow-hidden p-2.5">
         <img
           src={`${base}/slide-2.jpg`}
           alt="WhatsApp lead qualification"
-          class="w-full h-auto rounded-xl"
+          class="w-full h-auto rounded-[20px]"
         />
       </div>
       <div class="order-1 lg:order-2 lg:pl-10">
@@ -214,11 +214,11 @@ const slides = [
           </svg>
         </a>
       </div>
-      <div class="rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 p-2">
+      <div data-reveal class="glass rounded-[28px] overflow-hidden p-2.5">
         <img
           src={`${base}/slide-3.jpg`}
           alt="Admissions and visa pipeline"
-          class="w-full h-auto rounded-xl"
+          class="w-full h-auto rounded-[20px]"
         />
       </div>
     </div>
@@ -268,11 +268,11 @@ const slides = [
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
       {slides.map((s) => (
-        <div class="rounded-2xl overflow-hidden shadow-lg bg-white border border-slate-100 p-2 hover:shadow-xl transition">
+        <div data-reveal class="glass rounded-[28px] overflow-hidden p-2.5">
           <img
             src={`${base}/slide-${s.num}.jpg`}
             alt={s.title}
-            class="w-full h-auto rounded-xl"
+            class="w-full h-auto rounded-[20px]"
             loading="lazy"
           />
           <div class="p-3 text-center">
@@ -286,7 +286,7 @@ const slides = [
 
   {/* ───────────── CTA Section ───────────── */}
   <section class="w-full px-4 py-16">
-    <div class="rounded-3xl bg-linear-to-b/oklch from-blue-200 via-blue-100/50 to-white border border-blue-200 p-8 sm:p-12 md:p-16 text-center shadow-xs">
+    <div data-reveal class="glass rounded-[36px] p-8 sm:p-12 md:p-16 text-center">
       <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl md:text-5xl text-balance max-w-3xl mx-auto">
         Transform your business with <span class="text-blue-700">Web</span><span class="font-normal text-slate-500">fluence</span>.
       </h2>

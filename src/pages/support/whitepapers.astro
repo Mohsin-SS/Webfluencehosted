@@ -22,11 +22,14 @@ export const pageContent = {
     noindex: whitepapers.length === 0,
   }}
 >
-  <section class="mx-auto px-4 pt-20 pb-12">
-    <div class="">
+  <section class="hero-band">
+    <div class="page pt-14 pb-6 sm:pt-20">
       <div class="mx-auto max-w-3xl lg:mx-0">
+        <p class="eyebrow" data-reveal>Support</p>
         <h1
-          class="text-4xl text-balance text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
+          data-reveal
+          style="--i: 1"
+          class="mt-6 text-[2.6rem] leading-[1.04] text-balance sm:text-6xl"
         >
           {pageContent.pageTitle}
         </h1>
@@ -34,10 +37,10 @@ export const pageContent = {
     </div>
   </section>
   <section
-    class="mx-auto px-4 py-10 md:py-14 lg:py-20"
+    class="page py-10 md:py-14 lg:py-20"
   >
     {whitepapers.length > 0 ? (
-      <div class="grid grid-cols-1 sm:grid-cols-2">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
         {
           whitepapers.map((paper, index) => {
             const totalItems = whitepapers.length;
@@ -54,7 +57,7 @@ export const pageContent = {
 
             return (
               <div
-                class={`border-dashed border-slate-300 p-6 ${borderRight} ${borderBottom} flex flex-col justify-between`}
+                class="glass flex flex-col justify-between rounded-[28px] p-7" data-reveal data-spotlight
               >
                 <div>
                   <h2 class="text-lg font-semibold text-slate-700">

@@ -77,27 +77,26 @@ const features = {
 
   <FeatureColumns {...features} />
   {/* Product Showcase Sections */}
-  <section class="mx-auto space-y-32 px-4 py-20">
+  <section class="lit wrap py-16 sm:py-24 [--l1y:20%] [--l2y:30%]">
+  <div class="shell space-y-24 sm:space-y-32">
     {/* 01 Executive dashboard */}
     <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
       <div
-        class="order-2 overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl lg:order-1"
+        data-reveal class="glass order-2 overflow-hidden rounded-[28px] p-2.5 lg:order-1"
       >
         <img
           src="/crm-images/1.webp"
           alt="Executive dashboard"
-          class="h-auto w-full rounded-xl"
+          class="h-auto w-full rounded-[20px]"
           onerror="this.src='https://placehold.co/800x500?text=Dashboard+Mockup'"
         />
       </div>
-      <div class="order-1 lg:order-2 lg:pl-10">
-        <span class="text-sm font-medium tracking-wider text-orange-500"
-          >01</span
-        >
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+      <div data-reveal style="--i: 1" class="order-1 lg:order-2 lg:pl-10">
+        <span class="eyebrow">Inside the CRM</span>
+        <h2 class="mt-5 text-3xl leading-tight sm:text-[2.6rem]">
           Executive dashboard
         </h2>
-        <p class="mt-4 max-w-md text-lg text-slate-600">
+        <p class="mt-5 max-w-md text-[17px] leading-8">
           A single operational view across active students, applications, visas,
           commissions and priority alerts.
         </p>
@@ -105,7 +104,7 @@ const features = {
           href="https://educonsult.webfluence.tech/"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+          class="text-brand hover:text-brand-deep mt-8 inline-flex items-center font-medium transition-colors"
         >
           Explore the live CRM
           <svg
@@ -127,14 +126,12 @@ const features = {
 
     {/* 02 Lead pipeline */}
     <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-      <div class="lg:pr-10">
-        <span class="text-sm font-medium tracking-wider text-orange-500"
-          >02</span
-        >
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+      <div data-reveal class="lg:pr-10">
+        <span class="eyebrow">Inside the CRM</span>
+        <h2 class="mt-5 text-3xl leading-tight sm:text-[2.6rem]">
           Lead pipeline
         </h2>
-        <p class="mt-4 max-w-md text-lg text-slate-600">
+        <p class="mt-5 max-w-md text-[17px] leading-8">
           Every opportunity moves through a visible pipeline instead of living
           inside spreadsheets or personal inboxes.
         </p>
@@ -142,7 +139,7 @@ const features = {
           href="https://educonsult.webfluence.tech/"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+          class="text-brand hover:text-brand-deep mt-8 inline-flex items-center font-medium transition-colors"
         >
           Explore the live CRM
           <svg
@@ -161,12 +158,12 @@ const features = {
         </a>
       </div>
       <div
-        class="overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl"
+        data-reveal class="glass overflow-hidden rounded-[28px] p-2.5"
       >
         <img
           src="/crm-images/2.png"
           alt="Lead pipeline"
-          class="h-auto w-full rounded-xl"
+          class="h-auto w-full rounded-[20px]"
           onerror="this.src='https://placehold.co/800x500?text=Pipeline+Mockup'"
         />
       </div>
@@ -175,23 +172,21 @@ const features = {
     {/* 03 University directory */}
     <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
       <div
-        class="order-2 overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl lg:order-1"
+        data-reveal class="glass order-2 overflow-hidden rounded-[28px] p-2.5 lg:order-1"
       >
         <img
           src="/crm-images/3.webp"
           alt="University directory"
-          class="h-auto w-full rounded-xl"
+          class="h-auto w-full rounded-[20px]"
           onerror="this.src='https://placehold.co/800x500?text=Directory+Mockup'"
         />
       </div>
-      <div class="order-1 lg:order-2 lg:pl-10">
-        <span class="text-sm font-medium tracking-wider text-orange-500"
-          >03</span
-        >
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+      <div data-reveal style="--i: 1" class="order-1 lg:order-2 lg:pl-10">
+        <span class="eyebrow">Inside the CRM</span>
+        <h2 class="mt-5 text-3xl leading-tight sm:text-[2.6rem]">
           University directory
         </h2>
-        <p class="mt-4 max-w-md text-lg text-slate-600">
+        <p class="mt-5 max-w-md text-[17px] leading-8">
           Partner institutions, programs, countries and commission information
           are structured in one searchable workspace.
         </p>
@@ -199,7 +194,7 @@ const features = {
           href="https://educonsult.webfluence.tech/"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+          class="text-brand hover:text-brand-deep mt-8 inline-flex items-center font-medium transition-colors"
         >
           Explore the live CRM
           <svg
@@ -221,14 +216,12 @@ const features = {
 
     {/* 04 Agent management */}
     <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-      <div class="lg:pr-10">
-        <span class="text-sm font-medium tracking-wider text-orange-500"
-          >04</span
-        >
-        <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+      <div data-reveal class="lg:pr-10">
+        <span class="eyebrow">Inside the CRM</span>
+        <h2 class="mt-5 text-3xl leading-tight sm:text-[2.6rem]">
           Agent management
         </h2>
-        <p class="mt-4 max-w-md text-lg text-slate-600">
+        <p class="mt-5 max-w-md text-[17px] leading-8">
           Sub-agents, referrals, commission splits, performance and compliance
           can be managed from the same system.
         </p>
@@ -236,7 +229,7 @@ const features = {
           href="https://educonsult.webfluence.tech/"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-8 inline-flex items-center font-medium text-slate-900 transition-colors hover:text-blue-600"
+          class="text-brand hover:text-brand-deep mt-8 inline-flex items-center font-medium transition-colors"
         >
           Explore the live CRM
           <svg
@@ -255,15 +248,16 @@ const features = {
         </a>
       </div>
       <div
-        class="overflow-hidden rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl"
+        data-reveal class="glass overflow-hidden rounded-[28px] p-2.5"
       >
         <img
           src="/crm-images/1.webp"
           alt="Agent management"
-          class="h-auto w-full rounded-xl"
+          class="h-auto w-full rounded-[20px]"
           onerror="this.src='https://placehold.co/800x500?text=Agent+Mockup'"
         />
       </div>
+    </div>
     </div>
   </section>
 
