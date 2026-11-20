@@ -10,8 +10,10 @@ import Button from '@ui/Button.astro';
 
   <div class="wrap relative py-16 text-center sm:py-24 lg:py-32">
     <h1 id="hero-title" class="hero-title">
-      <span class="hero-line" style="--d: 0.05s">Performance</span>
-      <span class="hero-line text-accent" style="--d: 0.15s">Marketing</span>
+      {/* {' '} keeps the h1 text "Performance Marketing & Software" for
+          search engines; the lines are blocks, so it does not show. */}
+      <span class="hero-line" style="--d: 0.05s">Performance</span>{' '}
+      <span class="hero-line text-accent" style="--d: 0.15s">Marketing</span>{' '}
       <span class="hero-line" style="--d: 0.25s">&amp; Software</span>
     </h1>
 
