@@ -1,49 +1,45 @@
 ---
-// Services from the Nexera design: image cards whose picture blurs on hover
-// while the title gives way to a short description. Priority order (see
-// src/data/site.ts). Images are Webfluence's own project screenshots.
+import Icon from '@ui/icons/Icon.astro';
+
+// Services, in priority order (see src/data/site.ts). Text cards in the
+// Nexera card style: icon, Bebas title and description; on hover the card
+// fills with the brand blue.
 const services = [
   {
     title: 'Performance marketing',
     text: 'Google Ads and Meta Ads run on real sales data, with tracking that counts purchases, not page views.',
     href: '/digital-marketing',
-    image: '/case-studies/adoro/slide-6.webp',
-    alt: 'Adoro (ECS) case study slide: Google Ads tracking rebuilt around real sales',
+    icon: 'cursorRays',
   },
   {
     title: 'Creative & media content',
     text: 'Social media content, short video and brand design, made and posted for you so your feed stays consistent.',
     href: '/creative',
-    image: '/case-studies/times-consultant/slide-1.jpg',
-    alt: 'Social media carousel designed by Webfluence for the Times Consultant case study',
+    icon: 'lightbulb',
   },
   {
     title: 'ERP, CRM & mobile apps',
     text: 'Custom ERP and CRM systems and cross-platform mobile apps, built around how your business runs.',
     href: '/erp',
-    image: '/case-studies/times-consultant/crm-dashboard.jpg',
-    alt: 'CRM dashboard built by Webfluence for Times Consultant',
+    icon: 'dataBase',
   },
   {
     title: 'Web development',
     text: 'Fast websites, Shopify stores and web apps, built to rank and to convert the traffic your ads send.',
     href: '/web-development',
-    image: '/case-studies/latch/latch-home.jpg',
-    alt: 'Latch Shopify storefront rebuilt by Webfluence',
+    icon: 'newWindow',
   },
   {
     title: 'WhatsApp chatbots',
     text: 'AI WhatsApp assistants that answer customers 24/7, take orders and log every chat in your CRM.',
     href: '/whatsapp-chatbot',
-    image: '/case-studies/times-consultant/slide-3.jpg',
-    alt: 'WhatsApp bot that onboards students for Times Consultant',
+    icon: 'chatBubble',
   },
   {
     title: 'SEO',
     text: 'Technical fixes, on-page work and content, reported on the leads it brings rather than rankings alone.',
     href: '/seo',
-    image: '/case-studies/zelvior/seo-copy.jpg',
-    alt: 'SEO copy written by Webfluence for Zelvior Official',
+    icon: 'documentMagnifyingGlass',
   },
 ];
 ---
@@ -64,13 +60,15 @@ const services = [
       services.map((s, i) => (
         <li data-reveal style={`--i: ${i % 3}`}>
           <a href={s.href} class="svc-card group">
-            <img src={s.image} alt={s.alt} class="svc-img" loading="lazy" decoding="async" />
-            <span class="svc-shade" aria-hidden="true" />
+            <span class="svc-icon">
+              <Icon name={s.icon} class="size-7 text-white" />
+            </span>
             <h3 class="svc-title">{s.title}</h3>
-            <p class="svc-text">
-              {s.text}{' '}
-              <span class="svc-more">Learn more →</span>
-            </p>
+            <p class="svc-text">{s.text}</p>
+            <span class="svc-more">
+              Learn more
+              <svg class="size-3.5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+            </span>
           </a>
         </li>
       ))
@@ -80,126 +78,79 @@ const services = [
 
 <style>
   .svc-card {
-    position: relative;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    height: 300px;
-    overflow: hidden;
+    flex-direction: column;
+    height: 100%;
+    min-height: 300px;
+    padding: 2rem;
     border-radius: 1rem;
     background-color: var(--color-card);
-    box-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
-    text-align: center;
-    isolation: isolate;
-  }
-
-  .svc-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+    box-shadow: 0 10px 15px rgb(0 0 0 / 0.08);
     transition:
-      filter 0.3s ease-in-out,
-      transform 0.3s ease-in-out;
+      background-color 0.4s ease,
+      transform 0.3s ease,
+      box-shadow 0.4s ease;
   }
 
-  /* Readable title over any image. */
-  .svc-shade {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.2) 55%, transparent);
-    transition: background 0.3s ease-in-out;
+  .svc-icon {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+    background-color: var(--color-brand);
+    transition: background-color 0.4s ease;
   }
 
   .svc-title {
-    position: relative;
-    z-index: 2;
-    margin: 0 1rem 1.25rem;
+    margin-top: 1.75rem;
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: 400;
+    line-height: 1;
     letter-spacing: 0.02em;
-    color: #fff;
-    transition:
-      transform 0.3s ease-in-out,
-      opacity 0.3s ease-in-out;
+    text-transform: uppercase;
+    color: var(--color-ink-deep);
+    transition: color 0.4s ease;
   }
 
   .svc-text {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 1.25rem;
-    z-index: 2;
-    padding: 0 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #d1d5db;
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.3s ease-in-out,
-      transform 0.3s ease-in-out;
+    margin-top: 0.75rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+    transition: color 0.4s ease;
   }
 
   .svc-more {
-    display: block;
-    margin-top: 0.75rem;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
     font-size: 0.8rem;
+    font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent);
+    transition: color 0.4s ease;
   }
 
-  .svc-card:hover .svc-img,
-  .svc-card:focus-visible .svc-img {
-    filter: blur(5px);
-    transform: scale(1.05);
+  /* Hover / keyboard focus: the card fills with the brand blue. */
+  .svc-card:hover,
+  .svc-card:focus-visible {
+    /* Deeper than --color-brand so white text passes 4.5:1. */
+    background-color: #0b5fd0;
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -12px rgb(20 118 235 / 0.45);
   }
 
-  .svc-card:hover .svc-shade,
-  .svc-card:focus-visible .svc-shade {
-    background: rgb(0 0 0 / 0.7);
+  .svc-card:hover .svc-icon,
+  .svc-card:focus-visible .svc-icon {
+    background-color: rgb(255 255 255 / 0.18);
   }
 
-  .svc-card:hover .svc-title,
-  .svc-card:focus-visible .svc-title {
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-
-  .svc-card:hover .svc-text,
-  .svc-card:focus-visible .svc-text {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Touch screens have no hover: stack the description under the title on
-     a darker image. */
-  @media (hover: none) {
-    .svc-card {
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .svc-shade {
-      background: linear-gradient(to top, rgb(0 0 0 / 0.92) 0%, rgb(0 0 0 / 0.75) 55%, rgb(0 0 0 / 0.35));
-    }
-
-    .svc-title {
-      margin: 0 1rem 0.5rem;
-    }
-
-    .svc-text {
-      position: relative;
-      bottom: auto;
-      margin-bottom: 1.25rem;
-      opacity: 1;
-      transform: none;
-    }
+  .svc-card:hover :is(.svc-title, .svc-text, .svc-more),
+  .svc-card:focus-visible :is(.svc-title, .svc-text, .svc-more) {
+    color: #fff;
   }
 </style>

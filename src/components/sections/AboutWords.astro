@@ -1,7 +1,7 @@
 ---
 import Button from '@ui/Button.astro';
 
-// "About" from the Nexera design: image beside a paragraph whose words light
+// "About" from the Nexera design (text only): a paragraph whose words light
 // up one by one as it scrolls in (BaseLayout drives [data-words]). The full
 // text is in the HTML; only the brightness animates.
 const text =
@@ -10,44 +10,27 @@ const words = text.split(' ');
 ---
 
 <section class="wrap py-16 sm:py-24 lg:py-32" aria-labelledby="about-heading">
-  <div class="flex flex-col items-center gap-10 md:flex-row md:gap-14 lg:gap-20">
-    <div class="w-full md:w-1/2" data-reveal>
-      <img
-        src="/case-studies/times-consultant/cover-poster.jpg"
-        alt="CRM built by Webfluence for Times Consultant, connecting overseas students worldwide"
-        class="about-img w-full rounded-2xl object-cover"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-
-    <div class="w-full text-center md:w-1/2 md:text-left">
-      <h2 id="about-heading" class="section-title" data-reveal>
-        About <span class="text-accent">Webfluence</span>
-      </h2>
-      <p class="mt-6 text-lg leading-[1.8]" data-words>
-        {
-          words.map((w, i) => (
-            <>
-              <span class="word">{w}</span>
-              {i < words.length - 1 ? ' ' : ''}
-            </>
-          ))
-        }
-      </p>
-      <div class="mt-8" data-reveal>
-        <Button href="/about" variant="secondary">More about us</Button>
-      </div>
+  <div class="mx-auto max-w-5xl text-center">
+    <h2 id="about-heading" class="section-title" data-reveal>
+      About <span class="text-accent">Webfluence</span>
+    </h2>
+    <p class="mt-8 text-xl leading-[1.7] sm:text-2xl sm:leading-[1.65]" data-words>
+      {
+        words.map((w, i) => (
+          <>
+            <span class="word">{w}</span>
+            {i < words.length - 1 ? ' ' : ''}
+          </>
+        ))
+      }
+    </p>
+    <div class="mt-10" data-reveal>
+      <Button href="/about" variant="secondary">More about us</Button>
     </div>
   </div>
 </section>
 
 <style>
-  .about-img {
-    aspect-ratio: 3 / 2;
-    box-shadow: 0 10px 20px rgb(0 0 0 / 0.3);
-  }
-
   .word {
     display: inline-block;
     opacity: 0.3;
