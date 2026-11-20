@@ -1,0 +1,185 @@
+---
+import Icon from '@ui/icons/Icon.astro';
+
+// "Technologies we use" tabs from the Nexera design, filled with what each
+// Webfluence service includes (all of it described on the service pages).
+const groups = [
+  {
+    name: 'Performance marketing',
+    items: [
+      { name: 'Google Ads', icon: 'cursorRays' },
+      { name: 'Meta Ads', icon: 'chatBubble' },
+      { name: 'Purchase tracking', icon: 'chartPie' },
+      { name: 'Landing pages', icon: 'newWindow' },
+    ],
+  },
+  {
+    name: 'Creative & content',
+    items: [
+      { name: 'Social media content', icon: 'lightbulb' },
+      { name: 'Short video', icon: 'presentationChart' },
+      { name: 'Brand identity', icon: 'badge' },
+      { name: 'UI/UX design', icon: 'puzzle' },
+    ],
+  },
+  {
+    name: 'Software',
+    items: [
+      { name: 'ERP systems', icon: 'dataBase' },
+      { name: 'CRM platforms', icon: 'portfolio' },
+      { name: 'Mobile apps', icon: 'mobile' },
+      { name: 'WhatsApp chatbots', icon: 'chatBubble' },
+    ],
+  },
+  {
+    name: 'Web',
+    items: [
+      { name: 'Business websites', icon: 'world' },
+      { name: 'Shopify stores', icon: 'newWindow' },
+      { name: 'Web apps', icon: 'cog' },
+      { name: 'Checkout & payments', icon: 'checkCircle' },
+    ],
+  },
+  {
+    name: 'SEO',
+    items: [
+      { name: 'Technical SEO', icon: 'cog' },
+      { name: 'On-page SEO', icon: 'documentMagnifyingGlass' },
+      { name: 'Content strategy', icon: 'articles' },
+      { name: 'Schema markup', icon: 'documentChartBar' },
+    ],
+  },
+];
+---
+
+<section class="wrap py-16 sm:py-24" aria-labelledby="deliver-heading" data-deliver>
+  <div class="mb-10 text-center">
+    <p class="eyebrow eyebrow-center" data-reveal>What we deliver</p>
+    <h2 id="deliver-heading" class="section-title mt-4" data-reveal style="--i: 1">
+      Inside every <br />service
+    </h2>
+    <p class="section-description mx-auto mt-4 max-w-2xl" data-reveal style="--i: 2">
+      Pick a service to see what the team handles for you.
+    </p>
+  </div>
+
+  <div class="mb-12 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Services" data-reveal>
+    {
+      groups.map((g, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`deliver-tab-${i}`}
+          aria-controls={`deliver-panel-${i}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          class="deliver-tab rounded-full px-6 py-3 text-sm font-medium"
+        >
+          {g.name}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    groups.map((g, i) => (
+      <ul
+        id={`deliver-panel-${i}`}
+        role="tabpanel"
+        aria-labelledby={`deliver-tab-${i}`}
+        hidden={i !== 0}
+        class="deliver-grid mx-auto grid max-w-4xl grid-cols-2 justify-items-center gap-5 md:grid-cols-4"
+      >
+        {g.items.map(item => (
+          <li class="deliver-card flex w-full max-w-[180px] flex-col items-center justify-center rounded-2xl px-4 py-6 text-center">
+            <span class="bg-brand mb-3 grid size-14 place-items-center rounded-2xl">
+              <Icon name={item.icon} class="size-7 text-white" />
+            </span>
+            <span class="font-semibold text-[#2d3748]">{item.name}</span>
+          </li>
+        ))}
+      </ul>
+    ))
+  }
+</section>
+
+<style>
+  .deliver-tab {
+    background-color: var(--color-card-2);
+    color: #fff;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .deliver-tab:hover {
+    background-color: #718096;
+  }
+
+  .deliver-tab[aria-selected='true'] {
+    background-color: var(--color-accent);
+    color: #000;
+  }
+
+  .deliver-card {
+    background-color: #e5e7eb;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .deliver-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .deliver-grid:not([hidden]) .deliver-card {
+    animation: card-in 0.5s ease-out both;
+  }
+
+  .deliver-grid .deliver-card:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .deliver-grid .deliver-card:nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  .deliver-grid .deliver-card:nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+</style>
+
+<script>
+  function initDeliver() {
+    document.querySelectorAll<HTMLElement>('[data-deliver]').forEach(root => {
+      const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+      const select = (index: number) => {
+        tabs.forEach((tab, i) => {
+          const active = i === index;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+          const panel = root.querySelector<HTMLElement>(`#${tab.getAttribute('aria-controls')}`);
+          if (panel) panel.hidden = !active;
+        });
+      };
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => select(i));
+        tab.addEventListener('keydown', e => {
+          if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+          const next = (i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length;
+          select(next);
+          tabs[next].focus();
+        });
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initDeliver);
+</script>

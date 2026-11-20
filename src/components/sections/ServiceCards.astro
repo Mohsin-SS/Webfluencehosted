@@ -1,0 +1,205 @@
+---
+// Services from the Nexera design: image cards whose picture blurs on hover
+// while the title gives way to a short description. Priority order (see
+// src/data/site.ts). Images are Webfluence's own project screenshots.
+const services = [
+  {
+    title: 'Performance marketing',
+    text: 'Google Ads and Meta Ads run on real sales data, with tracking that counts purchases, not page views.',
+    href: '/digital-marketing',
+    image: '/case-studies/adoro/slide-6.webp',
+    alt: 'Adoro (ECS) case study slide: Google Ads tracking rebuilt around real sales',
+  },
+  {
+    title: 'Creative & media content',
+    text: 'Social media content, short video and brand design, made and posted for you so your feed stays consistent.',
+    href: '/creative',
+    image: '/case-studies/times-consultant/slide-1.jpg',
+    alt: 'Social media carousel designed by Webfluence for the Times Consultant case study',
+  },
+  {
+    title: 'ERP, CRM & mobile apps',
+    text: 'Custom ERP and CRM systems and cross-platform mobile apps, built around how your business runs.',
+    href: '/erp',
+    image: '/case-studies/times-consultant/crm-dashboard.jpg',
+    alt: 'CRM dashboard built by Webfluence for Times Consultant',
+  },
+  {
+    title: 'Web development',
+    text: 'Fast websites, Shopify stores and web apps, built to rank and to convert the traffic your ads send.',
+    href: '/web-development',
+    image: '/case-studies/latch/latch-home.jpg',
+    alt: 'Latch Shopify storefront rebuilt by Webfluence',
+  },
+  {
+    title: 'WhatsApp chatbots',
+    text: 'AI WhatsApp assistants that answer customers 24/7, take orders and log every chat in your CRM.',
+    href: '/whatsapp-chatbot',
+    image: '/case-studies/times-consultant/slide-3.jpg',
+    alt: 'WhatsApp bot that onboards students for Times Consultant',
+  },
+  {
+    title: 'SEO',
+    text: 'Technical fixes, on-page work and content, reported on the leads it brings rather than rankings alone.',
+    href: '/seo',
+    image: '/case-studies/zelvior/seo-copy.jpg',
+    alt: 'SEO copy written by Webfluence for Zelvior Official',
+  },
+];
+---
+
+<section id="services" class="wrap py-16 sm:py-24" aria-labelledby="services-heading">
+  <div class="mb-12 text-center">
+    <h2 id="services-heading" class="section-title" data-reveal>
+      Services we <span class="text-accent">offer</span>
+    </h2>
+    <p class="section-description mx-auto mt-4 max-w-2xl" data-reveal style="--i: 1">
+      Marketing that sells, and the systems behind it. One team runs all of it,
+      so your ads, content, website and software work from the same numbers.
+    </p>
+  </div>
+
+  <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+    {
+      services.map((s, i) => (
+        <li data-reveal style={`--i: ${i % 3}`}>
+          <a href={s.href} class="svc-card group">
+            <img src={s.image} alt={s.alt} class="svc-img" loading="lazy" decoding="async" />
+            <span class="svc-shade" aria-hidden="true" />
+            <h3 class="svc-title">{s.title}</h3>
+            <p class="svc-text">
+              {s.text}
+              <span class="svc-more">Learn more →</span>
+            </p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .svc-card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: var(--color-card);
+    box-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
+    text-align: center;
+    isolation: isolate;
+  }
+
+  .svc-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition:
+      filter 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+  }
+
+  /* Readable title over any image. */
+  .svc-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.2) 55%, transparent);
+    transition: background 0.3s ease-in-out;
+  }
+
+  .svc-title {
+    position: relative;
+    z-index: 2;
+    margin: 0 1rem 1.25rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: #fff;
+    transition:
+      transform 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
+  }
+
+  .svc-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1.25rem;
+    z-index: 2;
+    padding: 0 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #d1d5db;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+  }
+
+  .svc-more {
+    display: block;
+    margin-top: 0.75rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .svc-card:hover .svc-img,
+  .svc-card:focus-visible .svc-img {
+    filter: blur(5px);
+    transform: scale(1.05);
+  }
+
+  .svc-card:hover .svc-shade,
+  .svc-card:focus-visible .svc-shade {
+    background: rgb(0 0 0 / 0.7);
+  }
+
+  .svc-card:hover .svc-title,
+  .svc-card:focus-visible .svc-title {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  .svc-card:hover .svc-text,
+  .svc-card:focus-visible .svc-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Touch screens have no hover: stack the description under the title on
+     a darker image. */
+  @media (hover: none) {
+    .svc-card {
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .svc-shade {
+      background: linear-gradient(to top, rgb(0 0 0 / 0.92) 0%, rgb(0 0 0 / 0.75) 55%, rgb(0 0 0 / 0.35));
+    }
+
+    .svc-title {
+      margin: 0 1rem 0.5rem;
+    }
+
+    .svc-text {
+      position: relative;
+      bottom: auto;
+      margin-bottom: 1.25rem;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

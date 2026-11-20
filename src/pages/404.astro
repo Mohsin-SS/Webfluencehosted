@@ -87,17 +87,17 @@ const schema: WithContext<Thing> = {
 
     <div class="mx-auto w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <div class="mx-auto w-full max-w-lg px-4 sm:px-6 lg:px-8">
-        <ul class="glass divide-y divide-white/80 overflow-hidden rounded-[28px]">
+        <ul class="glass divide-y divide-card-2 overflow-hidden rounded-[28px]">
           {
             resources.map(resource => (
               <li>
                 <a
                   href={resource.link}
-                  class="group flex gap-x-5 px-6 py-6 transition-colors hover:bg-white/60"
+                  class="group flex gap-x-5 px-6 py-6 transition-colors hover:bg-card"
                 >
-                  <Icon name={resource.icon} class="text-brand size-6" />
+                  <Icon name={resource.icon} class="text-accent size-6" />
                   <div class="grow">
-                    <h3 class="text-ink-deep group-hover:text-brand text-lg transition-colors">
+                    <h3 class="text-ink-deep group-hover:text-accent text-lg transition-colors">
                       {resource.title}
                     </h3>
                     <p class="mt-1 text-slate-500">{resource.description}</p>

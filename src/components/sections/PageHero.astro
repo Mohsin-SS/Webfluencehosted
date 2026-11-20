@@ -26,117 +26,66 @@ const {
 } = Astro.props;
 ---
 
-<section class="hero-band lit overflow-hidden [--l1x:-10rem] [--l1y:-20%] [--l2x:-6rem] [--l2y:-10%]">
-  <div class="wrap pt-14 pb-14 sm:pt-20 lg:pt-24 lg:pb-20">
-    <div
-      class="shell grid items-center gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"
-    >
-      <div>
-        {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
-        <h1
-          data-reveal
-          style="--i: 1"
-          class="mt-6 text-[2.6rem] leading-[1.04] text-balance sm:text-6xl"
-        >
-          {title}
-        </h1>
-        <p data-reveal style="--i: 2" class="mt-6 max-w-xl text-[17px] leading-8">{lead}</p>
-        {
-          cta && (
-            <div data-reveal style="--i: 3" class="mt-9 flex flex-wrap gap-3">
-              <Button href={cta.href} variant="primary">
-                {cta.text}
-              </Button>
-              <Button href="#faq-heading" variant="secondary">
-                Read the FAQ
-              </Button>
-            </div>
-          )
-        }
-      </div>
-
-      <div data-reveal style="--i: 2" class="relative mx-auto w-full max-w-md lg:max-w-none">
-        {/* Light under the card so the glass has something to frost */}
-        <div class="summary-light" aria-hidden="true"></div>
-        <div
-          data-spotlight
-          class="summary glass rounded-[32px] p-7 sm:p-9"
-          aria-hidden={points.length ? undefined : 'true'}
-        >
-          <div class="flex items-center gap-4">
-            <span class="summary-icon">
-              <Icon name={icon} class="size-6 text-white" />
-            </span>
-            <p class="font-display text-ink-deep text-xl font-semibold tracking-tight">
-              {summaryTitle}
-            </p>
-          </div>
-          {
-            points.length > 0 && (
-              <ul class="mt-7 space-y-1">
-                {points.map(point => (
-                  <li class="text-ink-deep flex items-center gap-3 rounded-2xl bg-white/50 px-4 py-3.5 text-[15px] font-medium ring-1 ring-white/80">
-                    <span class="summary-tick" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
-                    </span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            )
-          }
+<section class="relative overflow-hidden">
+  <div class="page-glow" aria-hidden="true"></div>
+  <div class="wrap relative py-16 text-center sm:py-24 lg:py-28">
+    {eyebrow && <p class="eyebrow eyebrow-center" data-reveal>{eyebrow}</p>}
+    <h1 class="page-title mx-auto mt-6 max-w-5xl" data-reveal style="--i: 1">{title}</h1>
+    <p class="mx-auto mt-7 max-w-3xl text-lg leading-[1.7] text-slate-500 sm:text-xl" data-reveal style="--i: 2">
+      {lead}
+    </p>
+    {
+      cta && (
+        <div class="mt-10 flex flex-wrap justify-center gap-3" data-reveal style="--i: 3">
+          <Button href={cta.href}>{cta.text}</Button>
+          <Button href="#faq-heading" variant="secondary">Read the FAQ</Button>
         </div>
-      </div>
-    </div>
+      )
+    }
+    {
+      points.length > 0 && (
+        <div class="mt-12" data-reveal style="--i: 4">
+          <p class="text-xs font-semibold tracking-[0.1em] text-slate-500 uppercase">{summaryTitle}</p>
+          <ul class="mt-4 flex flex-wrap justify-center gap-3">
+            {points.map(point => (
+              <li class="flex items-center gap-2.5 rounded-full border border-card-2 bg-card px-5 py-2.5 font-medium text-white">
+                <Icon name={icon} class="text-accent size-5" />
+                {point}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </div>
 </section>
 
 <style>
-  .summary {
-    animation: float 9s ease-in-out infinite;
+  .page-title {
+    font-size: 3rem;
+    line-height: 0.9;
   }
 
-  @keyframes float {
-    50% {
-      transform: translate3d(0, -10px, 0);
+  @media (min-width: 640px) {
+    .page-title {
+      font-size: 4.5rem;
     }
   }
 
-  .summary-light {
+  @media (min-width: 1024px) {
+    .page-title {
+      font-size: clamp(5rem, 7vw, 7.5rem);
+    }
+  }
+
+  .page-glow {
     position: absolute;
-    inset: 10% 5% 0 15%;
-    z-index: -1;
-    border-radius: 9999px;
-    background:
-      radial-gradient(circle at 30% 30%, rgb(20 118 235 / 0.4), transparent 60%),
-      radial-gradient(circle at 75% 75%, rgb(1 164 202 / 0.38), transparent 60%);
-  }
-
-  .summary-icon {
-    display: grid;
-    place-items: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1rem;
-    background: linear-gradient(140deg, var(--color-brand), var(--color-lagoon));
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.35),
-      0 10px 22px -10px rgb(20 118 235 / 0.7);
-  }
-
-  .summary-tick {
-    display: grid;
-    place-items: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex: none;
-    border-radius: 9999px;
-    color: #fff;
-    background: linear-gradient(140deg, var(--color-brand), var(--color-lagoon));
-  }
-
-  .summary-tick svg {
-    width: 0.8rem;
-    height: 0.8rem;
+    left: 50%;
+    top: 10%;
+    width: min(56rem, 120vw);
+    height: 24rem;
+    translate: -50% 0;
+    background: radial-gradient(closest-side, rgb(20 118 235 / 0.2), transparent);
+    pointer-events: none;
   }
 </style>

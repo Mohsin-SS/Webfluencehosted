@@ -22,11 +22,10 @@ const columns = [
 ];
 
 const linkClass =
-  'text-white/75 transition-colors duration-200 hover:text-white focus-visible:text-white';
+  'text-slate-500 transition-colors duration-300 hover:text-white focus-visible:text-white';
 ---
 
-<footer class="band-night text-sm text-white">
-  <div class="footer-glow" aria-hidden="true"></div>
+<footer class="bg-panel text-sm text-white">
   <div class="wrap">
   <div class="shell grid gap-x-8 gap-y-12 pt-20 pb-16 sm:grid-cols-2 lg:grid-cols-12">
     {/* Brand + company */}
@@ -42,14 +41,14 @@ const linkClass =
           alt=""
           width="40"
           height="40"
-          class="size-10 object-contain mix-blend-screen invert"
+          class="size-10 rounded-full object-contain invert"
           loading="lazy"
         />
-        <span class="font-display text-[19px] leading-none font-bold tracking-[0.01em]"
+        <span class="text-[1.5rem] leading-none font-bold tracking-[0.01em]"
           >WEBFLUENCE</span
         >
       </a>
-      <p class="mt-5 max-w-xs leading-relaxed text-white/70">
+      <p class="mt-5 max-w-xs leading-relaxed text-slate-500">
         Performance marketing and software development company in Lahore,
         Pakistan.
       </p>
@@ -73,7 +72,7 @@ const linkClass =
       {
         columns.map(column => (
           <div>
-            <h3 class="font-mono text-[11px] font-medium tracking-[0.1em] text-white/50 uppercase">{column.heading}</h3>
+            <h3 class="text-xs font-bold tracking-[0.1em] text-white uppercase">{column.heading}</h3>
             <ul class="mt-4 space-y-2.5">
               {column.links.map(link => (
                 <li>
@@ -89,8 +88,8 @@ const linkClass =
     </div>
 
     {/* Contact */}
-    <div class="glass-dark rounded-3xl p-6 lg:col-span-3">
-      <h3 class="font-mono text-[11px] font-medium tracking-[0.1em] text-white/50 uppercase">Contact us</h3>
+    <div class="bg-card rounded-2xl p-6 lg:col-span-3">
+      <h3 class="text-xs font-bold tracking-[0.1em] text-white uppercase">Contact us</h3>
       <address class="mt-4 space-y-2.5 not-italic">
         <p class="text-base font-medium">{business.name}</p>
         <p class="text-white/85">{addressLine}</p>
@@ -109,9 +108,9 @@ const linkClass =
   </div>
 
   </div>
-  <div class="wrap border-t border-white/10">
+  <div class="wrap border-t border-card">
     <div
-      class="shell flex flex-col gap-2 py-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between"
+      class="shell flex flex-col items-center gap-3 py-8 text-center text-sm text-slate-500"
     >
       <p>© {year} {business.name}. All rights reserved.</p>
       <p>
@@ -122,17 +121,3 @@ const linkClass =
     </div>
   </div>
 </footer>
-
-<style>
-  .footer-glow {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    z-index: -1;
-    width: min(70rem, 100%);
-    height: 1px;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, transparent, rgb(124 196 255 / 0.7), rgb(47 208 240 / 0.7), transparent);
-    box-shadow: 0 0 40px 6px rgb(20 118 235 / 0.35);
-  }
-</style>

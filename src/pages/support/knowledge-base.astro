@@ -50,7 +50,7 @@ const schema = webPageSchema({
         </h1>
         <p class="mt-6 text-base leading-8">
           {total} answers about Webfluence's services, grouped by service. Can't
-          find yours? <a href="/contact" class="text-brand font-semibold hover:underline"
+          find yours? <a href="/contact" class="text-accent font-semibold hover:underline"
             >Ask the team</a
           >.
         </p>
@@ -65,7 +65,7 @@ const schema = webPageSchema({
         </label>
         <p data-kb-empty hidden class="mt-4 text-[15px]">
           No answers match that search. Try another word, or
-          <a href="/contact" class="text-brand font-semibold hover:underline"
+          <a href="/contact" class="text-accent font-semibold hover:underline"
             >ask us directly</a
           >.
         </p>
@@ -79,13 +79,13 @@ const schema = webPageSchema({
         groups.map(group => (
           <div data-kb-group data-reveal class="glass rounded-[28px] p-7 sm:p-9">
             <h2 class="text-2xl sm:text-[1.75rem]">
-              <a href={group.href} class="hover:text-brand">
+              <a href={group.href} class="hover:text-accent">
                 {group.title}
               </a>
             </h2>
             <div class="mt-6 space-y-8">
               {faqs[group.key].map(item => (
-                <div data-kb-item class="border-t border-white/90 pt-6">
+                <div data-kb-item class="border-t border-card-2 pt-6">
                   <h3 class="text-ink text-[17px] leading-snug font-bold">
                     {item.question}
                   </h3>

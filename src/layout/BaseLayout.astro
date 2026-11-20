@@ -22,7 +22,7 @@ interface Props {
 
 // Extract `seo` and `schema` from properties or define defaults
 const { seo, schema } = Astro.props;
-const socialImage = `${SITE_URL}/social.png`; // Path to the default social sharing image
+const socialImage = `${SITE_URL}/social-webfluence.png`; // Link preview image (1200x630)
 
 // Clean canonical URL (no .html, /case-studies -> /work); pages can override.
 const canonical = String(seo?.canonical ?? canonicalUrl(Astro.url.pathname));
@@ -58,7 +58,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
 );
 ---
 
-<html lang="en" class="scroll-pt-24">
+<html lang="en" class="dark scroll-pt-24">
   <head>
     <script is:inline>
       // Mark JS as available (scroll reveals only hide content when it is).
@@ -122,7 +122,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         ],
         meta: [
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-          { name: 'theme-color', content: '#f3f7fc' },
+          { name: 'theme-color', content: '#000000' },
           { name: 'generator', content: `${Astro.generator}` },
           ...(google.searchConsoleVerification
             ? [
@@ -156,18 +156,16 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
     {/* Client-Side Router for page transitions */}
     <ClientRouter />
 
-    {/* Fonts: Bricolage Grotesque (headlines), Geist (text), Geist Mono (labels) */}
+    {/* Fonts: Bebas Neue (headlines), Inter (everything else) */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist+Mono:wght@400;500&family=Geist:wght@400..600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap"
     />
   </head>
   <body class="text-ink">
     {/* Page-wide light behind the glass */}
-    <div class="light-fields" aria-hidden="true"></div>
-
     <Navbar />
 
     <main>
@@ -242,7 +240,65 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         { passive: true }
       );
 
-      document.addEventListener('astro:page-load', initMotion);
+      // Light flip: while a [data-flip-light] section is on screen the page
+      // turns light (from the Nexera design).
+      let flipObserver: IntersectionObserver | null = null;
+      function initFlip() {
+        flipObserver?.disconnect();
+        document.documentElement.classList.remove('flip-light');
+        const sections = document.querySelectorAll('[data-flip-light]');
+        if (!sections.length || !('IntersectionObserver' in window)) return;
+        const visible = new Set<Element>();
+        flipObserver = new IntersectionObserver(
+          entries => {
+            entries.forEach(e =>
+              e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)
+            );
+            document.documentElement.classList.toggle('flip-light', visible.size > 0);
+          },
+          { threshold: 0.1 }
+        );
+        sections.forEach(s => flipObserver!.observe(s));
+      }
+
+      // Word-by-word brightening for [data-words] paragraphs.
+      let wordTimers: number[] = [];
+      let wordObserver: IntersectionObserver | null = null;
+      function initWords() {
+        wordObserver?.disconnect();
+        wordTimers.forEach(clearTimeout);
+        wordTimers = [];
+        const blocks = document.querySelectorAll<HTMLElement>('[data-words]');
+        if (!blocks.length) return;
+        if (reduce.matches || !('IntersectionObserver' in window)) {
+          blocks.forEach(b => b.querySelectorAll('.word').forEach(w => w.classList.add('bright')));
+          return;
+        }
+        wordObserver = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              const words = [...entry.target.querySelectorAll<HTMLElement>('.word')];
+              wordTimers.forEach(clearTimeout);
+              wordTimers = [];
+              if (entry.isIntersecting) {
+                words.forEach((w, i) =>
+                  wordTimers.push(window.setTimeout(() => w.classList.add('bright'), i * 45))
+                );
+              } else {
+                words.forEach(w => w.classList.remove('bright'));
+              }
+            });
+          },
+          { threshold: 0 }
+        );
+        blocks.forEach(b => wordObserver!.observe(b));
+      }
+
+      document.addEventListener('astro:page-load', () => {
+        initMotion();
+        initFlip();
+        initWords();
+      });
     </script>
   </body>
 </html>

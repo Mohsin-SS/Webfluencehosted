@@ -1,0 +1,128 @@
+---
+import Button from '@ui/Button.astro';
+
+// "Our showcase" from the Nexera design: two rows of project images sliding
+// in opposite directions. All images are Webfluence client work.
+const top = [
+  '/case-studies/times-consultant/slide-2.jpg',
+  '/case-studies/carology/studio.webp',
+  '/case-studies/adoro/home.webp',
+  '/case-studies/zelvior/zel-capsule.jpg',
+  '/case-studies/zelvior/zel-hero.jpg',
+  '/case-studies/times-consultant/slide-4.jpg',
+  '/crm-images/1.webp',
+];
+const bottom = [
+  '/case-studies/adoro/product-page.webp',
+  '/case-studies/zelvior/zel-checkout.jpg',
+  '/case-studies/carology/plate-visualiser.webp',
+  '/case-studies/latch/latch-hero-banner.jpg',
+  '/case-studies/times-consultant/slide-5.jpg',
+  '/case-studies/adoro/collection.webp',
+  '/case-studies/zelvior/zel-product.jpg',
+];
+---
+
+<section class="py-16 sm:py-24" aria-labelledby="showcase-heading">
+  <div class="wrap mb-12 text-center">
+    <h2 id="showcase-heading" class="section-title" data-reveal>
+      Our <span class="text-accent">showcase</span>
+    </h2>
+    <p class="section-description mx-auto mt-4 max-w-2xl" data-reveal style="--i: 1">
+      Stores, CRMs, AI tools and campaigns from recent client projects.
+    </p>
+  </div>
+
+  <div class="showcase flex flex-col gap-4" aria-hidden="true">
+    {
+      [
+        { list: top, dir: 'left' },
+        { list: bottom, dir: 'right' },
+      ].map(row => (
+        <ul class={`showcase-row ${row.dir}`}>
+          {[...row.list, ...row.list].map(src => (
+            <li>
+              <img src={src} alt="" class="showcase-img" loading="lazy" decoding="async" />
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+
+  <div class="mt-12 text-center" data-reveal>
+    <Button href="/contact">Start your project</Button>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    overflow: hidden;
+  }
+
+  .showcase-row {
+    display: flex;
+    width: max-content;
+    animation: 60s linear infinite;
+    will-change: transform;
+  }
+
+  .showcase-row.left {
+    animation-name: row-left;
+  }
+
+  .showcase-row.right {
+    animation-name: row-right;
+  }
+
+  .showcase:hover .showcase-row {
+    animation-play-state: paused;
+  }
+
+  .showcase-img {
+    display: block;
+    width: 350px;
+    height: 250px;
+    margin-right: 1rem;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 0.75rem;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 0.3);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .showcase-img:hover {
+    transform: scale(1.03);
+  }
+
+  /* Each row holds its images twice, so moving by half loops seamlessly. */
+  @keyframes row-left {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes row-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .showcase-img {
+      width: 220px;
+      height: 160px;
+      margin-right: 0.75rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .showcase-img {
+      width: 280px;
+      height: 200px;
+    }
+  }
+</style>

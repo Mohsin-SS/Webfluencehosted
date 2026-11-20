@@ -10,71 +10,80 @@
 @plugin '@tailwindcss/typography';
 
 /*
-  Webfluence design system: "frost & signal".
+  Webfluence design system, taken from the "Nexera" design.
 
-  A cool frost-white page lit by soft fields of the two brand colours
-  (signal blue #1476eb and lagoon #01a4ca), with frosted-glass panels on top
-  and a deep navy for the dark bands. No purple anywhere: every gradient runs
-  blue -> lagoon. Leaf green is kept for positive results only.
+  Black page, white text, tall condensed Bebas Neue headlines with Inter for
+  everything else, blue-grey cards (#2D3748) and white pill buttons. The
+  accent is the Webfluence brand blue; change --color-accent (text accent)
+  and --color-brand (buttons) to re-colour the whole site.
 
-  `slate-*` and `blue-*` are remapped onto this palette so older pages pick
-  the scheme up without touching their markup.
+  `slate-*`, `blue-*` and the older role names (ink, mist, ice...) are
+  remapped for a dark page so older markup adapts without edits:
+  low slate numbers are dark surfaces, high numbers are light text.
 */
 @theme {
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-black: #000;
   --color-white: #fff;
-  --color-off-white: #f6f9fd;
+  --color-off-white: #e5e7eb;
+
+  /* Accent (brand blue). Nexera used red #ef4444 here. */
+  --color-accent: #5aa8ff; /* passes 4.5:1 on black and on the grey cards */
 
   /* Named roles */
-  --color-ink: #2a3547; /* body text */
-  --color-ink-deep: #0a1628; /* headings, strongest text */
-  --color-brand: #1476eb; /* signal blue: buttons, links */
-  --color-brand-bright: #2b8cff; /* highlighted words */
-  --color-brand-deep: #0a55c2;
-  --color-lagoon: #01a4ca; /* second brand colour */
-  --color-leaf: #5bb947; /* positive results only */
+  --color-ink: #d1d5db; /* body text (gray-300) */
+  --color-ink-deep: #ffffff; /* headings, strongest text */
+  --color-brand: #1476eb; /* buttons, links */
+  --color-brand-bright: #5aa8ff;
+  --color-brand-deep: #8cc4ff; /* hover on dark = lighter */
+  --color-lagoon: #01a4ca;
+  --color-leaf: #34d399; /* positive results */
   --color-sky: #7cc4ff;
-  --color-ice: #e3f2fb;
-  --color-frost: #f3f7fc; /* page base */
-  --color-mist: #eaf0f8; /* quiet panels */
-  --color-fog: #f6f9fd;
-  --color-line: #dbe4ef; /* dividers */
-  --color-coal: #0f1e33; /* dark band start */
-  --color-night: #07111f; /* dark band end */
+  --color-ice: #1a202c;
+  --color-frost: #000000; /* page */
+  --color-mist: #1a202c;
+  --color-fog: #111111;
+  --color-line: #2d3748;
+  --color-coal: #1a202c;
+  --color-night: #000000;
 
-  /* Cool blue-grey neutrals */
-  --color-slate-50: #f6f8fb;
-  --color-slate-100: #eef2f7;
-  --color-slate-200: #dfe6ef;
-  --color-slate-300: #c9d3e0;
-  --color-slate-400: #98a6b8;
-  --color-slate-500: #66758a;
-  --color-slate-600: #4f5d71;
-  --color-slate-700: #3c495c;
-  --color-slate-800: #2a3547;
-  --color-slate-900: #162133;
-  --color-slate-950: #0a1628;
+  /* Nexera greys */
+  --color-card: #2d3748; /* gray-800: cards */
+  --color-card-2: #4a5568; /* gray-700: inputs, pills */
+  --color-panel: #1a202c; /* gray-900: footer, bands */
 
-  /* Blue scale anchored on the brand blue at 600 */
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-200: #bfdcfd;
-  --color-blue-300: #8fc2fb;
-  --color-blue-400: #4fa2f7;
+  /* Slate remapped for a dark page */
+  --color-slate-50: #0d0d0d;
+  --color-slate-100: #141820;
+  --color-slate-200: #2d3748;
+  --color-slate-300: #4a5568;
+  --color-slate-400: #718096;
+  --color-slate-500: #9ca3af;
+  --color-slate-600: #b4bac4;
+  --color-slate-700: #d1d5db;
+  --color-slate-800: #e5e7eb;
+  --color-slate-900: #f3f4f6;
+  --color-slate-950: #ffffff;
+
+  /* Blue remapped: dark tints at the low end, lighter blues at the top */
+  --color-blue-50: #0b1a2e;
+  --color-blue-100: #0e2440;
+  --color-blue-200: #143766;
+  --color-blue-300: #1d4f91;
+  --color-blue-400: #2b6fd0;
   --color-blue-500: #2b8cff;
   --color-blue-600: #1476eb;
   --color-blue-700: #1476eb;
-  --color-blue-800: #0a5fcc;
-  --color-blue-900: #0b4a9c;
-  --color-blue-950: #08254b;
+  --color-blue-800: #5aa8ff;
+  --color-blue-900: #8cc4ff;
+  --color-blue-950: #cfe6ff;
 
   --font-sans:
-    'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display:
-    'Bricolage Grotesque', 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bebas Neue', 'Inter', ui-sans-serif, sans-serif;
+  /* Labels use Inter, set uppercase and tracked where they appear. */
+  --font-mono: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
   --radius-chip: 10px;
 
@@ -86,7 +95,6 @@
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards)
     linear infinite;
 
-  /* Older class names still used across pages. */
   --font-dm-sans: var(--font-sans);
   --font-work-sans: var(--font-sans);
 
@@ -108,40 +116,45 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-frost);
+    background-color: #000;
     overflow-x: clip;
+    color-scheme: dark;
   }
 
   body {
-    /* clip, not hidden: section lights may poke past the edge, and clip
-       keeps position: sticky working. */
     overflow-x: clip;
     font-family: var(--font-sans);
     color: var(--color-ink);
-    background-color: var(--color-frost);
+    background-color: #000;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    transition:
+      background-color 0.5s ease-in-out,
+      color 0.5s ease-in-out;
   }
 
+  /* Bebas Neue is capitals-only, so headlines read as uppercase. */
   h1,
   h2 {
     font-family: var(--font-display);
-    font-weight: 650;
-    letter-spacing: -0.035em;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 0.95;
     color: var(--color-ink-deep);
   }
 
   h3,
   h4 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.01em;
     color: var(--color-ink-deep);
   }
 
   ::selection {
-    background: rgb(20 118 235 / 0.18);
-    color: var(--color-ink-deep);
+    background: rgb(59 155 255 / 0.35);
+    color: #fff;
   }
 
   button:not(:disabled),
@@ -150,7 +163,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -171,161 +184,112 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Light fields: the page-wide atmosphere behind the glass.            */
-/* Static on purpose: moving light under many glass panels forces the  */
-/* browser to re-blur every frame. Only the hero's light moves.        */
+/* Light flip (Nexera): while a [data-flip-light] section is on screen */
+/* the page turns light. BaseLayout toggles html.flip-light.           */
 /* ------------------------------------------------------------------ */
+html.flip-light,
+html.flip-light body {
+  background-color: #e5e7eb;
+}
+
+html.flip-light body {
+  --color-ink: #2d3748;
+  --color-ink-deep: #000000;
+  --color-card: #ffffff;
+  --color-card-2: #d1d5db;
+  --color-slate-500: #4a5568;
+  --color-slate-600: #4a5568;
+  --color-slate-700: #2d3748;
+  color: var(--color-ink);
+}
+
+/* Kept as a no-op hook from the previous design. */
 .light-fields {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  pointer-events: none;
-  background:
-    radial-gradient(42rem 32rem at 8% -6%, rgb(20 118 235 / 0.16), transparent 70%),
-    radial-gradient(38rem 30rem at 96% 12%, rgb(1 164 202 / 0.14), transparent 70%),
-    radial-gradient(46rem 34rem at 70% 108%, rgb(124 196 255 / 0.18), transparent 70%),
-    var(--color-frost);
+  display: none;
 }
 
 /* ------------------------------------------------------------------ */
-/* Glass                                                               */
+/* Surfaces (names kept from earlier designs; all render as Nexera     */
+/* cards now)                                                          */
 /* ------------------------------------------------------------------ */
 @utility glass {
   position: relative;
-  background: linear-gradient(
-    150deg,
-    rgb(255 255 255 / 0.7),
-    rgb(255 255 255 / 0.38)
-  );
-  border: 1px solid rgb(255 255 255 / 0.8);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.95),
-    0 0 0 1px rgb(14 52 110 / 0.05),
-    0 24px 60px -32px rgb(10 40 90 / 0.38);
-  /* Through a variable so the minifier keeps both: it otherwise merges the
-     pair and drops one (Chrome needs the standard one, iOS <= 17 the -webkit- one). */
-  --glass-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
+  background-color: var(--color-card);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
+  transition:
+    background-color 0.5s ease-in-out,
+    box-shadow 0.5s ease-in-out;
 }
 
-/* Thinner glass for small chips and pills. */
 @utility glass-thin {
   position: relative;
-  background: rgb(255 255 255 / 0.62);
-  border: 1px solid rgb(255 255 255 / 0.85);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 0 0 1px rgb(14 52 110 / 0.06),
-    0 12px 30px -18px rgb(10 40 90 / 0.4);
-  /* Through a variable so the minifier keeps both: it otherwise merges the
-     pair and drops one (Chrome needs the standard one, iOS <= 17 the -webkit- one). */
-  --glass-filter: blur(16px) saturate(170%);
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
+  background-color: var(--color-card);
+  border: 1px solid var(--color-card-2);
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
 }
 
-/* Soft blue and lagoon light behind a section, for its glass to frost.
-   Move the lights with --l1x/--l1y (blue, from top-left) and
-   --l2x/--l2y (lagoon, from bottom-right). */
-@utility lit {
-  position: relative;
-  isolation: isolate;
-  /* Keep the lights inside the viewport width; phones otherwise zoom out
-     to fit them. clip (not hidden) keeps position: sticky working. */
-  overflow-x: clip;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    width: var(--lw, 36rem);
-    height: var(--lw, 36rem);
-    border-radius: 9999px;
-    pointer-events: none;
-  }
-
-  &::before {
-    left: var(--l1x, -8rem);
-    top: var(--l1y, 8%);
-    background: radial-gradient(circle, rgb(20 118 235 / 0.3), transparent 66%);
-  }
-
-  &::after {
-    right: var(--l2x, -8rem);
-    bottom: var(--l2y, 4%);
-    background: radial-gradient(circle, rgb(1 164 202 / 0.26), transparent 66%);
-  }
-}
-
-/* Glass on the dark navy bands. */
 @utility glass-dark {
   position: relative;
-  background: linear-gradient(
-    150deg,
-    rgb(255 255 255 / 0.1),
-    rgb(255 255 255 / 0.03)
-  );
-  border: 1px solid rgb(255 255 255 / 0.12);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.14),
-    0 30px 60px -36px rgb(0 0 0 / 0.7);
-  /* Through a variable so the minifier keeps both: it otherwise merges the
-     pair and drops one (Chrome needs the standard one, iOS <= 17 the -webkit- one). */
-  --glass-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
+  background-color: var(--color-card);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
 }
 
-/* The dark navy band itself, lit from inside by the brand colours. */
+/* Section band: the darker gray-900 panel. */
 @utility band-night {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  color: rgb(255 255 255 / 0.78);
-  background:
-    radial-gradient(40rem 26rem at 12% 0%, rgb(20 118 235 / 0.42), transparent 70%),
-    radial-gradient(36rem 26rem at 92% 100%, rgb(1 164 202 / 0.32), transparent 70%),
-    linear-gradient(160deg, var(--color-coal), var(--color-night));
+  color: var(--color-ink);
+  background-color: var(--color-panel);
 
   & :where(h1, h2, h3, h4) {
     color: #fff;
   }
 }
 
-/* Blue -> lagoon text for the one accented phrase in a heading. */
-@utility text-signal {
-  background: linear-gradient(100deg, var(--color-brand) 10%, var(--color-lagoon) 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Kept as a hook; the dark design has no section lights. */
+@utility lit {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
 }
 
-/* Small monospaced label above headings. */
-@utility eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.6;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-brand);
+/* Accent words in headlines (Nexera's "service-color-pink"). */
+@utility text-signal {
+  color: var(--color-accent);
+}
 
-  &::before {
+/* Small label: accent, uppercase, with a short bar underneath. */
+@utility eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+
+  &::after {
     content: '';
-    width: 1.5rem;
+    display: block;
+    width: 3rem;
     height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, var(--color-brand), var(--color-lagoon));
+    margin-top: 0.5rem;
+    background-color: var(--color-accent);
   }
 }
 
-/* Page container: full screen width with a slim gutter so text never
-   touches the edge. Content uses the whole width (owner's choice). */
+/* Centre the eyebrow's bar under centred text. */
+@utility eyebrow-center {
+  &::after {
+    margin-inline: auto;
+  }
+}
+
+/* Page container: full screen width with a slim gutter. */
 @utility wrap {
   width: 100%;
   padding-inline: 1rem;
@@ -339,14 +303,11 @@
   }
 }
 
-/* Content block inside .wrap. Full width; kept as a hook in case a max
-   width is wanted again (set max-width here). */
 @utility shell {
   width: 100%;
   margin-inline: auto;
 }
 
-/* wrap + shell on a single element: same gutter, same content width. */
 @utility page {
   width: 100%;
   margin-inline: auto;
@@ -361,32 +322,16 @@
   }
 }
 
-/* Header band for inner pages: transparent over the light fields, with a
-   faint engineering grid fading out from the top. */
 @utility hero-band {
   position: relative;
   isolation: isolate;
   background-color: transparent;
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: 0 0 auto 0;
-    height: 26rem;
-    background-image:
-      linear-gradient(rgb(20 118 235 / 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(20 118 235 / 0.07) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(60% 100% at 50% 0%, #000, transparent);
-  }
 }
 
-/* Kept for older markup: a run of thin vertical bars that fades out. */
 @utility stripes {
   background-image: repeating-linear-gradient(
     to right,
-    var(--stripe-color, rgb(20 118 235 / 0.3)) 0 2px,
+    var(--stripe-color, rgb(255 255 255 / 0.12)) 0 2px,
     transparent 2px var(--stripe-gap, 9px)
   );
 }
@@ -400,31 +345,69 @@
 }
 
 @utility stripes-fade-x {
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 18%,
-    #000 82%,
-    transparent
-  );
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
 }
 
 @utility card {
-  @apply relative z-10 flex h-full flex-col rounded-2xl p-5 transition-transform duration-500 md:p-6;
-  background: linear-gradient(150deg, rgb(255 255 255 / 0.74), rgb(255 255 255 / 0.46));
-  border: 1px solid rgb(255 255 255 / 0.8);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.95),
-    0 0 0 1px rgb(14 52 110 / 0.05),
-    0 24px 60px -32px rgb(10 40 90 / 0.38);
-  /* Through a variable so the minifier keeps both: it otherwise merges the
-     pair and drops one (Chrome needs the standard one, iOS <= 17 the -webkit- one). */
-  --glass-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
+  @apply relative z-10 flex h-full flex-col rounded-2xl p-6;
+  background-color: var(--color-card);
+  box-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
+  transition:
+    transform 0.3s ease,
+    background-color 0.5s ease-in-out;
 
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+  }
+}
+
+/* Section title scale from the design: 2.5rem / 3rem / 3.75rem. */
+@utility section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2.5rem;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: var(--color-ink-deep);
+
+  @media (min-width: 640px) {
+    font-size: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3.75rem;
+  }
+}
+
+@utility section-description {
+  color: #9ca3af;
+  font-size: 1.125rem;
+  line-height: 1.7;
+
+  @media (min-width: 640px) {
+    font-size: 1.25rem;
+  }
+}
+
+/* Pill buttons from the design. */
+@utility pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
   }
 }
 
@@ -432,26 +415,23 @@
 /* Motion                                                              */
 /* ------------------------------------------------------------------ */
 
-/* Scroll reveal. Only hidden once JS has marked the page (html.js), so the
-   content is always visible without JavaScript and to crawlers. */
+/* Fade in and slide up as sections scroll in. Only hidden once JS has
+   marked the page (html.js), so content is always visible without JS. */
 html.js [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  filter: blur(8px);
+  transform: translate3d(0, 20px, 0);
   transition:
-    opacity 1s var(--ease-out-expo),
-    transform 1s var(--ease-out-expo),
-    filter 1s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 90ms);
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  transition-delay: calc(var(--i, 0) * 80ms);
 }
 
 html.js [data-reveal].is-in {
   opacity: 1;
   transform: none;
-  filter: none;
 }
 
-/* Cursor spotlight on glass cards: a soft brand light follows the pointer. */
+/* Soft accent light that follows the cursor over cards. */
 [data-spotlight] {
   --mx: 50%;
   --my: 0%;
@@ -465,11 +445,10 @@ html.js [data-reveal].is-in {
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.5s var(--ease-out-expo);
+  transition: opacity 0.4s ease;
   background: radial-gradient(
-    22rem 22rem at var(--mx) var(--my),
-    rgb(43 140 255 / 0.16),
-    rgb(1 164 202 / 0.06) 40%,
+    18rem 18rem at var(--mx) var(--my),
+    rgb(59 155 255 / 0.12),
     transparent 70%
   );
 }
@@ -478,66 +457,76 @@ html.js [data-reveal].is-in {
   opacity: 1;
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.js [data-reveal] {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
 
 /* ------------------------------------------------------------------ */
 /* Case study pages (/work/*) use their own .cs-* styles. These rules  */
-/* retune their tokens to this system. `body .cs.cs` outranks each     */
-/* page's scoped `.cs[data-astro-cid-…]` without !important.           */
+/* re-theme their tokens to the dark design. `:root body .cs.cs.cs`    */
+/* outranks each page's scoped `.cs[data-astro-cid-…]` and its own     */
+/* `.dark .cs` theme without !important.                               */
 /* ------------------------------------------------------------------ */
-body .cs.cs {
-  --cs-ink: #0a1628;
-  --cs-ink-2: #3c495c;
-  --cs-accent: #1476eb;
-  --cs-accent-deep: #0a55c2;
-  --cs-line: rgb(20 118 235 / 0.16);
-  --cs-glass: linear-gradient(150deg, rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.38));
-  --cs-glass-rim: rgb(255 255 255 / 0.85);
-  --cs-shadow: 0 0 0 1px rgb(14 52 110 / 0.05), 0 24px 60px -32px rgb(10 40 90 / 0.38);
-  background:
-    radial-gradient(40rem 30rem at 88% 0%, rgb(1 164 202 / 0.16), transparent 70%),
-    radial-gradient(40rem 30rem at 0% 35%, rgb(20 118 235 / 0.16), transparent 70%),
-    radial-gradient(40rem 30rem at 100% 78%, rgb(124 196 255 / 0.2), transparent 70%),
-    transparent;
+:root body .cs.cs.cs {
+  --cs-ink: #ffffff;
+  --cs-ink-2: #d1d5db;
+  --cs-accent: #5aa8ff;
+  --cs-accent-deep: #8cc4ff;
+  --cs-line: rgb(255 255 255 / 0.12);
+  --cs-glass: #2d3748;
+  --cs-glass-rim: #4a5568;
+  --cs-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
+  background: #000;
 }
 
 body .cs .cs-glass.cs-glass {
-  /* Through a variable so the minifier keeps both: it otherwise merges the
-     pair and drops one (Chrome needs the standard one, iOS <= 17 the -webkit- one). */
-  --glass-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 body .cs .cs-btn.cs-btn {
   border-radius: 9999px;
-  transition:
-    transform 0.3s var(--ease-out-expo),
-    box-shadow 0.3s var(--ease-out-expo);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 body .cs .cs-btn-primary.cs-btn-primary {
-  background: linear-gradient(180deg, #2b8cff 0%, #1476eb 55%, #0a63d6 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.35),
-    0 10px 24px -10px rgb(20 118 235 / 0.7);
+  background: #fff;
+  color: #000;
+  box-shadow: none;
+}
+
+/* The light button in the case-study CTA band keeps readable blue text. */
+body .cs .cs-btn-light.cs-btn-light {
+  color: #000;
 }
 
 body .cs .cs-btn-primary.cs-btn-primary:hover {
+  background: var(--color-accent);
+  color: #fff;
   transform: translateY(-2px);
 }
 
-body .cs :is(h1, h2, h3) {
+/* Bebas Neue has one weight; a bolder request makes the browser fake it. */
+:root body .cs.cs.cs :is(h1, h2) {
   font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
-/* Case study content follows the same width and gutter as .page. */
 body .cs .cs-wrap.cs-wrap {
   width: 100%;
   max-width: none;
@@ -550,18 +539,5 @@ body .cs .cs-wrap.cs-wrap {
 
   @media (min-width: 1280px) {
     padding-inline: 2rem;
-  }
-}
-
-/* Older Safari (iOS/macOS 17 and earlier) only understands the -webkit-
-   prefixed blur. It lives in its own rule because the CSS minifier merges
-   a prefixed + standard pair inside one rule and keeps just one of them. */
-@supports (-webkit-backdrop-filter: none) and (not (backdrop-filter: none)) {
-  .glass,
-  .glass-thin,
-  .glass-dark,
-  .card,
-  body .cs .cs-glass.cs-glass {
-    -webkit-backdrop-filter: var(--glass-filter);
   }
 }

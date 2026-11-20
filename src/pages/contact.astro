@@ -71,7 +71,7 @@ const schema = webPageSchema({
                   <div class="grow">
                     <h2 class="font-mono text-[11px] font-medium tracking-[0.1em] text-slate-500 uppercase">{row.heading}</h2>
                     {row.href ? (
-                      <a class="text-ink-deep hover:text-brand mt-1.5 block text-[17px] font-medium transition-colors" href={row.href}>
+                      <a class="text-ink-deep hover:text-accent mt-1.5 block text-[17px] font-medium transition-colors" href={row.href}>
                         {row.body}
                       </a>
                     ) : (
@@ -90,7 +90,7 @@ const schema = webPageSchema({
                 <h2 class="font-mono text-[11px] font-medium tracking-[0.1em] text-slate-500 uppercase">{knowledgeBaseHeading}</h2>
                 <p class="mt-1.5 text-[15px] leading-7">{knowledgeBaseDetails.description}</p>
                 <a
-                  class="text-brand hover:text-brand-deep mt-2 inline-flex items-center gap-x-1.5 text-sm font-medium transition-colors"
+                  class="text-accent hover:text-brand-deep mt-2 inline-flex items-center gap-x-1.5 text-sm font-medium transition-colors"
                   href={knowledgeBaseDetails.linkUrl}
                 >
                   {knowledgeBaseDetails.linkText}

@@ -10,7 +10,7 @@ export const business = {
   legalName: 'Webfluence',
   url: SITE_URL,
   logo: `${SITE_URL}/icon-512.png`,
-  image: `${SITE_URL}/social.png`,
+  image: `${SITE_URL}/social-webfluence.png`,
   email: 'info@webfluence.tech',
   phone: '+92 324 4477757',
   address: {

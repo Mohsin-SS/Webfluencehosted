@@ -1,0 +1,22 @@
+---
+import ContactForm from '@ui/forms/ContactForm.astro';
+import { business, phoneE164 } from '@/data/business';
+
+// "Let's talk business" from the Nexera design: the contact form in a card.
+---
+
+<section id="contact" class="wrap scroll-mt-24 py-16 sm:py-24" aria-labelledby="contact-heading">
+  <div class="mb-12 text-center">
+    <h2 id="contact-heading" class="section-title" data-reveal>
+      Let's talk <span class="text-accent">business</span>
+    </h2>
+    <p class="section-description mx-auto mt-4 max-w-2xl" data-reveal style="--i: 1">
+      Have a project in mind? Tell us what you want to build or grow. Or call{' '}
+      <a href={`tel:${phoneE164}`} class="font-semibold text-white hover:text-accent">{business.phone}</a>.
+    </p>
+  </div>
+
+  <div class="glass mx-auto max-w-[46rem] rounded-2xl p-6 sm:p-[3.3rem]" data-reveal>
+    <ContactForm />
+  </div>
+</section>

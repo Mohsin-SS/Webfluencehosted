@@ -1,0 +1,50 @@
+---
+// "Team of professionals" cards from the Nexera design, with Webfluence's
+// own reasons. Every claim here is backed elsewhere on the site.
+const reasons = [
+  {
+    title: 'Measured on sales',
+    text: 'We track purchases and leads, then check campaigns against your own sales records. For Adoro (ECS), every campaign is checked against Shopify daily.',
+  },
+  {
+    title: 'Marketing + software',
+    text: 'The people running your ads can also build the website, CRM or WhatsApp automation those leads land in.',
+  },
+  {
+    title: 'A team you can call',
+    text: 'Based in DHA Phase 6, Lahore, working with clients across Pakistan and abroad, in English and Urdu.',
+  },
+  {
+    title: 'Support after launch',
+    text: 'Apps and systems are maintained after launch with security updates, fixes and new features as you grow.',
+  },
+];
+---
+
+<section class="wrap py-16 sm:py-24" aria-labelledby="why-heading">
+  <div class="mb-12 text-center">
+    <h2 id="why-heading" class="section-title" data-reveal>
+      Why <span class="text-accent">Webfluence</span>
+    </h2>
+    <p class="section-description mx-auto mt-4 max-w-2xl" data-reveal style="--i: 1">
+      Clicks and followers are easy to report. We report the number you care
+      about, and change course when it is not moving.
+    </p>
+  </div>
+
+  <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+    {
+      reasons.map((r, i) => (
+        <li data-reveal data-spotlight style={`--i: ${i}`} class="glass flex flex-col rounded-2xl p-6">
+          <svg class="text-accent mb-4 size-8" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <h3 class="font-display mb-2 text-[1.75rem] leading-none font-normal tracking-[0.02em] uppercase">
+            {r.title}
+          </h3>
+          <p class="text-slate-700">{r.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
