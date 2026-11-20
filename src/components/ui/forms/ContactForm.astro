@@ -15,8 +15,8 @@ const options = [
 ];
 
 const field =
-  'w-full rounded-lg border border-[#718096] bg-[#4a5568] px-4 py-3 text-white placeholder:text-[#9ca3af]/70 outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:ring-[3px] focus:ring-accent/40';
-const label = 'mb-2 block text-left text-sm font-bold text-[#d1d5db]';
+  'w-full rounded-lg border border-slate-400 bg-card-2 px-4 py-3 text-ink-deep placeholder:text-muted outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:ring-[3px] focus:ring-accent/40';
+const label = 'mb-2 block text-left text-sm font-bold text-slate-700';
 ---
 
 <form class="contact-form flex flex-col gap-6" data-lead-form data-mailto={business.email}>
@@ -32,7 +32,7 @@ const label = 'mb-2 block text-left text-sm font-bold text-[#d1d5db]';
   </div>
   <div class="grid gap-6 sm:grid-cols-2">
     <div>
-      <label for="cf-phone" class={label}>Phone or WhatsApp <span class="font-normal text-[#9ca3af]">(optional)</span></label>
+      <label for="cf-phone" class={label}>Phone or WhatsApp <span class="text-muted font-normal">(optional)</span></label>
       <input id="cf-phone" name="phone" type="tel" placeholder="+92 3xx xxxxxxx" autocomplete="tel" class={field} />
     </div>
     <div>
@@ -48,10 +48,10 @@ const label = 'mb-2 block text-left text-sm font-bold text-[#d1d5db]';
     <textarea id="cf-message" name="message" rows="6" required placeholder="Tell us about your project or inquiry..." class={field}></textarea>
   </div>
   <div class="mt-2 flex flex-col items-center gap-3">
-    <button type="submit" class="pill-btn bg-white text-black hover:bg-brand hover:text-white">
+    <button type="submit" class="pill-btn bg-btn text-btn-fg hover:bg-brand hover:text-white">
       Send message
     </button>
-    <p class="text-center text-xs text-[#9ca3af]">
+    <p class="text-muted text-center text-xs">
       Opens your email app with your message to {business.email}.
     </p>
   </div>

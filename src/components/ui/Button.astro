@@ -40,12 +40,13 @@ const sizes = {
 }[size];
 
 const variants = {
-  // White pill (Nexera "LET'S TALK"); turns brand blue on hover.
-  primary: 'bg-white text-black hover:bg-brand hover:text-white hover:-translate-y-0.5',
-  // Dark grey pill.
+  // Solid pill (Nexera "LET'S TALK"): black on light, white on dark;
+  // turns brand blue on hover.
+  primary: 'bg-btn text-btn-fg hover:bg-brand hover:text-white hover:-translate-y-0.5',
+  // Card-coloured pill.
   secondary:
-    'bg-card text-white border border-card-2 hover:border-white hover:-translate-y-0.5',
-  tertiary: 'h-auto px-0 gap-2 normal-case tracking-normal font-semibold text-accent hover:text-white',
+    'bg-card text-ink-deep border border-card-2 hover:border-ink-deep hover:-translate-y-0.5',
+  tertiary: 'h-auto px-0 gap-2 normal-case tracking-normal font-semibold text-accent hover:text-ink-deep',
 }[variant];
 
 const classes = twMerge(base, sizes.box, variants, className);

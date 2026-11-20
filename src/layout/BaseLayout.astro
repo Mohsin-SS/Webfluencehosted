@@ -58,7 +58,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
 );
 ---
 
-<html lang="en" class="dark scroll-pt-24">
+<html lang="en" class="scroll-pt-24">
   <head>
     <script is:inline>
       // Mark JS as available (scroll reveals only hide content when it is).
@@ -67,6 +67,28 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
       document.addEventListener('astro:after-swap', () =>
         document.documentElement.classList.add('js')
       );
+
+      // Theme: light by default; a saved choice ("dark" / "light") wins.
+      // Applied here, before the page paints, so there is no flash, and
+      // copied onto each new page during client-side navigation.
+      (() => {
+        const read = () => {
+          try {
+            return localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+          } catch {
+            return 'light';
+          }
+        };
+        const paint = (root, theme) => {
+          root.classList.toggle('dark', theme === 'dark');
+          root.dataset.theme = theme;
+        };
+        window.__theme = { read, paint };
+        paint(document.documentElement, read());
+        document.addEventListener('astro:before-swap', e =>
+          paint(e.newDocument.documentElement, read())
+        );
+      })();
 
       // Ensure page starts from top on reload
       if ('scrollRestoration' in history) {
@@ -122,7 +144,7 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         ],
         meta: [
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-          { name: 'theme-color', content: '#000000' },
+          { name: 'theme-color', content: '#f1f3f6' },
           { name: 'generator', content: `${Astro.generator}` },
           ...(google.searchConsoleVerification
             ? [
@@ -240,21 +262,33 @@ const pageSchemas = (schema ? [schema].flat() : [defaultSchema]).map(
         { passive: true }
       );
 
-      // Light flip: while a [data-flip-light] section is on screen the page
-      // turns light (from the Nexera design).
+      // Theme flip (from the Nexera design): while a [data-flip-light]
+      // section is on screen the page shows the opposite of the chosen theme.
       let flipObserver: IntersectionObserver | null = null;
+      const flipVisible = new Set<Element>();
+      const chosen = () => (window as any).__theme.read() as 'light' | 'dark';
+      function renderTheme() {
+        const theme = chosen();
+        const flipped = flipVisible.size > 0;
+        const shown = flipped ? (theme === 'dark' ? 'light' : 'dark') : theme;
+        document.documentElement.classList.toggle('dark', shown === 'dark');
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute('content', shown === 'dark' ? '#000000' : '#f1f3f6');
+      }
+      (window as any).__renderTheme = renderTheme;
       function initFlip() {
         flipObserver?.disconnect();
-        document.documentElement.classList.remove('flip-light');
+        flipVisible.clear();
+        renderTheme();
         const sections = document.querySelectorAll('[data-flip-light]');
         if (!sections.length || !('IntersectionObserver' in window)) return;
-        const visible = new Set<Element>();
         flipObserver = new IntersectionObserver(
           entries => {
             entries.forEach(e =>
-              e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)
+              e.isIntersecting ? flipVisible.add(e.target) : flipVisible.delete(e.target)
             );
-            document.documentElement.classList.toggle('flip-light', visible.size > 0);
+            renderTheme();
           },
           { threshold: 0.1 }
         );

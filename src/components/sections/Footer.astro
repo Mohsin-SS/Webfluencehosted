@@ -22,10 +22,10 @@ const columns = [
 ];
 
 const linkClass =
-  'text-slate-500 transition-colors duration-300 hover:text-white focus-visible:text-white';
+  'text-muted transition-colors duration-300 hover:text-ink-deep focus-visible:text-ink-deep';
 ---
 
-<footer class="bg-panel text-sm text-white">
+<footer class="bg-panel text-ink-deep text-sm">
   <div class="wrap">
   <div class="shell grid gap-x-8 gap-y-12 pt-20 pb-16 sm:grid-cols-2 lg:grid-cols-12">
     {/* Brand + company */}
@@ -41,14 +41,14 @@ const linkClass =
           alt=""
           width="40"
           height="40"
-          class="size-10 rounded-full object-contain invert"
+          class="size-10 rounded-full object-contain mix-blend-multiply dark:mix-blend-screen dark:invert"
           loading="lazy"
         />
         <span class="text-[1.5rem] leading-none font-bold tracking-[0.01em]"
           >WEBFLUENCE</span
         >
       </a>
-      <p class="mt-5 max-w-xs leading-relaxed text-slate-500">
+      <p class="text-muted mt-5 max-w-xs leading-relaxed">
         Performance marketing and software development company in Lahore,
         Pakistan.
       </p>
@@ -72,7 +72,7 @@ const linkClass =
       {
         columns.map(column => (
           <div>
-            <h3 class="text-xs font-bold tracking-[0.1em] text-white uppercase">{column.heading}</h3>
+            <h3 class="text-ink-deep text-xs font-bold tracking-[0.1em] uppercase">{column.heading}</h3>
             <ul class="mt-4 space-y-2.5">
               {column.links.map(link => (
                 <li>
@@ -89,16 +89,16 @@ const linkClass =
 
     {/* Contact */}
     <div class="bg-card rounded-2xl p-6 lg:col-span-3">
-      <h3 class="text-xs font-bold tracking-[0.1em] text-white uppercase">Contact us</h3>
+      <h3 class="text-ink-deep text-xs font-bold tracking-[0.1em] uppercase">Contact us</h3>
       <address class="mt-4 space-y-2.5 not-italic">
         <p class="text-base font-medium">{business.name}</p>
-        <p class="text-white/85">{addressLine}</p>
+        <p class="text-ink">{addressLine}</p>
         <p>
-          <span class="text-white/70">Phone:</span>{' '}
+          <span class="text-muted">Phone:</span>{' '}
           <a href={`tel:${phoneE164}`} class={linkClass}>{business.phone}</a>
         </p>
         <p>
-          <span class="text-white/70">Email:</span>{' '}
+          <span class="text-muted">Email:</span>{' '}
           <a href={`mailto:${business.email}`} class={linkClass}
             >{business.email}</a
           >
@@ -110,7 +110,7 @@ const linkClass =
   </div>
   <div class="wrap border-t border-card">
     <div
-      class="shell flex flex-col items-center gap-3 py-8 text-center text-sm text-slate-500"
+      class="shell text-muted flex flex-col items-center gap-3 py-8 text-center text-sm"
     >
       <p>© {year} {business.name}. All rights reserved.</p>
       <p>

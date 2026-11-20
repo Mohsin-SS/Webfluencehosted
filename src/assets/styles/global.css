@@ -9,51 +9,124 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+/* `dark:` utilities follow the site's own theme toggle (html.dark), not the
+   operating system setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
   Webfluence design system, taken from the "Nexera" design.
 
-  Black page, white text, tall condensed Bebas Neue headlines with Inter for
-  everything else, blue-grey cards (#2D3748) and white pill buttons. The
-  accent is the Webfluence brand blue; change --color-accent (text accent)
-  and --color-brand (buttons) to re-colour the whole site.
+  Two themes, light by default. Tall condensed Bebas Neue headlines, Inter
+  for everything else, cards and pill buttons. Light: pale grey page, white
+  cards, black headlines (Nexera's light mode). Dark (html.dark): black
+  page, #2D3748 cards, white text. The theme toggle in the navbar switches
+  html.dark; the choice is remembered (localStorage "theme").
 
-  `slate-*`, `blue-*` and the older role names (ink, mist, ice...) are
-  remapped for a dark page so older markup adapts without edits:
-  low slate numbers are dark surfaces, high numbers are light text.
+  The accent is the Webfluence brand blue, tuned per theme so text passes
+  4.5:1 contrast. `slate-*`, `blue-*` and older role names are mapped per
+  theme so older markup adapts without edits.
 */
 @theme {
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-black: #000;
   --color-white: #fff;
-  --color-off-white: #e5e7eb;
+  --color-off-white: #f8f9fb;
 
-  /* Accent (brand blue). Nexera used red #ef4444 here. */
-  --color-accent: #5aa8ff; /* passes 4.5:1 on black and on the grey cards */
+  /* Theme roles (light values; dark values are set under html.dark) */
+  --color-page: #f1f3f6;
+  --color-accent: #0b5fd0; /* brand blue, deep enough for text on light */
+  --color-on-accent: #ffffff;
+  --color-ink: #2d3748; /* body text */
+  --color-ink-deep: #000000; /* headings, strongest text */
+  --color-muted: #4a5568; /* secondary text */
+  --color-card: #ffffff;
+  --color-card-2: #e5e7eb; /* inputs, pills, tabs */
+  --color-panel: #e5e7eb; /* footer, bands */
+  --color-btn: #000000; /* primary pill */
+  --color-btn-fg: #ffffff;
+  --color-logo-card: #ffffff;
+  --color-glass: rgb(255 255 255 / 0.6);
+  --color-glass-line: rgb(255 255 255 / 0.85);
 
-  /* Named roles */
-  --color-ink: #d1d5db; /* body text (gray-300) */
-  --color-ink-deep: #ffffff; /* headings, strongest text */
-  --color-brand: #1476eb; /* buttons, links */
-  --color-brand-bright: #5aa8ff;
-  --color-brand-deep: #8cc4ff; /* hover on dark = lighter */
+  --color-brand: #1476eb; /* buttons, icon tiles */
+  --color-brand-bright: #0b5fd0;
+  --color-brand-deep: #0a4fae;
   --color-lagoon: #01a4ca;
-  --color-leaf: #34d399; /* positive results */
+  --color-leaf: #15803d;
   --color-sky: #7cc4ff;
-  --color-ice: #1a202c;
-  --color-frost: #000000; /* page */
-  --color-mist: #1a202c;
-  --color-fog: #111111;
-  --color-line: #2d3748;
+  --color-ice: #e3f2fb;
+  --color-frost: #f1f3f6;
+  --color-mist: #e5e7eb;
+  --color-fog: #f8f9fb;
+  --color-line: #e2e6ec;
   --color-coal: #1a202c;
   --color-night: #000000;
 
-  /* Nexera greys */
-  --color-card: #2d3748; /* gray-800: cards */
-  --color-card-2: #4a5568; /* gray-700: inputs, pills */
-  --color-panel: #1a202c; /* gray-900: footer, bands */
+  --color-slate-50: #f8f9fb;
+  --color-slate-100: #f1f3f6;
+  --color-slate-200: #e2e6ec;
+  --color-slate-300: #cbd2db;
+  --color-slate-400: #8b95a5;
+  --color-slate-500: #4a5568;
+  --color-slate-600: #3f4a5c;
+  --color-slate-700: #2d3748;
+  --color-slate-800: #1f2733;
+  --color-slate-900: #111827;
+  --color-slate-950: #000000;
 
-  /* Slate remapped for a dark page */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdcfd;
+  --color-blue-300: #8fc2fb;
+  --color-blue-400: #4fa2f7;
+  --color-blue-500: #2b8cff;
+  --color-blue-600: #1476eb;
+  --color-blue-700: #1476eb;
+  --color-blue-800: #0a5fcc;
+  --color-blue-900: #0b4a9c;
+  --color-blue-950: #08254b;
+
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bebas Neue', 'Inter', ui-sans-serif, sans-serif;
+  /* Labels use Inter, set uppercase and tracked where they appear. */
+  --font-mono: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-chip: 10px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/* Dark theme (Nexera's default look). */
+html.dark {
+  color-scheme: dark;
+
+  --color-page: #000000;
+  --color-accent: #5aa8ff; /* passes 4.5:1 on black and on the grey cards */
+  --color-on-accent: #000000;
+  --color-ink: #d1d5db;
+  --color-ink-deep: #ffffff;
+  --color-muted: #9ca3af;
+  --color-card: #2d3748;
+  --color-card-2: #4a5568;
+  --color-panel: #1a202c;
+  --color-btn: #ffffff;
+  --color-btn-fg: #000000;
+  --color-logo-card: #e5e7eb;
+  --color-glass: rgb(26 32 44 / 0.55);
+  --color-glass-line: rgb(255 255 255 / 0.1);
+
+  --color-brand-bright: #5aa8ff;
+  --color-brand-deep: #8cc4ff;
+  --color-leaf: #34d399;
+  --color-ice: #1a202c;
+  --color-frost: #000000;
+  --color-mist: #1a202c;
+  --color-fog: #111111;
+  --color-line: #2d3748;
+
   --color-slate-50: #0d0d0d;
   --color-slate-100: #141820;
   --color-slate-200: #2d3748;
@@ -66,29 +139,14 @@
   --color-slate-900: #f3f4f6;
   --color-slate-950: #ffffff;
 
-  /* Blue remapped: dark tints at the low end, lighter blues at the top */
   --color-blue-50: #0b1a2e;
   --color-blue-100: #0e2440;
   --color-blue-200: #143766;
   --color-blue-300: #1d4f91;
   --color-blue-400: #2b6fd0;
-  --color-blue-500: #2b8cff;
-  --color-blue-600: #1476eb;
-  --color-blue-700: #1476eb;
   --color-blue-800: #5aa8ff;
   --color-blue-900: #8cc4ff;
   --color-blue-950: #cfe6ff;
-
-  --font-sans:
-    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Bebas Neue', 'Inter', ui-sans-serif, sans-serif;
-  /* Labels use Inter, set uppercase and tracked where they appear. */
-  --font-mono: 'Inter', ui-sans-serif, system-ui, sans-serif;
-
-  --radius-chip: 10px;
-
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 @theme inline {
@@ -116,16 +174,16 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #000;
+    background-color: var(--color-page);
     overflow-x: clip;
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
     overflow-x: clip;
     font-family: var(--font-sans);
     color: var(--color-ink);
-    background-color: #000;
+    background-color: var(--color-page);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -153,8 +211,8 @@
   }
 
   ::selection {
-    background: rgb(59 155 255 / 0.35);
-    color: #fff;
+    background: rgb(20 118 235 / 0.25);
+    color: var(--color-ink-deep);
   }
 
   button:not(:disabled),
@@ -183,25 +241,8 @@
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Light flip (Nexera): while a [data-flip-light] section is on screen */
-/* the page turns light. BaseLayout toggles html.flip-light.           */
-/* ------------------------------------------------------------------ */
-html.flip-light,
-html.flip-light body {
-  background-color: #e5e7eb;
-}
-
-html.flip-light body {
-  --color-ink: #2d3748;
-  --color-ink-deep: #000000;
-  --color-card: #ffffff;
-  --color-card-2: #d1d5db;
-  --color-slate-500: #4a5568;
-  --color-slate-600: #4a5568;
-  --color-slate-700: #2d3748;
-  color: var(--color-ink);
-}
+/* Theme flip (Nexera): while a [data-flip-light] section is on screen the
+   page shows the opposite theme. BaseLayout swaps html.dark for it. */
 
 /* Kept as a no-op hook from the previous design. */
 .light-fields {
@@ -245,7 +286,7 @@ html.flip-light body {
   background-color: var(--color-panel);
 
   & :where(h1, h2, h3, h4) {
-    color: #fff;
+    color: var(--color-ink-deep);
   }
 }
 
@@ -380,7 +421,7 @@ html.flip-light body {
 }
 
 @utility section-description {
-  color: #9ca3af;
+  color: var(--color-muted);
   font-size: 1.125rem;
   line-height: 1.7;
 
@@ -481,6 +522,18 @@ html.js [data-reveal].is-in {
 /* `.dark .cs` theme without !important.                               */
 /* ------------------------------------------------------------------ */
 :root body .cs.cs.cs {
+  --cs-ink: #000000;
+  --cs-ink-2: #2d3748;
+  --cs-accent: #0b5fd0;
+  --cs-accent-deep: #0a4fae;
+  --cs-line: rgb(0 0 0 / 0.1);
+  --cs-glass: #ffffff;
+  --cs-glass-rim: #e2e6ec;
+  --cs-shadow: 0 4px 8px rgb(0 0 0 / 0.08);
+  background: var(--color-page);
+}
+
+:root.dark body .cs.cs.cs {
   --cs-ink: #ffffff;
   --cs-ink-2: #d1d5db;
   --cs-accent: #5aa8ff;
@@ -489,7 +542,7 @@ html.js [data-reveal].is-in {
   --cs-glass: #2d3748;
   --cs-glass-rim: #4a5568;
   --cs-shadow: 0 10px 15px rgb(0 0 0 / 0.2);
-  background: #000;
+  background: var(--color-page);
 }
 
 body .cs .cs-glass.cs-glass {
@@ -504,8 +557,8 @@ body .cs .cs-btn.cs-btn {
 }
 
 body .cs .cs-btn-primary.cs-btn-primary {
-  background: #fff;
-  color: #000;
+  background: var(--color-btn);
+  color: var(--color-btn-fg);
   box-shadow: none;
 }
 
@@ -515,7 +568,7 @@ body .cs .cs-btn-light.cs-btn-light {
 }
 
 body .cs .cs-btn-primary.cs-btn-primary:hover {
-  background: var(--color-accent);
+  background: var(--color-brand);
   color: #fff;
   transform: translateY(-2px);
 }

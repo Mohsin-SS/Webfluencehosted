@@ -71,7 +71,7 @@ const schema: WithContext<Thing> = {
                     <li>
                       <a
                         href={`#${heading.slug}`}
-                        class="block text-slate-400 transition-colors duration-200 hover:text-slate-600"
+                        class="block text-slate-500 transition-colors duration-200 hover:text-accent"
                         data-toc-link
                       >
                         {heading.text}
@@ -103,7 +103,7 @@ const schema: WithContext<Thing> = {
             {post.data.title}
           </h1>
           <section
-            class="prose prose-invert prose-a:text-accent prose-headings:font-normal prose-h3:text-slate-500 prose-strong:text-slate-500"
+            class="prose dark:prose-invert prose-a:text-accent prose-headings:font-normal prose-h3:text-slate-500 prose-strong:text-slate-500"
           >
             <Content />
           </section>
