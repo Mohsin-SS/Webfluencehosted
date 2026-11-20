@@ -5,8 +5,17 @@ import Button from '@ui/Button.astro';
 // middle line in the accent, and a highlighted pill phrase in the intro.
 ---
 
-<section class="hero relative overflow-hidden" aria-labelledby="hero-title">
-  <div class="hero-glow" aria-hidden="true"></div>
+<section class="hero relative isolate overflow-hidden" aria-labelledby="hero-title">
+  {/* Brand-colour gradients: three soft glows that drift slowly, a faint
+      dot grid, and a fade into the page at the bottom. Blue and lagoon
+      only (no purple). */}
+  <div class="hero-bg" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <span class="blob blob-c"></span>
+    <span class="hero-dots"></span>
+    <span class="hero-fade"></span>
+  </div>
 
   <div class="wrap relative py-16 text-center sm:py-24 lg:py-32">
     <h1 id="hero-title" class="hero-title">
@@ -72,17 +81,100 @@ import Button from '@ui/Button.astro';
     border-radius: 1rem;
   }
 
-  /* Faint brand light behind the headline. */
-  .hero-glow {
+  /* --- gradients ---------------------------------------------------- */
+  .hero-bg {
     position: absolute;
-    left: 50%;
-    top: 12%;
-    width: min(60rem, 120vw);
-    height: 28rem;
-    translate: -50% 0;
-    background: radial-gradient(closest-side, rgb(20 118 235 / 0.22), transparent);
+    inset: 0;
+    z-index: -1;
     pointer-events: none;
-    animation: float 6s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: var(--blob-opacity, 0.55);
+    will-change: transform;
+  }
+
+  /* Signal blue, top left */
+  .blob-a {
+    width: min(46rem, 90vw);
+    height: min(46rem, 90vw);
+    left: -12%;
+    top: -30%;
+    background: radial-gradient(circle, #1476eb 0%, rgb(20 118 235 / 0) 68%);
+    animation: drift-a 18s ease-in-out infinite alternate;
+  }
+
+  /* Lagoon, top right */
+  .blob-b {
+    width: min(42rem, 85vw);
+    height: min(42rem, 85vw);
+    right: -14%;
+    top: -18%;
+    background: radial-gradient(circle, #01a4ca 0%, rgb(1 164 202 / 0) 68%);
+    animation: drift-b 22s ease-in-out infinite alternate;
+  }
+
+  /* Deep blue to sky, low centre behind the buttons */
+  .blob-c {
+    width: min(52rem, 110vw);
+    height: min(30rem, 60vw);
+    left: 50%;
+    bottom: -22%;
+    translate: -50% 0;
+    background: radial-gradient(ellipse, #7cc4ff 0%, rgb(11 95 208 / 0.6) 35%, rgb(11 95 208 / 0) 70%);
+    animation: drift-c 20s ease-in-out infinite alternate;
+  }
+
+  /* Light theme: softer glows so black text stays crisp. */
+  :global(html:not(.dark)) .hero-bg {
+    --blob-opacity: 0.42;
+  }
+
+  :global(html.dark) .hero-bg {
+    --blob-opacity: 0.45;
+  }
+
+  /* Faint dot grid, strongest around the headline. */
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgb(11 95 208 / 0.22) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 20%, transparent 75%);
+  }
+
+  :global(html.dark) .hero-dots {
+    background-image: radial-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1.5px);
+  }
+
+  /* Blend into the page at the bottom edge. */
+  .hero-fade {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 30%;
+    background: linear-gradient(to bottom, transparent, var(--color-page));
+  }
+
+  @keyframes drift-a {
+    to {
+      transform: translate3d(8%, 12%, 0) scale(1.08);
+    }
+  }
+
+  @keyframes drift-b {
+    to {
+      transform: translate3d(-10%, 10%, 0) scale(1.12);
+    }
+  }
+
+  @keyframes drift-c {
+    to {
+      transform: translate3d(0, -8%, 0) scale(1.1);
+    }
   }
 
   @keyframes hero-rise {
