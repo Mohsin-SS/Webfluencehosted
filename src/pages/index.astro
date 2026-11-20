@@ -2,7 +2,6 @@
 export const prerender = true;
 import BaseLayout from '@layout/BaseLayout.astro';
 import Hero from '@sections/HeroSection.astro';
-import ServiceMarquee from '@sections/ServiceMarquee.astro';
 import ClientLogos from '@sections/ClientLogos.astro';
 import AboutWords from '@sections/AboutWords.astro';
 import ServiceCards from '@sections/ServiceCards.astro';
@@ -31,8 +30,6 @@ const schema = [
 <BaseLayout schema={schema}>
   {/* Section order follows the Nexera design. */}
   <Hero />
-
-  <ServiceMarquee />
 
   <ClientLogos />
 
