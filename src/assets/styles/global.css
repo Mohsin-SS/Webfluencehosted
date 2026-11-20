@@ -46,6 +46,9 @@
   --color-btn: #000000; /* primary pill */
   --color-btn-fg: #ffffff;
   --color-logo-card: #ffffff;
+  /* Navbar and footer: the hero's "Marketing" blue (same in both themes;
+     white text on it is 5.9:1). */
+  --color-bar: #0b5fd0;
   --color-glass: rgb(255 255 255 / 0.6);
   --color-glass-line: rgb(255 255 255 / 0.85);
 
